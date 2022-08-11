@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Resources/Tilesets/GreenGround.tres" type="TileSet" id=1]
 [ext_resource path="res://src/Resources/Tilesets/GreenTowerExclusion.tres" type="TileSet" id=2]
+[ext_resource path="res://src/Scenes/Towers/MissileT1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/Towers/GunT2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/Towers/GunT1.tscn" type="PackedScene" id=5]
 
 [node name="Map1" type="Node2D"]
 
@@ -14,3 +17,14 @@ tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -6
 tile_set = ExtResource( 2 )
 format = 1
 tile_data = PoolIntArray( 17, 3, 0, 65538, 2, 0, 65542, 1, 0, 65545, 0, 65538, 65546, 0, 1, 65547, 0, 1, 65548, 0, 65539, 65551, 2, 0, 65553, 3, 0, 65554, 0, 65538, 65555, 0, 1, 65556, 0, 0, 131073, 1, 0, 131077, 4, 0, 131079, 2, 0, 131081, 0, 0, 131084, 0, 0, 131089, 3, 0, 131090, 0, 0, 131091, 1, 0, 196610, 3, 0, 196611, 0, 65538, 196612, 0, 1, 196613, 0, 1, 196614, 0, 65539, 196617, 0, 0, 196618, 4, 0, 196620, 0, 0, 196623, 0, 65538, 196624, 0, 1, 196625, 0, 1, 196626, 0, 65541, 196627, 1, 0, 262146, 2, 0, 262147, 0, 0, 262149, 1, 0, 262150, 0, 0, 262153, 0, 0, 262156, 0, 0, 262159, 0, 0, 262161, 3, 0, 327680, 1, 0, 327681, 2, 0, 327682, 1, 0, 327683, 0, 0, 327685, 3, 0, 327686, 0, 0, 327689, 0, 0, 327692, 0, 0, 327693, 1, 0, 327695, 0, 0, 327697, 3, 0, 458751, 0, 0, 393216, 0, 1, 393217, 0, 1, 393218, 0, 1, 393219, 0, 3, 393222, 0, 2, 393223, 0, 1, 393224, 0, 1, 393225, 0, 65541, 393228, 0, 0, 393231, 0, 0, 393233, 3, 0, 458752, 1, 0, 458753, 2, 0, 458754, 1, 0, 458755, 0, 0, 458758, 0, 0, 458760, 4, 0, 458762, 1, 0, 458764, 0, 65540, 458765, 0, 1, 458766, 0, 1, 458767, 0, 65541, 458770, 2, 0, 524290, 2, 0, 524291, 0, 0, 524292, 1, 0, 524294, 0, 0, 589826, 4, 0, 589827, 0, 65540, 589828, 0, 1, 589829, 0, 1, 589830, 0, 65541, 655366, 3, 0, 655369, 2, 0, 655373, 1, 0 )
+
+[node name="Turrets" type="Node2D" parent="."]
+
+[node name="GunT1" parent="Turrets" instance=ExtResource( 5 )]
+position = Vector2( 471, 358 )
+
+[node name="GunT2" parent="Turrets" instance=ExtResource( 4 )]
+position = Vector2( 265, 419 )
+
+[node name="MissileT1" parent="Turrets" instance=ExtResource( 3 )]
+position = Vector2( 274, 285 )
