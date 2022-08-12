@@ -8,9 +8,11 @@
 script = ExtResource( 3 )
 
 [node name="Base" type="Sprite" parent="."]
+position = Vector2( 32, 32 )
 texture = ExtResource( 1 )
 
 [node name="Turret" type="Sprite" parent="."]
+position = Vector2( 32, 32 )
 texture = ExtResource( 2 )
 offset = Vector2( 12, 0 )
 
