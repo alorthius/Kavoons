@@ -4,6 +4,7 @@ var map_node
 
 var build_mode = false
 var build_valid = false
+var build_tile
 var build_location
 var build_type
 
@@ -29,6 +30,8 @@ func _unhandled_input(event):
 
 
 func initiate_build_mode(tower_type):
+	if build_mode:
+		cancel_build_mode()
 	build_type = tower_type + "T1"
 	build_mode = true
 	get_node("UI").set_tower_preview(build_type, get_global_mouse_position())
@@ -43,6 +46,7 @@ func update_tower_preview():
 		get_node("UI").update_tower_preview(tile_position, "ad54ff3c")
 		build_valid = true
 		build_location = tile_position
+		build_tile = current_tile
 	else:
 		get_node("UI").update_tower_preview(tile_position, "adff4545")
 		build_valid = false
@@ -51,7 +55,7 @@ func update_tower_preview():
 func cancel_build_mode():
 	build_mode = false
 	build_valid = false
-	get_node("UI/TowerPreview").queue_free()
+	get_node("UI/TowerPreview").free()
 
 
 func verify_and_build():
@@ -60,4 +64,5 @@ func verify_and_build():
 		var new_tower = load("res://src/Scenes/Towers/" + build_type + ".tscn").instance()
 		new_tower.position = build_location
 		map_node.get_node("Turrets").add_child(new_tower, true)
+		map_node.get_node("TowerExclusion").set_cellv(build_tile, 5)
 		# TODO: update cash

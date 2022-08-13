@@ -14,6 +14,10 @@ config/name="Kavoons"
 run/main_scene="res://src/SceneHandler.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameData="*res://src/Singletons/GameData.gd"
+
 [display]
 
 window/size/width=1280
