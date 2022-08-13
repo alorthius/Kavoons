@@ -8,12 +8,15 @@ var build_tile
 var build_location
 var build_type
 
+var current_wave = 0
+var enemies_in_wave = 0
+
 
 func _ready():
 	map_node = get_node("Map1")
-	
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
+	start_new_wave()
 
 
 func _process(_delta):
@@ -28,6 +31,30 @@ func _unhandled_input(event):
 		verify_and_build()
 		cancel_build_mode()
 
+##
+## Wave functions
+##
+
+func start_new_wave():
+	var wave_data = retrieve_wave_data()
+	yield(get_tree().create_timer(0.2), "timeout")
+	spawn_enemies(wave_data)
+
+func retrieve_wave_data():
+	var wave_data = [["BlueTank", 0.7], ["BlueTank", 0.1]]
+	current_wave += 1
+	enemies_in_wave = wave_data.size()
+	return wave_data
+
+func spawn_enemies(wave_data):
+	for i in wave_data:
+		var new_enemy = load("res://src/Scenes/Enemies/" + i[0] + ".tscn").instance()
+		map_node.get_node("Path").add_child(new_enemy, true)
+		yield(get_tree().create_timer(i[1]), "timeout")
+
+##
+## Building functions
+##
 
 func initiate_build_mode(tower_type):
 	if build_mode:
