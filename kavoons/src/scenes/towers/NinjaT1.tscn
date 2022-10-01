@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://NinjaT1.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/towers/NinjaT1.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T1_ninja.png" type="Texture" id=2]
 
 [node name="NinjaT1" type="Node2D"]
