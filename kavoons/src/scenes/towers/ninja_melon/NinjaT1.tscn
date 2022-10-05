@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/scenes/towers/interface/MelonT1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=2]
+[ext_resource path="res://src/scenes/towers/ninja_melon/NinjaT1.gd" type="Script" id=3]
+[ext_resource path="res://src/scenes/support/Upgrader.tscn" type="PackedScene" id=4]
+
+[node name="NinjaT1" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="BaseSprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="Upgrader" parent="." index="1" instance=ExtResource( 4 )]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/T1_ninja.png-1a75825538e5d76c81701092aab97667.stex"
+path="res://.import/T4_RL.png-79e68700111440d245ab1202d890836b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/towers/ninja_melon/T1_ninja.png"
-dest_files=[ "res://.import/T1_ninja.png-1a75825538e5d76c81701092aab97667.stex" ]
+source_file="res://assets/towers/ninja_melon/T4_RL.png"
+dest_files=[ "res://.import/T4_RL.png-79e68700111440d245ab1202d890836b.stex" ]
 
 [params]
 

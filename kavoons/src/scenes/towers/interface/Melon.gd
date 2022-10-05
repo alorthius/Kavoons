@@ -3,8 +3,6 @@ extends Node2D
 class_name Melon
 
 
-var tier_num: int
-
 var buy_cost: int
 var sell_cost: int
 
@@ -19,37 +17,39 @@ var miss_rate: float
 var crit_rate: float
 var crit_strike_multiplier: int
 
-var armor_reduction_percentage: float
 var armor_reduction_flat: int
 
 var resistence_reduction_percentage: float
-var resistence_reduction_flat: int
 
 var target_priority  # from global enum TARGET_PRIORITY
 
 var last_hit_counter: int = 0
 
-#var passive_abilities: Array = []
-var active_abilities: Array = []
+onready var base_sprite := $BaseSprite
 
-onready var sprite := $MelonSprite
+#var passive_abilities: Array = []
+#var active_abilities: Array = []
 
 
 func _init():
-  pass
+#	print("Base Melon init\n")
+	pass
 
 func _ready():
-  pass
+	print("Base Melon ready\n")
 
 func _process(delta):
-  pass
+	pass
 
 func _physics_process(delta):
 	rotate_to()
 
+func set_sprite():
+	pass
+
 func rotate_to():
 	var enemy_position = get_global_mouse_position()
-	sprite.look_at(enemy_position)
+#	base_sprite.look_at(enemy_position)
 
 func perform_base_attack():
 	pass
@@ -57,9 +57,8 @@ func perform_base_attack():
 func perform_active_ability():
 	pass
 
-func level_up():
-	pass
-
 func sell():
 	pass
 
+func level_up():
+	pass

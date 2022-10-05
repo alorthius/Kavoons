@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/environment/tilesets/TX Tileset Grass.png" type="Texture" id=1]
-[ext_resource path="res://src/scenes/towers/NinjaT1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/environment/tilesets/TX Tileset Grass.png" type="Texture" id=2]
+[ext_resource path="res://src/scenes/maps/Map.gd" type="Script" id=3]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 256, 128 )
@@ -30,7 +30,7 @@
 
 [sub_resource type="TileSet" id=2]
 0/name = "road"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 128, 32, 32 )
@@ -44,7 +44,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "TX Tileset Grass.png 1"
-1/texture = ExtResource( 1 )
+1/texture = ExtResource( 2 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 32, 128, 32, 32 )
@@ -58,7 +58,7 @@
 1/shapes = [  ]
 1/z_index = 0
 2/name = "TX Tileset Grass.png 2"
-2/texture = ExtResource( 1 )
+2/texture = ExtResource( 2 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 160, 32, 32 )
@@ -72,7 +72,7 @@
 2/shapes = [  ]
 2/z_index = 0
 3/name = "TX Tileset Grass.png 3"
-3/texture = ExtResource( 1 )
+3/texture = ExtResource( 2 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 32, 160, 32, 32 )
@@ -86,7 +86,7 @@
 3/shapes = [  ]
 3/z_index = 0
 4/name = "TX Tileset Grass.png 4"
-4/texture = ExtResource( 1 )
+4/texture = ExtResource( 2 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 192, 32, 32 )
@@ -100,7 +100,7 @@
 4/shapes = [  ]
 4/z_index = 0
 5/name = "TX Tileset Grass.png 5"
-5/texture = ExtResource( 1 )
+5/texture = ExtResource( 2 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 32, 192, 32, 32 )
@@ -114,7 +114,7 @@
 5/shapes = [  ]
 5/z_index = 0
 6/name = "TX Tileset Grass.png 6"
-6/texture = ExtResource( 1 )
+6/texture = ExtResource( 2 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 64, 128, 32, 32 )
@@ -128,7 +128,7 @@
 6/shapes = [  ]
 6/z_index = 0
 7/name = "TX Tileset Grass.png 7"
-7/texture = ExtResource( 1 )
+7/texture = ExtResource( 2 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 64, 160, 32, 32 )
@@ -142,7 +142,7 @@
 7/shapes = [  ]
 7/z_index = 0
 8/name = "TX Tileset Grass.png 8"
-8/texture = ExtResource( 1 )
+8/texture = ExtResource( 2 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 64, 192, 32, 32 )
@@ -156,7 +156,7 @@
 8/shapes = [  ]
 8/z_index = 0
 9/name = "TX Tileset Grass.png 9"
-9/texture = ExtResource( 1 )
+9/texture = ExtResource( 2 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 96, 128, 32, 32 )
@@ -170,7 +170,7 @@
 9/shapes = [  ]
 9/z_index = 0
 10/name = "TX Tileset Grass.png 10"
-10/texture = ExtResource( 1 )
+10/texture = ExtResource( 2 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 96, 160, 32, 32 )
@@ -184,7 +184,7 @@
 10/shapes = [  ]
 10/z_index = 0
 11/name = "TX Tileset Grass.png 11"
-11/texture = ExtResource( 1 )
+11/texture = ExtResource( 2 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 96, 192, 32, 32 )
@@ -198,7 +198,7 @@
 11/shapes = [  ]
 11/z_index = 0
 12/name = "TX Tileset Grass.png 12"
-12/texture = ExtResource( 1 )
+12/texture = ExtResource( 2 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 128, 128, 32, 32 )
@@ -212,7 +212,7 @@
 12/shapes = [  ]
 12/z_index = 0
 13/name = "TX Tileset Grass.png 13"
-13/texture = ExtResource( 1 )
+13/texture = ExtResource( 2 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 160, 128, 32, 32 )
@@ -226,7 +226,7 @@
 13/shapes = [  ]
 13/z_index = 0
 14/name = "TX Tileset Grass.png 14"
-14/texture = ExtResource( 1 )
+14/texture = ExtResource( 2 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 192, 128, 32, 32 )
@@ -240,7 +240,7 @@
 14/shapes = [  ]
 14/z_index = 0
 15/name = "TX Tileset Grass.png 15"
-15/texture = ExtResource( 1 )
+15/texture = ExtResource( 2 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 224, 128, 32, 32 )
@@ -254,7 +254,7 @@
 15/shapes = [  ]
 15/z_index = 0
 16/name = "TX Tileset Grass.png 16"
-16/texture = ExtResource( 1 )
+16/texture = ExtResource( 2 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
 16/region = Rect2( 128, 160, 32, 32 )
@@ -268,7 +268,7 @@
 16/shapes = [  ]
 16/z_index = 0
 17/name = "TX Tileset Grass.png 17"
-17/texture = ExtResource( 1 )
+17/texture = ExtResource( 2 )
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
 17/region = Rect2( 160, 160, 32, 32 )
@@ -282,7 +282,7 @@
 17/shapes = [  ]
 17/z_index = 0
 18/name = "TX Tileset Grass.png 18"
-18/texture = ExtResource( 1 )
+18/texture = ExtResource( 2 )
 18/tex_offset = Vector2( 0, 0 )
 18/modulate = Color( 1, 1, 1, 1 )
 18/region = Rect2( 192, 160, 32, 32 )
@@ -296,7 +296,7 @@
 18/shapes = [  ]
 18/z_index = 0
 19/name = "TX Tileset Grass.png 19"
-19/texture = ExtResource( 1 )
+19/texture = ExtResource( 2 )
 19/tex_offset = Vector2( 0, 0 )
 19/modulate = Color( 1, 1, 1, 1 )
 19/region = Rect2( 224, 160, 32, 32 )
@@ -310,7 +310,7 @@
 19/shapes = [  ]
 19/z_index = 0
 20/name = "TX Tileset Grass.png 20"
-20/texture = ExtResource( 1 )
+20/texture = ExtResource( 2 )
 20/tex_offset = Vector2( 0, 0 )
 20/modulate = Color( 1, 1, 1, 1 )
 20/region = Rect2( 0, 224, 32, 32 )
@@ -324,7 +324,7 @@
 20/shapes = [  ]
 20/z_index = 0
 21/name = "TX Tileset Grass.png 21"
-21/texture = ExtResource( 1 )
+21/texture = ExtResource( 2 )
 21/tex_offset = Vector2( 0, 0 )
 21/modulate = Color( 1, 1, 1, 1 )
 21/region = Rect2( 32, 224, 32, 32 )
@@ -338,7 +338,7 @@
 21/shapes = [  ]
 21/z_index = 0
 22/name = "TX Tileset Grass.png 22"
-22/texture = ExtResource( 1 )
+22/texture = ExtResource( 2 )
 22/tex_offset = Vector2( 0, 0 )
 22/modulate = Color( 1, 1, 1, 1 )
 22/region = Rect2( 96, 224, 32, 32 )
@@ -352,7 +352,7 @@
 22/shapes = [  ]
 22/z_index = 0
 23/name = "TX Tileset Grass.png 23"
-23/texture = ExtResource( 1 )
+23/texture = ExtResource( 2 )
 23/tex_offset = Vector2( 0, 0 )
 23/modulate = Color( 1, 1, 1, 1 )
 23/region = Rect2( 64, 224, 32, 32 )
@@ -366,7 +366,7 @@
 23/shapes = [  ]
 23/z_index = 0
 24/name = "TX Tileset Grass.png 24"
-24/texture = ExtResource( 1 )
+24/texture = ExtResource( 2 )
 24/tex_offset = Vector2( 0, 0 )
 24/modulate = Color( 1, 1, 1, 1 )
 24/region = Rect2( 128, 224, 32, 32 )
@@ -380,7 +380,7 @@
 24/shapes = [  ]
 24/z_index = 0
 25/name = "TX Tileset Grass.png 25"
-25/texture = ExtResource( 1 )
+25/texture = ExtResource( 2 )
 25/tex_offset = Vector2( 0, 0 )
 25/modulate = Color( 1, 1, 1, 1 )
 25/region = Rect2( 160, 224, 32, 32 )
@@ -394,7 +394,7 @@
 25/shapes = [  ]
 25/z_index = 0
 27/name = "TX Tileset Grass.png 27"
-27/texture = ExtResource( 1 )
+27/texture = ExtResource( 2 )
 27/tex_offset = Vector2( 0, 0 )
 27/modulate = Color( 1, 1, 1, 1 )
 27/region = Rect2( 128, 192, 32, 32 )
@@ -408,7 +408,7 @@
 27/shapes = [  ]
 27/z_index = 0
 28/name = "TX Tileset Grass.png 28"
-28/texture = ExtResource( 1 )
+28/texture = ExtResource( 2 )
 28/tex_offset = Vector2( 0, 0 )
 28/modulate = Color( 1, 1, 1, 1 )
 28/region = Rect2( 160, 192, 32, 32 )
@@ -422,7 +422,7 @@
 28/shapes = [  ]
 28/z_index = 0
 29/name = "TX Tileset Grass.png 29"
-29/texture = ExtResource( 1 )
+29/texture = ExtResource( 2 )
 29/tex_offset = Vector2( 0, 0 )
 29/modulate = Color( 1, 1, 1, 1 )
 29/region = Rect2( 192, 192, 32, 32 )
@@ -436,7 +436,7 @@
 29/shapes = [  ]
 29/z_index = 0
 30/name = "TX Tileset Grass.png 30"
-30/texture = ExtResource( 1 )
+30/texture = ExtResource( 2 )
 30/tex_offset = Vector2( 0, 0 )
 30/modulate = Color( 1, 1, 1, 1 )
 30/region = Rect2( 224, 192, 32, 32 )
@@ -450,7 +450,8 @@
 30/shapes = [  ]
 30/z_index = 0
 
-[node name="Map1" type="Node2D"]
+[node name="Map" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Grass" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -463,7 +464,3 @@ tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( 196621, 30, 0, 196622, 13, 0, 196623, 13, 0, 196624, 13, 0, 196625, 13, 0, 196626, 13, 0, 196627, 13, 0, 196628, 13, 0, 196629, 29, 0, 262157, 8, 0, 262158, 1, 0, 262159, 1, 0, 262160, 1, 0, 262161, 1, 0, 262162, 1, 0, 262163, 1, 0, 262164, 1, 0, 262165, 9, 0, 327693, 8, 0, 327694, 1, 0, 327695, 20, 0, 327696, 18, 0, 327697, 18, 0, 327698, 18, 0, 327699, 21, 0, 327700, 1, 0, 327701, 9, 0, 393229, 8, 0, 393230, 1, 0, 393231, 10, 0, 393235, 8, 0, 393236, 1, 0, 393237, 9, 0, 458765, 8, 0, 458766, 1, 0, 458767, 9, 0, 458771, 8, 0, 458772, 1, 0, 458773, 9, 0, 458789, 30, 0, 458790, 13, 0, 458791, 13, 0, 458792, 13, 0, 458793, 13, 0, 458794, 13, 0, 458795, 13, 0, 458796, 13, 0, 458797, 29, 0, 524301, 8, 0, 524302, 0, 0, 524303, 10, 0, 524307, 8, 0, 524308, 0, 0, 524309, 9, 0, 524325, 7, 0, 524326, 0, 0, 524327, 0, 0, 524328, 0, 0, 524329, 0, 0, 524330, 0, 0, 524331, 0, 0, 524332, 0, 0, 524333, 9, 0, 589837, 8, 0, 589838, 0, 0, 589839, 9, 0, 589843, 8, 0, 589844, 0, 0, 589845, 9, 0, 589861, 7, 0, 589862, 0, 0, 589863, 20, 0, 589864, 18, 0, 589865, 18, 0, 589866, 18, 0, 589867, 21, 0, 589868, 0, 0, 589869, 9, 0, 655360, 14, 0, 655361, 14, 0, 655362, 14, 0, 655363, 14, 0, 655364, 14, 0, 655365, 14, 0, 655366, 14, 0, 655367, 14, 0, 655368, 29, 0, 655373, 8, 0, 655374, 0, 0, 655375, 9, 0, 655379, 8, 0, 655380, 1, 0, 655381, 9, 0, 655397, 7, 0, 655398, 0, 0, 655399, 22, 0, 655403, 7, 0, 655404, 0, 0, 655405, 9, 0, 720896, 0, 0, 720897, 0, 0, 720898, 1, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 1, 0, 720903, 0, 0, 720904, 9, 0, 720909, 8, 0, 720910, 1, 0, 720911, 9, 0, 720915, 8, 0, 720916, 0, 0, 720917, 9, 0, 720933, 7, 0, 720934, 0, 0, 720935, 9, 0, 720939, 7, 0, 720940, 0, 0, 720941, 9, 0, 786432, 17, 0, 786433, 17, 0, 786434, 17, 0, 786435, 17, 0, 786436, 17, 0, 786437, 17, 0, 786438, 21, 0, 786439, 5, 0, 786440, 9, 0, 786445, 8, 0, 786446, 1, 0, 786447, 9, 0, 786451, 8, 0, 786452, 0, 0, 786453, 9, 0, 786457, 30, 0, 786458, 14, 0, 786459, 14, 0, 786460, 14, 0, 786461, 14, 0, 786462, 14, 0, 786463, 14, 0, 786464, 14, 0, 786465, 29, 0, 786469, 7, 0, 786470, 0, 0, 786471, 9, 0, 786475, 7, 0, 786476, 0, 0, 786477, 9, 0, 851974, 8, 0, 851975, 0, 0, 851976, 9, 0, 851981, 8, 0, 851982, 0, 0, 851983, 9, 0, 851987, 8, 0, 851988, 1, 0, 851989, 9, 0, 851993, 8, 0, 851994, 0, 0, 851995, 0, 0, 851996, 0, 0, 851997, 0, 0, 851998, 0, 0, 851999, 0, 0, 852000, 0, 0, 852001, 22, 0, 852005, 7, 0, 852006, 0, 0, 852007, 9, 0, 852011, 7, 0, 852012, 0, 0, 852013, 9, 0, 917510, 8, 0, 917511, 1, 0, 917512, 22, 0, 917517, 8, 0, 917518, 0, 0, 917519, 9, 0, 917523, 8, 0, 917524, 1, 0, 917525, 9, 0, 917529, 8, 0, 917530, 0, 0, 917531, 20, 0, 917532, 18, 0, 917533, 18, 0, 917534, 18, 0, 917535, 21, 0, 917536, 0, 0, 917537, 9, 0, 917541, 7, 0, 917542, 0, 0, 917543, 9, 0, 917547, 7, 0, 917548, 0, 0, 917549, 9, 0, 983046, 8, 0, 983047, 0, 0, 983048, 9, 0, 983053, 8, 0, 983054, 0, 0, 983055, 9, 0, 983059, 8, 0, 983060, 1, 0, 983061, 9, 0, 983065, 8, 0, 983066, 0, 0, 983067, 10, 0, 983071, 7, 0, 983072, 0, 0, 983073, 9, 0, 983077, 7, 0, 983078, 0, 0, 983079, 9, 0, 983083, 7, 0, 983084, 0, 0, 983085, 9, 0, 983095, 0, 0, 983096, 0, 0, 983097, 0, 0, 983098, 0, 0, 983099, 0, 0, 983100, 0, 0, 1048582, 8, 0, 1048583, 0, 0, 1048584, 9, 0, 1048589, 8, 0, 1048590, 0, 0, 1048591, 9, 0, 1048595, 8, 0, 1048596, 1, 0, 1048597, 9, 0, 1048601, 8, 0, 1048602, 0, 0, 1048603, 22, 0, 1048607, 7, 0, 1048608, 0, 0, 1048609, 9, 0, 1048613, 7, 0, 1048614, 0, 0, 1048615, 9, 0, 1048619, 7, 0, 1048620, 0, 0, 1048621, 9, 0, 1048631, 0, 0, 1048632, 9, 0, 1048633, 18, 0, 1048634, 18, 0, 1048635, 18, 0, 1048636, 18, 0, 1114118, 8, 0, 1114119, 1, 0, 1114120, 22, 0, 1114125, 8, 0, 1114126, 0, 0, 1114127, 9, 0, 1114131, 8, 0, 1114132, 1, 0, 1114133, 9, 0, 1114137, 8, 0, 1114138, 0, 0, 1114139, 9, 0, 1114143, 7, 0, 1114144, 0, 0, 1114145, 9, 0, 1114149, 7, 0, 1114150, 0, 0, 1114151, 9, 0, 1114155, 7, 0, 1114156, 0, 0, 1114157, 9, 0, 1114167, 0, 0, 1114168, 9, 0, 1179654, 8, 0, 1179655, 0, 0, 1179656, 9, 0, 1179661, 8, 0, 1179662, 1, 0, 1179663, 9, 0, 1179667, 8, 0, 1179668, 1, 0, 1179669, 9, 0, 1179673, 8, 0, 1179674, 0, 0, 1179675, 10, 0, 1179679, 7, 0, 1179680, 0, 0, 1179681, 25, 0, 1179682, 13, 0, 1179683, 13, 0, 1179684, 13, 0, 1179685, 24, 0, 1179686, 0, 0, 1179687, 9, 0, 1179691, 7, 0, 1179692, 0, 0, 1179693, 9, 0, 1179703, 0, 0, 1179704, 9, 0, 1245190, 8, 0, 1245191, 1, 0, 1245192, 9, 0, 1245197, 8, 0, 1245198, 0, 0, 1245199, 9, 0, 1245203, 8, 0, 1245204, 1, 0, 1245205, 9, 0, 1245209, 8, 0, 1245210, 0, 0, 1245211, 9, 0, 1245215, 7, 0, 1245216, 0, 0, 1245217, 0, 0, 1245218, 0, 0, 1245219, 0, 0, 1245220, 0, 0, 1245221, 0, 0, 1245222, 0, 0, 1245223, 9, 0, 1245227, 7, 0, 1245228, 0, 0, 1245229, 9, 0, 1245234, 0, 0, 1245235, 0, 0, 1245236, 0, 0, 1245237, 0, 0, 1245238, 0, 0, 1245239, 0, 0, 1245240, 9, 0, 1310726, 8, 0, 1310727, 5, 0, 1310728, 9, 0, 1310733, 8, 0, 1310734, 0, 0, 1310735, 9, 0, 1310739, 8, 0, 1310740, 0, 0, 1310741, 9, 0, 1310745, 8, 0, 1310746, 0, 0, 1310747, 9, 0, 1310751, 28, 0, 1310752, 18, 0, 1310753, 18, 0, 1310754, 18, 0, 1310755, 18, 0, 1310756, 18, 0, 1310757, 18, 0, 1310758, 18, 0, 1310759, 27, 0, 1310763, 7, 0, 1310764, 0, 0, 1310765, 9, 0, 1310770, 0, 0, 1310771, 18, 0, 1310772, 18, 0, 1310773, 18, 0, 1310774, 18, 0, 1310775, 18, 0, 1376262, 8, 0, 1376263, 0, 0, 1376264, 25, 0, 1376265, 13, 0, 1376266, 13, 0, 1376267, 13, 0, 1376268, 13, 0, 1376269, 24, 0, 1376270, 0, 0, 1376271, 9, 0, 1376275, 8, 0, 1376276, 0, 0, 1376277, 9, 0, 1376281, 8, 0, 1376282, 0, 0, 1376283, 9, 0, 1376299, 7, 0, 1376300, 0, 0, 1376301, 9, 0, 1376306, 0, 0, 1376307, 9, 0, 1441798, 8, 0, 1441799, 1, 0, 1441800, 0, 0, 1441801, 0, 0, 1441802, 0, 0, 1441803, 0, 0, 1441804, 1, 0, 1441805, 0, 0, 1441806, 1, 0, 1441807, 9, 0, 1441811, 8, 0, 1441812, 0, 0, 1441813, 9, 0, 1441817, 8, 0, 1441818, 0, 0, 1441819, 9, 0, 1441835, 7, 0, 1441836, 0, 0, 1441837, 9, 0, 1441842, 0, 0, 1441843, 9, 0, 1507335, 18, 0, 1507336, 18, 0, 1507337, 18, 0, 1507338, 18, 0, 1507339, 18, 0, 1507340, 18, 0, 1507341, 18, 0, 1507342, 18, 0, 1507343, 27, 0, 1507347, 8, 0, 1507348, 0, 0, 1507349, 9, 0, 1507353, 8, 0, 1507354, 0, 0, 1507355, 9, 0, 1507371, 7, 0, 1507372, 0, 0, 1507373, 9, 0, 1507378, 0, 0, 1507379, 9, 0, 1572883, 8, 0, 1572884, 0, 0, 1572885, 9, 0, 1572889, 8, 0, 1572890, 0, 0, 1572891, 9, 0, 1572907, 7, 0, 1572908, 0, 0, 1572909, 9, 0, 1572914, 0, 0, 1572915, 9, 0, 1638419, 8, 0, 1638420, 0, 0, 1638421, 25, 0, 1638422, 15, 0, 1638423, 15, 0, 1638424, 15, 0, 1638425, 24, 0, 1638426, 0, 0, 1638427, 9, 0, 1638443, 7, 0, 1638444, 0, 0, 1638445, 9, 0, 1638450, 0, 0, 1638451, 9, 0, 1703955, 8, 0, 1703956, 0, 0, 1703957, 0, 0, 1703958, 0, 0, 1703959, 0, 0, 1703960, 0, 0, 1703961, 0, 0, 1703962, 0, 0, 1703963, 9, 0, 1703979, 7, 0, 1703980, 0, 0, 1703981, 9, 0, 1703986, 0, 0, 1703987, 9, 0, 1769491, 28, 0, 1769492, 18, 0, 1769493, 18, 0, 1769494, 18, 0, 1769495, 18, 0, 1769496, 18, 0, 1769497, 18, 0, 1769498, 18, 0, 1769499, 27, 0, 1769515, 7, 0, 1769516, 0, 0, 1769517, 9, 0, 1769522, 0, 0, 1769523, 9, 0, 1835051, 7, 0, 1835052, 0, 0, 1835053, 0, 0, 1835054, 0, 0, 1835055, 0, 0, 1835056, 0, 0, 1835057, 0, 0, 1835058, 0, 0, 1835059, 9, 0, 1900587, 28, 0, 1900588, 18, 0, 1900589, 18, 0, 1900590, 18, 0, 1900591, 18, 0, 1900592, 18, 0, 1900593, 18, 0, 1900594, 18, 0 )
-
-[node name="NinjaT1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 235, 289 )
-scale = Vector2( 4, 4 )
