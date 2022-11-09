@@ -37,6 +37,7 @@ func _init():
 
 func _ready():
 	$Upgrader/UI/HUD.rect_position = position + _upgr_bar_offset
+	$Upgrader/UI/FocusRegion.position = position + _upgr_bar_offset
 
 func _process(delta):
 	pass

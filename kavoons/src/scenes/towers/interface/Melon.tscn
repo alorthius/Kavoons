@@ -15,10 +15,8 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 scale = Vector2( 5, 5 )
 shape = SubResource( 1 )
 
 [node name="Upgrader" parent="." instance=ExtResource( 3 )]
-
-[connection signal="mouse_entered" from="." to="Upgrader" method="_on_Melon_mouse_entered"]
-[connection signal="mouse_exited" from="." to="Upgrader" method="_on_Melon_mouse_exited"]
