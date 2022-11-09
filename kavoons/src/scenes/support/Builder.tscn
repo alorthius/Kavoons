@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scenes/support/Builder.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=2]
 [ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=3]
+[ext_resource path="res://src/scenes/support/TowerPreview.gd" type="Script" id=4]
 
 [node name="Builder" type="Node2D"]
 script = ExtResource( 1 )
@@ -12,6 +13,9 @@ script = ExtResource( 1 )
 [node name="HUD" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="TowerPreview" type="Sprite" parent="UI/HUD"]
+script = ExtResource( 4 )
 
 [node name="BuildBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
@@ -25,7 +29,7 @@ rect_min_size = Vector2( 600, 100 )
 custom_constants/separation = 10
 alignment = 1
 
-[node name="NinjaMelon" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="NinjaMelon" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
@@ -46,7 +50,7 @@ size_flags_vertical = 4
 texture = ExtResource( 3 )
 expand = true
 
-[node name="empty1" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="empty1" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_left = 110.0
 margin_right = 210.0
 margin_bottom = 100.0
@@ -67,7 +71,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
 
-[node name="empty2" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="empty2" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_left = 220.0
 margin_right = 320.0
 margin_bottom = 100.0
@@ -88,7 +92,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
 
-[node name="empty3" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="empty3" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_left = 330.0
 margin_right = 430.0
 margin_bottom = 100.0
@@ -109,7 +113,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
 
-[node name="empty4" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="empty4" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_left = 440.0
 margin_right = 540.0
 margin_bottom = 100.0
@@ -130,7 +134,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
 
-[node name="empty5" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="empty5" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_left = 550.0
 margin_right = 650.0
 margin_bottom = 100.0
@@ -151,7 +155,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
 
-[node name="empty6" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="empty6" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
 margin_left = 660.0
 margin_right = 760.0
 margin_bottom = 100.0
