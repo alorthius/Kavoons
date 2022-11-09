@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Builder",
+"language": "GDScript",
+"path": "res://src/scenes/support/Builder.gd"
+}, {
+"base": "PathFollow2D",
+"class": "Cat",
+"language": "GDScript",
+"path": "res://src/scenes/enemies/Cat.gd"
+}, {
 "base": "Node2D",
 "class": "Map",
 "language": "GDScript",
@@ -35,6 +45,8 @@ _global_script_classes=[ {
 "path": "res://src/scenes/support/Upgrader.gd"
 } ]
 _global_script_class_icons={
+"Builder": "",
+"Cat": "",
 "Map": "",
 "Melon": "",
 "MelonT1": "",
@@ -45,13 +57,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Kavoons"
-run/main_scene="res://src/scenes/maps/Map.tscn"
+run/main_scene="res://src/scenes/SceneHandler.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Constants="*res://src/singletons/Constants.gd"
-Towers="*res://src/singletons/Towers.gd"
+Constants="*res://singletons/Constants.gd"
+Towers="*res://singletons/Towers.gd"
 
 [display]
 

@@ -19,7 +19,7 @@ var crit_strike_multiplier: int
 
 var armor_reduction_flat: int
 
-var resistence_reduction_percentage: float
+var resistance_reduction_percentage: float
 
 var target_priority  # from global enum TARGET_PRIORITY
 
@@ -49,7 +49,7 @@ func set_sprite():
 
 func rotate_to():
 	var enemy_position = get_global_mouse_position()
-#	base_sprite.look_at(enemy_position)
+	base_sprite.look_at(enemy_position)
 
 func perform_base_attack():
 	pass
