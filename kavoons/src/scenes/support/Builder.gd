@@ -27,7 +27,6 @@ func _process(delta):
 
 
 func _unhandled_input(event):
-	print(_is_active)
 	if _is_active:
 		if event.is_action_pressed("ui_accept"):
 			_place_melon()

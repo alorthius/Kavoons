@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scenes/towers/interface/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T4_RR.png" type="Texture" id=2]
+[ext_resource path="res://src/scenes/support/upgraders/Upgrader.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -16,3 +17,8 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 5, 5 )
 shape = SubResource( 1 )
+
+[node name="Upgrader" parent="." instance=ExtResource( 3 )]
+
+[connection signal="mouse_entered" from="." to="Upgrader" method="_on_Melon_mouse_entered"]
+[connection signal="mouse_exited" from="." to="Upgrader" method="_on_Melon_mouse_exited"]

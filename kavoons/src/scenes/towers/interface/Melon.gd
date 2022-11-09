@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 class_name Melon
 
@@ -29,12 +29,14 @@ onready var base_sprite := $BaseSprite
 #var passive_abilities: Array = []
 #var active_abilities: Array = []
 
+var _upgr_bar_offset = Vector2(-85, -130)
+
+
 func _init():
-#	print("Base Melon init\n")
 	pass
 
 func _ready():
-	print("Base Melon ready\n")
+	$Upgrader/UI/HUD.rect_position = position + _upgr_bar_offset
 
 func _process(delta):
 	pass

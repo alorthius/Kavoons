@@ -1,6 +1,12 @@
 extends Node2D
 
 
+func _ready():
+	$Builder.connect("tower_placed", self, "_attach_melon")
+
+func _attach_melon(new_tower: Melon):
+	$Towers.add_child(new_tower, true)
+
 
 #	var upgr = $Upgrader
 #

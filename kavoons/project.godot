@@ -24,34 +24,22 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/scenes/maps/Map.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "Melon",
 "language": "GDScript",
 "path": "res://src/scenes/towers/interface/Melon.gd"
 }, {
 "base": "Node2D",
-"class": "MelonManager",
-"language": "GDScript",
-"path": "res://src/scenes/support/MelonManager.gd"
-}, {
-"base": "Node2D",
 "class": "Upgrader",
 "language": "GDScript",
 "path": "res://src/scenes/support/upgraders/Upgrader.gd"
-}, {
-"base": "Node2D",
-"class": "UpgraderToT2",
-"language": "GDScript",
-"path": "res://src/scenes/support/upgraders/UpgraderToT2.gd"
 } ]
 _global_script_class_icons={
 "Builder": "",
 "Cat": "",
 "Map": "",
 "Melon": "",
-"MelonManager": "",
-"Upgrader": "",
-"UpgraderToT2": ""
+"Upgrader": ""
 }
 
 [application]
