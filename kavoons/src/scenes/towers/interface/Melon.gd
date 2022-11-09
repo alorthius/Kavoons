@@ -2,7 +2,6 @@ extends Node2D
 
 class_name Melon
 
-
 var buy_cost: int
 var sell_cost: int
 

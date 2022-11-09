@@ -4,7 +4,8 @@ extends Sprite
 
 # preload sprites to reuse during building
 var _sprites = {
-	'NinjaMelon': preload('res://assets/towers/ninja_melon/T1.png')
+	'NinjaMelon': preload('res://assets/towers/ninja_melon/T1.png'),
+	'empty1': preload('res://assets/towers/ninja_melon/T2_L.png')
 }
 
 var _preview_alpha_channel: float = 0.5
@@ -20,7 +21,7 @@ func set_preview(tower: String, position: Vector2):
 func update_preview(position: Vector2):
 	self.set_position(position)
 
-func calcel_preview():
+func cancel_preview():
 	self.set_texture(null)
 
 #func _ready():

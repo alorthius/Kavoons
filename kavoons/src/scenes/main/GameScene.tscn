@@ -10,6 +10,6 @@ script = ExtResource( 2 )
 
 [node name="Map" parent="." instance=ExtResource( 1 )]
 
-[node name="Upgrader" parent="." instance=ExtResource( 3 )]
-
 [node name="Builder" parent="." instance=ExtResource( 4 )]
+
+[node name="Upgrader" parent="." instance=ExtResource( 3 )]
