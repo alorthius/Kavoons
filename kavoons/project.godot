@@ -29,16 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/scenes/towers/interface/Melon.gd"
 }, {
-"base": "Melon",
-"class": "MelonT1",
-"language": "GDScript",
-"path": "res://src/scenes/towers/interface/MelonT1.gd"
-}, {
-"base": "MelonT1",
-"class": "NinjaT1",
-"language": "GDScript",
-"path": "res://src/scenes/towers/ninja_melon/NinjaT1.gd"
-}, {
 "base": "Node2D",
 "class": "Upgrader",
 "language": "GDScript",
@@ -49,8 +39,6 @@ _global_script_class_icons={
 "Cat": "",
 "Map": "",
 "Melon": "",
-"MelonT1": "",
-"NinjaT1": "",
 "Upgrader": ""
 }
 
