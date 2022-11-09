@@ -1,7 +1,7 @@
 extends Node2D
 
-func _ready():
-	pass
+
+
 #	var upgr = $Upgrader
 #
 #	var ninja = load("res://src/scenes/towers/ninja_melon/NinjaT1.tscn").instance()

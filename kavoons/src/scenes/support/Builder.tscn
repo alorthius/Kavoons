@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scenes/support/Builder.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=2]
 [ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=3]
 [ext_resource path="res://src/scenes/support/TowerPreview.gd" type="Script" id=4]
-[ext_resource path="res://assets/towers/ninja_melon/T2_L.png" type="Texture" id=5]
 
 [node name="Builder" type="Node2D"]
 script = ExtResource( 1 )
@@ -71,7 +70,6 @@ margin_right = -10.0
 margin_bottom = -10.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource( 5 )
 expand = true
 
 [node name="empty2" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]

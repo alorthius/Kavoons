@@ -4,7 +4,6 @@ class_name Builder
 
 var _towers = {
 	"NinjaMelon": preload("res://src/scenes/towers/ninja_melon/NinjaT1.tscn"),
-	"empty1": preload("res://src/scenes/towers/ninja_melon/NinjaT2.tscn")
 }
 
 var _is_active: bool = false
@@ -13,6 +12,8 @@ onready var _tower_preview: Sprite = $UI/HUD/TowerPreview
 
 var _build_position: Vector2
 var _chosen_melon: String
+
+signal tower_placed(new_tower)
 
 
 func _ready():
@@ -45,10 +46,14 @@ func _update_tower_preview():
 	_tower_preview.update_preview(get_global_mouse_position())
 
 
+func validate():
+	pass
+
+
 func _place_melon():
 	var new_tower = _towers[_chosen_melon].instance()
 	new_tower.position = get_global_mouse_position()
-	add_child(new_tower, true)
+	emit_signal("tower_placed", new_tower)
 
 
 func _cancel_building():

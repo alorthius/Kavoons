@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name Upgrader
+class_name UpgraderToT2
 
 func _ready():
 	pass

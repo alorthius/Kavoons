@@ -29,7 +29,6 @@ onready var base_sprite := $BaseSprite
 #var passive_abilities: Array = []
 #var active_abilities: Array = []
 
-
 func _init():
 #	print("Base Melon init\n")
 	pass

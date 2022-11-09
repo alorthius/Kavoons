@@ -5,7 +5,6 @@ extends Sprite
 # preload sprites to reuse during building
 var _sprites = {
 	'NinjaMelon': preload('res://assets/towers/ninja_melon/T1.png'),
-	'empty1': preload('res://assets/towers/ninja_melon/T2_L.png')
 }
 
 var _preview_alpha_channel: float = 0.5
