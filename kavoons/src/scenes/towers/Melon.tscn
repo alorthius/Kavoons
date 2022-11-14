@@ -22,7 +22,7 @@ shape = SubResource( 1 )
 
 [node name="Range" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+[node name="Shape" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 2 )
 
 [node name="Upgrader" parent="." instance=ExtResource( 3 )]

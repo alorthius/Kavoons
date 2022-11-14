@@ -74,11 +74,9 @@ func _on_Range_area_entered(area):
 	var node = area.get_parent()
 	if node.is_in_group("enemies"):
 		_enemies_in_range.append(node)
-	print(_enemies_in_range)
 
 
 func _on_Range_area_exited(area):
 	var node = area.get_parent()
 	if node.is_in_group("enemies"):
 		_enemies_in_range.erase(node)
-	print(_enemies_in_range)
