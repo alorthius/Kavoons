@@ -2,8 +2,9 @@ extends Node
 
 
 var towers_data = {
-	"ninja_melon": {
+	"NinjaMelon": {
 		"T1": {
+			"sprite": "res://assets/towers/ninja_melon/T1.png",
 			"buy_cost": 100,
 			
 			"base_attack_radius": 100,
@@ -18,7 +19,9 @@ var towers_data = {
 			"crit_strike_multiplier": 2,
 			
 			"armor_reduction_flat": 5,
-			"resistence_reduction_percentage": 0
+			"resistence_reduction_percentage": 0,
+			
+			"range_scale": 20  # TODO: use metrics and then calculate the scale factor in code
 		}
 	}
 }

@@ -1,13 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scenes/support/Upgrader.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T2_L.png" type="Texture" id=3]
 [ext_resource path="res://assets/towers/ninja_melon/T2_R.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=6]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 89.25, 80.8125 )
 
 [node name="Upgrader" type="Node2D"]
 script = ExtResource( 1 )
@@ -59,12 +56,3 @@ margin_right = 35.0
 margin_bottom = 35.0
 texture = ExtResource( 4 )
 expand = true
-
-[node name="FocusRegion" type="Area2D" parent="UI"]
-
-[node name="Region" type="CollisionShape2D" parent="UI/FocusRegion"]
-position = Vector2( 90, 81 )
-shape = SubResource( 1 )
-
-[connection signal="mouse_entered" from="UI/FocusRegion" to="." method="_on_FocusRegion_mouse_entered"]
-[connection signal="mouse_exited" from="UI/FocusRegion" to="." method="_on_FocusRegion_mouse_exited"]
