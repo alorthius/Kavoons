@@ -26,7 +26,7 @@ var target_priority  # from global enum TARGET_PRIORITY
 
 var last_hit_counter: int = 0
 
-var _range: int = 1
+var _range_scale: float = 1
 #onready var base_sprite := $BaseSprite
 
 #var passive_abilities: Array = []
@@ -39,7 +39,7 @@ func _init():
 	pass
 
 func _ready():
-	$Range/Shape.scale = Vector2(_range, _range)
+	$Range/Shape.scale = Vector2(_range_scale, _range_scale)
 	$Upgrader/UI/HUD.rect_position = position + _upgr_bar_offset
 	$Upgrader/UI/FocusRegion.position = position + _upgr_bar_offset
 
