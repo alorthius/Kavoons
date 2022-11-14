@@ -8,7 +8,7 @@ var _enemies_left: int = len(_enemies_to_spawn)
 
 signal spawn_enemy(cat)
 
-signal wave_ended()
+signal spawning_ended()
 
 
 func _ready():
@@ -21,7 +21,8 @@ func _on_CatsTimer_timeout():
 	emit_signal("spawn_enemy", cat)
 	_enemies_left -= 1
 	if _enemies_left == 0:
-		emit_signal("wave_ended")
+		emit_signal("spawning_ended")
+		$CatsTimer.stop()
 		queue_free()
 	else:
 		$CatsTimer.set_wait_time(_time_between_spawns.pop_front())
