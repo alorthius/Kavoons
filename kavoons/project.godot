@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Melon",
 "language": "GDScript",
-"path": "res://src/scenes/towers/interface/Melon.gd"
+"path": "res://src/scenes/towers/Melon.gd"
 }, {
 "base": "Node2D",
 "class": "Upgrader",
 "language": "GDScript",
-"path": "res://src/scenes/support/upgraders/Upgrader.gd"
+"path": "res://src/scenes/support/Upgrader.gd"
 } ]
 _global_script_class_icons={
 "Builder": "",

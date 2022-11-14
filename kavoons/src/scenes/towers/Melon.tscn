@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/scenes/towers/interface/Melon.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T4_RR.png" type="Texture" id=2]
-[ext_resource path="res://src/scenes/support/upgraders/Upgrader.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/scenes/support/Upgrader.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
