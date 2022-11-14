@@ -27,6 +27,8 @@ var target_priority  # from global enum TARGET_PRIORITY
 var last_hit_counter: int = 0
 
 var _range_scale: float = 1
+var _range_alpha: float = 0.6
+
 #onready var base_sprite := $BaseSprite
 
 #var passive_abilities: Array = []
@@ -39,9 +41,15 @@ func _init():
 	pass
 
 func _ready():
-	$Range/Shape.scale = Vector2(_range_scale, _range_scale)
+	$Range/CollisionShape.scale = Vector2(_range_scale, _range_scale)
+	$BaseRange.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
+	$BaseRange.modulate.a = _range_alpha
+	$BaseRange.visible = false
+
 	$Upgrader/UI/HUD.rect_position = position + _upgr_bar_offset
-	$Upgrader/UI/FocusRegion.position = position + _upgr_bar_offset
+	$Upgrader/UI/HUD.visible = false
+	
+	$FocusRegion.position += _upgr_bar_offset
 
 func _process(delta):
 	pass
@@ -80,3 +88,13 @@ func _on_Range_area_exited(area):
 	var node = area.get_parent()
 	if node.is_in_group("enemies"):
 		_enemies_in_range.erase(node)
+
+
+func _on_FocusRegion_mouse_entered():
+	$BaseRange.set_visible(true)
+	$Upgrader/UI/HUD.set_visible(true)
+
+
+func _on_FocusRegion_mouse_exited():
+	$BaseRange.set_visible(false)
+	$Upgrader/UI/HUD.set_visible(false)
