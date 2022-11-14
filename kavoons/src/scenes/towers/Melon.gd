@@ -2,6 +2,8 @@ extends Area2D
 
 class_name Melon
 
+var _enemies_in_range: Array = []
+
 var buy_cost: int
 var sell_cost: int
 
@@ -24,7 +26,8 @@ var target_priority  # from global enum TARGET_PRIORITY
 
 var last_hit_counter: int = 0
 
-onready var base_sprite := $BaseSprite
+var _range: int = 1
+#onready var base_sprite := $BaseSprite
 
 #var passive_abilities: Array = []
 #var active_abilities: Array = []
@@ -36,6 +39,7 @@ func _init():
 	pass
 
 func _ready():
+	$Range/CollisionShape2D.scale = Vector2(_range, _range)
 	$Upgrader/UI/HUD.rect_position = position + _upgr_bar_offset
 	$Upgrader/UI/FocusRegion.position = position + _upgr_bar_offset
 
@@ -49,8 +53,9 @@ func set_sprite():
 	pass
 
 func rotate_to():
-	var enemy_position = get_global_mouse_position()
-	base_sprite.look_at(enemy_position)
+	if _enemies_in_range.size() > 0:
+		var enemy_position = _enemies_in_range[0].get_global_transform().origin
+		$BaseSprite.look_at(enemy_position)
 
 func perform_base_attack():
 	pass
@@ -63,3 +68,17 @@ func sell():
 
 func level_up():
 	pass
+
+
+func _on_Range_area_entered(area):
+	var node = area.get_parent()
+	if node.is_in_group("enemies"):
+		_enemies_in_range.append(node)
+	print(_enemies_in_range)
+
+
+func _on_Range_area_exited(area):
+	var node = area.get_parent()
+	if node.is_in_group("enemies"):
+		_enemies_in_range.erase(node)
+	print(_enemies_in_range)

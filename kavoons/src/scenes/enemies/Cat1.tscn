@@ -7,9 +7,6 @@
 [node name="Cat1" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
-[node name="Sprite" parent="Area2D" index="0"]
+[node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
 flip_h = true
-
-[node name="CollisionShape2D" parent="Area2D" index="1"]
-position = Vector2( 2, 0 )
