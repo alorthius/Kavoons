@@ -28,6 +28,7 @@ var last_hit_counter: int = 0
 
 var _range_scale: float = 1
 var _range_alpha: float = 0.6
+
 #onready var base_sprite := $BaseSprite
 
 #var passive_abilities: Array = []
