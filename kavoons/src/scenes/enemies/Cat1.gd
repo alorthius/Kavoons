@@ -1,4 +1,4 @@
 extends Cat
 
 func _init():
-	move_speed = 100
+	move_speed = 200

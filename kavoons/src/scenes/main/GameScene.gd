@@ -1,24 +1,29 @@
 extends Node2D
 
+var _wave = load("res://src/scenes/waves/Wave.tscn").instance()
 
 func _ready():
 	$Builder.connect("tower_placed", self, "_attach_melon")
+	$WavesTimer.start()
+
 
 func _attach_melon(new_tower: Melon):
 	$Towers.add_child(new_tower, true)
 
 
-#	var upgr = $Upgrader
-#
-#	var ninja = load("res://src/scenes/towers/ninja_melon/NinjaT1.tscn").instance()
-#	upgr.add_child(ninja, true)
-#	print(upgr.get_child(0))
-#
-#	ninja.position = Vector2(500, 500)
-#	ninja.base_sprite.scale.x = 5
-#	ninja.base_sprite.scale.y = 5
-#
-#	yield(get_tree().create_timer(0.2), "timeout")
-#	var cat = load("res://src/scenes/enemies/Cat1.tscn").instance()
-#	$Map.get_node("Path2D").add_child(cat)
-	
+func _physics_process(delta):
+	pass
+
+
+func _on_WavesTimer_timeout():
+	self.add_child(_wave, true)
+	$Wave.connect("spawn_enemy", self, "_on_cat_spawn")
+	$Wave.connect("wave_ended", self, "_on_wave_end")
+
+
+func _on_cat_spawn(cat):
+	$Map/Path2D.add_child(cat, true)
+
+
+func _on_wave_end():
+	print("WAVE ENDED")

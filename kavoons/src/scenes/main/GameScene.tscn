@@ -12,3 +12,8 @@ script = ExtResource( 2 )
 [node name="Builder" parent="." instance=ExtResource( 4 )]
 
 [node name="Towers" type="Node" parent="."]
+
+[node name="WavesTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WavesTimer" to="." method="_on_WavesTimer_timeout"]
