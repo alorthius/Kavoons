@@ -15,8 +15,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="TowerPreview" type="Sprite" parent="UI/HUD"]
+[node name="TowerPreview" type="Node2D" parent="UI/HUD"]
 script = ExtResource( 4 )
+
+[node name="Tower" type="Sprite" parent="UI/HUD/TowerPreview"]
+
+[node name="Range" type="Sprite" parent="UI/HUD/TowerPreview"]
 
 [node name="BuildBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5

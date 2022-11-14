@@ -8,7 +8,7 @@ var _towers = {
 
 var _is_active: bool = false
 var _is_valid: bool = false
-onready var _tower_preview: Sprite = $UI/HUD/TowerPreview
+onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
 
 var _build_position: Vector2
 var _chosen_melon: String
