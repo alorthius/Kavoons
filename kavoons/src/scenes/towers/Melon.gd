@@ -39,7 +39,7 @@ func _init():
 	pass
 
 func _ready():
-	$Range/CollisionShape2D.scale = Vector2(_range, _range)
+	$Range/Shape.scale = Vector2(_range, _range)
 	$Upgrader/UI/HUD.rect_position = position + _upgr_bar_offset
 	$Upgrader/UI/FocusRegion.position = position + _upgr_bar_offset
 
