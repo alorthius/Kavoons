@@ -5,7 +5,7 @@ onready var waves_timer: Timer = $WavesTimer
 onready var towers_container: Node = $Towers
 onready var cats_container: Path2D = $Map/Path2D
 
-onready var curr_wave
+var curr_wave
 
 var _signal_err: int = 0
 

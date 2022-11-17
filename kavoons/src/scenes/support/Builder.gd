@@ -22,7 +22,7 @@ func _ready():
 	for butt in get_tree().get_nodes_in_group("build_buttons"):
 		_signal_err = butt.connect("pressed", self, "_make_active", [butt.get_name()])
 		if _signal_err != 0:
-			print("Builder: _ready: connect: pressed: ")
+			print("Builder: _ready: connect(): pressed: ")
 
 
 func _process(delta):
