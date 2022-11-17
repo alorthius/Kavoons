@@ -42,7 +42,6 @@ onready var range_shape: CollisionShape2D = $Range/CollisionShape
 onready var range_sprite: Sprite = $BaseRange
 
 onready var upgrade_ui: Control = $Upgrader/UI/HUD
-onready var upgrade_focus: StaticBody2D = $FocusRegion
 
 func _init():
 	pass
@@ -54,9 +53,8 @@ func _ready():
 	range_sprite.visible = false
 
 	upgrade_ui.rect_position = position + _upgr_bar_offset
-	upgrade_ui.visible = false
-	
-	upgrade_focus.position += _upgr_bar_offset
+#	upgrade_ui.visible = false
+
 
 func _process(delta):
 	pass
@@ -95,13 +93,3 @@ func _on_Range_area_exited(area):
 	var node = area.get_parent()
 	if node.is_in_group("enemies"):
 		_enemies_in_range.erase(node)
-
-
-func _on_FocusRegion_mouse_entered():
-	range_sprite.set_visible(true)
-	upgrade_ui.set_visible(true)
-
-
-func _on_FocusRegion_mouse_exited():
-	range_sprite.set_visible(false)
-	upgrade_ui.set_visible(false)

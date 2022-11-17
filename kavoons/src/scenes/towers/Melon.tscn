@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T4_RR.png" type="Texture" id=2]
@@ -9,9 +9,6 @@
 extents = Vector2( 8, 8 )
 
 [sub_resource type="CircleShape2D" id=2]
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 89.25, 80.8125 )
 
 [node name="Melon" type="Area2D"]
 script = ExtResource( 1 )
@@ -36,14 +33,5 @@ shape = SubResource( 2 )
 
 [node name="Upgrader" parent="." instance=ExtResource( 3 )]
 
-[node name="FocusRegion" type="StaticBody2D" parent="."]
-input_pickable = true
-
-[node name="Region" type="CollisionShape2D" parent="FocusRegion"]
-position = Vector2( 90, 81 )
-shape = SubResource( 3 )
-
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
-[connection signal="mouse_entered" from="FocusRegion" to="." method="_on_FocusRegion_mouse_entered"]
-[connection signal="mouse_exited" from="FocusRegion" to="." method="_on_FocusRegion_mouse_exited"]
