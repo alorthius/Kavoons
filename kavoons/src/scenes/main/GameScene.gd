@@ -5,7 +5,7 @@ onready var waves_timer: Timer = $WavesTimer
 onready var towers_container: Node = $Towers
 onready var cats_container: Path2D = $Map/Path2D
 
-onready var curr_wave
+var curr_wave
 
 var _signal_err: int = 0
 
@@ -23,7 +23,7 @@ func _attach_melon(new_tower: Melon):
 func _on_WavesTimer_timeout():
 	var _wave = load("res://src/scenes/waves/Wave.tscn").instance()
 	curr_wave = _wave
-	self.add_child(_wave, true)
+	add_child(_wave, true)
 	
 	_signal_err = curr_wave.connect("spawn_enemy", self, "_on_cat_spawn")
 	if _signal_err != 0:
@@ -40,3 +40,5 @@ func _on_cat_spawn(cat):
 
 func _on_spawn_end():
 	print("SPAWN ENDED")
+	curr_wave.queue_free()
+	waves_timer.start()
