@@ -13,12 +13,16 @@ onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
 var _build_position: Vector2
 var _chosen_melon: String
 
+var _signal_err: int = 0
+
 signal tower_placed(new_tower)
 
 
 func _ready():
 	for butt in get_tree().get_nodes_in_group("build_buttons"):
-		butt.connect("pressed", self, "_make_active", [butt.get_name()])
+		_signal_err = butt.connect("pressed", self, "_make_active", [butt.get_name()])
+		if _signal_err != 0:
+			print("Builder: _ready: connect: pressed: ")
 
 
 func _process(delta):
