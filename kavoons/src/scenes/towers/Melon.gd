@@ -42,7 +42,7 @@ onready var range_shape: CollisionShape2D = $Range/CollisionShape
 onready var range_sprite: Sprite = $BaseRange
 
 onready var upgrade_ui: Control = $Upgrader/UI/HUD
-onready var upgrade_focus: Area2D = $FocusRegion
+onready var upgrade_focus: StaticBody2D = $FocusRegion
 
 func _init():
 	pass

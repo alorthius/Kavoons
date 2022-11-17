@@ -36,7 +36,8 @@ shape = SubResource( 2 )
 
 [node name="Upgrader" parent="." instance=ExtResource( 3 )]
 
-[node name="FocusRegion" type="Area2D" parent="."]
+[node name="FocusRegion" type="StaticBody2D" parent="."]
+input_pickable = true
 
 [node name="Region" type="CollisionShape2D" parent="FocusRegion"]
 position = Vector2( 90, 81 )
