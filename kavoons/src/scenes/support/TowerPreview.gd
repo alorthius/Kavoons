@@ -3,26 +3,30 @@ extends Node2D
 # because it should be displayed on top of everything
 
 
-var _range_sprite = load("res://assets/towers/range.png")
+var _range_texture = load("res://assets/towers/range.png")
 
 var _tower_alpha_channel: float = 0.5
 var _tower_scale_factor: Vector2 = Vector2(5, 5)
 
 var _range_alpha_channel: float = 0.3
 
+onready var _tower_sprite: Sprite = $Tower
+onready var _range_sprite: Sprite = $Range
+
 
 func set_preview(tower: String, position: Vector2):
-	var tower_sprite = load(Towers.towers_data[tower]["T1"]["sprite"])
+	# TODO: preload all melon sprites in a dictionary
+	var new_tower_sprite = load(Towers.towers_data[tower]["T1"]["sprite"])
 	var tower_range = Towers.towers_data[tower]["T1"]["range_scale"]
 
-	$Tower.set_texture(tower_sprite)
-	$Tower.set_scale(_tower_scale_factor)
-	$Tower.modulate.a = _tower_alpha_channel
+	_tower_sprite.set_texture(new_tower_sprite)
+	_tower_sprite.set_scale(_tower_scale_factor)
+	_tower_sprite.modulate.a = _tower_alpha_channel
 	
-	$Range.set_texture(_range_sprite)
+	_range_sprite.set_texture(_range_texture)
 	# TODO: Magic constants will be removed with better sprite
-	$Range.set_scale(Vector2(tower_range * 0.55, tower_range * 0.55))
-	$Range.modulate.a = _range_alpha_channel
+	_range_sprite.set_scale(Vector2(tower_range * 0.55, tower_range * 0.55))
+	_range_sprite.modulate.a = _range_alpha_channel
 
 	update_preview(position)
 
@@ -32,5 +36,5 @@ func update_preview(position: Vector2):
 
 
 func cancel_preview():
-	$Tower.set_texture(null)
-	$Range.set_texture(null)
+	_tower_sprite.set_texture(null)
+	_range_sprite.set_texture(null)

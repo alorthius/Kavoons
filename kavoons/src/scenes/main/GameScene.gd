@@ -1,12 +1,17 @@
 extends Node2D
 
+onready var builder: Builder = $Builder
+onready var waves_timer: Timer = $WavesTimer
+onready var towers_container: Node = $Towers
+onready var cats_container: Path2D = $Map/Path2D
+
 func _ready():
-	$Builder.connect("tower_placed", self, "_attach_melon")
-	$WavesTimer.start()
+	builder.connect("tower_placed", self, "_attach_melon")
+	waves_timer.start()
 
 
 func _attach_melon(new_tower: Melon):
-	$Towers.add_child(new_tower, true)
+	towers_container.add_child(new_tower, true)
 
 
 func _on_WavesTimer_timeout():
@@ -17,7 +22,7 @@ func _on_WavesTimer_timeout():
 
 
 func _on_cat_spawn(cat):
-	$Map/Path2D.add_child(cat, true)
+	cats_container.add_child(cat, true)
 
 
 func _on_spawn_end():
