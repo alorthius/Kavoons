@@ -23,12 +23,20 @@ func _attach_melon(new_tower: Melon):
 	
 	if new_tower.tier == "T1":
 		var new_upgrader = _upgrader.instance()
-		var ui = new_upgrader.get_node("UI/HUD")
-		ui.rect_position = new_tower.position + _upgr_bar_offset
+		new_upgrader.link_melon(new_tower)
+
+		var buttons_bar = new_upgrader.get_node("UI/HUD")
+		var tower_range = new_upgrader.get_node("UI/TowerRange")
+		
+		tower_range.rect_position = new_tower.position + Vector2(-198, -198)
+		tower_range.rect_size *= new_tower._range_scale * 0.55
+		tower_range.modulate.a = 0.6
+		buttons_bar.rect_position = new_tower.position + _upgr_bar_offset
+		
 		new_upgrader.visible = false
 		new_tower.add_child(new_upgrader, true)
 		
-		for butt in ui.get_node("UpgradeBar").get_children():
+		for butt in buttons_bar.get_node("UpgradeBar").get_children():
 			_signal_err = butt.connect("pressed", new_tower, "_upgrade", [butt.name])
 			if _signal_err != 0: print("GameScene: _attach_melon: connect: pressed: ")
 	
