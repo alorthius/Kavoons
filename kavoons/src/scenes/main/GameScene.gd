@@ -23,11 +23,11 @@ func _attach_melon(new_tower: Melon):
 	
 	if new_tower.tier == "T1":
 		var new_upgrader = _upgrader.instance()
-		new_upgrader.link_melon(new_tower)
 
 		var buttons_bar = new_upgrader.get_node("UI/HUD")
 		var tower_range = new_upgrader.get_node("UI/TowerRange")
 		
+		# TODOL remove this shiit
 		tower_range.rect_position = new_tower.position + Vector2(-198, -198)
 		tower_range.rect_size *= new_tower._range_scale * 0.55
 		tower_range.modulate.a = 0.6
