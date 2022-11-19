@@ -2,8 +2,8 @@
 
 [ext_resource path="res://src/scenes/UI/Upgrader.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=2]
-[ext_resource path="res://assets/towers/ninja_melon/T2_L.png" type="Texture" id=3]
-[ext_resource path="res://assets/towers/ninja_melon/T2_R.png" type="Texture" id=4]
+[ext_resource path="res://assets/towers/ninja_melon/T2-A.png" type="Texture" id=3]
+[ext_resource path="res://assets/towers/ninja_melon/T2-B.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=5]
 
 [node name="Upgrader" type="Control"]

@@ -4,6 +4,9 @@ class_name Melon
 
 var _enemies_in_range: Array = []
 
+var base_tower: String
+var tier: String
+
 var buy_cost: int
 var sell_cost: int
 
@@ -49,10 +52,7 @@ func _init():
 	pass
 
 func _ready():
-	range_shape.scale = Vector2(_range_scale, _range_scale)
-	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
-	range_sprite.modulate.a = _range_alpha
-	range_sprite.visible = false
+	pass
 
 func _process(delta):
 	pass
@@ -77,9 +77,16 @@ func perform_active_ability():
 func sell():
 	pass
 
-func level_up():
-	pass
-
+func _parse_tower_data():
+	var data: Dictionary = Towers.towers_data[base_tower][tier]
+	melon_sprite.texture = load(data["sprite"])
+	_range_scale = data["range_scale"]
+	
+	range_shape.scale = Vector2(_range_scale, _range_scale)
+	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
+	range_sprite.modulate.a = _range_alpha
+	range_sprite.visible = false
+	
 
 func _upgrade(upgrade: String):
 	if upgrade == "Left":
