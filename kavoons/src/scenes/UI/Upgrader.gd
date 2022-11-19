@@ -5,7 +5,17 @@ class_name Upgrader
 signal upgrade_to(next)
 
 onready var upgrade_ui: Control = $UI/HUD/UpgradeBar
-onready var tower_range: TextureRect = $UI/TowerRange
+onready var tower_range: TextureRect = $UI/HUD/TowerRange
+
+var curr_melon: Melon
+
+
+func link_melon(melon: Melon):
+	curr_melon = melon
+
+
+func fill_icons():
+	pass
 
 
 func _ready():
