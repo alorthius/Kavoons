@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Builder",
 "language": "GDScript",
-"path": "res://src/scenes/support/Builder.gd"
+"path": "res://src/scenes/UI/Builder.gd"
 }, {
 "base": "PathFollow2D",
 "class": "Cat",
