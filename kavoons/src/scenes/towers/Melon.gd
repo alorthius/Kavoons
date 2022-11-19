@@ -4,6 +4,9 @@ class_name Melon
 
 var _enemies_in_range: Array = []
 
+var base_tower: String
+var tier: String
+
 var buy_cost: int
 var sell_cost: int
 
@@ -29,32 +32,27 @@ var last_hit_counter: int = 0
 var _range_scale: float = 1
 var _range_alpha: float = 0.6
 
+onready var next_A: PackedScene
+onready var next_B: PackedScene
+
 #onready var base_sprite := $BaseSprite
 
 #var passive_abilities: Array = []
 #var active_abilities: Array = []
-
-var _upgr_bar_offset = Vector2(-85, -130)
 
 onready var melon_sprite: Sprite = $BaseSprite
 
 onready var range_shape: CollisionShape2D = $Range/CollisionShape
 onready var range_sprite: Sprite = $BaseRange
 
-onready var upgrade_ui: Control = $Upgrader/UI/HUD
+signal replace_tower(old_tower, new_tower)
+
 
 func _init():
 	pass
 
 func _ready():
-	range_shape.scale = Vector2(_range_scale, _range_scale)
-	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
-	range_sprite.modulate.a = _range_alpha
-	range_sprite.visible = false
-
-	upgrade_ui.rect_position = position + _upgr_bar_offset
-#	upgrade_ui.visible = false
-
+	pass
 
 func _process(delta):
 	pass
@@ -79,8 +77,22 @@ func perform_active_ability():
 func sell():
 	pass
 
-func level_up():
-	pass
+func _parse_tower_data():
+	var data: Dictionary = Towers.towers_data[base_tower][tier]
+	melon_sprite.texture = load(data["sprite"])
+	_range_scale = data["range_scale"]
+	
+	range_shape.scale = Vector2(_range_scale, _range_scale)
+	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
+	range_sprite.modulate.a = _range_alpha
+	range_sprite.visible = false
+	
+
+func _upgrade(upgrade: String):
+	if upgrade == "Left":
+		emit_signal("replace_tower", self, next_A.instance())
+	elif upgrade == "Right":
+		emit_signal("replace_tower", self, next_B.instance())
 
 
 func _on_Range_area_entered(area):

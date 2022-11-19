@@ -1,10 +1,13 @@
 extends Melon
 
-onready var next_A: PackedScene = preload("res://src/scenes/towers/ninja_melon/NinjaT2-A.tscn")
-onready var next_B: PackedScene = preload("res://src/scenes/towers/ninja_melon/NinjaT2-B.tscn")
 
 func _init():
-	_range_scale = Towers.towers_data["NinjaMelon"]["T1"]["range_scale"]
+	base_tower = "NinjaMelon"
+	tier = "T1"
+
+	next_A = preload("res://src/scenes/towers/ninja_melon/NinjaT2-A.tscn")
+	next_B = preload("res://src/scenes/towers/ninja_melon/NinjaT2-B.tscn")
+
 
 func _ready():
-	pass
+	_parse_tower_data()

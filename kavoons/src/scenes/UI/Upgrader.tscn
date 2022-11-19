@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/scenes/support/Upgrader.gd" type="Script" id=1]
-[ext_resource path="res://assets/towers/ninja_melon/T2_L.png" type="Texture" id=3]
-[ext_resource path="res://assets/towers/ninja_melon/T2_R.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=5]
-[ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=6]
+[ext_resource path="res://src/scenes/UI/Upgrader.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=2]
+[ext_resource path="res://assets/towers/ninja_melon/T2-A.png" type="Texture" id=3]
+[ext_resource path="res://assets/towers/ninja_melon/T2-B.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=5]
 
 [node name="Upgrader" type="Control"]
 script = ExtResource( 1 )
@@ -22,14 +22,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 10
 
-[node name="Left" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["update_buttons"]]
+[node name="Left" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 2 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/Left"]
@@ -40,7 +40,7 @@ margin_bottom = 35.0
 texture = ExtResource( 3 )
 expand = true
 
-[node name="Right" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["update_buttons"]]
+[node name="Right" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 50.0
 margin_right = 90.0
 margin_bottom = 40.0
@@ -48,7 +48,7 @@ rect_min_size = Vector2( 40, 40 )
 mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/Right"]

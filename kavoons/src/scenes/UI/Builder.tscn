@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/scenes/support/Builder.gd" type="Script" id=1]
-[ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=2]
+[ext_resource path="res://src/scenes/UI/TowerPreview.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/UI/Builder.gd" type="Script" id=2]
 [ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=3]
-[ext_resource path="res://src/scenes/support/TowerPreview.gd" type="Script" id=4]
+[ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=4]
 
 [node name="Builder" type="Control"]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -16,7 +16,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="TowerPreview" type="Node2D" parent="UI/HUD"]
-script = ExtResource( 4 )
+script = ExtResource( 1 )
 
 [node name="Tower" type="Sprite" parent="UI/HUD/TowerPreview"]
 
@@ -40,7 +40,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/NinjaMelon"]
@@ -62,7 +62,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/empty1"]
@@ -83,7 +83,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/empty2"]
@@ -104,7 +104,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/empty3"]
@@ -125,7 +125,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/empty4"]
@@ -146,7 +146,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/empty5"]
@@ -167,7 +167,7 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 6
 size_flags_vertical = 6
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/empty6"]
