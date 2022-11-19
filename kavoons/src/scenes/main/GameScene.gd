@@ -25,6 +25,19 @@ func _attach_melon(new_tower: Melon):
 	new_upgrader.visible = false
 	new_tower.add_child(new_upgrader, true)
 	towers_container.add_child(new_tower, true)
+	
+	for butt in get_tree().get_nodes_in_group("update_buttons"):
+		_signal_err = butt.connect("pressed", new_tower, "_upgrade", [butt.name])
+		if _signal_err != 0:
+			print("Upgrader: _ready: connect(): pressed: ")
+	
+	new_tower.connect("replace_tower", self, "_replace_tower")
+	
+
+func _replace_tower(old_tower: Melon, new_tower: Melon):
+	new_tower.position = old_tower.position
+	_attach_melon(new_tower)
+	old_tower.queue_free()
 
 
 func _on_WavesTimer_timeout():

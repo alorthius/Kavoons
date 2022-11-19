@@ -29,6 +29,9 @@ var last_hit_counter: int = 0
 var _range_scale: float = 1
 var _range_alpha: float = 0.6
 
+onready var next_A: PackedScene
+onready var next_B: PackedScene
+
 #onready var base_sprite := $BaseSprite
 
 #var passive_abilities: Array = []
@@ -38,6 +41,8 @@ onready var melon_sprite: Sprite = $BaseSprite
 
 onready var range_shape: CollisionShape2D = $Range/CollisionShape
 onready var range_sprite: Sprite = $BaseRange
+
+signal replace_tower(old_tower, new_tower)
 
 
 func _init():
@@ -74,6 +79,13 @@ func sell():
 
 func level_up():
 	pass
+
+
+func _upgrade(upgrade: String):
+	if upgrade == "Left":
+		emit_signal("replace_tower", self, next_A.instance())
+	elif upgrade == "Right":
+		emit_signal("replace_tower", self, next_B.instance())
 
 
 func _on_Range_area_entered(area):
