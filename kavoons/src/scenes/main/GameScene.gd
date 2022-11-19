@@ -14,8 +14,7 @@ var _signal_err: int = 0
 
 func _ready():
 	_signal_err = builder.connect("tower_placed", self, "_attach_melon")
-	if _signal_err != 0:
-		print("GameScene: _reade: connect(): ", _signal_err)
+	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
 	waves_timer.start()
 
 
@@ -30,16 +29,14 @@ func _attach_melon(new_tower: Melon):
 		new_tower.add_child(new_upgrader, true)
 		
 		for butt in ui.get_node("UpgradeBar").get_children():
-#		for butt in get_tree().get_nodes_in_group("update_buttons"):
 			_signal_err = butt.connect("pressed", new_tower, "_upgrade", [butt.name])
-			if _signal_err != 0:
-				print("Upgrader: _ready: connect(): pressed: ")
+			if _signal_err != 0: print("GameScene: _attach_melon: connect: pressed: ")
 	
-		new_tower.connect("replace_tower", self, "_replace_tower")
+		_signal_err = new_tower.connect("replace_tower", self, "_replace_tower")
+		if _signal_err != 0: print("GameScene: _attach_melon: connect: replace_tower: ")
 	
 
 func _replace_tower(old_tower: Melon, new_tower: Melon):
-	print(old_tower, " -> ", new_tower)
 	new_tower.position = old_tower.position
 	_attach_melon(new_tower)
 	old_tower.queue_free()
@@ -51,12 +48,10 @@ func _on_WavesTimer_timeout():
 	add_child(_wave, true)
 	
 	_signal_err = curr_wave.connect("spawn_enemy", self, "_on_cat_spawn")
-	if _signal_err != 0:
-		print("GameScene: _on_WavesTimer_timeout: connect(): spawn_enemy: ", _signal_err)
+	if _signal_err != 0: print("GameScene: _on_WavesTimer_timeout: connect: spawn_enemy: ", _signal_err)
 	
 	_signal_err = curr_wave.connect("spawning_ended", self, "_on_spawn_end")
-	if _signal_err != 0:
-		print("GameScene: _on_WavesTimer_timeout: connect(): spawning_ended: ", _signal_err)
+	if _signal_err != 0: print("GameScene: _on_WavesTimer_timeout: connect: spawning_ended: ", _signal_err)
 
 
 func _on_cat_spawn(cat):

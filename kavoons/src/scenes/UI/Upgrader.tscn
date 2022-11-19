@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 10
 
-[node name="Left" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["update_buttons"]]
+[node name="Left" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
@@ -40,7 +40,7 @@ margin_bottom = 35.0
 texture = ExtResource( 3 )
 expand = true
 
-[node name="Right" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["update_buttons"]]
+[node name="Right" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 50.0
 margin_right = 90.0
 margin_bottom = 40.0
