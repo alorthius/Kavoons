@@ -24,7 +24,7 @@ var towers_data: Dictionary = {
 			"range_scale": 20  # TODO: use metrics and then calculate the scale factor in code
 		},
 		"T2-A": {
-			"sprite": "res://assets/towers/ninja_melon/T2-A.png",
+			"sprite": "res://assets/towers/ninja_melon/T3_LR.png",
 			"buy_cost": 100,
 			
 			"base_attack_radius": 100,
@@ -44,7 +44,7 @@ var towers_data: Dictionary = {
 			"range_scale": 25  # TODO: use metrics and then calculate the scale factor in code
 		},
 		"T2-B": {
-			"sprite": "res://assets/towers/ninja_melon/T2-B.png",
+			"sprite": "res://assets/towers/ninja_melon/T4_LL.png",
 			"buy_cost": 100,
 			
 			"base_attack_radius": 100,

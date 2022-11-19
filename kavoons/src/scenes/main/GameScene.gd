@@ -20,21 +20,24 @@ func _ready():
 
 
 func _attach_melon(new_tower: Melon):
-	var new_upgrader = _upgrader.instance()
-	new_upgrader.get_node("UI/HUD").rect_position = new_tower.position + _upgr_bar_offset
-	new_upgrader.visible = false
-	new_tower.add_child(new_upgrader, true)
 	towers_container.add_child(new_tower, true)
+
+	if new_tower.tier == "T1":
+		var new_upgrader = _upgrader.instance()
+		new_upgrader.get_node("UI/HUD").rect_position = new_tower.position + _upgr_bar_offset
+		new_upgrader.visible = false
+		new_tower.add_child(new_upgrader, true)
 	
-	for butt in get_tree().get_nodes_in_group("update_buttons"):
-		_signal_err = butt.connect("pressed", new_tower, "_upgrade", [butt.name])
-		if _signal_err != 0:
-			print("Upgrader: _ready: connect(): pressed: ")
+		for butt in get_tree().get_nodes_in_group("update_buttons"):
+			_signal_err = butt.connect("pressed", new_tower, "_upgrade", [butt.name])
+			if _signal_err != 0:
+				print("Upgrader: _ready: connect(): pressed: ")
 	
-	new_tower.connect("replace_tower", self, "_replace_tower")
+		new_tower.connect("replace_tower", self, "_replace_tower")
 	
 
 func _replace_tower(old_tower: Melon, new_tower: Melon):
+	print(old_tower, " -> ", new_tower)
 	new_tower.position = old_tower.position
 	_attach_melon(new_tower)
 	old_tower.queue_free()
