@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/scenes/support/Upgrader.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/UI/Upgrader.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=2]
 [ext_resource path="res://assets/towers/ninja_melon/T2_L.png" type="Texture" id=3]
 [ext_resource path="res://assets/towers/ninja_melon/T2_R.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=5]
-[ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=5]
 
 [node name="Upgrader" type="Control"]
 script = ExtResource( 1 )
@@ -29,7 +29,7 @@ rect_min_size = Vector2( 40, 40 )
 mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 2 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/Left"]
@@ -48,7 +48,7 @@ rect_min_size = Vector2( 40, 40 )
 mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/Right"]

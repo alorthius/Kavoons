@@ -34,14 +34,11 @@ var _range_alpha: float = 0.6
 #var passive_abilities: Array = []
 #var active_abilities: Array = []
 
-var _upgr_bar_offset = Vector2(-85, -130)
-
 onready var melon_sprite: Sprite = $BaseSprite
 
 onready var range_shape: CollisionShape2D = $Range/CollisionShape
 onready var range_sprite: Sprite = $BaseRange
 
-onready var upgrade_ui: Control = $Upgrader/UI/HUD
 
 func _init():
 	pass
@@ -51,10 +48,6 @@ func _ready():
 	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
 	range_sprite.modulate.a = _range_alpha
 	range_sprite.visible = false
-
-	upgrade_ui.rect_position = position + _upgr_bar_offset
-#	upgrade_ui.visible = false
-
 
 func _process(delta):
 	pass

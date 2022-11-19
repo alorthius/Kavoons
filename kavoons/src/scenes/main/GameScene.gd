@@ -1,5 +1,8 @@
 extends Node2D
 
+var _upgrader = preload("res://src/scenes/UI/Upgrader.tscn")
+var _upgr_bar_offset = Vector2(-85, -130)
+
 onready var builder: Builder = $Builder
 onready var waves_timer: Timer = $WavesTimer
 onready var towers_container: Node = $Towers
@@ -17,6 +20,10 @@ func _ready():
 
 
 func _attach_melon(new_tower: Melon):
+	var new_upgrader = _upgrader.instance()
+	new_upgrader.get_node("UI/HUD").rect_position = new_tower.position + _upgr_bar_offset
+	new_upgrader.visible = false
+	new_tower.add_child(new_upgrader, true)
 	towers_container.add_child(new_tower, true)
 
 
