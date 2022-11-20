@@ -85,7 +85,6 @@ func _parse_tower_data():
 	range_shape.scale = Vector2(_range_scale, _range_scale)
 	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
 	range_sprite.modulate.a = _range_alpha
-	range_sprite.visible = false
 	
 
 func _upgrade(upgrade: String):

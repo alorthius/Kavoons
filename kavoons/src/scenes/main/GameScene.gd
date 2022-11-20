@@ -27,10 +27,12 @@ func _attach_melon(new_tower: Melon):
 	buttons_bar.rect_position = new_tower.position + _upgr_bar_offset
 	new_tower.add_child(new_upgrader, true)
 	
+	new_upgrader.fill_icons(Towers.towers_data[new_tower.base_tower][new_tower.tier]["next"])
+	
 	_signal_err = new_upgrader.connect("set_range_visibility", new_tower, "_display_range")
 	if _signal_err != 0: print("GameScene: _attach_melon: connect: set_range_visibility: ")
 		
-	if new_tower.tier == "T1":
+	if not new_upgrader.is_last_upgr:
 		for butt in buttons_bar.get_node("UpgradeBar").get_children():
 			_signal_err = butt.connect("pressed", new_tower, "_upgrade", [butt.name])
 			if _signal_err != 0: print("GameScene: _attach_melon: connect: pressed: ")
