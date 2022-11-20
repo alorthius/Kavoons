@@ -105,3 +105,7 @@ func _on_Range_area_exited(area):
 	var node = area.get_parent()
 	if node.is_in_group("enemies"):
 		_enemies_in_range.erase(node)
+
+
+func _display_range(to_show):
+	range_sprite.visible = to_show

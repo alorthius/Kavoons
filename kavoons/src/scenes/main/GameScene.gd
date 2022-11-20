@@ -24,16 +24,11 @@ func _attach_melon(new_tower: Melon):
 	var new_upgrader = _upgrader.instance()
 
 	var buttons_bar = new_upgrader.get_node("UI/HUD")
-	var tower_range = new_upgrader.get_node("UI/HUD/TowerRange")
-		
-	# TODOL remove this shiit
-	tower_range.rect_size *= new_tower._range_scale * 0.55
-#	tower_range.rect_position = new_tower.position + Vector2(-198, -198)
-	tower_range.modulate.a = 0.6
 	buttons_bar.rect_position = new_tower.position + _upgr_bar_offset
-		
-	new_upgrader.visible = false
 	new_tower.add_child(new_upgrader, true)
+	
+	_signal_err = new_upgrader.connect("set_range_visibility", new_tower, "_display_range")
+	if _signal_err != 0: print("GameScene: _attach_melon: connect: set_range_visibility: ")
 		
 	if new_tower.tier == "T1":
 		for butt in buttons_bar.get_node("UpgradeBar").get_children():
