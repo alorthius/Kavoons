@@ -85,7 +85,6 @@ func _parse_tower_data():
 	range_shape.scale = Vector2(_range_scale, _range_scale)
 	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
 	range_sprite.modulate.a = _range_alpha
-	range_sprite.visible = false
 	
 
 func _upgrade(upgrade: String):
@@ -105,3 +104,7 @@ func _on_Range_area_exited(area):
 	var node = area.get_parent()
 	if node.is_in_group("enemies"):
 		_enemies_in_range.erase(node)
+
+
+func _display_range(to_show):
+	range_sprite.visible = to_show

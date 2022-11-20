@@ -21,7 +21,9 @@ var towers_data: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistence_reduction_percentage": 0,
 			
-			"range_scale": 20  # TODO: use metrics and then calculate the scale factor in code
+			"range_scale": 20,  # TODO: use metrics and then calculate the scale factor in code
+			
+			"next": [ "res://assets/towers/ninja_melon/T3_LR.png", "res://assets/towers/ninja_melon/T3_RR.png" ],
 		},
 
 		"T2-A": {
@@ -42,7 +44,9 @@ var towers_data: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistence_reduction_percentage": 0,
 			
-			"range_scale": 25  # TODO: use metrics and then calculate the scale factor in code
+			"range_scale": 25,  # TODO: use metrics and then calculate the scale factor in code
+			
+			"next": [],
 		},
 
 		"T2-B": {
@@ -63,7 +67,9 @@ var towers_data: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistence_reduction_percentage": 0,
 			
-			"range_scale": 15  # TODO: use metrics and then calculate the scale factor in code
+			"range_scale": 15,  # TODO: use metrics and then calculate the scale factor in code
+			
+			"next": [],
 		}
 	}
 }
