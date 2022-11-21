@@ -19,6 +19,8 @@ var dodge_rate: float
 func _ready():
 	hp_bar.max_value = hp
 	hp_bar.value = hp_bar.max_value
+	hp_bar.set_as_toplevel(true)
+
 	v_offset = rand_range(-30, 10)
 
 
@@ -27,6 +29,8 @@ func _physics_process(delta):
 	
 	if get_unit_offset() >= 1:  # reached the path end
 		_reached_end()
+	
+	hp_bar.set_position(position - Vector2(25, 40))
 
 
 func _reached_end():

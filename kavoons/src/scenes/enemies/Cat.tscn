@@ -20,10 +20,8 @@ scale = Vector2( 4, 4 )
 shape = SubResource( 1 )
 
 [node name="HP" type="TextureProgress" parent="."]
-margin_left = -25.0
-margin_top = -30.0
-margin_right = 25.0
-margin_bottom = -25.0
+margin_right = 50.0
+margin_bottom = 5.0
 rect_min_size = Vector2( 50, 5 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
