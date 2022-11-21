@@ -5,6 +5,8 @@ class_name Cat
 var hp: int
 var lifes_cost: int
 
+onready var hp_bar = $HP
+
 var move_speed: int
 
 var physical_armor_flat: int
@@ -15,6 +17,8 @@ var dodge_rate: float
 
 
 func _ready():
+	hp_bar.max_value = hp
+	hp_bar.value = hp_bar.max_value
 	v_offset = rand_range(-30, 10)
 
 
@@ -31,6 +35,7 @@ func _reached_end():
 
 func on_hit(dmg: int):
 	hp = max(0, hp - dmg)
+	hp_bar.value = hp
 	if hp == 0:
 		print("Cat is DED")
 		_reached_end()
