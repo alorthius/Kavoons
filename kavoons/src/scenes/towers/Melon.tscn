@@ -30,5 +30,8 @@ shape = SubResource( 1 )
 [node name="CollisionShape" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 2 )
 
+[node name="BaseAttackTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
+[connection signal="timeout" from="BaseAttackTimer" to="." method="_on_BaseAttackTimer_timeout"]

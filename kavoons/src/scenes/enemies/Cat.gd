@@ -21,9 +21,16 @@ func _ready():
 func _physics_process(delta):
 	set_offset(get_offset() + move_speed * delta)
 	
-	if get_unit_offset() >= 1:  # reached the end
-		reached_end()
+	if get_unit_offset() >= 1:  # reached the path end
+		_reached_end()
 
 
-func reached_end():
+func _reached_end():
 	queue_free()
+
+
+func on_hit(dmg: int):
+	hp = max(0, hp - dmg)
+	if hp == 0:
+		print("Cat is DED")
+		_reached_end()
