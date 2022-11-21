@@ -9,7 +9,7 @@ var towers_data: Dictionary = {
 			
 			"base_attack_radius": 100,
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
-			"base_attack_damage": 50,
+			"base_attack_damage": 20,
 			
 			"attack_speed": 1,
 			"projectile_speed": 1,
@@ -32,7 +32,7 @@ var towers_data: Dictionary = {
 			
 			"base_attack_radius": 100,
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
-			"base_attack_damage": 50,
+			"base_attack_damage": 20,
 			
 			"attack_speed": 1,
 			"projectile_speed": 1,
@@ -57,7 +57,7 @@ var towers_data: Dictionary = {
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
 			"base_attack_damage": 50,
 			
-			"attack_speed": 1,
+			"attack_speed": 0.7,
 			"projectile_speed": 1,
 			"miss_rate": 0,
 			

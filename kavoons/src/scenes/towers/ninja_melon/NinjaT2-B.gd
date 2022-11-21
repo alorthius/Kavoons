@@ -7,7 +7,3 @@ func _init():
 	
 	next_A = null
 	next_B = null
-
-
-func _ready():
-	_parse_tower_data()

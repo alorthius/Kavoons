@@ -45,6 +45,11 @@ onready var melon_sprite: Sprite = $BaseSprite
 onready var range_shape: CollisionShape2D = $Range/CollisionShape
 onready var range_sprite: Sprite = $BaseRange
 
+onready var base_attack_timer: Timer = $BaseAttackTimer
+var _ready_to_attack: bool = false
+
+var curr_enemy: Cat
+
 signal replace_tower(old_tower, new_tower)
 
 
@@ -52,24 +57,34 @@ func _init():
 	pass
 
 func _ready():
-	pass
+	_parse_tower_data()
+	base_attack_timer.start()
 
 func _process(delta):
 	pass
 
 func _physics_process(delta):
-	rotate_to()
+	_select_enemy()
+	_rotate_to()
+	_perform_base_attack()
 
-func set_sprite():
-	pass
+func _select_enemy():
+	# TODO: add different targetings
+	if not _enemies_in_range.empty():
+		curr_enemy = _enemies_in_range[0]
+	else:
+		curr_enemy = null
 
-func rotate_to():
-	if _enemies_in_range.size() > 0:
-		var enemy_position = _enemies_in_range[0].get_global_transform().origin
-		melon_sprite.look_at(enemy_position)
+func _rotate_to():
+	if curr_enemy != null:
+		melon_sprite.look_at(curr_enemy.get_global_transform().origin)
 
-func perform_base_attack():
-	pass
+func _perform_base_attack():
+	if curr_enemy != null and _ready_to_attack:
+		print("Shoot!")
+		curr_enemy.on_hit(base_attack_damage)
+		_ready_to_attack = false
+		base_attack_timer.start()
 
 func perform_active_ability():
 	pass
@@ -85,6 +100,9 @@ func _parse_tower_data():
 	range_shape.scale = Vector2(_range_scale, _range_scale)
 	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
 	range_sprite.modulate.a = _range_alpha
+	
+	base_attack_timer.wait_time = 1.0 / data["attack_speed"]
+	base_attack_damage = data["base_attack_damage"]
 	
 
 func _upgrade(upgrade: String):
@@ -108,3 +126,7 @@ func _on_Range_area_exited(area):
 
 func _display_range(to_show):
 	range_sprite.visible = to_show
+
+
+func _on_BaseAttackTimer_timeout():
+	_ready_to_attack = true

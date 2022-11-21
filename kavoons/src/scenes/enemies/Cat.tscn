@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/scenes/enemies/Cat.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5, 5 )
@@ -17,3 +18,13 @@ scale = Vector2( 4, 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2( 4, 4 )
 shape = SubResource( 1 )
+
+[node name="HP" type="TextureProgress" parent="."]
+margin_right = 50.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 50, 5 )
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 2 )
+tint_under = Color( 0.0705882, 0.0627451, 0.172549, 1 )
+tint_progress = Color( 0.823529, 0.364706, 0.494118, 1 )
+nine_patch_stretch = true
