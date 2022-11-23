@@ -38,8 +38,8 @@ func _reached_end():
 
 
 func on_hit(dmg: int):
-	hp = max(0, hp - dmg)
-	hp_bar.value = hp
-	if hp == 0:
+	hp = hp - dmg
+	if hp <= 0:
 		print("Cat is DED")
 		_reached_end()
+	hp_bar.value = hp

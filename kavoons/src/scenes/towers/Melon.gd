@@ -58,10 +58,10 @@ func _ready():
 	_parse_tower_data()
 	base_attack_timer.start()
 
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	_select_enemy()
 	_rotate_to()
 	_perform_base_attack()
