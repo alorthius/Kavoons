@@ -20,7 +20,7 @@ signal tower_placed(new_tower)
 
 func _ready():
 	for butt in get_tree().get_nodes_in_group("build_buttons"):
-		_signal_err = butt.connect("pressed", self, "_make_active", [butt.get_name()])
+		_signal_err = butt.connect("pressed", self, "_activate_building", [butt.get_name()])
 		if _signal_err != 0: print("Builder: _ready: connect: pressed: ")
 
 
@@ -38,7 +38,7 @@ func _unhandled_input(event):
 			_cancel_building()
 
 
-func _make_active(melon: String):
+func _activate_building(melon: String):
 	_is_active = true
 	_chosen_melon = melon
 	_tower_preview.set_preview(_chosen_melon, get_global_mouse_position())
@@ -48,7 +48,7 @@ func _update_tower_preview():
 	_tower_preview.update_preview(get_global_mouse_position())
 
 
-func validate():
+func _validate():
 	pass
 
 

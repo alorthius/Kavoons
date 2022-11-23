@@ -50,8 +50,6 @@ var _ready_to_attack: bool = false
 
 var curr_enemy: Cat
 
-signal replace_tower(old_tower, new_tower)
-
 
 func _init():
 	pass
@@ -103,13 +101,6 @@ func _parse_tower_data():
 	
 	base_attack_timer.wait_time = 1.0 / data["attack_speed"]
 	base_attack_damage = data["base_attack_damage"]
-	
-
-func _upgrade(upgrade: String):
-	if upgrade == "Left":
-		emit_signal("replace_tower", self, next_A.instance())
-	elif upgrade == "Right":
-		emit_signal("replace_tower", self, next_B.instance())
 
 
 func _on_Range_area_entered(area):
@@ -124,7 +115,7 @@ func _on_Range_area_exited(area):
 		_enemies_in_range.erase(node)
 
 
-func _display_range(to_show):
+func display_range(to_show):
 	range_sprite.visible = to_show
 
 
