@@ -9,7 +9,6 @@ var _enemies_left: int = len(_enemies_to_spawn)
 onready var _timer: Timer = $CatsTimer
 
 signal spawn_enemy(cat)
-
 signal spawning_ended()
 
 

@@ -1,5 +1,5 @@
 extends Cat
 
 func _init():
-	hp = 100
-	move_speed = 200
+	_hp = 100
+	_move_speed = 200
