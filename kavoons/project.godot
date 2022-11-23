@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/scenes/enemies/Cat.gd"
 }, {
-"base": "Area2D",
+"base": "StaticBody2D",
 "class": "Melon",
 "language": "GDScript",
 "path": "res://src/scenes/towers/Melon.gd"
