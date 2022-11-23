@@ -14,8 +14,11 @@ rect_min_size = Vector2( 90, 80 )
 rect_scale = Vector2( 2, 2 )
 
 [node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -45.0
+margin_right = 45.0
+margin_bottom = 80.0
 custom_constants/separation = 10
 
 [connection signal="mouse_entered" from="UI/HUD" to="." method="_on_HUD_mouse_entered"]

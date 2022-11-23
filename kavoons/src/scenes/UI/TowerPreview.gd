@@ -1,10 +1,13 @@
 extends Node2D
-# the node is the child of CanvasLayer,
-# because it should be displayed on top of everything
+
+## Render the preview of the tower chosen to be build via [Builder]
+##
+## Display the tower sprite and its range with a certain level of transparency.
 
 var _tower_alpha_channel: float = 0.5
 var _tower_scale_factor: float = 5
 
+## The texture to display the tower range is reused for every tower
 var _range_texture = load("res://assets/towers/range.png")
 var _range_alpha_channel: float = 0.3
 
@@ -13,6 +16,7 @@ onready var _range_sprite: Sprite = $Range
 
 # TODO: preload all melon sprites and range values in a dictionary
 
+## Load the texture of a new tower, adjust its range value, and display them
 func set_preview(tower: String, new_position: Vector2):
 	var tower_texture = load(Towers.towers_data[tower]["T1"]["sprite"])
 	var tower_range = Towers.towers_data[tower]["T1"]["range_scale"]
@@ -22,16 +26,16 @@ func set_preview(tower: String, new_position: Vector2):
 
 	update_preview(new_position)
 
-
+## Change the position of the tower and range sprites to a new position
 func update_preview(new_position: Vector2):
 	self.set_position(new_position)
 
-
+## Remove the texture of a tower sprite and its range
 func cancel_preview():
 	_tower_sprite.set_texture(null)
 	_range_sprite.set_texture(null)
 
-
+## Set sprite_node's texture, scale and alpha channel to render
 func _set_properties(sprite_node: Sprite, new_texture, new_scale, new_alpha):
 	sprite_node.set_texture(new_texture)
 	sprite_node.set_scale(Vector2(new_scale, new_scale))

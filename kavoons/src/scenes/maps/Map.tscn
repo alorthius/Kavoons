@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/environment/tilesets/TX Tileset Grass.png" type="Texture" id=2]
-[ext_resource path="res://src/scenes/maps/Map.gd" type="Script" id=3]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass"
@@ -456,7 +455,6 @@ _data = {
 }
 
 [node name="Map" type="Node2D"]
-script = ExtResource( 3 )
 
 [node name="Grass" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
