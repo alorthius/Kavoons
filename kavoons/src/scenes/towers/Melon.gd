@@ -48,7 +48,7 @@ onready var range_sprite: Sprite = $BaseRange
 onready var base_attack_timer: Timer = $BaseAttackTimer
 var _ready_to_attack: bool = false
 
-var curr_enemy: Cat
+var _curr_enemy: Cat
 
 
 func _init():
@@ -69,26 +69,23 @@ func _physics_process(_delta):
 func _select_enemy():
 	# TODO: add different targetings
 	if not _enemies_in_range.empty():
-		curr_enemy = _enemies_in_range[0]
+		_curr_enemy = _enemies_in_range[0]
 	else:
-		curr_enemy = null
+		_curr_enemy = null
 
 func _rotate_to():
-	if curr_enemy != null:
-		melon_sprite.look_at(curr_enemy.get_global_transform().origin)
+	if _curr_enemy != null:
+		melon_sprite.look_at(_curr_enemy.get_global_transform().origin)
 
 func _perform_base_attack():
-	if curr_enemy != null and _ready_to_attack:
-		print("Shoot!")
-		curr_enemy.on_hit(base_attack_damage)
+	if _curr_enemy != null and _ready_to_attack:
+		_curr_enemy.on_hit(base_attack_damage)
 		_ready_to_attack = false
 		base_attack_timer.start()
 
-func perform_active_ability():
+func _perform_active_ability():
 	pass
 
-func sell():
-	pass
 
 func _parse_tower_data():
 	var data: Dictionary = Towers.towers_data[base_tower][tier]
