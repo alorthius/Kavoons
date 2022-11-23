@@ -27,6 +27,11 @@ var _curr_melon: Melon
 
 var _signal_err: int = 0
 
+
+func _ready():
+	_hud.set_visible(false)
+	_buttons_bar.set_visible(false)
+
 ## Wrap this node above the given melon instance. The melon is added as a child.
 ## Create all the UI buttons for this current melon
 func attach_melon(melon: Melon):
@@ -41,6 +46,12 @@ func attach_melon(melon: Melon):
 
 	_add_buttons(butt_icons)
 	_hud.rect_position = _curr_melon.position + _upgr_bar_offset
+	
+	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
+	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
+
+#	_signal_err = _curr_melon.connect("mouse_exited", self, "_on_melon_mouse_exited")
+#	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_exited: ", _signal_err)
 
 ## Create buttons for each possible melon update from the array of future melon sprites.
 ## Connect the press signal to every button as an upgrade action.
@@ -58,7 +69,7 @@ func _add_buttons(icons: Array):
 ## Create and return a TextureButton instance
 func _create_button(normal_texture: Texture, butt_name: String) -> TextureButton:
 	var new_butt = TextureButton.new()
-	new_butt.mouse_filter = MOUSE_FILTER_PASS
+	new_butt.mouse_filter = MOUSE_FILTER_IGNORE
 	new_butt.expand = true
 	new_butt.rect_min_size = Vector2(40, 40)
 	new_butt.size_flags_horizontal = false
@@ -70,6 +81,7 @@ func _create_button(normal_texture: Texture, butt_name: String) -> TextureButton
 ## Create and return a TextureRect icon instance made for a button
 func _create_button_icon(icon_texture: Texture) -> TextureRect:
 	var tower_icon = TextureRect.new()
+	tower_icon.mouse_filter = MOUSE_FILTER_IGNORE
 	tower_icon.expand = true
 	tower_icon.margin_left = 5
 	tower_icon.margin_top = 5
@@ -94,14 +106,34 @@ func _replace_melon(upgrade: String):
 	
 	attach_melon(new_melon)
 
-## Display the UI
+### Display the UI
 func _on_HUD_mouse_entered():
+	print("c")
 	if not _is_last_upgr:
 		_buttons_bar.set_visible(true)
 	_curr_melon.display_range(true)
 
 ## Hide the UI
 func _on_HUD_mouse_exited():
+	print("d")
 	if not _is_last_upgr:
 		_buttons_bar.set_visible(false)
 	_curr_melon.display_range(false)
+	_hud.set_visible(false)
+#	_buttons_bar.mouse_filter = MOUSE_FILTER_IGNORE
+#	_hud.mouse_filter = MOUSE_FILTER_IGNORE
+
+
+## Display the UI
+func _on_melon_mouse_entered():
+#	if not _is_last_upgr:
+	_hud.set_visible(true)
+#	_buttons_bar.mouse_filter = MOUSE_FILTER_PASS
+#	_hud.mouse_filter = MOUSE_FILTER_PASS
+#	_curr_melon.display_range(true)
+
+### Hide the UI
+#func _on_melon_mouse_exited():
+#	if not _is_last_upgr:
+#		_hud.set_visible(false)
+#	_curr_melon.display_range(false)

@@ -9,6 +9,7 @@
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="Melon" type="StaticBody2D"]
+input_pickable = true
 script = ExtResource( 1 )
 
 [node name="BaseRange" type="Sprite" parent="."]
