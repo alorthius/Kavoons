@@ -21,10 +21,10 @@ signal tower_placed(new_tower)
 func _ready():
 	for butt in get_tree().get_nodes_in_group("build_buttons"):
 		_signal_err = butt.connect("pressed", self, "_activate_building", [butt.get_name()])
-		if _signal_err != 0: print("Builder: _ready: connect: pressed: ")
+		if _signal_err != 0: print("Builder: _ready: connect: pressed: ", _signal_err)
 
 
-func _process(delta):
+func _process(_delta):
 	if _is_active:
 		_update_tower_preview()
 

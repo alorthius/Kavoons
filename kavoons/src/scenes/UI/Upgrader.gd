@@ -15,20 +15,6 @@ var _curr_melon: Melon
 
 var _signal_err: int = 0
 
-signal set_range_visibility(to_show)
-
-
-func _add_buttons(icons: Array):
-	for idx in range(icons.size()):
-		var new_butt = _create_button(load(_button_textures[idx]), _button_names[idx])
-		var new_icon = _create_button_icon(load(icons[idx]))
-		new_butt.add_child(new_icon, true)
-		
-		_buttons_bar.add_child(new_butt, true)
-		
-		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_button_names[idx]])
-		if _signal_err != 0: print("Upgrader: add_buttons: connect: pressed: ")
-
 
 func attach_melon(melon: Melon):
 	_curr_melon = melon
@@ -42,6 +28,18 @@ func attach_melon(melon: Melon):
 
 	_add_buttons(butt_icons)
 	_hud.rect_position = _curr_melon.position + _upgr_bar_offset
+
+
+func _add_buttons(icons: Array):
+	for idx in range(icons.size()):
+		var new_butt = _create_button(load(_button_textures[idx]), _button_names[idx])
+		var new_icon = _create_button_icon(load(icons[idx]))
+		new_butt.add_child(new_icon, true)
+		
+		_buttons_bar.add_child(new_butt, true)
+		
+		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_button_names[idx]])
+		if _signal_err != 0: print("Upgrader: add_buttons: connect: pressed: ", _signal_err)
 
 
 func _create_button(normal_texture: Texture, butt_name: String) -> TextureButton:
