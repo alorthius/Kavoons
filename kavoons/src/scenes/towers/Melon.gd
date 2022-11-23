@@ -10,22 +10,21 @@ var tier: String
 var buy_cost: int
 var sell_cost: int
 
-var base_attack_radius: int
-var base_attack_type  # from global enum DAMAGE_TYPES
-var base_attack_damage: int
+var _base_attack_radius: int
+var _base_attack_type  # from global enum DAMAGE_TYPES
+var _base_attack_damage: int
 
-var attack_speed: float
-var projectile_speed: float
-var miss_rate: float
+var _attack_speed: float
+var _projectile_speed: float
+var _miss_rate: float
 
-var crit_rate: float
-var crit_strike_multiplier: int
+var _crit_rate: float
+var _crit_strike_multiplier: int
 
-var armor_reduction_flat: int
+var _armor_reduction_flat: int
+var _resistance_reduction_percentage: float
 
-var resistance_reduction_percentage: float
-
-var target_priority  # from global enum TARGET_PRIORITY
+var _target_priority  # from global enum TARGET_PRIORITY
 
 var last_hit_counter: int = 0
 
@@ -40,17 +39,15 @@ onready var next_B: PackedScene
 #var passive_abilities: Array = []
 #var active_abilities: Array = []
 
-onready var melon_sprite: Sprite = $BaseSprite
+onready var _melon_sprite: Sprite = $BaseSprite
 
-onready var range_shape: CollisionShape2D = $Range/CollisionShape
-onready var range_sprite: Sprite = $BaseRange
+onready var _range_shape: CollisionShape2D = $Range/CollisionShape
+onready var _range_sprite: Sprite = $BaseRange
 
-onready var base_attack_timer: Timer = $BaseAttackTimer
 var _ready_to_attack: bool = false
+onready var _base_attack_timer: Timer = $BaseAttackTimer
 
-var curr_enemy: Cat
-
-signal replace_tower(old_tower, new_tower)
+var _curr_enemy: Cat
 
 
 func _init():
@@ -58,12 +55,12 @@ func _init():
 
 func _ready():
 	_parse_tower_data()
-	base_attack_timer.start()
+	_base_attack_timer.start()
 
-func _process(delta):
+func _process(_delta):
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	_select_enemy()
 	_rotate_to()
 	_perform_base_attack()
@@ -71,45 +68,35 @@ func _physics_process(delta):
 func _select_enemy():
 	# TODO: add different targetings
 	if not _enemies_in_range.empty():
-		curr_enemy = _enemies_in_range[0]
+		_curr_enemy = _enemies_in_range[0]
 	else:
-		curr_enemy = null
+		_curr_enemy = null
 
 func _rotate_to():
-	if curr_enemy != null:
-		melon_sprite.look_at(curr_enemy.get_global_transform().origin)
+	if _curr_enemy != null:
+		_melon_sprite.look_at(_curr_enemy.get_global_transform().origin)
 
 func _perform_base_attack():
-	if curr_enemy != null and _ready_to_attack:
-		print("Shoot!")
-		curr_enemy.on_hit(base_attack_damage)
+	if _curr_enemy != null and _ready_to_attack:
+		_curr_enemy.on_hit(_base_attack_damage)
 		_ready_to_attack = false
-		base_attack_timer.start()
+		_base_attack_timer.start()
 
-func perform_active_ability():
+func _perform_active_ability():
 	pass
 
-func sell():
-	pass
 
 func _parse_tower_data():
 	var data: Dictionary = Towers.towers_data[base_tower][tier]
-	melon_sprite.texture = load(data["sprite"])
+	_melon_sprite.texture = load(data["sprite"])
 	_range_scale = data["range_scale"]
 	
-	range_shape.scale = Vector2(_range_scale, _range_scale)
-	range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
-	range_sprite.modulate.a = _range_alpha
+	_range_shape.scale = Vector2(_range_scale, _range_scale)
+	_range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
+	_range_sprite.modulate.a = _range_alpha
 	
-	base_attack_timer.wait_time = 1.0 / data["attack_speed"]
-	base_attack_damage = data["base_attack_damage"]
-	
-
-func _upgrade(upgrade: String):
-	if upgrade == "Left":
-		emit_signal("replace_tower", self, next_A.instance())
-	elif upgrade == "Right":
-		emit_signal("replace_tower", self, next_B.instance())
+	_base_attack_timer.wait_time = 1.0 / data["attack_speed"]
+	_base_attack_damage = data["base_attack_damage"]
 
 
 func _on_Range_area_entered(area):
@@ -124,8 +111,8 @@ func _on_Range_area_exited(area):
 		_enemies_in_range.erase(node)
 
 
-func _display_range(to_show):
-	range_sprite.visible = to_show
+func display_range(to_show):
+	_range_sprite.visible = to_show
 
 
 func _on_BaseAttackTimer_timeout():
