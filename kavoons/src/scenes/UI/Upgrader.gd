@@ -9,12 +9,18 @@ class_name Upgrader
 
 ## Define the region for the UI buttons
 onready var _hud: Control = $UI/HUD
+onready var _hud_box: Rect2 = _hud.get_rect()
 ## The container of all the upgrade buttons
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 
-## The upgrade bar should be placed above the melon. This vector defines the shift
-var _upgr_bar_offset = Vector2(-85, -130)
+## The [member _hud] should be placed above the melon. This vector defines the shift
+var _hud_offset: Vector2 = Vector2(-85, -130)
+
+## The size of [member _hud] if no upgrades available
+onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1, 2.5)
+## The shift of [member _hud] above the melon if no upgrades available
+var _final_hud_offset: Vector2 = Vector2(0, 80)
 
 ## The textures of the buttons used to upgrade the melon
 var _button_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
@@ -43,12 +49,14 @@ func attach_melon(melon: Melon):
 	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
 	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
 	
-	_hud.rect_position = _curr_melon.position + _upgr_bar_offset
+	_hud.rect_position = _curr_melon.position + _hud_offset
 
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
 	if butt_icons.empty():
 		_is_last_upgr = true
 		_upgrade_butt_bar.set_visible(false)
+		_hud.rect_size = _final_hud_size
+		_hud.rect_position += _final_hud_offset
 		return
 
 	_add_upgrade_buttons(butt_icons)
