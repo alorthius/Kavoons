@@ -22,10 +22,17 @@ onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1,
 ## The shift of [member _hud] above the melon if no upgrades available
 var _final_hud_offset: Vector2 = Vector2(0, 80)
 
+
+enum Buttons {UPGR, SELL, INFO}
 ## The textures of the buttons used to upgrade the melon
 var _butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
 ## The names of the buttons used to upgrade the melon
 var _butt_names    = [ "Left", "Right"]
+
+var _focus_butt_scale_delta = Vector2(0.1, 0.1)
+var _focus_butt_pos_delta = Vector2(0, -5)
+var _focus_butt_rightmost_pos_delta = Vector2(-7, 0)
+
 
 ## True if there are no possible  updates, false otherwise
 var _is_final: bool = false
@@ -62,31 +69,51 @@ func attach_melon(melon: Melon):
 	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 
+
 ## Create buttons for each possible melon update from the array of future melon sprites.
 ## Connect the press signal to every button as an upgrade action.
 func _add_upgrade_buttons(icons: Array):	
 	for idx in range(icons.size()):
-		var new_butt = _create_button(load(_butt_textures[idx]), _butt_names[idx])
-		var new_icon = _create_button_icon(load(icons[idx]))
-		new_butt.add_child(new_icon, true)
-		
-		_upgrade_butt_bar.add_child(new_butt, true)
-		
-		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_butt_names[idx]])
-		if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: pressed: ", _signal_err)
+		_add_generic_button(load(_butt_textures[idx]), _butt_names[idx], load(icons[idx]), Buttons.UPGR)
 
 ## Create the sell button. Should be called only once per instance
 func _add_sell_button():
-	var sell_butt = _create_button(load("res://assets/UI/upgr_left.png"), "sell")
-	_sell_butt_bar.add_child(sell_butt, true)
+	_add_generic_button(load("res://assets/UI/upgr_left.png"), "Sell", null, Buttons.SELL)
+
+
+## Creates any button of the type given from enum [member Buttons]
+func _add_generic_button(butt_texture: Texture, butt_name: String, icon_texture: Texture, butt_type: int):
+	var new_butt = _create_button(butt_texture, butt_name)
+	if icon_texture != null:  # TODO: emove later as every button should have an icon
+		var new_icon = _create_button_icon(icon_texture)
+		new_butt.add_child(new_icon, true)
 	
-	_signal_err = sell_butt.connect("pressed", self, "_sell_melon")
-	if _signal_err != 0: print("Upgrader: _add_sell_button: connect: pressed: ", _signal_err)
+	var parent_container: HBoxContainer
+
+	if butt_type == Buttons.UPGR:
+		parent_container = _upgrade_butt_bar
+		
+		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [butt_name])
+		if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: pressed: ", _signal_err)
+	
+	elif butt_type == Buttons.SELL:
+		parent_container = _sell_butt_bar
+		
+		_signal_err = new_butt.connect("pressed", self, "_sell_melon")
+		if _signal_err != 0: print("Upgrader: _add_sell_button: connect: pressed: ", _signal_err)
+
+	parent_container.add_child(new_butt, true)
+		
+	_signal_err = new_butt.connect("mouse_entered", self, "_focus_button", [new_butt])
+	if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: mouse_entered: ", _signal_err)
+	_signal_err = new_butt.connect("mouse_exited", self, "_unfocus_button", [new_butt])
+	if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: mouse_exited: ", _signal_err)
 
 ## Create and return a TextureButton instance
 func _create_button(normal_texture: Texture, butt_name: String) -> TextureButton:
 	var new_butt = TextureButton.new()
 	new_butt.mouse_filter = MOUSE_FILTER_PASS
+	new_butt.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	new_butt.expand = true
 	new_butt.rect_min_size = Vector2(80, 80)
 	new_butt.size_flags_horizontal = SIZE_SHRINK_CENTER
@@ -109,6 +136,22 @@ func _create_button_icon(icon_texture: Texture) -> TextureRect:
 	tower_icon.name = "Icon"
 	return tower_icon
 
+
+## Expand button on hover
+func _focus_button(butt: TextureButton):
+	butt.rect_scale += _focus_butt_scale_delta
+	butt.rect_position += _focus_butt_pos_delta
+	if (butt.name in ["Right", "Sell"]):
+		butt.rect_position += _focus_butt_rightmost_pos_delta
+
+## Shrink button on hover
+func _unfocus_button(butt: TextureButton):
+	butt.rect_scale -= _focus_butt_scale_delta
+	butt.rect_position -= _focus_butt_pos_delta
+	if (butt.name in ["Right", "Sell"]):
+		butt.rect_position -= _focus_butt_rightmost_pos_delta
+
+
 ## Upgrade teh current melon. Delete it from the tree and attaches the
 ## newly created melon to the field [member _curr_melon]
 func _replace_melon(upgrade: String):
@@ -127,6 +170,7 @@ func _replace_melon(upgrade: String):
 func _sell_melon():
 	# TODO: emit signal
 	queue_free()
+
 
 ### Display the UI
 func _on_HUD_mouse_entered():
@@ -159,6 +203,7 @@ func _on_HUD_mouse_exited():
 	if not _hud_box.has_point(get_local_mouse_position()):
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
+
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.
