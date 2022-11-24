@@ -9,12 +9,12 @@ class_name Upgrader
 
 ## Define the region for the UI buttons
 onready var _hud: Control = $UI/HUD
-onready var _hud_box: Rect2 = _hud.get_rect()
+var _hud_box: Rect2
 ## The container of all the upgrade buttons
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 
-## The [member _hud] should be placed above the melon. This vector defines the shift
+## The shift of [member _hud] to be placed above the melon
 var _hud_offset: Vector2 = Vector2(-85, -130)
 
 ## The size of [member _hud] if no upgrades available
@@ -23,12 +23,12 @@ onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1,
 var _final_hud_offset: Vector2 = Vector2(0, 80)
 
 ## The textures of the buttons used to upgrade the melon
-var _button_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
+var _butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
 ## The names of the buttons used to upgrade the melon
-var _button_names    = [ "Left", "Right"]
+var _butt_names    = [ "Left", "Right"]
 
-## True if there are future updates, false if the final Tier is reached
-var _is_last_upgr: bool = false
+## True if there are no possible  updates, false otherwise
+var _is_final: bool = false
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
 
@@ -52,26 +52,27 @@ func attach_melon(melon: Melon):
 	_hud.rect_position = _curr_melon.position + _hud_offset
 
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
-	if butt_icons.empty():
-		_is_last_upgr = true
+	if butt_icons.empty():  # There are no updates of the melon
+		_is_final = true
 		_upgrade_butt_bar.set_visible(false)
 		_hud.rect_size = _final_hud_size
 		_hud.rect_position += _final_hud_offset
-		return
-
-	_add_upgrade_buttons(butt_icons)
+	else:
+		_add_upgrade_buttons(butt_icons)
+	
+	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 
 ## Create buttons for each possible melon update from the array of future melon sprites.
 ## Connect the press signal to every button as an upgrade action.
 func _add_upgrade_buttons(icons: Array):	
 	for idx in range(icons.size()):
-		var new_butt = _create_button(load(_button_textures[idx]), _button_names[idx])
+		var new_butt = _create_button(load(_butt_textures[idx]), _butt_names[idx])
 		var new_icon = _create_button_icon(load(icons[idx]))
 		new_butt.add_child(new_icon, true)
 		
 		_upgrade_butt_bar.add_child(new_butt, true)
 		
-		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_button_names[idx]])
+		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_butt_names[idx]])
 		if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: pressed: ", _signal_err)
 
 ## Create the sell button. Should be called only once per instance
@@ -122,7 +123,9 @@ func _replace_melon(upgrade: String):
 	
 	attach_melon(new_melon)
 
+## Sell the melon. Emit signal with the money earned with it
 func _sell_melon():
+	# TODO: emit signal
 	queue_free()
 
 ### Display the UI
@@ -153,7 +156,7 @@ func _on_HUD_mouse_exited():
 	# the signal can be emitted while exiting ther shapes, as it enters the
 	# current _hud one immediately. In this case, it means that the collision shape
 	# of a current melon should be fully inside the _hud shape.
-	if not _hud.get_rect().has_point(get_local_mouse_position()):
+	if not _hud_box.has_point(get_local_mouse_position()):
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
 
