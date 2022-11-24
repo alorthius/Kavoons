@@ -10,7 +10,8 @@ class_name Upgrader
 ## Define the region for the UI buttons
 onready var _hud: Control = $UI/HUD
 ## The container of all the upgrade buttons
-onready var _buttons_bar: HBoxContainer = $UI/HUD/UpgradeBar
+onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
+onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 
 ## The upgrade bar should be placed above the melon. This vector defines the shift
 var _upgr_bar_offset = Vector2(-85, -130)
@@ -30,38 +31,46 @@ var _signal_err: int = 0
 
 func _ready():
 	_hud.set_visible(false)
-#	_buttons_bar.set_visible(false)
+	_add_sell_button()  # the sell button should be added only once
 
 ## Wrap this node above the given melon instance. The melon is added as a child.
 ## Create all the UI buttons for this current melon
 func attach_melon(melon: Melon):
 	_curr_melon = melon
 	self.add_child(_curr_melon)
+	
+	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
+	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
+	
+	_hud.rect_position = _curr_melon.position + _upgr_bar_offset
 
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
 	if butt_icons.empty():
 		_is_last_upgr = true
-		_buttons_bar.set_visible(false)
+		_upgrade_butt_bar.set_visible(false)
 		return
 
-	_add_buttons(butt_icons)
-	_hud.rect_position = _curr_melon.position + _upgr_bar_offset
-	
-	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
-	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
+	_add_upgrade_buttons(butt_icons)
 
 ## Create buttons for each possible melon update from the array of future melon sprites.
 ## Connect the press signal to every button as an upgrade action.
-func _add_buttons(icons: Array):
+func _add_upgrade_buttons(icons: Array):	
 	for idx in range(icons.size()):
 		var new_butt = _create_button(load(_button_textures[idx]), _button_names[idx])
 		var new_icon = _create_button_icon(load(icons[idx]))
 		new_butt.add_child(new_icon, true)
 		
-		_buttons_bar.add_child(new_butt, true)
+		_upgrade_butt_bar.add_child(new_butt, true)
 		
 		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_button_names[idx]])
-		if _signal_err != 0: print("Upgrader: add_buttons: connect: pressed: ", _signal_err)
+		if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: pressed: ", _signal_err)
+
+func _add_sell_button():
+	var sell_butt = _create_button(load("res://assets/UI/upgr_left.png"), "sell")
+	_sell_butt_bar.add_child(sell_butt, true)
+	
+	_signal_err = sell_butt.connect("pressed", self, "_sell_melon")
+	if _signal_err != 0: print("Upgrader: _add_sell_button: connect: pressed: ", _signal_err)
 
 ## Create and return a TextureButton instance
 func _create_button(normal_texture: Texture, butt_name: String) -> TextureButton:
@@ -69,8 +78,8 @@ func _create_button(normal_texture: Texture, butt_name: String) -> TextureButton
 	new_butt.mouse_filter = MOUSE_FILTER_PASS
 	new_butt.expand = true
 	new_butt.rect_min_size = Vector2(80, 80)
-	new_butt.size_flags_horizontal = false
-	new_butt.size_flags_vertical = false
+	new_butt.size_flags_horizontal = SIZE_SHRINK_CENTER
+	new_butt.size_flags_vertical = SIZE_SHRINK_CENTER
 	new_butt.texture_normal = normal_texture
 	new_butt.name = butt_name
 	return new_butt
@@ -103,27 +112,20 @@ func _replace_melon(upgrade: String):
 	
 	attach_melon(new_melon)
 
+func _sell_melon():
+	queue_free()
+
 ### Display the UI
 func _on_HUD_mouse_entered():
-	print("c")
-#	if not _is_last_upgr:
-#		_buttons_bar.set_visible(true)
 	_curr_melon.display_range(true)
 
 ## Hide the UI
 func _on_HUD_mouse_exited():
-	print("d")
-	print(_hud.get_rect(), get_local_mouse_position())
 	if not _hud.get_rect().has_point(get_local_mouse_position()):
-#	if not Rect2(_hud.rect_position, _hud.rect_size).has_point(get_local_mouse_position()):
-#	if not _is_last_upgr:
-#		_buttons_bar.set_visible(false)
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
-#	_buttons_bar.mouse_filter = MOUSE_FILTER_IGNORE
-#	_hud.mouse_filter = MOUSE_FILTER_IGNORE
-
 
 ## Display the UI
 func _on_melon_mouse_entered():
+	print("a")
 	_hud.set_visible(true)
