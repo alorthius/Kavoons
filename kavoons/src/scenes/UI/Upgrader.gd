@@ -181,6 +181,7 @@ func _on_HUD_mouse_exited():
 	# The signal is wrongly triggered when mouse enters the child nodes of the
 	# _hud node, even with pass mouse filter! The issue is also described here:
 	# https://github.com/godotengine/godot/issues/16854
+
 	# To ignore the false signal, we should manually check whether current
 	# mouse position is in range of the Rect shape of _hud node.
 	# This may cause the undesider behaviour if mouse exits the _hud shape via
