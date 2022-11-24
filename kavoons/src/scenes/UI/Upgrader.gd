@@ -190,13 +190,12 @@ func _on_HUD_mouse_exited():
 	#  .---.    In this case, if we escape the left figure with a signal like this
 	#  |  .+-.  via the right figure, the signal will be discarded by the below
 	#  |  |  |  if statement and it will never be caught unless hovering the mouse
-	#  |  '+-'  again on the left shape. This will loop until the mouse exited
+	#  |  '+-'  again on the left shape. This will continue until the mouse exited
 	#  '---'    the left shape via empty area outside the right figure.
 
-	# !!! The code expects the overlying shapes to end in the _hud region, so that
-	# the signal can be emitted while exiting ther shapes, as it enters the
-	# current _hud one immediately. In this case, it means that the collision shape
-	# of a current melon should be fully inside the _hud shape.
+	# Important!!! The code expects the overlying shapes to end in the _hud region,
+	# so that the exit via top shapes instantly trigger the enter of the _hud shape.
+	# The collision shape of a current melon should be fully inside the _hud shape!
 	if not _hud_box.has_point(get_local_mouse_position()):
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
