@@ -33,8 +33,9 @@ func _ready():
 	_hud.set_visible(false)
 	_add_sell_button()  # the sell button should be added only once
 
-## Wrap this node above the given melon instance. The melon is added as a child.
-## Create all the UI buttons for this current melon
+## Wrap this node above the given melon instance. The melon is added as a child
+## as a sibling of UI (CanvasLayer) node. Create the upgrade UI buttons for the melon.
+## Shoukd be called each time the reattaching the melon instance (e.g. upgrade)
 func attach_melon(melon: Melon):
 	_curr_melon = melon
 	self.add_child(_curr_melon)
@@ -65,6 +66,7 @@ func _add_upgrade_buttons(icons: Array):
 		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [_button_names[idx]])
 		if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: pressed: ", _signal_err)
 
+## Create the sell button. Should be called only once per instance
 func _add_sell_button():
 	var sell_butt = _create_button(load("res://assets/UI/upgr_left.png"), "sell")
 	_sell_butt_bar.add_child(sell_butt, true)
@@ -121,11 +123,37 @@ func _on_HUD_mouse_entered():
 
 ## Hide the UI
 func _on_HUD_mouse_exited():
+	# The signal is wrongly triggered when mouse enters the child nodes of the
+	# _hud node, even with pass mouse filter! The issue is also described here:
+	# https://github.com/godotengine/godot/issues/16854
+	# To ignore the false signal, we should manually check whether current
+	# mouse position is in range of the Rect shape of _hud node.
+	# This may cause the undesider behaviour if mouse exits the _hud shape via
+	# another one overlapping it but ending outside the _hud boundaries, e.g.:
+	#  ___
+	#  | |
+	#  |_|__
+	#  ||__|
+	#  |_|
+	# In this case, if we escape the left figure with a signal like this
+	# via the right figure, the signal will be discarded by the below
+	# if statement and it will never be caught unless hovering the mouse again
+	# on the left shape. This will loop until the mouse exited left shape via
+	# empty scape outside the roght figure.
+	
+	# !!! The code expects the overlying shapes to end in the _hud region, so that
+	# the signal can be emitted while exiting ther shapes, as it enters the
+	# current _hud one immediately. In this case, it means that the collision shape
+	# of a current melon should be fully inside the _hud shape.
 	if not _hud.get_rect().has_point(get_local_mouse_position()):
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
 
-## Display the UI
+## Trigger the UI display on melon collision shape hover with making visible
+## the larger area of mouse focus [member _hud]  with connected mouse signals.
+## There is no signal _on_melon_mouse_exited as the UI hides on that signal
+## connected to [member _hud] member.
+## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
+## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
 func _on_melon_mouse_entered():
-	print("a")
 	_hud.set_visible(true)
