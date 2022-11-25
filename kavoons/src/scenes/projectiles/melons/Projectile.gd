@@ -14,9 +14,8 @@ func _ready():
 	set_as_toplevel(true)  # move independent from parent node
 	set_scale(Vector2(3.5, 3.5))
 
-# TODO: add misses
-
 func _set_properties(speed: float, damage: int, miss_rate: float, target: Cat):
+	# TODO: add misses logic
 	_speed = speed
 	_dmg = damage
 	_target = target
