@@ -198,12 +198,12 @@ func _on_HUD_mouse_exited():
 	# mouse position is in range of the Rect shape of _hud node.
 	# This may cause the undesider behaviour if mouse exits the _hud shape via
 	# another one overlapping it but ending outside the _hud boundaries, e.g.:
-	
-	#  .---.    In this case, if we escape the left figure with a signal like this
-	#  |  .+-.  via the right figure, the signal will be discarded by the below
-	#  |  |  |  if statement and it will never be caught unless hovering the mouse
-	#  |  '+-'  again on the left shape. This will continue until the mouse exited
-	#  '---'    the left shape via empty area outside the right figure.
+
+	#  .-----.    In this case, if we escape the left figure with a signal like this
+	#  |   .-+-.  via the right figure, the signal will be discarded by the below
+	#  |   |   |  if statement and it will never be caught unless hovering the mouse
+	#  |   '-+-'  again on the left shape. This will continue until the mouse exited
+	#  '-----'    the left shape via empty area outside the right figure.
 
 	# Important!!! The code expects the overlying shapes to end in the _hud region,
 	# so that the exit via top shapes instantly trigger the enter of the _hud shape.
