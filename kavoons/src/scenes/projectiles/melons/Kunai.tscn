@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/projectiles/kunai.png" type="Texture" id=1]
+[ext_resource path="res://src/scenes/projectiles/melons/Projectile.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 3.00002
+height = 1.99996
+
+[node name="Kunai" instance=ExtResource( 2 )]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+rotation = -0.785398
+texture = ExtResource( 1 )

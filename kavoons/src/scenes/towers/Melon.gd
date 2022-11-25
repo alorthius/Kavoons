@@ -53,6 +53,8 @@ onready var _range_sprite: Sprite = $BaseRange
 
 ## Is the reload of a melon basic attack finished
 var _ready_to_attack: bool = false
+onready var projectile: PackedScene
+
 ## Timer to track the cool-down of a basic attacks
 onready var _base_attack_timer: Timer = $BaseAttackTimer
 
@@ -85,7 +87,11 @@ func _rotate_to():
 ## Hit the curently selected enemy with a basic attack
 func _perform_base_attack():
 	if _curr_enemy != null and _ready_to_attack:
-		_curr_enemy.on_hit(_base_attack_damage)
+		var new_projectile: Projectile = projectile.instance()
+		new_projectile._set_properties(_projectile_speed, _base_attack_damage, _miss_rate, _curr_enemy)
+		new_projectile.position = position
+		add_child(new_projectile)
+
 		_ready_to_attack = false
 		_base_attack_timer.start()
 
@@ -104,6 +110,7 @@ func _parse_tower_data():
 	
 	_base_attack_timer.wait_time = 1.0 / data["attack_speed"]
 	_base_attack_damage = data["base_attack_damage"]
+	_projectile_speed = data["projectile_speed"]
 
 ## Save the enemy entered the tower range
 func _on_Range_area_entered(area):
