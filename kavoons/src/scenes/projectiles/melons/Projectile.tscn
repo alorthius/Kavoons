@@ -9,3 +9,5 @@ script = ExtResource( 1 )
 rotation = -1.5708
 
 [node name="Sprite" type="Sprite" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]

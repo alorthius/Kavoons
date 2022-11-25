@@ -12,7 +12,7 @@ var towers_data: Dictionary = {
 			"base_attack_damage": 20,
 			
 			"attack_speed": 1,
-			"projectile_speed": 5,
+			"projectile_speed": 500,
 			"miss_rate": 0,
 			
 			"crit_rate": 0,
@@ -35,7 +35,7 @@ var towers_data: Dictionary = {
 			"base_attack_damage": 20,
 			
 			"attack_speed": 1,
-			"projectile_speed": 5,
+			"projectile_speed": 500,
 			"miss_rate": 0,
 			
 			"crit_rate": 0,
@@ -58,7 +58,7 @@ var towers_data: Dictionary = {
 			"base_attack_damage": 50,
 			
 			"attack_speed": 0.7,
-			"projectile_speed": 5,
+			"projectile_speed": 500,
 			"miss_rate": 0,
 			
 			"crit_rate": 0,

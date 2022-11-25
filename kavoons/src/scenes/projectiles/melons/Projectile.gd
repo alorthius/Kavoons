@@ -21,8 +21,13 @@ func _set_properties(speed: float, damage: int, miss_rate: float, target: Cat):
 func _physics_process(delta):
 	var delta_angle: float = get_angle_to(_target.position)
 	rotate(delta_angle)
-	global_position += (_target.position - position) * _speed * delta
+	global_position += (_target.position - position).normalized() * _speed * delta
 	
-	if overlaps_area(_target_area):
+#	if overlaps_area(_target_area):
+#		_target.on_hit(_dmg)
+#		queue_free()
+
+func _on_Projectile_area_entered(area):
+	if area == _target_area:
 		_target.on_hit(_dmg)
 		queue_free()
