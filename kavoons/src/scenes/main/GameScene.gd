@@ -14,7 +14,7 @@ onready var _waves_timer: Timer = $WavesTimer
 ## Container with all the placed towers
 onready var _towers_container: Node = $Towers
 ## Container with all the spawned cats
-onready var _cats_container: Path2D = $Map/Path2D
+onready var _cats_pathes: Array = $Map/Pathes.get_children()
 
 var _curr_wave
 
@@ -58,7 +58,9 @@ func _on_WavesTimer_timeout():
 
 ## Spawn the cat
 func _on_cat_spawn(cat):
-	_cats_container.add_child(cat, true)
+	var path_idx = randi() % _cats_pathes.size()
+	print(path_idx, " -> ", _cats_pathes[path_idx])
+	_cats_pathes[path_idx].add_child(cat, true)
 
 ## Manage the wave end, start the countdown for a new one
 func _on_spawn_end():
