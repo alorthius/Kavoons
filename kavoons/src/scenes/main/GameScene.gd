@@ -59,7 +59,6 @@ func _on_WavesTimer_timeout():
 ## Spawn the cat
 func _on_cat_spawn(cat):
 	var path_idx = randi() % _cats_pathes.size()
-	print(path_idx, " -> ", _cats_pathes[path_idx])
 	_cats_pathes[path_idx].add_child(cat, true)
 
 ## Manage the wave end, start the countdown for a new one
