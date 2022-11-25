@@ -185,3 +185,8 @@ margin_bottom = -10.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
+
+[connection signal="area_entered" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_entered"]
+[connection signal="area_exited" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_exited"]
+[connection signal="body_entered" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_body_entered"]
+[connection signal="body_exited" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_body_exited"]

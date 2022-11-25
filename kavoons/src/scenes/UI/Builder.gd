@@ -23,8 +23,8 @@ var _is_active: bool = false
 
 ## Is position of the new melon valid
 var _is_valid: bool = false
-
 var _overlapped_melons = []
+var _overlapped_tiles = []
 
 ## The node containing the preview sprite of the selected melon and
 ## the sprite of its atack range
@@ -77,15 +77,7 @@ func _update_tower_preview():
 
 ## Check whether the current position of a mouse is valid to place the tower
 func _validate():
-	_is_valid = _overlapped_melons.empty()
-
-func _on_melon_area_entered(area):
-	if area.name == "BuildingShape":
-		_overlapped_melons.append(area)
-
-func _on_melon_area_exited(area):
-	if area.name == "BuildingShape":
-		_overlapped_melons.erase(area)
+	_is_valid = _overlapped_melons.empty() and _overlapped_tiles.empty()
 
 ## Choose the final tower position and emit its instance
 func _place_melon():
@@ -102,3 +94,18 @@ func _cancel_building():
 	_tower_preview.cancel_preview()
 
 	emit_signal("build_status", _is_active)
+
+
+func _on_BuildingShape_body_entered(body):
+	_overlapped_tiles.append(body)
+
+func _on_BuildingShape_body_exited(body):
+	_overlapped_tiles.erase(body)
+
+func _on_BuildingShape_area_entered(area):
+	if area.is_in_group("melons"):
+		_overlapped_melons.append(area)
+
+func _on_BuildingShape_area_exited(area):
+	if area.is_in_group("melons"):
+		_overlapped_melons.erase(area)

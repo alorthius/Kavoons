@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://assets/environment/tilesets/TX Tileset Grass.png" type="Texture" id=2]
 
@@ -27,6 +27,96 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=19]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=22]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=23]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=25]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=26]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=27]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=28]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=29]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=30]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=31]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=32]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=33]
+points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+
 [sub_resource type="TileSet" id=2]
 0/name = "road"
 0/texture = ExtResource( 2 )
@@ -38,9 +128,16 @@
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 4 )
 0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 0/z_index = 0
 1/name = "TX Tileset Grass.png 1"
 1/texture = ExtResource( 2 )
@@ -52,9 +149,16 @@
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 5 )
 1/shape_one_way = false
-1/shape_one_way_margin = 0.0
-1/shapes = [  ]
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 1/z_index = 0
 2/name = "TX Tileset Grass.png 2"
 2/texture = ExtResource( 2 )
@@ -66,9 +170,16 @@
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 16 )
 2/shape_one_way = false
-2/shape_one_way_margin = 0.0
-2/shapes = [  ]
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 2/z_index = 0
 3/name = "TX Tileset Grass.png 3"
 3/texture = ExtResource( 2 )
@@ -80,9 +191,16 @@
 3/navigation_offset = Vector2( 0, 0 )
 3/shape_offset = Vector2( 0, 0 )
 3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape = SubResource( 26 )
 3/shape_one_way = false
-3/shape_one_way_margin = 0.0
-3/shapes = [  ]
+3/shape_one_way_margin = 1.0
+3/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 26 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 3/z_index = 0
 4/name = "TX Tileset Grass.png 4"
 4/texture = ExtResource( 2 )
@@ -94,9 +212,16 @@
 4/navigation_offset = Vector2( 0, 0 )
 4/shape_offset = Vector2( 0, 0 )
 4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape = SubResource( 28 )
 4/shape_one_way = false
-4/shape_one_way_margin = 0.0
-4/shapes = [  ]
+4/shape_one_way_margin = 1.0
+4/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 28 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 4/z_index = 0
 5/name = "TX Tileset Grass.png 5"
 5/texture = ExtResource( 2 )
@@ -108,9 +233,16 @@
 5/navigation_offset = Vector2( 0, 0 )
 5/shape_offset = Vector2( 0, 0 )
 5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape = SubResource( 29 )
 5/shape_one_way = false
-5/shape_one_way_margin = 0.0
-5/shapes = [  ]
+5/shape_one_way_margin = 1.0
+5/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 29 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 5/z_index = 0
 6/name = "TX Tileset Grass.png 6"
 6/texture = ExtResource( 2 )
@@ -122,9 +254,16 @@
 6/navigation_offset = Vector2( 0, 0 )
 6/shape_offset = Vector2( 0, 0 )
 6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape = SubResource( 30 )
 6/shape_one_way = false
-6/shape_one_way_margin = 0.0
-6/shapes = [  ]
+6/shape_one_way_margin = 1.0
+6/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 30 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 6/z_index = 0
 7/name = "TX Tileset Grass.png 7"
 7/texture = ExtResource( 2 )
@@ -136,9 +275,16 @@
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 0, 0 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape = SubResource( 31 )
 7/shape_one_way = false
-7/shape_one_way_margin = 0.0
-7/shapes = [  ]
+7/shape_one_way_margin = 1.0
+7/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 31 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 7/z_index = 0
 8/name = "TX Tileset Grass.png 8"
 8/texture = ExtResource( 2 )
@@ -150,9 +296,16 @@
 8/navigation_offset = Vector2( 0, 0 )
 8/shape_offset = Vector2( 0, 0 )
 8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape = SubResource( 32 )
 8/shape_one_way = false
-8/shape_one_way_margin = 0.0
-8/shapes = [  ]
+8/shape_one_way_margin = 1.0
+8/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 32 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 8/z_index = 0
 9/name = "TX Tileset Grass.png 9"
 9/texture = ExtResource( 2 )
@@ -164,9 +317,16 @@
 9/navigation_offset = Vector2( 0, 0 )
 9/shape_offset = Vector2( 0, 0 )
 9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape = SubResource( 33 )
 9/shape_one_way = false
-9/shape_one_way_margin = 0.0
-9/shapes = [  ]
+9/shape_one_way_margin = 1.0
+9/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 33 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 9/z_index = 0
 10/name = "TX Tileset Grass.png 10"
 10/texture = ExtResource( 2 )
@@ -178,9 +338,16 @@
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 0, 0 )
 10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape = SubResource( 6 )
 10/shape_one_way = false
-10/shape_one_way_margin = 0.0
-10/shapes = [  ]
+10/shape_one_way_margin = 1.0
+10/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 10/z_index = 0
 11/name = "TX Tileset Grass.png 11"
 11/texture = ExtResource( 2 )
@@ -192,9 +359,16 @@
 11/navigation_offset = Vector2( 0, 0 )
 11/shape_offset = Vector2( 0, 0 )
 11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+11/shape = SubResource( 7 )
 11/shape_one_way = false
-11/shape_one_way_margin = 0.0
-11/shapes = [  ]
+11/shape_one_way_margin = 1.0
+11/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 11/z_index = 0
 12/name = "TX Tileset Grass.png 12"
 12/texture = ExtResource( 2 )
@@ -206,9 +380,16 @@
 12/navigation_offset = Vector2( 0, 0 )
 12/shape_offset = Vector2( 0, 0 )
 12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+12/shape = SubResource( 8 )
 12/shape_one_way = false
-12/shape_one_way_margin = 0.0
-12/shapes = [  ]
+12/shape_one_way_margin = 1.0
+12/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 12/z_index = 0
 13/name = "TX Tileset Grass.png 13"
 13/texture = ExtResource( 2 )
@@ -220,9 +401,16 @@
 13/navigation_offset = Vector2( 0, 0 )
 13/shape_offset = Vector2( 0, 0 )
 13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape = SubResource( 9 )
 13/shape_one_way = false
-13/shape_one_way_margin = 0.0
-13/shapes = [  ]
+13/shape_one_way_margin = 1.0
+13/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 13/z_index = 0
 14/name = "TX Tileset Grass.png 14"
 14/texture = ExtResource( 2 )
@@ -234,9 +422,16 @@
 14/navigation_offset = Vector2( 0, 0 )
 14/shape_offset = Vector2( 0, 0 )
 14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape = SubResource( 10 )
 14/shape_one_way = false
-14/shape_one_way_margin = 0.0
-14/shapes = [  ]
+14/shape_one_way_margin = 1.0
+14/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 14/z_index = 0
 15/name = "TX Tileset Grass.png 15"
 15/texture = ExtResource( 2 )
@@ -248,9 +443,16 @@
 15/navigation_offset = Vector2( 0, 0 )
 15/shape_offset = Vector2( 0, 0 )
 15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape = SubResource( 11 )
 15/shape_one_way = false
-15/shape_one_way_margin = 0.0
-15/shapes = [  ]
+15/shape_one_way_margin = 1.0
+15/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 15/z_index = 0
 16/name = "TX Tileset Grass.png 16"
 16/texture = ExtResource( 2 )
@@ -262,9 +464,16 @@
 16/navigation_offset = Vector2( 0, 0 )
 16/shape_offset = Vector2( 0, 0 )
 16/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+16/shape = SubResource( 12 )
 16/shape_one_way = false
-16/shape_one_way_margin = 0.0
-16/shapes = [  ]
+16/shape_one_way_margin = 1.0
+16/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 16/z_index = 0
 17/name = "TX Tileset Grass.png 17"
 17/texture = ExtResource( 2 )
@@ -276,9 +485,16 @@
 17/navigation_offset = Vector2( 0, 0 )
 17/shape_offset = Vector2( 0, 0 )
 17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape = SubResource( 13 )
 17/shape_one_way = false
-17/shape_one_way_margin = 0.0
-17/shapes = [  ]
+17/shape_one_way_margin = 1.0
+17/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 17/z_index = 0
 18/name = "TX Tileset Grass.png 18"
 18/texture = ExtResource( 2 )
@@ -290,9 +506,16 @@
 18/navigation_offset = Vector2( 0, 0 )
 18/shape_offset = Vector2( 0, 0 )
 18/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+18/shape = SubResource( 14 )
 18/shape_one_way = false
-18/shape_one_way_margin = 0.0
-18/shapes = [  ]
+18/shape_one_way_margin = 1.0
+18/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 18/z_index = 0
 19/name = "TX Tileset Grass.png 19"
 19/texture = ExtResource( 2 )
@@ -304,9 +527,16 @@
 19/navigation_offset = Vector2( 0, 0 )
 19/shape_offset = Vector2( 0, 0 )
 19/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+19/shape = SubResource( 15 )
 19/shape_one_way = false
-19/shape_one_way_margin = 0.0
-19/shapes = [  ]
+19/shape_one_way_margin = 1.0
+19/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 19/z_index = 0
 20/name = "TX Tileset Grass.png 20"
 20/texture = ExtResource( 2 )
@@ -318,9 +548,16 @@
 20/navigation_offset = Vector2( 0, 0 )
 20/shape_offset = Vector2( 0, 0 )
 20/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+20/shape = SubResource( 17 )
 20/shape_one_way = false
-20/shape_one_way_margin = 0.0
-20/shapes = [  ]
+20/shape_one_way_margin = 1.0
+20/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 17 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 20/z_index = 0
 21/name = "TX Tileset Grass.png 21"
 21/texture = ExtResource( 2 )
@@ -332,9 +569,16 @@
 21/navigation_offset = Vector2( 0, 0 )
 21/shape_offset = Vector2( 0, 0 )
 21/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+21/shape = SubResource( 18 )
 21/shape_one_way = false
-21/shape_one_way_margin = 0.0
-21/shapes = [  ]
+21/shape_one_way_margin = 1.0
+21/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 18 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 21/z_index = 0
 22/name = "TX Tileset Grass.png 22"
 22/texture = ExtResource( 2 )
@@ -346,9 +590,16 @@
 22/navigation_offset = Vector2( 0, 0 )
 22/shape_offset = Vector2( 0, 0 )
 22/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+22/shape = SubResource( 19 )
 22/shape_one_way = false
-22/shape_one_way_margin = 0.0
-22/shapes = [  ]
+22/shape_one_way_margin = 1.0
+22/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 19 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 22/z_index = 0
 23/name = "TX Tileset Grass.png 23"
 23/texture = ExtResource( 2 )
@@ -360,9 +611,16 @@
 23/navigation_offset = Vector2( 0, 0 )
 23/shape_offset = Vector2( 0, 0 )
 23/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+23/shape = SubResource( 20 )
 23/shape_one_way = false
-23/shape_one_way_margin = 0.0
-23/shapes = [  ]
+23/shape_one_way_margin = 1.0
+23/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 20 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 23/z_index = 0
 24/name = "TX Tileset Grass.png 24"
 24/texture = ExtResource( 2 )
@@ -374,9 +632,16 @@
 24/navigation_offset = Vector2( 0, 0 )
 24/shape_offset = Vector2( 0, 0 )
 24/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+24/shape = SubResource( 21 )
 24/shape_one_way = false
-24/shape_one_way_margin = 0.0
-24/shapes = [  ]
+24/shape_one_way_margin = 1.0
+24/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 24/z_index = 0
 25/name = "TX Tileset Grass.png 25"
 25/texture = ExtResource( 2 )
@@ -388,9 +653,16 @@
 25/navigation_offset = Vector2( 0, 0 )
 25/shape_offset = Vector2( 0, 0 )
 25/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+25/shape = SubResource( 22 )
 25/shape_one_way = false
-25/shape_one_way_margin = 0.0
-25/shapes = [  ]
+25/shape_one_way_margin = 1.0
+25/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 22 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 25/z_index = 0
 27/name = "TX Tileset Grass.png 27"
 27/texture = ExtResource( 2 )
@@ -402,9 +674,16 @@
 27/navigation_offset = Vector2( 0, 0 )
 27/shape_offset = Vector2( 0, 0 )
 27/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+27/shape = SubResource( 23 )
 27/shape_one_way = false
-27/shape_one_way_margin = 0.0
-27/shapes = [  ]
+27/shape_one_way_margin = 1.0
+27/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 23 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 27/z_index = 0
 28/name = "TX Tileset Grass.png 28"
 28/texture = ExtResource( 2 )
@@ -416,9 +695,16 @@
 28/navigation_offset = Vector2( 0, 0 )
 28/shape_offset = Vector2( 0, 0 )
 28/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+28/shape = SubResource( 24 )
 28/shape_one_way = false
-28/shape_one_way_margin = 0.0
-28/shapes = [  ]
+28/shape_one_way_margin = 1.0
+28/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 24 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 28/z_index = 0
 29/name = "TX Tileset Grass.png 29"
 29/texture = ExtResource( 2 )
@@ -430,9 +716,16 @@
 29/navigation_offset = Vector2( 0, 0 )
 29/shape_offset = Vector2( 0, 0 )
 29/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+29/shape = SubResource( 25 )
 29/shape_one_way = false
-29/shape_one_way_margin = 0.0
-29/shapes = [  ]
+29/shape_one_way_margin = 1.0
+29/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 25 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 29/z_index = 0
 30/name = "TX Tileset Grass.png 30"
 30/texture = ExtResource( 2 )
@@ -444,9 +737,16 @@
 30/navigation_offset = Vector2( 0, 0 )
 30/shape_offset = Vector2( 0, 0 )
 30/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+30/shape = SubResource( 27 )
 30/shape_one_way = false
-30/shape_one_way_margin = 0.0
-30/shapes = [  ]
+30/shape_one_way_margin = 1.0
+30/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 27 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 30/z_index = 0
 
 [sub_resource type="Curve2D" id=3]

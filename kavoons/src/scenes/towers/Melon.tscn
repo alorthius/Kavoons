@@ -7,7 +7,7 @@
 
 [sub_resource type="CircleShape2D" id=2]
 
-[node name="Melon" type="Area2D"]
+[node name="Melon" type="Area2D" groups=["melons"]]
 script = ExtResource( 1 )
 
 [node name="BaseRange" type="Sprite" parent="."]
