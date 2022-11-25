@@ -16,10 +16,10 @@ onready var _towers_container: Node = $Towers
 ## Container with all the spawned cats
 onready var _cats_pathes: Array = $Map/Pathes.get_children()
 
-var _curr_wave
+var _curr_wave: Wave
 
 ## The preloaded [Upgrader] for the towers, is instanced for every new melon separately.
-## Contains the melon itself as a child node and provides the UI.
+## Contains the melon itself as a child node and provides the UI to manage it.
 var _upgrader: PackedScene = preload("res://src/scenes/UI/Upgrader.tscn")
 
 var _signal_err: int = 0
@@ -27,12 +27,11 @@ var _signal_err: int = 0
 
 func _ready():
 	_signal_err = _builder.connect("tower_placed", self, "_attach_melon")
-	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
+	if _signal_err != 0: print("GameScene: _ready: connect: tower_placed: ", _signal_err)
 
 	_waves_timer.start()
 
-## Wrapp the newly created melon with the new [Upgrader] instance.
-## The melon is emitted from the [Builder] using a signal after building finish.
+## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
 	var new_upgrader = _upgrader.instance()
 	_towers_container.add_child(new_upgrader, true)
@@ -61,7 +60,7 @@ func _on_cat_spawn(cat):
 	var path_idx = randi() % _cats_pathes.size()
 	_cats_pathes[path_idx].add_child(cat, true)
 
-## Manage the wave end, start the countdown for a new one
+## Manage the wave end; start the countdown for a new one
 func _on_spawn_end():
 	_curr_wave.queue_free()
 	_waves_timer.start()

@@ -2,9 +2,10 @@ extends Control
 
 ## Provide the tower managing interface
 ##
-## A decorator of a melon instance. It wrappes above every melon using the unique
-## instances, for each melon separately. Provides the interface to upgrade,
+## A decorator of a melon instance. It wraps above every melon using the unique
+## instances for each melon separately. Provides the interface to upgrade,
 ## delete and view the information about a particular melon.
+## Recreates for every upgrade
 class_name Upgrader
 
 ## Define the region for the UI buttons
@@ -12,15 +13,15 @@ onready var _hud: Control = $UI/HUD
 var _hud_box: Rect2
 ## The container of all the upgrade buttons
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
+## The container of the sell button
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 
 ## The shift of [member _hud] to be placed above the melon
 var _hud_offset: Vector2 = Vector2(-85, -130)
-
-## The size of [member _hud] if no upgrades available
-onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1, 2.5)
 ## The shift of [member _hud] above the melon if no upgrades available
 var _final_hud_offset: Vector2 = Vector2(0, 80)
+## The size of [member _hud] if no upgrades available
+onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1, 2.5)
 
 
 enum Buttons {UPGR, SELL, INFO}
@@ -29,8 +30,11 @@ var _butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_ri
 ## The names of the buttons used to upgrade the melon
 var _butt_names    = [ "Left", "Right"]
 
+## Delta of button scale on hovering
 var _focus_butt_scale_delta = Vector2(0.1, 0.1)
+## Delta of button position on hovering
 var _focus_butt_pos_delta = Vector2(0, -5)
+## Delta of the rightmost button position on hovering
 var _focus_butt_rightmost_pos_delta = Vector2(-7, 0)
 
 
@@ -38,24 +42,24 @@ var _focus_butt_rightmost_pos_delta = Vector2(-7, 0)
 var _is_final: bool = false
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
-
+## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
 var _signal_err: int = 0
 
+## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
 
 
 func _ready():
 	_hud.set_visible(false)
-	_add_sell_button()  # the sell button should be added only once
 
+## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
 	_is_build_active = status
 
 ## Wrap this node above the given melon instance. The melon is added as a child
-## as a sibling of UI (CanvasLayer) node. Create the upgrade UI buttons for the melon.
-## Shoukd be called each time the reattaching the melon instance (e.g. upgrade)
+## as a sibling of UI (CanvasLayer) node. Create the upgrade and sell buttons for the melon.
 func attach_melon(melon: Melon):
 	_curr_melon = melon
 	self.add_child(_curr_melon)
@@ -64,6 +68,8 @@ func attach_melon(melon: Melon):
 	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
 	
 	_hud.rect_position = _curr_melon.position + _hud_offset
+	
+	_add_sell_button()
 
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
 	if butt_icons.empty():  # There are no updates of the melon
@@ -78,17 +84,16 @@ func attach_melon(melon: Melon):
 
 
 ## Create buttons for each possible melon update from the array of future melon sprites.
-## Connect the press signal to every button as an upgrade action.
 func _add_upgrade_buttons(icons: Array):	
 	for idx in range(icons.size()):
 		_add_generic_button(load(_butt_textures[idx]), _butt_names[idx], load(icons[idx]), Buttons.UPGR)
 
-## Create the sell button. Should be called only once per instance
+## Create the sell button.
 func _add_sell_button():
 	_add_generic_button(load("res://assets/UI/upgr_left.png"), "Sell", null, Buttons.SELL)
 
 
-## Creates any button of the type given from enum [member Buttons]
+## Buttons static factory. The button type is given from enum [member Buttons]
 func _add_generic_button(butt_texture: Texture, butt_name: String, icon_texture: Texture, butt_type: int):
 	var new_butt = _create_button(butt_texture, butt_name)
 	if icon_texture != null:  # TODO: emove later as every button should have an icon
@@ -159,8 +164,7 @@ func _unfocus_button(butt: TextureButton):
 		butt.rect_position -= _focus_butt_rightmost_pos_delta
 
 
-## Upgrade teh current melon. Delete it from the tree and attaches the
-## newly created melon to the field [member _curr_melon]
+## Upgrade the current melon. Pass the new melon instance via signal and delete current node
 func _replace_melon(upgrade: String):
 	var new_melon: Melon
 	if upgrade == "Left":
@@ -173,10 +177,6 @@ func _replace_melon(upgrade: String):
 	emit_signal("upgrade_to", new_melon)
 	
 	queue_free()
-	
-#	_curr_melon.queue_free()
-#
-#	attach_melon(new_melon)
 
 ## Sell the melon. Emit signal with the money earned with it
 func _sell_melon():

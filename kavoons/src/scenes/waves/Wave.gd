@@ -1,8 +1,9 @@
 extends Node2D
 
 ## Provide the enemies spawning for one attack wave
+class_name Wave
 
-# TODO: set the enemies via method
+# TODO: set the arrays via method
 
 var _cat = load("res://src/scenes/enemies/Cat1.tscn")
 ## Array with all the enemies expected to be spawn during current wave

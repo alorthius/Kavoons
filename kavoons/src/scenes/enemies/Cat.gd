@@ -24,7 +24,6 @@ func _ready():
 	_hp_bar.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
-	print(v_offset)
 
 ## Move the cat on a path
 func _physics_process(delta):

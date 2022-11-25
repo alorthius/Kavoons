@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Upgrader",
 "language": "GDScript",
 "path": "res://src/scenes/UI/Upgrader.gd"
+}, {
+"base": "Node2D",
+"class": "Wave",
+"language": "GDScript",
+"path": "res://src/scenes/waves/Wave.gd"
 } ]
 _global_script_class_icons={
 "Builder": "",
 "Cat": "",
 "Melon": "",
-"Upgrader": ""
+"Upgrader": "",
+"Wave": ""
 }
 
 [application]
