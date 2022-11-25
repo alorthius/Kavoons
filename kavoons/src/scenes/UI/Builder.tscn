@@ -22,6 +22,10 @@ script = ExtResource( 1 )
 
 [node name="Range" type="Sprite" parent="UI/HUD/TowerPreview"]
 
+[node name="BuildingShape" type="Area2D" parent="UI/HUD/TowerPreview"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/HUD/TowerPreview/BuildingShape"]
+
 [node name="BuildBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
 anchor_top = 1.0

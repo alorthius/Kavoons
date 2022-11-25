@@ -24,6 +24,8 @@ var _is_active: bool = false
 ## Is position of the new melon valid
 var _is_valid: bool = false
 
+var _overlapped_melons = []
+
 ## The node containing the preview sprite of the selected melon and
 ## the sprite of its atack range
 onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
@@ -54,7 +56,8 @@ func _process(_delta):
 ## on right click cancels the building mode
 func _unhandled_input(event):
 	if _is_active:
-		if event.is_action_pressed("ui_accept"):
+		_validate()
+		if event.is_action_pressed("ui_accept") and _is_valid:
 			_place_melon()
 			_cancel_building()
 		if event.is_action_pressed("ui_cancel"):
@@ -66,15 +69,23 @@ func _activate_building(melon: String):
 	emit_signal("build_status", _is_active)
 	_chosen_melon = melon
 
-	_tower_preview.set_preview(_chosen_melon, get_global_mouse_position())
+	_tower_preview.set_preview(_chosen_melon, _shapes[_chosen_melon ], get_global_mouse_position(), _is_valid)
 
 ## Update the activated tower preview so the current mouse position on screen
 func _update_tower_preview():
-	_tower_preview.update_preview(get_global_mouse_position())
+	_tower_preview.update_preview(get_global_mouse_position(), _is_valid)
 
 ## Check whether the current position of a mouse is valid to place the tower
 func _validate():
-	pass
+	_is_valid = _overlapped_melons.empty()
+
+func _on_melon_area_entered(area):
+	if area.name == "BuildingShape":
+		_overlapped_melons.append(area)
+
+func _on_melon_area_exited(area):
+	if area.name == "BuildingShape":
+		_overlapped_melons.erase(area)
 
 ## Choose the final tower position and emit its instance
 func _place_melon():

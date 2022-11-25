@@ -34,6 +34,12 @@ func _ready():
 ## Wrapp the newly created melon with the new [Upgrader] instance.
 ## The melon is emitted from the [Builder] using a signal after building finish.
 func _attach_melon(new_tower: Melon):
+	_signal_err = new_tower.connect("area_entered", _builder, "_on_melon_area_entered")
+	if _signal_err != 0: print("Upgrader: attach_melon: connect: area_entered: ", _signal_err)
+	
+	_signal_err = new_tower.connect("area_exited", _builder, "_on_melon_area_exited")
+	if _signal_err != 0: print("Upgrader: attach_melon: connect: area_exited: ", _signal_err)
+	
 	var new_upgrader = _upgrader.instance()
 	_towers_container.add_child(new_upgrader, true)
 	new_upgrader.attach_melon(new_tower)
