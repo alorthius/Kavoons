@@ -20,7 +20,7 @@ var _curr_wave: Wave
 
 ## The preloaded [Upgrader] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
-var _upgrader: PackedScene = preload("res://src/scenes/UI/Upgrader.tscn")
+var _melon_manager: PackedScene = preload("res://src/scenes/UI/MelonManager.tscn")
 
 var _signal_err: int = 0
 
@@ -33,14 +33,14 @@ func _ready():
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
-	var new_upgrader = _upgrader.instance()
-	_towers_container.add_child(new_upgrader, true)
-	new_upgrader.attach_melon(new_tower)
+	var new_manager: MelonManager = _melon_manager.instance()
+	_towers_container.add_child(new_manager, true)
+	new_manager.attach_melon(new_tower)
 	
-	_signal_err = _builder.connect("build_status", new_upgrader, "_toggle_build_status")
+	_signal_err = _builder.connect("build_status", new_manager, "_toggle_build_status")
 	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
 	
-	_signal_err = new_upgrader.connect("upgrade_to", self, "_attach_melon")
+	_signal_err = new_manager.connect("upgrade_to", self, "_attach_melon")
 	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
 
 ## Start a new wave

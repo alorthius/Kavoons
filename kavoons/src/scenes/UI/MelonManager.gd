@@ -5,8 +5,7 @@ extends Control
 ## A decorator of a melon instance. It wraps above every melon using the unique
 ## instances for each melon separately. Provides the interface to upgrade,
 ## delete and view the information about a particular melon.
-## Recreates for every upgrade
-class_name Upgrader
+class_name MelonManager
 
 ## Define the region for the UI buttons
 onready var _hud: Control = $UI/HUD
@@ -25,10 +24,13 @@ onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1,
 
 
 enum Buttons {UPGR, SELL, INFO}
-## The textures of the buttons used to upgrade the melon
-var _butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
-## The names of the buttons used to upgrade the melon
-var _butt_names    = [ "Left", "Right"]
+
+var _upgr_butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
+var _upgr_butt_names    = [ "Left", "Right"]
+
+var _sell_butt_texture: Texture = preload("res://assets/UI/upgr_left.png") # TODO
+var _sell_butt_icon = null  # TODO
+var _sell_butt_name = "Sell"
 
 ## Delta of button scale on hovering
 var _focus_butt_scale_delta = Vector2(0.1, 0.1)
@@ -86,11 +88,11 @@ func attach_melon(melon: Melon):
 ## Create buttons for each possible melon update from the array of future melon sprites.
 func _add_upgrade_buttons(icons: Array):	
 	for idx in range(icons.size()):
-		_add_generic_button(load(_butt_textures[idx]), _butt_names[idx], load(icons[idx]), Buttons.UPGR)
+		_add_generic_button(load(_upgr_butt_textures[idx]), _upgr_butt_names[idx], load(icons[idx]), Buttons.UPGR)
 
 ## Create the sell button.
 func _add_sell_button():
-	_add_generic_button(load("res://assets/UI/upgr_left.png"), "Sell", null, Buttons.SELL)
+	_add_generic_button(_sell_butt_texture, _sell_butt_name, _sell_butt_icon, Buttons.SELL)
 
 
 ## Buttons static factory. The button type is given from enum [member Buttons]

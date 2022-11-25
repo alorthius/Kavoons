@@ -25,9 +25,9 @@ _global_script_classes=[ {
 "path": "res://src/scenes/towers/Melon.gd"
 }, {
 "base": "Control",
-"class": "Upgrader",
+"class": "MelonManager",
 "language": "GDScript",
-"path": "res://src/scenes/UI/Upgrader.gd"
+"path": "res://src/scenes/UI/MelonManager.gd"
 }, {
 "base": "Node2D",
 "class": "Wave",
@@ -38,7 +38,7 @@ _global_script_class_icons={
 "Builder": "",
 "Cat": "",
 "Melon": "",
-"Upgrader": "",
+"MelonManager": "",
 "Wave": ""
 }
 
