@@ -19,6 +19,7 @@ mouse_filter = 2
 script = ExtResource( 1 )
 
 [node name="Tower" type="Sprite" parent="UI/HUD/TowerPreview"]
+modulate = Color( 0.368627, 1, 0.317647, 0.588235 )
 
 [node name="Range" type="Sprite" parent="UI/HUD/TowerPreview"]
 

@@ -33,9 +33,11 @@ func set_preview(tower: String, new_shape: CircleShape2D, new_position: Vector2,
 ## Change the position of the tower and range sprites to a new position
 func update_preview(new_position: Vector2, is_valid: bool):
 	if is_valid:
-		_tower_sprite.modulate = "9642c848"
+		_range_sprite.modulate = "965eff51"
+		_tower_sprite.modulate = "965eff51"
 	else:
-		_tower_sprite.modulate = "96c84242"
+		_range_sprite.modulate = "969c0000"
+		_tower_sprite.modulate = "969c0000"
 	self.set_position(new_position)
 
 ## Remove the texture of a tower sprite and its range

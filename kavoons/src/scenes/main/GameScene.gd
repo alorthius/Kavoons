@@ -46,6 +46,9 @@ func _attach_melon(new_tower: Melon):
 	
 	_signal_err = _builder.connect("build_status", new_upgrader, "_toggle_build_status")
 	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
+	
+	_signal_err = new_upgrader.connect("upgrade_to", self, "_attach_melon")
+	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
 
 ## Start a new wave
 func _on_WavesTimer_timeout():

@@ -43,6 +43,8 @@ var _is_build_active: bool = false
 
 var _signal_err: int = 0
 
+signal upgrade_to(new_melon)
+
 
 func _ready():
 	_hud.set_visible(false)
@@ -167,9 +169,14 @@ func _replace_melon(upgrade: String):
 		new_melon = _curr_melon.next_B.instance()
 
 	new_melon.position = _curr_melon.position
-	_curr_melon.queue_free()
 	
-	attach_melon(new_melon)
+	emit_signal("upgrade_to", new_melon)
+	
+	queue_free()
+	
+#	_curr_melon.queue_free()
+#
+#	attach_melon(new_melon)
 
 ## Sell the melon. Emit signal with the money earned with it
 func _sell_melon():
