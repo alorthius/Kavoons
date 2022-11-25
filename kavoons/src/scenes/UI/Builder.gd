@@ -14,12 +14,16 @@ class_name Builder
 var _towers = {
 	"NinjaMelon": preload("res://src/scenes/towers/ninja_melon/NinjaT1.tscn"),
 }
+var _shapes = {
+	"NinjaMelon": preload("res://src/resources/melon/collision_shape.tres")
+}
 
 ## Is building currently active
 var _is_active: bool = false
 
 ## Is position of the new melon valid
 var _is_valid: bool = false
+onready var _exclusions: Area2D = $ExclusionContainer
 
 ## The node containing the preview sprite of the selected melon and
 ## the sprite of its atack range
@@ -27,9 +31,11 @@ onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
 
 var _build_position: Vector2
 var _chosen_melon: String
+var _melon_shape: CollisionShape2D
 
 var _signal_err: int = 0
 
+signal build_status(is_active)
 ## Emmits a newly placed melon instance to the [GameScene] node
 signal tower_placed(new_tower)
 
@@ -59,7 +65,10 @@ func _unhandled_input(event):
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):
 	_is_active = true
+	emit_signal("build_status", _is_active)
 	_chosen_melon = melon
+	_melon_shape = CollisionShape2D.new()
+	_melon_shape.shape = _shapes[melon]
 	_tower_preview.set_preview(_chosen_melon, get_global_mouse_position())
 
 ## Update the activated tower preview so the current mouse position on screen
@@ -74,6 +83,7 @@ func _validate():
 func _place_melon():
 	var new_tower = _towers[_chosen_melon].instance()
 	new_tower.position = get_global_mouse_position()
+	_exclusions.add_child(_melon_shape, true)
 	emit_signal("tower_placed", new_tower)
 
 ## Reset the building mode, inclusing the previously chosen melon and its preview
@@ -82,3 +92,8 @@ func _cancel_building():
 	_is_valid = false
 	_chosen_melon = ""
 	_tower_preview.cancel_preview()
+	emit_signal("build_status", _is_active)
+
+
+func _on_ExclusionContainer_body_entered(body):
+	print(body)

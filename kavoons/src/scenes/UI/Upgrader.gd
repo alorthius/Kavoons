@@ -39,12 +39,17 @@ var _is_final: bool = false
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
 
+var _is_build_active: bool = false
+
 var _signal_err: int = 0
 
 
 func _ready():
 	_hud.set_visible(false)
 	_add_sell_button()  # the sell button should be added only once
+
+func _toggle_build_status(status: bool):
+	_is_build_active = status
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node. Create the upgrade UI buttons for the melon.
@@ -208,4 +213,5 @@ func _on_HUD_mouse_exited():
 ## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
 ## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
 func _on_melon_mouse_entered():
-	_hud.set_visible(true)
+	if not _is_build_active:
+		_hud.set_visible(true)

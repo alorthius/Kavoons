@@ -7,6 +7,8 @@ extends Node2D
 
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $Builder
+onready var _is_build_active: bool = false
+
 ## Timer managing the flow of the waves of a map
 onready var _waves_timer: Timer = $WavesTimer
 ## Container with all the placed towers
@@ -26,6 +28,7 @@ var _signal_err: int = 0
 func _ready():
 	_signal_err = _builder.connect("tower_placed", self, "_attach_melon")
 	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
+
 	_waves_timer.start()
 
 ## Wrapp the newly created melon with the new [Upgrader] instance.
@@ -34,6 +37,9 @@ func _attach_melon(new_tower: Melon):
 	var new_upgrader = _upgrader.instance()
 	_towers_container.add_child(new_upgrader, true)
 	new_upgrader.attach_melon(new_tower)
+	
+	_signal_err = _builder.connect("build_status", new_upgrader, "_toggle_build_status")
+	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
 
 ## Start a new wave
 func _on_WavesTimer_timeout():
