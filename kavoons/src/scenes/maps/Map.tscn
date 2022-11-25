@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/environment/tilesets/TX Tileset Grass.png" type="Texture" id=2]
 
@@ -751,7 +751,12 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [sub_resource type="Curve2D" id=3]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -22, 353, 0, 0, 0, 0, 355, 353, 0, 0, 0, 0, 357, 678, 0, 0, 0, 0, 698, 678, 0, 0, 0, 0, 700, 880, 0, 0, 0, 0, 931, 876, 0, 0, 0, 0, 935, 376, 0, 0, 0, 0, 1247, 379, 0, 0, 0, 0, 1251, 651, 0, 0, 0, 0, 1442, 640, 0, 0, 0, 0, 1446, 899, 0, 0, 0, 0, 1633, 903, 0, 0, 0, 0, 1635, 645, 0, 0, 0, 0, 1796, 645, 0, 0, 0, 0, 1794, 448, 0, 0, 0, 0, 1943, 446 )
+"points": PoolVector2Array( 0, 0, 0, 0, -22, 353, 0, 0, 0, 0, 355, 353, 0, 0, 0, 0, 358, 666, 0, 0, 0, 0, 706, 674, 0, 0, 0, 0, 702, 128, 0, 0, 0, 0, 932, 132, 0, 0, 0, 0, 935, 376, 0, 0, 0, 0, 1247, 379, 0, 0, 0, 0, 1246, 284, 0, 0, 0, 0, 1472, 286, 0, 0, 0, 0, 1474, 446, 0, 0, 0, 0, 1943, 446 )
+}
+
+[sub_resource type="Curve2D" id=34]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -17, 350, 0, 0, 0, 0, 348, 351, 0, 0, 0, 0, 354, 662, 0, 0, 0, 0, 689, 662, 0, 0, 0, 0, 691, 858, 0, 0, 0, 0, 937, 856, 0, 0, 0, 0, 934, 373, 0, 0, 0, 0, 1252, 380, 0, 0, 0, 0, 1251, 638, 0, 0, 0, 0, 1444, 639, 0, 0, 0, 0, 1445, 901, 0, 0, 0, 0, 1634, 898, 0, 0, 0, 0, 1634, 643, 0, 0, 0, 0, 1789, 643, 0, 0, 0, 0, 1792, 448, 0, 0, 0, 0, 1956, 450 )
 }
 
 [node name="Map" type="Node2D"]
@@ -774,7 +779,8 @@ format = 1
 [node name="Pathes" type="Node2D" parent="."]
 
 [node name="Path1" type="Path2D" parent="Pathes"]
+visible = false
 curve = SubResource( 3 )
 
 [node name="Path2" type="Path2D" parent="Pathes"]
-curve = SubResource( 3 )
+curve = SubResource( 34 )
