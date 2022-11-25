@@ -779,7 +779,6 @@ format = 1
 [node name="Pathes" type="Node2D" parent="."]
 
 [node name="Path1" type="Path2D" parent="Pathes"]
-visible = false
 curve = SubResource( 3 )
 
 [node name="Path2" type="Path2D" parent="Pathes"]
