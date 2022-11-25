@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 ## An interface for a tower
 ## 

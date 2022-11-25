@@ -19,8 +19,13 @@ mouse_filter = 2
 script = ExtResource( 1 )
 
 [node name="Tower" type="Sprite" parent="UI/HUD/TowerPreview"]
+modulate = Color( 0.368627, 1, 0.317647, 0.588235 )
 
 [node name="Range" type="Sprite" parent="UI/HUD/TowerPreview"]
+
+[node name="BuildingShape" type="Area2D" parent="UI/HUD/TowerPreview"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/HUD/TowerPreview/BuildingShape"]
 
 [node name="BuildBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
@@ -180,3 +185,8 @@ margin_bottom = -10.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
+
+[connection signal="area_entered" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_entered"]
+[connection signal="area_exited" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_exited"]
+[connection signal="body_entered" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_body_entered"]
+[connection signal="body_exited" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_body_exited"]

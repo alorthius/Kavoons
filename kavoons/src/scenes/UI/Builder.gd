@@ -14,12 +14,17 @@ class_name Builder
 var _towers = {
 	"NinjaMelon": preload("res://src/scenes/towers/ninja_melon/NinjaT1.tscn"),
 }
+var _shapes = {
+	"NinjaMelon": preload("res://src/resources/melon/collision_shape.tres")
+}
 
 ## Is building currently active
 var _is_active: bool = false
 
 ## Is position of the new melon valid
 var _is_valid: bool = false
+var _overlapped_melons = []
+var _overlapped_tiles = []
 
 ## The node containing the preview sprite of the selected melon and
 ## the sprite of its atack range
@@ -30,6 +35,7 @@ var _chosen_melon: String
 
 var _signal_err: int = 0
 
+signal build_status(is_active)
 ## Emmits a newly placed melon instance to the [GameScene] node
 signal tower_placed(new_tower)
 
@@ -50,7 +56,8 @@ func _process(_delta):
 ## on right click cancels the building mode
 func _unhandled_input(event):
 	if _is_active:
-		if event.is_action_pressed("ui_accept"):
+		_validate()
+		if event.is_action_pressed("ui_accept") and _is_valid:
 			_place_melon()
 			_cancel_building()
 		if event.is_action_pressed("ui_cancel"):
@@ -59,21 +66,24 @@ func _unhandled_input(event):
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):
 	_is_active = true
+	emit_signal("build_status", _is_active)
 	_chosen_melon = melon
-	_tower_preview.set_preview(_chosen_melon, get_global_mouse_position())
+
+	_tower_preview.set_preview(_chosen_melon, _shapes[_chosen_melon ], get_global_mouse_position(), _is_valid)
 
 ## Update the activated tower preview so the current mouse position on screen
 func _update_tower_preview():
-	_tower_preview.update_preview(get_global_mouse_position())
+	_tower_preview.update_preview(get_global_mouse_position(), _is_valid)
 
 ## Check whether the current position of a mouse is valid to place the tower
 func _validate():
-	pass
+	_is_valid = _overlapped_melons.empty() and _overlapped_tiles.empty()
 
 ## Choose the final tower position and emit its instance
 func _place_melon():
 	var new_tower = _towers[_chosen_melon].instance()
 	new_tower.position = get_global_mouse_position()
+
 	emit_signal("tower_placed", new_tower)
 
 ## Reset the building mode, inclusing the previously chosen melon and its preview
@@ -82,3 +92,20 @@ func _cancel_building():
 	_is_valid = false
 	_chosen_melon = ""
 	_tower_preview.cancel_preview()
+
+	emit_signal("build_status", _is_active)
+
+
+func _on_BuildingShape_body_entered(body):
+	_overlapped_tiles.append(body)
+
+func _on_BuildingShape_body_exited(body):
+	_overlapped_tiles.erase(body)
+
+func _on_BuildingShape_area_entered(area):
+	if area.is_in_group("melons"):
+		_overlapped_melons.append(area)
+
+func _on_BuildingShape_area_exited(area):
+	if area.is_in_group("melons"):
+		_overlapped_melons.erase(area)

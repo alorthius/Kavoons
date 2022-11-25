@@ -2,14 +2,12 @@
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T4_RR.png" type="Texture" id=2]
+[ext_resource path="res://src/resources/melon/collision_shape.tres" type="Shape2D" id=3]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=4]
-
-[sub_resource type="CircleShape2D" id=3]
 
 [sub_resource type="CircleShape2D" id=2]
 
-[node name="Melon" type="StaticBody2D"]
-input_pickable = true
+[node name="Melon" type="Area2D" groups=["melons"]]
 script = ExtResource( 1 )
 
 [node name="BaseRange" type="Sprite" parent="."]
@@ -22,8 +20,7 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
 [node name="TowerShape" type="CollisionShape2D" parent="."]
-scale = Vector2( 5, 5 )
-shape = SubResource( 3 )
+shape = ExtResource( 3 )
 
 [node name="Range" type="Area2D" parent="."]
 
