@@ -8,8 +8,6 @@
 [node name="Builder" type="Control"]
 script = ExtResource( 2 )
 
-[node name="ExclusionContainer" type="Area2D" parent="."]
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="UI"]
@@ -182,5 +180,3 @@ margin_bottom = -10.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 expand = true
-
-[connection signal="body_entered" from="ExclusionContainer" to="." method="_on_ExclusionContainer_body_entered"]
