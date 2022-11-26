@@ -8,8 +8,10 @@ extends Control
 class_name MelonManager
 
 ## Define the region for the UI buttons
-onready var _hud: Control = $UI/HUD
+onready var _hud: VBoxContainer = $UI/HUD
 var _hud_box: Rect2
+
+onready var _melon_box: HBoxContainer = $UI/HUD/MelonBox
 ## The container of all the upgrade buttons
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
 ## The container of the sell button
@@ -83,11 +85,15 @@ func attach_melon(melon: Melon):
 	if butt_icons.empty():  # There are no updates of the melon
 		_is_final = true
 		_upgrade_butt_bar.set_visible(false)
-		_hud.rect_size = _final_hud_size
+		_hud.rect_min_size = _final_hud_size
+		_hud.margin_top += _curr_melon._melon_sprite.texture.get_size()[0]
 		_hud.rect_position += _final_hud_offset
 	else:
 		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
 		_add_upgrade_buttons(butt_icons)
+	
+	_melon_box.rect_min_size = _curr_melon._melon_sprite.texture.get_size() * _curr_melon._melon_sprite.scale[0]
+	print(_melon_box.rect_min_size)
 	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/scenes/UI/MelonManager.gd" type="Script" id=1]
-[ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=2]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=3]
 
 [node name="MelonManager" type="Control"]
@@ -13,50 +12,32 @@ script = ExtResource( 1 )
 visible = false
 texture = ExtResource( 3 )
 
-[node name="HUD" type="Control" parent="UI"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+[node name="HUD" type="VBoxContainer" parent="UI"]
 margin_left = -90.0
-margin_top = -120.0
-margin_right = 90.0
-margin_bottom = 140.0
-grow_horizontal = 2
-grow_vertical = 2
+margin_top = -80.0
+margin_right = 80.0
 rect_min_size = Vector2( 180, 80 )
+custom_constants/separation = 10
+alignment = 1
 
 [node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -90.0
-margin_right = 90.0
+margin_right = 180.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 180, 80 )
 custom_constants/separation = 20
 alignment = 1
 
+[node name="MelonBox" type="HBoxContainer" parent="UI/HUD"]
+margin_top = 90.0
+margin_right = 180.0
+margin_bottom = 90.0
+
 [node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -90.0
-margin_top = -80.0
-margin_right = 90.0
+margin_top = 100.0
+margin_right = 180.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 180, 80 )
 alignment = 1
-
-[node name="DebugSraka" type="TextureRect" parent="UI/HUD"]
-visible = false
-modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 2 )
-expand = true
 
 [connection signal="mouse_entered" from="UI/HUD" to="." method="_on_HUD_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD" to="." method="_on_HUD_mouse_exited"]
