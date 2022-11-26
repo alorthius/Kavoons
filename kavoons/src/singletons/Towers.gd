@@ -24,6 +24,7 @@ var towers_data: Dictionary = {
 			"range_scale": 20,  # TODO: use metrics and then calculate the scale factor in code
 			
 			"next": [ "res://assets/towers/ninja_melon/T3_LR.png", "res://assets/towers/ninja_melon/T3_RR.png" ],
+			"next_ranges": [25, 15]
 		},
 
 		"T2-A": {
