@@ -18,7 +18,7 @@ onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 ## The shift of [member _hud] to be placed above the melon
 var _hud_offset: Vector2 = Vector2(-85, -130)
 ## The shift of [member _hud] above the melon if no upgrades available
-var _final_hud_offset: Vector2 = Vector2(0, 80)
+var _final_hud_offset: Vector2 = Vector2(0, 60)
 ## The size of [member _hud] if no upgrades available
 onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1, 2.5)
 
