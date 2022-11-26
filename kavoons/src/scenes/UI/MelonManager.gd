@@ -40,7 +40,8 @@ var _focus_butt_pos_delta = Vector2(0, -5)
 var _focus_butt_rightmost_pos_delta = Vector2(-7, 0)
 
 onready var _range_texture: Sprite = $UI/NextRange
-var _next_ranges: Array;
+var _next_ranges: Array
+var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
 ## True if there are no possible  updates, false otherwise
 var _is_final: bool = false
@@ -165,12 +166,16 @@ func _focus_button(butt: TextureButton):
 		butt.rect_position += _focus_butt_rightmost_pos_delta
 	
 	var next_range: int
+	var color: Color
 	if butt.name == "Left":
 		next_range = _next_ranges[0]
+		color = _next_ranges_colors[0]
 	elif butt.name == "Right":
 		next_range = _next_ranges[1]
+		color = _next_ranges_colors[1]
 	
 	_range_texture.scale = Vector2(next_range * 0.55, next_range * 0.55)
+	_range_texture.modulate = color
 	_range_texture.set_visible(true)
 #	sprite_node.set_modulate(new_color)
 	
