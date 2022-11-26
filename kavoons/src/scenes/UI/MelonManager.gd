@@ -223,4 +223,5 @@ func _on_HUD_mouse_exited():
 ## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
 func _on_melon_mouse_entered():
 	if not _is_build_active:
+		_curr_melon.display_range(true)
 		_hud.set_visible(true)

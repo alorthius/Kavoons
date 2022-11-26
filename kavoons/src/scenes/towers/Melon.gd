@@ -65,6 +65,7 @@ var _curr_enemy: Cat
 func _ready():
 	_parse_tower_data()
 	_base_attack_timer.start()
+	display_range(false)
 
 func _physics_process(_delta):
 	_select_enemy()
