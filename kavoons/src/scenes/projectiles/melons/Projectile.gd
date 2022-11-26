@@ -22,9 +22,16 @@ func _set_properties(speed: float, damage: int, miss_rate: float, target: Cat):
 
 func _physics_process(delta):
 	# follow the enemy's moving position
-	var velocity = (_target.position - position).normalized() * _speed
-	position += velocity * delta
+
+	var velocity: Vector2
+	if is_instance_valid(_target):
+		velocity = (_target.position - position).normalized() * _speed
+	else:
+		print("sraka")
+		queue_free()
+
 	rotation = velocity.angle()
+	position += velocity * delta
 
 func _on_Projectile_area_entered(area):
 	if area == _target_area:
