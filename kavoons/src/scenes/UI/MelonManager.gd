@@ -39,6 +39,9 @@ var _focus_butt_pos_delta = Vector2(0, -5)
 ## Delta of the rightmost button position on hovering
 var _focus_butt_rightmost_pos_delta = Vector2(-7, 0)
 
+onready var _range_texture: Sprite = $UI/NextRange
+var _next_ranges: Array
+var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
 ## True if there are no possible  updates, false otherwise
 var _is_final: bool = false
@@ -55,6 +58,7 @@ signal upgrade_to(new_melon)
 
 func _ready():
 	_hud.set_visible(false)
+	_range_texture.set_visible(false)
 
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
@@ -70,16 +74,19 @@ func attach_melon(melon: Melon):
 	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
 	
 	_hud.rect_position = _curr_melon.position + _hud_offset
+	_range_texture.position = _curr_melon.position
 	
 	_add_sell_button()
 
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
+
 	if butt_icons.empty():  # There are no updates of the melon
 		_is_final = true
 		_upgrade_butt_bar.set_visible(false)
 		_hud.rect_size = _final_hud_size
 		_hud.rect_position += _final_hud_offset
 	else:
+		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
 		_add_upgrade_buttons(butt_icons)
 	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
@@ -107,7 +114,7 @@ func _add_generic_button(butt_texture: Texture, butt_name: String, icon_texture:
 	if butt_type == Buttons.UPGR:
 		parent_container = _upgrade_butt_bar
 		
-		_signal_err = new_butt.connect("pressed", self, "_replace_melon", [butt_name])
+		_signal_err = new_butt.connect("pressed", self, "_upgrade_melon", [butt_name])
 		if _signal_err != 0: print("Upgrader: _add_upgrade_buttons: connect: pressed: ", _signal_err)
 	
 	elif butt_type == Buttons.SELL:
@@ -157,9 +164,25 @@ func _focus_button(butt: TextureButton):
 	butt.rect_position += _focus_butt_pos_delta
 	if (butt.name in ["Right", "Sell"]):
 		butt.rect_position += _focus_butt_rightmost_pos_delta
+	
+	var next_range: int
+	var color: Color
+	if butt.name == "Left":
+		next_range = _next_ranges[0]
+		color = _next_ranges_colors[0]
+	elif butt.name == "Right":
+		next_range = _next_ranges[1]
+		color = _next_ranges_colors[1]
+	
+	_range_texture.scale = Vector2(next_range * 0.55, next_range * 0.55)
+	_range_texture.modulate = color
+	_range_texture.set_visible(true)
+#	sprite_node.set_modulate(new_color)
+	
 
 ## Shrink button on hover
 func _unfocus_button(butt: TextureButton):
+	_range_texture.set_visible(false)
 	butt.rect_scale -= _focus_butt_scale_delta
 	butt.rect_position -= _focus_butt_pos_delta
 	if (butt.name in ["Right", "Sell"]):
@@ -167,7 +190,7 @@ func _unfocus_button(butt: TextureButton):
 
 
 ## Upgrade the current melon. Pass the new melon instance via signal and delete current node
-func _replace_melon(upgrade: String):
+func _upgrade_melon(upgrade: String):
 	var new_melon: Melon
 	if upgrade == "Left":
 		new_melon = _curr_melon.next_A.instance()
@@ -185,6 +208,17 @@ func _sell_melon():
 	# TODO: emit signal
 	queue_free()
 
+
+## Trigger the UI display on melon collision shape hover with making visible
+## the larger area of mouse focus [member _hud]  with connected mouse signals.
+## There is no signal _on_melon_mouse_exited as the UI hides on that signal
+## connected to [member _hud] member.
+## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
+## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
+func _on_melon_mouse_entered():
+	if not _is_build_active:
+		_curr_melon.display_range(true)
+		_hud.set_visible(true)
 
 ### Display the UI
 func _on_HUD_mouse_entered():
@@ -213,15 +247,3 @@ func _on_HUD_mouse_exited():
 	if not _hud_box.has_point(get_local_mouse_position()):
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
-
-
-## Trigger the UI display on melon collision shape hover with making visible
-## the larger area of mouse focus [member _hud]  with connected mouse signals.
-## There is no signal _on_melon_mouse_exited as the UI hides on that signal
-## connected to [member _hud] member.
-## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
-## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
-func _on_melon_mouse_entered():
-	if not _is_build_active:
-		_curr_melon.display_range(true)
-		_hud.set_visible(true)
