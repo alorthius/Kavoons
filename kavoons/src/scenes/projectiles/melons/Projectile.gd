@@ -22,8 +22,9 @@ func _set_properties(speed: float, damage: int, miss_rate: float, target: Cat):
 
 func _physics_process(delta):
 	# follow the enemy's moving position
-	rotate(get_angle_to(_target.position))
-	global_position += (_target.position - position).normalized() * _speed * delta
+	var velocity = (_target.position - position).normalized() * _speed
+	position += velocity * delta
+	rotation = velocity.angle()
 
 func _on_Projectile_area_entered(area):
 	if area == _target_area:
