@@ -17,15 +17,8 @@ onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
 ## The container of the sell button
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 
-## The shift of [member _hud] to be placed above the melon
-var _hud_offset: Vector2 = Vector2(-85, -130)
-## The shift of [member _hud] above the melon if no upgrades available
-var _final_hud_offset: Vector2 = Vector2(0, 60)
-## The size of [member _hud] if no upgrades available
-onready var _final_hud_size: Vector2 = _sell_butt_bar.rect_min_size * Vector2(1, 2.5)
 
-
-enum Buttons {UPGR, SELL, INFO}
+enum Buttons {UPGR, SELL, SWITCH, TARGET}
 
 var _upgr_butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
 var _upgr_butt_names    = [ "Left", "Right"]
@@ -45,8 +38,6 @@ onready var _range_texture: Sprite = $UI/NextRange
 var _next_ranges: Array
 var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
-## True if there are no possible  updates, false otherwise
-var _is_final: bool = false
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
 ## Is the building mode currently active. If so, ignore the UI input
@@ -75,25 +66,20 @@ func attach_melon(melon: Melon):
 	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
 	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
 	
-	_hud.rect_position = _curr_melon.position + _hud_offset
+	_hud.rect_position = _curr_melon.position - _melon_box.rect_size / 2.0 - _melon_box.rect_position
 	_range_texture.position = _curr_melon.position
 	
 	_add_sell_button()
-
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
-
 	if butt_icons.empty():  # There are no updates of the melon
-		_is_final = true
 		_upgrade_butt_bar.set_visible(false)
-		_hud.rect_min_size = _final_hud_size
-		_hud.margin_top += _curr_melon._melon_sprite.texture.get_size()[0]
-		_hud.rect_position += _final_hud_offset
+		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
+		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1] + _hud.get_constant("separation"))
+		_hud.rect_size -= y_delta
+		_hud.rect_position += y_delta
 	else:
 		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
 		_add_upgrade_buttons(butt_icons)
-	
-	_melon_box.rect_min_size = _curr_melon._melon_sprite.texture.get_size() * _curr_melon._melon_sprite.scale[0]
-	print(_melon_box.rect_min_size)
 	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 

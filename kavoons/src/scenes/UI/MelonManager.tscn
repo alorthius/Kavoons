@@ -14,10 +14,17 @@ visible = false
 texture = ExtResource( 3 )
 
 [node name="HUD" type="VBoxContainer" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -90.0
-margin_top = -80.0
-margin_right = 80.0
-rect_min_size = Vector2( 180, 80 )
+margin_top = -195.0
+margin_right = 90.0
+margin_bottom = 115.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 180, 140 )
 custom_constants/separation = 10
 alignment = 1
 
@@ -31,12 +38,14 @@ alignment = 1
 [node name="MelonBox" type="HBoxContainer" parent="UI/HUD"]
 margin_top = 90.0
 margin_right = 180.0
-margin_bottom = 90.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 80, 80 )
+alignment = 1
 
 [node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 100.0
+margin_top = 180.0
 margin_right = 180.0
-margin_bottom = 140.0
+margin_bottom = 220.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 alignment = 1
@@ -66,9 +75,9 @@ texture_normal = ExtResource( 2 )
 expand = true
 
 [node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 150.0
+margin_top = 230.0
 margin_right = 180.0
-margin_bottom = 230.0
+margin_bottom = 310.0
 rect_min_size = Vector2( 180, 80 )
 alignment = 1
 
