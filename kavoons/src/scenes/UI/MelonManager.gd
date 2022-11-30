@@ -238,11 +238,14 @@ func _change_targeting(action: String):
 		_curr_targeting = (_curr_targeting - 1) % Constants.TARGET_PRIORITY.size()
 	elif action == "ToRight":
 		_curr_targeting = (_curr_targeting + 1) % Constants.TARGET_PRIORITY.size()
+	if _curr_targeting == -1:
+		_curr_targeting = Constants.TARGET_PRIORITY.size() - 1
 	_set_targeting()
 
 func _set_targeting():
 	_target_butt.text = Constants.TARGET_PRIORITY.keys()[_curr_targeting]
 	_curr_melon._target_priority = _curr_targeting
+	print(_curr_targeting)
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.

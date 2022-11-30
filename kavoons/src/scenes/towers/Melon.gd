@@ -74,7 +74,6 @@ func _physics_process(_delta):
 
 ## Choose one single enemy out of all in tower range to attack
 func _select_enemy():
-	# TODO: add different targetings
 	if _enemies_in_range.empty():
 		_curr_enemy = null
 		return
@@ -88,20 +87,39 @@ func _select_enemy():
 		chosen_enemy = _enemies_in_range[-1]
 	
 	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_LIFECOST:
-		var max_lifecost := -1
+		var max_lifecost := - INF
 		for enemy in _enemies_in_range:
 			if enemy._life_cost > max_lifecost:
 				chosen_enemy = enemy
 				max_lifecost = enemy._life_cost
 				
 	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_ARMOR:
-		pass
+		var max_armor := - INF
+		for enemy in _enemies_in_range:
+			if enemy._physical_armor_flat > max_armor:
+				chosen_enemy = enemy
+				max_armor = enemy._physical_armor_flat
+	
 	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_RESISTENCE:
-		pass
+		var max_resist := - INF
+		for enemy in _enemies_in_range:
+			if enemy._magical_resistance_percentage > max_resist:
+				chosen_enemy = enemy
+				max_resist = enemy._magical_resistance_percentage
+
 	elif _target_priority == Constants.TARGET_PRIORITY.LEAST_HP:
-		pass
+		var min_hp := INF
+		for enemy in _enemies_in_range:
+			if enemy._hp < min_hp:
+				chosen_enemy = enemy
+				min_hp = enemy._hp
+
 	elif _target_priority == Constants.TARGET_PRIORITY.CLOSEST:
-		pass
+		var max_passed := - INF
+		for enemy in _enemies_in_range:
+			if enemy.unit_offset > max_passed:
+				chosen_enemy = enemy
+				max_passed = enemy.unit_offset
 	
 	_curr_enemy = chosen_enemy
 
