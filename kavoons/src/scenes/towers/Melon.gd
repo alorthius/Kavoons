@@ -31,7 +31,7 @@ var _crit_strike_multiplier: int
 var _armor_reduction_flat: int
 var _resistance_reduction_percentage: float
 
-var _target_priority  # from global enum TARGET_PRIORITY
+var _target_priority: int  # from global enum TARGET_PRIORITY
 
 var last_hit_counter: int = 0
 
@@ -75,10 +75,24 @@ func _physics_process(_delta):
 ## Choose one single enemy out of all in tower range to attack
 func _select_enemy():
 	# TODO: add different targetings
-	if not _enemies_in_range.empty():
-		_curr_enemy = _enemies_in_range[0]
-	else:
+	if _enemies_in_range.empty():
 		_curr_enemy = null
+		return
+
+	if _target_priority == Constants.TARGET_PRIORITY.FIRST:
+		_curr_enemy = _enemies_in_range[0]
+	elif _target_priority == Constants.TARGET_PRIORITY.LAST:
+		_curr_enemy = _enemies_in_range[-1]
+	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_LIFECOST:
+		pass
+	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_ARMOR:
+		pass
+	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_RESISTENCE:
+		pass
+	elif _target_priority == Constants.TARGET_PRIORITY.LEAST_HP:
+		pass
+	elif _target_priority == Constants.TARGET_PRIORITY.CLOSEST:
+		pass
 
 ## Rotate the tower sprite to the position of a currently selected enemy
 func _rotate_to():
