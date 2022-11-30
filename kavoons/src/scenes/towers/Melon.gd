@@ -79,12 +79,21 @@ func _select_enemy():
 		_curr_enemy = null
 		return
 
+	var chosen_enemy: Cat
+	
 	if _target_priority == Constants.TARGET_PRIORITY.FIRST:
-		_curr_enemy = _enemies_in_range[0]
+		chosen_enemy = _enemies_in_range[0]
+	
 	elif _target_priority == Constants.TARGET_PRIORITY.LAST:
-		_curr_enemy = _enemies_in_range[-1]
+		chosen_enemy = _enemies_in_range[-1]
+	
 	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_LIFECOST:
-		pass
+		var max_lifecost := -1
+		for enemy in _enemies_in_range:
+			if enemy._life_cost > max_lifecost:
+				chosen_enemy = enemy
+				max_lifecost = enemy._life_cost
+				
 	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_ARMOR:
 		pass
 	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_RESISTENCE:
@@ -93,6 +102,8 @@ func _select_enemy():
 		pass
 	elif _target_priority == Constants.TARGET_PRIORITY.CLOSEST:
 		pass
+	
+	_curr_enemy = chosen_enemy
 
 ## Rotate the tower sprite to the position of a currently selected enemy
 func _rotate_to():
