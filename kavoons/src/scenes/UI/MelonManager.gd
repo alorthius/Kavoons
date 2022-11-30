@@ -32,8 +32,6 @@ var _right_switch_icon = null # TODO
 onready var _target_butt: Button = $UI/HUD/TargetingBar/Label
 var _target_butt_texture: Texture = preload("res://assets/UI/tower_build_button.png") # TODO
 
-var _curr_targeting = int(Constants.TARGET_PRIORITY.FIRST)
-
 ## Delta of button scale on hovering
 var _focus_butt_scale_delta = Vector2(0.1, 0.1)
 ## Delta of button position on hovering
@@ -78,7 +76,7 @@ func attach_melon(melon: Melon):
 	
 	_add_sell_button()
 	_add_targeting_buttons()
-	_set_targeting()
+	_set_targeting_label()
 
 	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
 	if butt_icons.empty():  # There are no updates of the melon
@@ -223,6 +221,7 @@ func _upgrade_melon(upgrade: String):
 		new_melon = _curr_melon.next_B.instance()
 
 	new_melon.position = _curr_melon.position
+	new_melon._target_priority = _curr_melon._target_priority
 	
 	emit_signal("upgrade_to", new_melon)
 	
@@ -234,18 +233,20 @@ func _sell_melon():
 	queue_free()
 
 func _change_targeting(action: String):
+	var new_targeting: int
 	if action == "ToLeft":
-		_curr_targeting = (_curr_targeting - 1) % Constants.TARGET_PRIORITY.size()
+		new_targeting = (_curr_melon._target_priority - 1) % Constants.TARGET_PRIORITY.size()
 	elif action == "ToRight":
-		_curr_targeting = (_curr_targeting + 1) % Constants.TARGET_PRIORITY.size()
-	if _curr_targeting == -1:
-		_curr_targeting = Constants.TARGET_PRIORITY.size() - 1
-	_set_targeting()
+		new_targeting = (_curr_melon._target_priority + 1) % Constants.TARGET_PRIORITY.size()
+	if new_targeting == -1:  # -1 % 7 = -1
+		new_targeting = Constants.TARGET_PRIORITY.size() - 1
+	
+	_curr_melon._target_priority = new_targeting
+	_set_targeting_label()
 
-func _set_targeting():
-	_target_butt.text = Constants.TARGET_PRIORITY.keys()[_curr_targeting]
-	_curr_melon._target_priority = _curr_targeting
-	print(_curr_targeting)
+func _set_targeting_label():
+	_target_butt.text = Constants.TARGET_PRIORITY.keys()[_curr_melon._target_priority]
+#	_curr_melon._target_priority = _curr_targeting
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.

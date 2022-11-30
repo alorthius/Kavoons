@@ -31,7 +31,7 @@ var _crit_strike_multiplier: int
 var _armor_reduction_flat: int
 var _resistance_reduction_percentage: float
 
-var _target_priority: int  # from global enum TARGET_PRIORITY
+var _target_priority: int = Constants.TARGET_PRIORITY.FIRST  # from global enum TARGET_PRIORITY
 
 var last_hit_counter: int = 0
 
