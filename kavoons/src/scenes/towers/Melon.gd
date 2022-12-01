@@ -31,7 +31,7 @@ var _crit_strike_multiplier: int
 var _armor_reduction_flat: int
 var _resistance_reduction_percentage: float
 
-var _target_priority  # from global enum TARGET_PRIORITY
+var _target_priority: int = Constants.TARGET_PRIORITY.FIRST
 
 var last_hit_counter: int = 0
 
@@ -72,13 +72,64 @@ func _physics_process(_delta):
 	_rotate_to()
 	_perform_base_attack()
 
-## Choose one single enemy out of all in tower range to attack
+## Choose one single enemy out of all in tower range to attack with different targetings
+## from global enum Constants.TARGET_PRIORITY:
+## - FIRST - the first enemy entered melon vision
+## - LAST - the last enemy entered melon vision
+## - HIGHEST_LIFECOST - the enemy with the highest life cost
+## - HIGHEST_ARMOR - the enemy with the highest physical armor
+## - HIGHEST_RESISTENCE - the enemy with the highest magic resistance
+## - LEAST_HP - the enemy with the least amount of current hp
+## - CLOSEST - the enemy closest to the path ending
 func _select_enemy():
-	# TODO: add different targetings
-	if not _enemies_in_range.empty():
-		_curr_enemy = _enemies_in_range[0]
-	else:
+	if _enemies_in_range.empty():
 		_curr_enemy = null
+		return
+
+	var chosen_enemy: Cat
+	
+	if _target_priority == Constants.TARGET_PRIORITY.FIRST:
+		chosen_enemy = _enemies_in_range[0]
+	
+	elif _target_priority == Constants.TARGET_PRIORITY.LAST:
+		chosen_enemy = _enemies_in_range[-1]
+	
+	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_LIFECOST:
+		var max_lifecost := - INF
+		for enemy in _enemies_in_range:
+			if enemy._life_cost > max_lifecost:
+				chosen_enemy = enemy
+				max_lifecost = enemy._life_cost
+				
+	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_ARMOR:
+		var max_armor := - INF
+		for enemy in _enemies_in_range:
+			if enemy._physical_armor_flat > max_armor:
+				chosen_enemy = enemy
+				max_armor = enemy._physical_armor_flat
+	
+	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_RESISTENCE:
+		var max_resist := - INF
+		for enemy in _enemies_in_range:
+			if enemy._magical_resistance_percentage > max_resist:
+				chosen_enemy = enemy
+				max_resist = enemy._magical_resistance_percentage
+
+	elif _target_priority == Constants.TARGET_PRIORITY.LEAST_HP:
+		var min_hp := INF
+		for enemy in _enemies_in_range:
+			if enemy._hp < min_hp:
+				chosen_enemy = enemy
+				min_hp = enemy._hp
+
+	elif _target_priority == Constants.TARGET_PRIORITY.CLOSEST:
+		var max_passed := - INF
+		for enemy in _enemies_in_range:
+			if enemy.unit_offset > max_passed:
+				chosen_enemy = enemy
+				max_passed = enemy.unit_offset
+	
+	_curr_enemy = chosen_enemy
 
 ## Rotate the tower sprite to the position of a currently selected enemy
 func _rotate_to():

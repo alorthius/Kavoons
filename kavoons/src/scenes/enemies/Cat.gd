@@ -6,7 +6,7 @@ extends PathFollow2D
 class_name Cat
 
 ## The number of lifes to remove if cat successfully reaches the path end
-var lifes_cost: int
+var _life_cost: int
 
 var _hp: int
 onready var _hp_bar = $HP
