@@ -29,7 +29,7 @@ var _switch_butt_texture: Texture = preload("res://assets/UI/upgr_right.png") # 
 var _left_switch_icon = null # TODO
 var _right_switch_icon = null # TODO
 
-onready var _target_butt: Button = $UI/HUD/TargetingBar/Label
+var _target_label: Label
 var _target_butt_texture: Texture = preload("res://assets/UI/tower_build_button.png") # TODO
 
 ## Delta of button scale on hovering
@@ -101,9 +101,16 @@ func _add_upgrade_buttons(icons: Array):
 func _add_sell_button():
 	_add_generic_button(_sell_butt_texture, _sell_butt_name, _sell_butt_icon, Buttons.SELL)
 
+## Create the targeting buttons and label between them.
 func _add_targeting_buttons():
 	_add_generic_button(_switch_butt_texture, "ToLeft", _left_switch_icon, Buttons.SWITCH)
+	_add_targeting_label()
 	_add_generic_button(_switch_butt_texture, "ToRight", _right_switch_icon, Buttons.SWITCH)
+
+func _add_targeting_label():
+	var label := Label.new()
+	_target_butt_bar.add_child(label)
+	_target_label = label
 
 ## Buttons static factory. The button type is given from enum [member Buttons]
 func _add_generic_button(butt_texture: Texture, butt_name: String, icon_texture: Texture, butt_type: int):	
@@ -200,7 +207,6 @@ func _focus_button(butt: TextureButton):
 	_range_texture.scale = Vector2(next_range * 0.55, next_range * 0.55)
 	_range_texture.modulate = color
 	_range_texture.set_visible(true)
-#	sprite_node.set_modulate(new_color)
 	
 
 ## Shrink button on hover
@@ -245,8 +251,7 @@ func _change_targeting(action: String):
 	_set_targeting_label()
 
 func _set_targeting_label():
-	_target_butt.text = Constants.TARGET_PRIORITY.keys()[_curr_melon._target_priority]
-#	_curr_melon._target_priority = _curr_targeting
+	_target_label.text = Constants.TARGET_PRIORITY.keys()[_curr_melon._target_priority]
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.

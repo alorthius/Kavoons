@@ -72,7 +72,15 @@ func _physics_process(_delta):
 	_rotate_to()
 	_perform_base_attack()
 
-## Choose one single enemy out of all in tower range to attack
+## Choose one single enemy out of all in tower range to attack with different targetings
+## from global enum Constants.TARGET_PRIORITY:
+## - FIRST - the first enemy entered melon vision
+## - LAST - the last enemy entered melon vision
+## - HIGHEST_LIFECOST - the enemy with the highest life cost
+## - HIGHEST_ARMOR - the enemy with the highest physical armor
+## - HIGHEST_RESISTENCE - the enemy with the highest magic resistance
+## - LEAST_HP - the enemy with the least amount of current hp
+## - CLOSEST - the enemy closest to the path ending
 func _select_enemy():
 	if _enemies_in_range.empty():
 		_curr_enemy = null

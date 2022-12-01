@@ -28,38 +28,32 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
+margin_top = 20.0
 margin_right = 180.0
-margin_bottom = 80.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 180, 80 )
 custom_constants/separation = 20
 alignment = 1
 
 [node name="MelonBox" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 90.0
+margin_top = 110.0
 margin_right = 180.0
-margin_bottom = 170.0
+margin_bottom = 190.0
 rect_min_size = Vector2( 80, 80 )
 alignment = 1
 
 [node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 180.0
+margin_top = 200.0
 margin_right = 180.0
-margin_bottom = 220.0
+margin_bottom = 200.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 alignment = 1
 
-[node name="Label" type="Button" parent="UI/HUD/TargetingBar"]
-margin_left = 50.0
-margin_right = 130.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 80, 40 )
-text = "this"
-
 [node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 230.0
+margin_top = 210.0
 margin_right = 180.0
-margin_bottom = 310.0
+margin_bottom = 290.0
 rect_min_size = Vector2( 180, 80 )
 alignment = 1
 
