@@ -90,18 +90,6 @@ func attach_melon(melon: Melon):
 	else:
 		_set_upgr_icons()
 
-	
-#	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
-#	if butt_icons.empty():  # There are no updates of the melon
-#		_upgrade_butt_bar.set_visible(false)
-#		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
-#		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
-#		_hud.rect_size -= y_delta
-#		_hud.rect_position += y_delta
-#	else:
-#		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
-#		_set_upgr_icons(butt_icons, _next_ranges_colors)
-	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 
 ## Set icons of the future towers for the upgrade buttons
@@ -111,8 +99,7 @@ func _set_upgr_icons():
 		if i >= _next_num:
 			butt.set_visible(false)
 		else:
-			var icon: TextureRect = butt.get_child(0)
-			icon.texture = load(_next_icons[i])
+			butt.get_child(0).texture = load(_next_icons[i])
 			butt.self_modulate = _next_colors[i]
 
 ## Expand button on hover, show next melon range if button is upgrade
@@ -133,7 +120,7 @@ func _focus_button(butt: TextureButton):
 		next_range = _next_ranges[2]
 		color = _next_colors[2]
 	
-	_range_texture.scale = Vector2(next_range * 0.55, next_range * 0.55)
+	_range_texture.scale = 2 * next_range * Vector2(1, 1) / _range_texture.texture.get_size()
 	_range_texture.modulate = color
 	_range_texture.set_visible(true)
 

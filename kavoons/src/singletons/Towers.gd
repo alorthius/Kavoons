@@ -29,11 +29,11 @@ var T2_towers: Dictionary = {
 			
 			"buy_cost": 100,
 			
-			"base_attack_radius": 500,
+			"base_attack_radius": 350,
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
 			"base_attack_damage": 20,
 			
-			"attack_speed": 1,
+			"attack_speed": 1.5,
 			"projectile_speed": 500,
 			"miss_rate": 0,
 			
@@ -44,7 +44,8 @@ var T2_towers: Dictionary = {
 			"resistance_reduction_percentage": 0,
 
 			"color": Color(1, 0.9, 0),
-			"next": [T3_towers["NinjaMelon"]["1"]],
+			"next": [],
+#			"next": [T3_towers["NinjaMelon"]["1"]],
 		},
 
 		"2": {
@@ -68,7 +69,8 @@ var T2_towers: Dictionary = {
 			"resistance_reduction_percentage": 0,
 
 			"color": Color(1, 0.4, 0.5),
-			"next": [T3_towers["NinjaMelon"]["2"]],
+			"next": [],
+#			"next": [T3_towers["NinjaMelon"]["2"]],
 		},
 	}
 }
