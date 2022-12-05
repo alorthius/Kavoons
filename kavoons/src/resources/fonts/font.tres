@@ -3,4 +3,7 @@
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=1]
 
 [resource]
+size = 20
+extra_spacing_top = -3
+extra_spacing_bottom = -3
 font_data = ExtResource( 1 )
