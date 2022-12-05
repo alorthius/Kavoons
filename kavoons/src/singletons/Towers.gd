@@ -98,7 +98,7 @@ var T1_towers: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistance_reduction_percentage": 0,
 			
-			"color": Color(1, 0.9, 0),
+			"color": Color(0.5, 1, 0.8),
 			"next": [T2_towers["NinjaMelon"]["1"], T2_towers["NinjaMelon"]["2"]],
 		},
 	}

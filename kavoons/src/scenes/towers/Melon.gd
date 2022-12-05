@@ -42,6 +42,7 @@ var _range_scale: float = 1
 
 onready var _melon_sprite: Sprite = $BaseSprite
 
+var _color: Color
 onready var _range_shape: CollisionShape2D = $Range/CollisionShape
 onready var _range_sprite: Sprite = $BaseRange
 
@@ -61,6 +62,7 @@ func _ready():
 	_parse_tower_data()
 	
 	_range_sprite.scale = 2 * _base_attack_radius * Vector2(1, 1) / _range_sprite.texture.get_size()
+	_range_sprite.modulate = _color
 	_range_shape.shape.radius = _base_attack_radius
 	
 	_base_attack_timer.start()
@@ -96,6 +98,8 @@ func _parse_tower_data():
 	_crit_strike_multiplier = data["crit_strike_multiplier"]
 	_armor_reduction_flat = data["armor_reduction_flat"]
 	_resistance_reduction_percentage = data["resistance_reduction_percentage"]
+	
+	_color = data["color"]
 
 func _physics_process(_delta):
 	_select_enemy()

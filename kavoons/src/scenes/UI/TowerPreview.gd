@@ -7,7 +7,7 @@ extends Node2D
 var _tower_valid_rgba: Color = Color(1, 1, 1, 0.7)
 var _tower_invalid_rgba: Color = Color(1, 0.2, 0.2, 0.8)
 
-var _range_valid_rgba: Color = Color(1, 1, 1, 0.3)
+var _range_valid_rgba: Color = Color(1, 1, 1, 0.5)
 var _range_invalid_rgba: Color = Color(0.5, 0, 0, 0.8)
 
 onready var _tower_sprite: Sprite = $Tower
