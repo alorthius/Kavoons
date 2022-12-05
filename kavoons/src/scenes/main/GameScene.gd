@@ -26,8 +26,7 @@ var _signal_err: int = 0
 
 
 func _ready():
-	_signal_err = _builder.connect("tower_placed", self, "_attach_melon")
-	if _signal_err != 0: print("GameScene: _ready: connect: tower_placed: ", _signal_err)
+	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
 
 	_waves_timer.start()
 
@@ -37,11 +36,9 @@ func _attach_melon(new_tower: Melon):
 	_towers_container.add_child(new_manager, true)
 	new_manager.attach_melon(new_tower)
 	
-	_signal_err = _builder.connect("build_status", new_manager, "_toggle_build_status")
-	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
-	
-	_signal_err = new_manager.connect("upgrade_to", self, "_attach_melon")
-	if _signal_err != 0: print("GameScene: _ready: connect: ", _signal_err)
+	assert(_builder.connect("build_status", new_manager, "_toggle_build_status") == 0)
+
+	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
 
 ## Start a new wave
 func _on_WavesTimer_timeout():
@@ -49,11 +46,8 @@ func _on_WavesTimer_timeout():
 	_curr_wave = wave
 	add_child(wave, true)
 	
-	_signal_err = _curr_wave.connect("spawn_enemy", self, "_on_cat_spawn")
-	if _signal_err != 0: print("GameScene: _on_WavesTimer_timeout: connect: spawn_enemy: ", _signal_err)
-	
-	_signal_err = _curr_wave.connect("spawning_ended", self, "_on_spawn_end")
-	if _signal_err != 0: print("GameScene: _on_WavesTimer_timeout: connect: spawning_ended: ", _signal_err)
+	assert(_curr_wave.connect("spawn_enemy", self, "_on_cat_spawn") == 0)
+	assert(_curr_wave.connect("spawning_ended", self, "_on_spawn_end") == 0)
 
 ## Spawn the cat
 func _on_cat_spawn(cat):

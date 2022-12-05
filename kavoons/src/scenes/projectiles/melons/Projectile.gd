@@ -20,9 +20,8 @@ func _set_properties(speed: float, damage: int, miss_rate: float, target: Cat):
 	_dmg = damage
 	_target = target
 
+## Follow the enemy's moving position
 func _physics_process(delta):
-	# follow the enemy's moving position
-
 	var velocity: Vector2
 	if is_instance_valid(_target):
 		velocity = (_target.position - position).normalized() * _speed

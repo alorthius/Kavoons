@@ -46,23 +46,18 @@ func _ready():
 	_range_texture.set_visible(false)
 	
 	for butt in get_tree().get_nodes_in_group("melon_buttons"):
-		_signal_err = butt.connect("mouse_entered", self, "_focus_button", [butt])
-		if _signal_err != 0: print("Upgrader: _add_generic_button: connect: mouse_entered: ", _signal_err)
-		_signal_err = butt.connect("mouse_exited", self, "_unfocus_button", [butt])
-		if _signal_err != 0: print("Upgrader: _add_generic_button: connect: mouse_exited: ", _signal_err)
+		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
+		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 
 	for butt in _upgrade_butt_bar.get_children():
-		_signal_err = butt.connect("pressed", self, "_upgrade_melon", [butt.name])
-		if _signal_err != 0: print("Upgrader: _add_upgrade_button: connect: pressed: ", _signal_err)
+		assert(butt.connect("pressed", self, "_upgrade_melon", [butt.name]) == 0)
 	
 	for butt in _sell_butt_bar.get_children():
-		_signal_err = butt.connect("pressed", self, "_sell_melon")
-		if _signal_err != 0: print("Upgrader: _add_sell_button: connect: pressed: ", _signal_err)
+		assert(butt.connect("pressed", self, "_sell_melon") == 0)
 	
 	for butt in _target_butt_bar.get_children():
 		if butt.name != "Targeting":
-			_signal_err = butt.connect("pressed", self, "_change_targeting", [butt.name])
-			if _signal_err != 0: print("Upgrader: _add_switch_button: connect: pressed: ", butt, ": ", _signal_err)
+			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
 
 
 ## Wrap this node above the given melon instance. The melon is added as a child
@@ -71,8 +66,7 @@ func attach_melon(melon: Melon):
 	_curr_melon = melon
 	self.add_child(_curr_melon)
 	
-	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
-	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
+	assert(_curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered") == 0)
 	
 	_hud.rect_position = _curr_melon.position - Vector2(60, 140)  # shift HUD to capture the melon
 	_range_texture.position = _curr_melon.position
