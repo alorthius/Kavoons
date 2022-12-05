@@ -20,13 +20,17 @@ onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 var _focus_delta_size = Vector2(5, 5)
 
 onready var _range_texture: Sprite = $UI/NextRange
-var _next_ranges: Array
-var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
+#var _next_ranges: Array
+#var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
-## The next possible upgrades of a current melon
-var next: Array
+
+var _next_num: int
+var _next_icons := []
+var _next_ranges := []
+var _next_colors := []
+var _next_scenes := []
 
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
@@ -69,6 +73,24 @@ func attach_melon(melon: Melon):
 	
 	_set_targeting_label()
 
+	var data: Dictionary = _curr_melon._get_tower_dict()
+	_next_num = len(data["next"])
+	for next in data["next"]:
+		_next_icons.append(next["sprite"])
+		_next_ranges.append(next["base_attack_radius"])
+		_next_colors.append(next["color"])
+		_next_scenes.append(next["scene"])
+	
+	if _next_num == 0:
+		_upgrade_butt_bar.set_visible(false)
+		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
+		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
+		_hud.rect_size -= y_delta
+		_hud.rect_position += y_delta
+	else:
+		_set_upgr_icons()
+
+	
 #	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
 #	if butt_icons.empty():  # There are no updates of the melon
 #		_upgrade_butt_bar.set_visible(false)
@@ -83,16 +105,15 @@ func attach_melon(melon: Melon):
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 
 ## Set icons of the future towers for the upgrade buttons
-func _set_upgr_icons(icons: Array, colors: Array):
-	var butts_num = len(icons)
+func _set_upgr_icons():
 	for i in range(_upgrade_butt_bar.get_child_count()):
 		var butt: TextureButton = _upgrade_butt_bar.get_child(i)
-		if i >= butts_num:
+		if i >= _next_num:
 			butt.set_visible(false)
 		else:
 			var icon: TextureRect = butt.get_child(0)
-			icon.texture = load(icons[i])
-			butt.self_modulate = colors[i] + Color(0, 0, 0, 1 - colors[i][-1])
+			icon.texture = load(_next_icons[i])
+			butt.self_modulate = _next_colors[i]
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
@@ -104,13 +125,13 @@ func _focus_button(butt: TextureButton):
 	
 	if butt.name == "1":
 		next_range = _next_ranges[0]
-		color = _next_ranges_colors[0]
+		color = _next_colors[0]
 	elif butt.name == "2":
 		next_range = _next_ranges[1]
-		color = _next_ranges_colors[1]
+		color = _next_colors[1]
 	elif butt.name == "3":
 		next_range = _next_ranges[2]
-		color = _next_ranges_colors[2]
+		color = _next_colors[2]
 	
 	_range_texture.scale = Vector2(next_range * 0.55, next_range * 0.55)
 	_range_texture.modulate = color
@@ -125,14 +146,15 @@ func _unfocus_button(butt: TextureButton):
 
 ## Upgrade the current melon. Pass the new melon instance via signal and delete current node
 func _upgrade_melon(upgrade: String):
-	var new_melon: Melon
+	var next_scene
 	if upgrade == "1":
-		new_melon = _curr_melon.next_A.instance()
+		next_scene = _next_scenes[0]
 	elif upgrade == "2":
-		new_melon = _curr_melon.next_B.instance()
+		next_scene = _next_scenes[1]
 	elif upgrade == "3":
-		new_melon = _curr_melon.next_C.instance()
-
+		next_scene = _next_scenes[2]
+	
+	var new_melon: Melon = load(next_scene).instance()
 	new_melon.position = _curr_melon.position
 	new_melon._target_priority = _curr_melon._target_priority
 	

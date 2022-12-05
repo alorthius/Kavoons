@@ -66,8 +66,7 @@ func _ready():
 	_base_attack_timer.start()
 	display_range(false)
 
-## Parse all the current melon data stored in a global dictionary
-func _parse_tower_data():
+func _get_tower_dict():
 	var map: Dictionary
 	if tier == "T1":
 		map = Towers.T1_towers
@@ -75,7 +74,12 @@ func _parse_tower_data():
 		map = Towers.T2_towers
 	elif tier == "T3":
 		map = Towers.T3_towers
-	var data: Dictionary = map[base_tower][branch]
+	
+	return map[base_tower][branch]
+
+## Parse all the current melon data stored in a global dictionary
+func _parse_tower_data():
+	var data: Dictionary = _get_tower_dict()
 
 	_melon_sprite.texture = load(data["sprite"])
 	
