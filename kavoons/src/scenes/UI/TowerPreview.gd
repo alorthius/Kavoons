@@ -23,8 +23,9 @@ onready var _tower_shape: CollisionShape2D = $BuildingShape/CollisionShape2D
 
 ## Load the texture of a new tower, adjust its range value, and display them
 func set_preview(tower: String, new_shape: CircleShape2D, new_position: Vector2, is_valid: bool):
-	var tower_texture = load(Towers.towers_data[tower]["T1"]["sprite"])
-	var tower_range = Towers.towers_data[tower]["T1"]["range_scale"]
+	var data: Dictionary = Towers.T1_towers[tower]["0"]
+	var tower_texture = load(data["sprite"])
+	var tower_range = data["range_scale"]
 	
 	_tower_shape.set_shape(new_shape)
 

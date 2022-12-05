@@ -17,8 +17,6 @@ onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
 
 onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
-var _target_butt_texture: Texture = preload("res://assets/UI/tower_build_button.png") # TODO
-
 var _focus_delta_size = Vector2(5, 5)
 
 onready var _range_texture: Sprite = $UI/NextRange
@@ -27,6 +25,9 @@ var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)
 
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
+## The next possible upgrades of a current melon
+var next: Array
+
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
@@ -68,16 +69,16 @@ func attach_melon(melon: Melon):
 	
 	_set_targeting_label()
 
-	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
-	if butt_icons.empty():  # There are no updates of the melon
-		_upgrade_butt_bar.set_visible(false)
-		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
-		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
-		_hud.rect_size -= y_delta
-		_hud.rect_position += y_delta
-	else:
-		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
-		_set_upgr_icons(butt_icons, _next_ranges_colors)
+#	var butt_icons = Towers.towers_data[melon.base_tower][melon.tier]["next"]
+#	if butt_icons.empty():  # There are no updates of the melon
+#		_upgrade_butt_bar.set_visible(false)
+#		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
+#		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
+#		_hud.rect_size -= y_delta
+#		_hud.rect_position += y_delta
+#	else:
+#		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
+#		_set_upgr_icons(butt_icons, _next_ranges_colors)
 	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 

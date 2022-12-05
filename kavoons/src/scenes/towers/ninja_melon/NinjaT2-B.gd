@@ -3,9 +3,10 @@ extends Melon
 
 func _init():
 	base_tower = "NinjaMelon"
-	tier = "T2-B"
+	tier = "T2"
+	branch = "2"
 	
 	projectile = preload("res://src/scenes/projectiles/melons/Kunai.tscn")
 	
-	next_A = null
-	next_B = null
+#	next_A = null
+#	next_B = null
