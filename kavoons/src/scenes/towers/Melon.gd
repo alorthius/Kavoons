@@ -13,8 +13,10 @@ var _enemies_in_range: Array = []
 var base_tower: String
 ## Tier number
 var tier: String
+## Branch number
+var branch: String
 
-var buy_cost: int
+
 var sell_cost: int
 
 var _base_attack_radius: int
@@ -36,18 +38,11 @@ var _target_priority: int = Constants.TARGET_PRIORITY.FIRST
 var last_hit_counter: int = 0
 
 var _range_scale: float = 1
-var _range_alpha: float = 0.6
 
-## The next possible tower upgrade. Children define it in the [method _init()] function
-onready var next_A: PackedScene
-## The next possible tower upgrade. Children define it in the [method _init()] function
-onready var next_B: PackedScene
-
-#var passive_abilities: Array = []
-#var active_abilities: Array = []
 
 onready var _melon_sprite: Sprite = $BaseSprite
 
+var _color: Color
 onready var _range_shape: CollisionShape2D = $Range/CollisionShape
 onready var _range_sprite: Sprite = $BaseRange
 
@@ -61,11 +56,50 @@ onready var _base_attack_timer: Timer = $BaseAttackTimer
 ## Single enemy the tower currently attacks
 var _curr_enemy: Cat
 
+
 ## Fill all the tower data and begin the basick attacks reload
 func _ready():
 	_parse_tower_data()
+	
+	_range_sprite.scale = 2 * _base_attack_radius * Vector2(1, 1) / _range_sprite.texture.get_size()
+	_range_sprite.modulate = _color
+	_range_shape.shape.radius = _base_attack_radius
+	
 	_base_attack_timer.start()
 	display_range(false)
+
+func _get_tower_dict():
+	var map: Dictionary
+	if tier == "T1":
+		map = Towers.T1_towers
+	elif tier == "T2":
+		map = Towers.T2_towers
+	elif tier == "T3":
+		map = Towers.T3_towers
+	
+	return map[base_tower][branch]
+
+## Parse all the current melon data stored in a global dictionary
+func _parse_tower_data():
+	var data: Dictionary = _get_tower_dict()
+
+	_melon_sprite.texture = load(data["sprite"])
+	
+	# TODO: base attack radius instead of scale
+	_base_attack_radius = data["base_attack_radius"]
+	_base_attack_type = data["base_attack_type"]
+	_base_attack_damage = data["base_attack_damage"]
+	
+	_base_attack_timer.wait_time = 1.0 / data["attack_speed"]
+	_projectile_speed = data["projectile_speed"]
+	_miss_rate = data["miss_rate"]
+	
+	_crit_rate = data["crit_rate"]
+	_crit_strike_multiplier = data["crit_strike_multiplier"]
+	_armor_reduction_flat = data["armor_reduction_flat"]
+	_resistance_reduction_percentage = data["resistance_reduction_percentage"]
+	
+	_color = data["color"]
 
 func _physics_process(_delta):
 	_select_enemy()
@@ -149,20 +183,6 @@ func _perform_base_attack():
 
 func _perform_active_ability():
 	pass
-
-## Parse all the current melon data stored in a global dictionary
-func _parse_tower_data():
-	var data: Dictionary = Towers.towers_data[base_tower][tier]
-	_melon_sprite.texture = load(data["sprite"])
-	_range_scale = data["range_scale"]
-	
-	_range_shape.scale = Vector2(_range_scale, _range_scale)
-	_range_sprite.scale = Vector2(_range_scale * 0.55, _range_scale * 0.55)  # bad sprite size, draw better later
-	_range_sprite.modulate.a = _range_alpha
-	
-	_base_attack_timer.wait_time = 1.0 / data["attack_speed"]
-	_base_attack_damage = data["base_attack_damage"]
-	_projectile_speed = data["projectile_speed"]
 
 ## Save the enemy entered the tower range
 func _on_Range_area_entered(area):
