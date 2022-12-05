@@ -31,19 +31,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -380.0
-margin_top = -100.0
-margin_right = 380.0
+margin_left = -425.0
+margin_top = -130.0
+margin_right = 425.0
+margin_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 600, 100 )
 custom_constants/separation = 10
 alignment = 1
 
 [node name="NinjaMelon" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_right = 100.0
+margin_left = 45.0
+margin_right = 145.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
@@ -60,12 +66,14 @@ texture = ExtResource( 3 )
 expand = true
 
 [node name="empty1" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 110.0
-margin_right = 210.0
+margin_left = 155.0
+margin_right = 255.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
@@ -81,12 +89,14 @@ size_flags_vertical = 4
 expand = true
 
 [node name="empty2" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 220.0
-margin_right = 320.0
+margin_left = 265.0
+margin_right = 365.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
@@ -102,12 +112,14 @@ size_flags_vertical = 4
 expand = true
 
 [node name="empty3" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 330.0
-margin_right = 430.0
+margin_left = 375.0
+margin_right = 475.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
@@ -123,12 +135,14 @@ size_flags_vertical = 4
 expand = true
 
 [node name="empty4" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 440.0
-margin_right = 540.0
+margin_left = 485.0
+margin_right = 585.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
@@ -144,12 +158,14 @@ size_flags_vertical = 4
 expand = true
 
 [node name="empty5" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 550.0
-margin_right = 650.0
+margin_left = 595.0
+margin_right = 695.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
@@ -165,12 +181,14 @@ size_flags_vertical = 4
 expand = true
 
 [node name="empty6" type="TextureButton" parent="UI/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 660.0
-margin_right = 760.0
+margin_left = 705.0
+margin_right = 805.0
 margin_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 

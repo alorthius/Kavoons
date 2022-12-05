@@ -29,6 +29,8 @@ var _overlapped_melons = []
 ## List of path tiles currently overlapping with the building one
 var _overlapped_tiles = []
 
+var _focus_delta_size = Vector2(10, 10)
+
 ## The node managing the melon preview while building is active
 onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
 
@@ -47,6 +49,8 @@ signal tower_placed(new_tower)
 func _ready():
 	for butt in get_tree().get_nodes_in_group("build_buttons"):
 		assert(butt.connect("pressed", self, "_activate_building", [butt.get_name()]) == 0)
+		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
+		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 
 ## Render the preview of the currently selected tower
 func _process(_delta):
@@ -64,6 +68,13 @@ func _unhandled_input(event):
 			_cancel_building()
 		if event.is_action_pressed("ui_cancel"):
 			_cancel_building()
+
+func _focus_button(butt: TextureButton):
+	butt.rect_min_size += _focus_delta_size
+
+## Shrink button on hover
+func _unfocus_button(butt: TextureButton):
+	butt.rect_min_size -= _focus_delta_size
 
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):

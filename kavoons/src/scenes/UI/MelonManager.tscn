@@ -45,18 +45,21 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 mouse_filter = 1
-size_flags_horizontal = 5
-size_flags_vertical = 5
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 7 )
 expand = true
-stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 70.0
-margin_bottom = 70.0
+margin_right = -10.0
+margin_bottom = -10.0
 mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
@@ -68,18 +71,21 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 mouse_filter = 1
-size_flags_horizontal = 5
-size_flags_vertical = 5
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 7 )
 expand = true
-stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 70.0
-margin_bottom = 70.0
+margin_right = -10.0
+margin_bottom = -10.0
 mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
@@ -91,18 +97,21 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 mouse_filter = 1
-size_flags_horizontal = 5
-size_flags_vertical = 5
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 7 )
 expand = true
-stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 70.0
-margin_bottom = 70.0
+margin_right = -10.0
+margin_bottom = -10.0
 mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
@@ -127,14 +136,18 @@ margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/TargetingBar/ToLeft"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 8.0
-margin_right = 35.0
-margin_bottom = 35.0
+margin_right = -5.0
+margin_bottom = -5.0
 mouse_filter = 2
 texture = ExtResource( 8 )
 expand = true
@@ -146,8 +159,8 @@ margin_right = 130.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 80, 40 )
 mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 7 )
 expand = true
 
@@ -173,14 +186,18 @@ margin_right = 180.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/TargetingBar/ToRight"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 8.0
-margin_right = 35.0
-margin_bottom = 35.0
+margin_right = -5.0
+margin_bottom = -5.0
 mouse_filter = 2
 texture = ExtResource( 8 )
 expand = true
@@ -210,10 +227,12 @@ expand = true
 stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/SellBar/Sell"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 70.0
-margin_bottom = 70.0
+margin_right = -10.0
+margin_bottom = -10.0
 mouse_filter = 2
 expand = true
 

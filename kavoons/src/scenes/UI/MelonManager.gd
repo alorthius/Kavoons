@@ -19,12 +19,7 @@ onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
 var _target_butt_texture: Texture = preload("res://assets/UI/tower_build_button.png") # TODO
 
-## Delta of button scale on hovering
-var _focus_butt_scale_delta = Vector2(0.1, 0.1)
-## Delta of button position on hovering
-var _focus_butt_pos_delta = Vector2(0, -5)
-## Delta of the rightmost button position on hovering
-var _focus_butt_rightmost_pos_delta = Vector2(-7, 0)
+var _focus_delta_size = Vector2(5, 5)
 
 onready var _range_texture: Sprite = $UI/NextRange
 var _next_ranges: Array
@@ -100,9 +95,8 @@ func _set_upgr_icons(icons: Array, colors: Array):
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
-	butt.rect_scale += _focus_butt_scale_delta
-	butt.rect_position += _focus_butt_pos_delta
-	
+	butt.rect_min_size += _focus_delta_size
+
 	var next_range: int
 	var color: Color
 	
@@ -123,8 +117,7 @@ func _focus_button(butt: TextureButton):
 ## Shrink button on hover
 func _unfocus_button(butt: TextureButton):
 	_range_texture.set_visible(false)
-	butt.rect_scale -= _focus_butt_scale_delta
-	butt.rect_position -= _focus_butt_pos_delta
+	butt.rect_min_size -= _focus_delta_size
 
 
 ## Upgrade the current melon. Pass the new melon instance via signal and delete current node
