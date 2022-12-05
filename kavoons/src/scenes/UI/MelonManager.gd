@@ -106,19 +106,15 @@ func _set_upgr_icons():
 func _focus_button(butt: TextureButton):
 	butt.rect_size += _focus_delta_size
 	butt.rect_position += - _focus_delta_size / 2.0
-
-	var next_range: int
-	var color: Color
 	
-	if butt.name == "1":
-		next_range = _next_ranges[0]
-		color = _next_colors[0]
-	elif butt.name == "2":
-		next_range = _next_ranges[1]
-		color = _next_colors[1]
-	elif butt.name == "3":
-		next_range = _next_ranges[2]
-		color = _next_colors[2]
+	if butt.name == "Sell":
+		modulate.a = 0.65
+	
+	if not butt.name in ["1", "2", "3"]:
+		return
+
+	var next_range = _next_ranges[int(butt.name) - 1]
+	var color = _next_colors[int(butt.name) - 1]
 	
 	_range_texture.scale = 2 * next_range * Vector2(1, 1) / _range_texture.texture.get_size()
 	_range_texture.modulate = color
@@ -130,18 +126,12 @@ func _unfocus_button(butt: TextureButton):
 	butt.rect_size -= _focus_delta_size
 	butt.rect_position -= - _focus_delta_size / 2.0
 
+	if butt.name == "Sell":
+		modulate.a = 1
 
 ## Upgrade the current melon. Pass the new melon instance via signal and delete current node
 func _upgrade_melon(upgrade: String):
-	var next_scene
-	if upgrade == "1":
-		next_scene = _next_scenes[0]
-	elif upgrade == "2":
-		next_scene = _next_scenes[1]
-	elif upgrade == "3":
-		next_scene = _next_scenes[2]
-	
-	var new_melon: Melon = load(next_scene).instance()
+	var new_melon: Melon = load(_next_scenes[int(upgrade) - 1]).instance()
 	new_melon.position = _curr_melon.position
 	new_melon._target_priority = _curr_melon._target_priority
 	
