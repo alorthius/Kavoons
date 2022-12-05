@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/scenes/UI/MelonManager.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=2]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/to_right.png" type="Texture" id=8]
+[ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=9]
 
 [node name="MelonManager" type="Control"]
 script = ExtResource( 1 )
@@ -12,50 +18,204 @@ script = ExtResource( 1 )
 visible = false
 texture = ExtResource( 3 )
 
-[node name="HUD" type="VBoxContainer" parent="UI"]
+[node name="HUD" type="Control" parent="UI"]
+margin_right = 140.0
+margin_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 140, 150 )
+
+[node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -135.0
+margin_right = 135.0
+margin_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 180, 80 )
+custom_constants/separation = 10
+alignment = 1
+
+[node name="1" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
+margin_left = 5.0
+margin_right = 85.0
+margin_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 80 )
+mouse_filter = 1
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/1"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+
+[node name="2" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
+margin_left = 95.0
+margin_right = 175.0
+margin_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 80 )
+mouse_filter = 1
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+
+[node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
+margin_left = 185.0
+margin_right = 265.0
+margin_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 80 )
+mouse_filter = 1
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+
+[node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -90.0
+margin_top = -130.0
+margin_right = 90.0
+margin_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/separation = 10
+alignment = 1
+
+[node name="ToLeft" type="TextureButton" parent="UI/HUD/TargetingBar" groups=["melon_buttons"]]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+mouse_filter = 1
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/TargetingBar/ToLeft"]
+margin_left = 5.0
+margin_top = 8.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+expand = true
+flip_h = true
+
+[node name="Targeting" type="TextureRect" parent="UI/HUD/TargetingBar"]
+margin_left = 50.0
+margin_right = 130.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 80, 40 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Label" type="Label" parent="UI/HUD/TargetingBar/Targeting"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -90.0
-margin_top = -195.0
-margin_right = 90.0
-margin_bottom = 115.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_min_size = Vector2( 180, 140 )
-custom_constants/separation = 10
-alignment = 1
+margin_left = -14.0
+margin_top = -10.5
+margin_right = 14.0
+margin_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 9 )
+align = 1
 
-[node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 20.0
+[node name="ToRight" type="TextureButton" parent="UI/HUD/TargetingBar" groups=["melon_buttons"]]
+margin_left = 140.0
 margin_right = 180.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 180, 80 )
-custom_constants/separation = 20
-alignment = 1
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+mouse_filter = 1
+texture_normal = ExtResource( 4 )
+expand = true
 
-[node name="MelonBox" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 110.0
-margin_right = 180.0
-margin_bottom = 190.0
+[node name="Icon" type="TextureRect" parent="UI/HUD/TargetingBar/ToRight"]
+margin_left = 5.0
+margin_top = 8.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+expand = true
+
+[node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -80.0
+margin_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 alignment = 1
 
-[node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 200.0
-margin_right = 180.0
-margin_bottom = 200.0
+[node name="Sell" type="TextureButton" parent="UI/HUD/SellBar" groups=["melon_buttons"]]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+mouse_filter = 1
 size_flags_horizontal = 5
 size_flags_vertical = 5
-alignment = 1
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
 
-[node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 210.0
-margin_right = 180.0
-margin_bottom = 290.0
-rect_min_size = Vector2( 180, 80 )
-alignment = 1
+[node name="Icon" type="TextureRect" parent="UI/HUD/SellBar/Sell"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 70.0
+mouse_filter = 2
+expand = true
 
 [connection signal="mouse_entered" from="UI/HUD" to="." method="_on_HUD_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD" to="." method="_on_HUD_mouse_exited"]
