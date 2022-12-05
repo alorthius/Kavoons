@@ -15,19 +15,6 @@ onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
 
-enum Buttons {UPGR, SELL, SWITCH}
-
-var _upgr_butt_textures = [ "res://assets/UI/upgr_left.png", "res://assets/UI/upgr_right.png" ]
-var _upgr_butt_names    = [ "Left", "Right"]
-
-var _sell_butt_texture: Texture = preload("res://assets/UI/upgr_left.png") # TODO
-var _sell_butt_icon = null  # TODO
-var _sell_butt_name = "Sell"
-
-var _switch_butt_texture: Texture = preload("res://assets/UI/upgr_right.png") # TODO
-var _left_switch_icon = null # TODO
-var _right_switch_icon = null # TODO
-
 onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
 var _target_butt_texture: Texture = preload("res://assets/UI/tower_build_button.png") # TODO
@@ -77,9 +64,6 @@ func _ready():
 			_signal_err = butt.connect("pressed", self, "_change_targeting", [butt.name])
 			if _signal_err != 0: print("Upgrader: _add_switch_button: connect: pressed: ", butt, ": ", _signal_err)
 
-## Listens to the signal from the builder to catch its status
-func _toggle_build_status(status: bool):
-	_is_build_active = status
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node. Create the upgrade and sell buttons for the melon.
@@ -90,7 +74,7 @@ func attach_melon(melon: Melon):
 	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
 	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
 	
-	_hud.rect_position = _curr_melon.position - Vector2(90, 140)  # shift HUD to capture the melon
+	_hud.rect_position = _curr_melon.position - Vector2(60, 140)  # shift HUD to capture the melon
 	_range_texture.position = _curr_melon.position
 	
 	_set_targeting_label()
@@ -104,18 +88,21 @@ func attach_melon(melon: Melon):
 		_hud.rect_position += y_delta
 	else:
 		_next_ranges = Towers.towers_data[melon.base_tower][melon.tier]["next_ranges"]
-		_remove_unused_upgr(3 - len(_next_ranges))
+		_set_upgr_icons(butt_icons, _next_ranges_colors)
 	
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 
-#func _add_upgrade_buttons(icons: Array):
-#	for idx in range(icons.size()):
-#		_add_generic_button(load(_upgr_butt_textures[idx]), _upgr_butt_names[idx], load(icons[idx]), Buttons.UPGR)
-
-func _remove_unused_upgr(num_to_remove: int):
-	var butts = _upgrade_butt_bar.get_children()
-	for i in range(num_to_remove):
-		butts[2 - i].set_visible(false)
+## Set icons of the future towers for the upgrade buttons
+func _set_upgr_icons(icons: Array, colors: Array):
+	var butts_num = len(icons)
+	for i in range(_upgrade_butt_bar.get_child_count()):
+		var butt: TextureButton = _upgrade_butt_bar.get_child(i)
+		if i >= butts_num:
+			butt.set_visible(false)
+		else:
+			var icon: TextureRect = butt.get_child(0)
+			icon.texture = load(icons[i])
+			butt.self_modulate = colors[i] + Color(0, 0, 0, 1 - colors[i][-1])
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
@@ -138,7 +125,6 @@ func _focus_button(butt: TextureButton):
 	_range_texture.scale = Vector2(next_range * 0.55, next_range * 0.55)
 	_range_texture.modulate = color
 	_range_texture.set_visible(true)
-	
 
 ## Shrink button on hover
 func _unfocus_button(butt: TextureButton):
@@ -223,3 +209,7 @@ func _on_HUD_mouse_exited():
 	if not _hud_box.has_point(get_local_mouse_position()):
 		_curr_melon.display_range(false)
 		_hud.set_visible(false)
+
+## Listens to the signal from the builder to catch its status
+func _toggle_build_status(status: bool):
+	_is_build_active = status

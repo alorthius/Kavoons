@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/scenes/UI/MelonManager.gd" type="Script" id=1]
-[ext_resource path="res://assets/towers/ninja_melon/T3_LR.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=2]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=5]
-[ext_resource path="res://assets/towers/ninja_melon/T3_RR.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/to_right.png" type="Texture" id=8]
 [ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=9]
@@ -20,25 +19,18 @@ visible = false
 texture = ExtResource( 3 )
 
 [node name="HUD" type="Control" parent="UI"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -90.0
-margin_top = -195.0
-margin_right = 90.0
-margin_bottom = 125.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_min_size = Vector2( 180, 150 )
+margin_right = 140.0
+margin_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 140, 150 )
 
 [node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -135.0
-margin_top = 10.0
 margin_right = 135.0
-margin_bottom = 90.0
+margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 180, 80 )
@@ -55,7 +47,7 @@ rect_min_size = Vector2( 80, 80 )
 mouse_filter = 1
 size_flags_horizontal = 5
 size_flags_vertical = 5
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
@@ -78,7 +70,7 @@ rect_min_size = Vector2( 80, 80 )
 mouse_filter = 1
 size_flags_horizontal = 5
 size_flags_vertical = 5
-texture_normal = ExtResource( 4 )
+texture_normal = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
@@ -88,7 +80,7 @@ margin_top = 10.0
 margin_right = 70.0
 margin_bottom = 70.0
 mouse_filter = 2
-texture = ExtResource( 6 )
+texture = ExtResource( 2 )
 expand = true
 
 [node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
@@ -101,7 +93,7 @@ rect_min_size = Vector2( 80, 80 )
 mouse_filter = 1
 size_flags_horizontal = 5
 size_flags_vertical = 5
-texture_normal = ExtResource( 5 )
+texture_normal = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
@@ -111,6 +103,7 @@ margin_top = 10.0
 margin_right = 70.0
 margin_bottom = 70.0
 mouse_filter = 2
+texture = ExtResource( 2 )
 expand = true
 
 [node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
