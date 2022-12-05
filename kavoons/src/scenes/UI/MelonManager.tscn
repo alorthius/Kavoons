@@ -12,7 +12,7 @@ script = ExtResource( 1 )
 visible = false
 texture = ExtResource( 3 )
 
-[node name="HUD" type="VBoxContainer" parent="UI"]
+[node name="HUD" type="Control" parent="UI"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -24,36 +24,38 @@ margin_bottom = 115.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_min_size = Vector2( 180, 140 )
-custom_constants/separation = 10
-alignment = 1
 
 [node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 20.0
-margin_right = 180.0
-margin_bottom = 100.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -90.0
+margin_right = 90.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 180, 80 )
 custom_constants/separation = 20
 alignment = 1
 
-[node name="MelonBox" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 110.0
-margin_right = 180.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 80, 80 )
-alignment = 1
-
 [node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 200.0
-margin_right = 180.0
-margin_bottom = 200.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -90.0
+margin_top = -130.0
+margin_right = 90.0
+margin_bottom = -90.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 alignment = 1
 
 [node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
-margin_top = 210.0
-margin_right = 180.0
-margin_bottom = 290.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -90.0
+margin_top = -80.0
+margin_right = 90.0
 rect_min_size = Vector2( 180, 80 )
 alignment = 1
 

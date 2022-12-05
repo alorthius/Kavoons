@@ -8,10 +8,9 @@ extends Control
 class_name MelonManager
 
 ## Define the region for the UI buttons
-onready var _hud: VBoxContainer = $UI/HUD
+onready var _hud: Control = $UI/HUD
 var _hud_box: Rect2
 
-onready var _melon_box: HBoxContainer = $UI/HUD/MelonBox
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
@@ -71,7 +70,7 @@ func attach_melon(melon: Melon):
 	_signal_err = _curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered")
 	if _signal_err != 0: print("Upgrader: attach_melon: connect: mouse_entered: ", _signal_err)
 	
-	_hud.rect_position = _curr_melon.position - _melon_box.rect_size / 2.0 - _melon_box.rect_position
+	_hud.rect_position = _curr_melon.position - Vector2(90, 130)  # shift HUD to capture the melon
 	_range_texture.position = _curr_melon.position
 	
 	_add_sell_button()
@@ -82,7 +81,7 @@ func attach_melon(melon: Melon):
 	if butt_icons.empty():  # There are no updates of the melon
 		_upgrade_butt_bar.set_visible(false)
 		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
-		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1] + _hud.get_constant("separation"))
+		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
 		_hud.rect_size -= y_delta
 		_hud.rect_position += y_delta
 	else:
