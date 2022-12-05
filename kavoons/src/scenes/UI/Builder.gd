@@ -70,11 +70,13 @@ func _unhandled_input(event):
 			_cancel_building()
 
 func _focus_button(butt: TextureButton):
-	butt.rect_min_size += _focus_delta_size
+	butt.rect_size += _focus_delta_size
+	butt.rect_position += - _focus_delta_size / 2.0
 
 ## Shrink button on hover
 func _unfocus_button(butt: TextureButton):
-	butt.rect_min_size -= _focus_delta_size
+	butt.rect_size -= _focus_delta_size
+	butt.rect_position -= - _focus_delta_size / 2.0
 
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):

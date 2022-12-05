@@ -95,7 +95,8 @@ func _set_upgr_icons(icons: Array, colors: Array):
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
-	butt.rect_min_size += _focus_delta_size
+	butt.rect_size += _focus_delta_size
+	butt.rect_position += - _focus_delta_size / 2.0
 
 	var next_range: int
 	var color: Color
@@ -117,7 +118,8 @@ func _focus_button(butt: TextureButton):
 ## Shrink button on hover
 func _unfocus_button(butt: TextureButton):
 	_range_texture.set_visible(false)
-	butt.rect_min_size -= _focus_delta_size
+	butt.rect_size -= _focus_delta_size
+	butt.rect_position -= - _focus_delta_size / 2.0
 
 
 ## Upgrade the current melon. Pass the new melon instance via signal and delete current node
