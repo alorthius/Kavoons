@@ -108,8 +108,10 @@ func _add_targeting_buttons():
 
 func _add_targeting_label():
 	var label := Label.new()
+	label.add_font_override("font", load("res://src/resources/fonts/font.tres"))
 	_target_butt_bar.add_child(label)
 	_target_label = label
+	
 
 ## Buttons static factory. The button type is given from enum [member Buttons]
 func _add_generic_button(butt_texture: Texture, butt_name: String, icon_texture: Texture, butt_type: int):	
@@ -250,7 +252,7 @@ func _change_targeting(action: String):
 	_set_targeting_label()
 
 func _set_targeting_label():
-	_target_label.text = Constants.TARGET_PRIORITY.keys()[_curr_melon._target_priority]
+	_target_label.text = Constants.TARGET_PRIORITY.keys()[_curr_melon._target_priority].to_lower()
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.
