@@ -14,10 +14,6 @@ class_name Builder
 var _towers = {
 	"NinjaMelon": preload("res://src/scenes/towers/ninja_melon/NinjaT1.tscn"),
 }
-## Resources of the melons collision shapes to check building validness
-var _shapes = {
-	"NinjaMelon": preload("res://src/resources/melon/collision_shape.tres")
-}
 
 ## Is building currently active
 var _is_active: bool = false
@@ -47,6 +43,8 @@ signal tower_placed(new_tower)
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
 func _ready():
+	_tower_preview.visible = false
+
 	for butt in get_tree().get_nodes_in_group("build_buttons"):
 		assert(butt.connect("pressed", self, "_activate_building", [butt.get_name()]) == 0)
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
@@ -84,7 +82,7 @@ func _activate_building(melon: String):
 	emit_signal("build_status", _is_active)
 	_chosen_melon = melon
 
-	_tower_preview.set_preview(_chosen_melon, _shapes[_chosen_melon ], get_global_mouse_position(), _is_valid)
+	_tower_preview.set_preview(_chosen_melon, get_global_mouse_position(), _is_valid)
 
 ## Update the activated tower preview to the current mouse position on screen
 func _update_tower_preview():
