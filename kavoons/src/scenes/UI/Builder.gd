@@ -40,7 +40,7 @@ signal tower_placed(new_tower)
 
 func _init():
 	for base_tower in Towers.T1_towers:
-		_towers[base_tower] = Towers.T1_towers.get(base_tower).get(0).get("scene")
+		_towers[base_tower] = Towers.T1_towers[base_tower][0]["scene"]
 
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
