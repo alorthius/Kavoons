@@ -10,11 +10,11 @@ class_name Melon
 var _enemies_in_range: Array = []
 
 ## Name of the tower type
-var base_tower: String
+export(String) var base_tower
 ## Tier number
-var tier: String
+export(int) var tier
 ## Branch number
-var branch: String
+export(int) var branch
 
 
 var sell_cost: int
@@ -48,7 +48,7 @@ onready var _range_sprite: Sprite = $BaseRange
 
 ## Is the reload of a melon basic attack finished
 var _ready_to_attack: bool = false
-onready var projectile: PackedScene
+var _projectile: Resource
 
 ## Timer to track the cool-down of a basic attacks
 onready var _base_attack_timer: Timer = $BaseAttackTimer
@@ -70,11 +70,11 @@ func _ready():
 
 func _get_tower_dict():
 	var map: Dictionary
-	if tier == "T1":
+	if tier == 1:
 		map = Towers.T1_towers
-	elif tier == "T2":
+	elif tier == 2:
 		map = Towers.T2_towers
-	elif tier == "T3":
+	elif tier == 3:
 		map = Towers.T3_towers
 	
 	return map[base_tower][branch]
@@ -84,8 +84,8 @@ func _parse_tower_data():
 	var data: Dictionary = _get_tower_dict()
 
 	_melon_sprite.texture = load(data["sprite"])
+	_projectile = load(data["projectile"])
 	
-	# TODO: base attack radius instead of scale
 	_base_attack_radius = data["base_attack_radius"]
 	_base_attack_type = data["base_attack_type"]
 	_base_attack_damage = data["base_attack_damage"]
@@ -173,16 +173,13 @@ func _rotate_to():
 ## Hit the curently selected enemy with a basic attack
 func _perform_base_attack():
 	if _curr_enemy != null and _ready_to_attack:
-		var new_projectile: Projectile = projectile.instance()
+		var new_projectile: Projectile = _projectile.instance()
 		new_projectile._set_properties(_projectile_speed, _base_attack_damage, _miss_rate, _curr_enemy)
 		new_projectile.position = position
 		add_child(new_projectile)
 
 		_ready_to_attack = false
 		_base_attack_timer.start()
-
-func _perform_active_ability():
-	pass
 
 ## Save the enemy entered the tower range
 func _on_Range_area_entered(area):
