@@ -13,8 +13,6 @@ var _range_invalid_rgba: Color = Color(0.5, 0, 0, 0.8)
 onready var _tower_sprite: Sprite = $Tower
 
 onready var _range_sprite: Sprite = $Range
-## The texture to display the tower range is reused for every tower
-var _range_texture = load("res://assets/towers/range.png")
 
 onready var _tower_shape: CollisionShape2D = $BuildingShape/CollisionShape2D
 
@@ -23,10 +21,9 @@ onready var _tower_shape: CollisionShape2D = $BuildingShape/CollisionShape2D
 ## Load the texture of a new tower, adjust its range value, and display them
 func set_preview(tower: String, new_position: Vector2, is_valid: bool):
 	visible = true
-	var data: Dictionary = Towers.T1_towers[tower]["0"]
+	var data: Dictionary = Towers.T1_towers[tower][0]
 	
 	_tower_sprite.set_texture(load(data["sprite"]))
-	
 	_range_sprite.set_scale(2 * data["base_attack_radius"] * Vector2(1, 1) / _range_sprite.texture.get_size())
 
 	update_preview(new_position, is_valid)

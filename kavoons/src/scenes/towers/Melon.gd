@@ -12,9 +12,9 @@ var _enemies_in_range: Array = []
 ## Name of the tower type
 var base_tower: String
 ## Tier number
-var tier: String
+var tier: int
 ## Branch number
-var branch: String
+var branch: int
 
 
 var sell_cost: int
@@ -70,12 +70,16 @@ func _ready():
 
 func _get_tower_dict():
 	var map: Dictionary
-	if tier == "T1":
-		map = Towers.T1_towers
-	elif tier == "T2":
-		map = Towers.T2_towers
-	elif tier == "T3":
-		map = Towers.T3_towers
+	var expression := Expression.new()
+	assert(expression.parse("Towers.T" + String(tier) + "_towers") == 0)
+	map = expression.execute([], null, true)
+	print(map)
+#	if tier == 1:
+#		map = Towers.T1_towers
+#	elif tier == "T2":
+#		map = Towers.T2_towers
+#	elif tier == "T3":
+#		map = Towers.T3_towers
 	
 	return map[base_tower][branch]
 

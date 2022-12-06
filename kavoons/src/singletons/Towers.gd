@@ -3,14 +3,28 @@ extends Node
 
 var T3_towers: Dictionary = {
 	"NinjaMelon": {
-		"1": {
+		0: {
 			"scene": "",
 			"sprite": "res://assets/towers/ninja_melon/T4_LR.png",
 
 			"color": Color(1, 0.9, 0),
 			"next": [],
 		},
-		"2": {
+		1: {
+			"scene": "",
+			"sprite": "res://assets/towers/ninja_melon/T4_RR.png",
+
+			"color": Color(1, 0.4, 0.5),
+			"next": [],
+		},
+		2: {
+			"scene": "",
+			"sprite": "res://assets/towers/ninja_melon/T4_LR.png",
+
+			"color": Color(1, 0.9, 0),
+			"next": [],
+		},
+		3: {
 			"scene": "",
 			"sprite": "res://assets/towers/ninja_melon/T4_RR.png",
 
@@ -23,8 +37,9 @@ var T3_towers: Dictionary = {
 var T2_towers: Dictionary = {
 	"NinjaMelon": {
 
-		"1": {
+		0: {
 			"scene": "res://src/scenes/towers/ninja_melon/NinjaT2-A.tscn",
+			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
 			"sprite": "res://assets/towers/ninja_melon/T3_LR.png",
 			
 			"buy_cost": 100,
@@ -45,11 +60,12 @@ var T2_towers: Dictionary = {
 
 			"color": Color(1, 0.9, 0),
 			"next": [],
-#			"next": [T3_towers["NinjaMelon"]["1"]],
+#			"next": [T3_towers["NinjaMelon"][0], T3_towers["NinjaMelon"][1]],
 		},
 
-		"2": {
+		1: {
 			"scene": "res://src/scenes/towers/ninja_melon/NinjaT2-B.tscn",
+			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
 			"sprite": "res://assets/towers/ninja_melon/T3_RR.png",
 			
 			"buy_cost": 100,
@@ -70,7 +86,7 @@ var T2_towers: Dictionary = {
 
 			"color": Color(1, 0.4, 0.5),
 			"next": [],
-#			"next": [T3_towers["NinjaMelon"]["2"]],
+#			"next": [T3_towers["NinjaMelon"][2], T3_towers["NinjaMelon"][3]],
 		},
 	}
 }
@@ -78,8 +94,9 @@ var T2_towers: Dictionary = {
 var T1_towers: Dictionary = {
 	"NinjaMelon": {
 
-		"0": {
+		0: {
 			"scene": "res://src/scenes/towers/ninja_melon/NinjaT1.tscn",
+			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
 			"sprite": "res://assets/towers/ninja_melon/T1.png",
 			
 			"buy_cost": 100,
@@ -99,7 +116,7 @@ var T1_towers: Dictionary = {
 			"resistance_reduction_percentage": 0,
 			
 			"color": Color(0.5, 1, 0.8),
-			"next": [T2_towers["NinjaMelon"]["1"], T2_towers["NinjaMelon"]["2"]],
+			"next": [T2_towers["NinjaMelon"][0], T2_towers["NinjaMelon"][1]],
 		},
 	}
 }

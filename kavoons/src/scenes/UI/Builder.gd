@@ -11,9 +11,7 @@ extends Control
 class_name Builder
 
 ## All Tier-1 towers preloaded to likely place them in the future
-var _towers = {
-	"NinjaMelon": preload("res://src/scenes/towers/ninja_melon/NinjaT1.tscn"),
-}
+var _towers: Dictionary
 
 ## Is building currently active
 var _is_active: bool = false
@@ -39,6 +37,10 @@ var _signal_err: int = 0
 signal build_status(is_active)
 ## Emits a newly placed melon instance to the [GameScene] node
 signal tower_placed(new_tower)
+
+func _init():
+	for base_tower in Towers.T1_towers:
+		_towers[base_tower] = Towers.T1_towers.get(base_tower).get(0).get("scene")
 
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
@@ -95,7 +97,7 @@ func _validate():
 
 ## Choose the final tower position and emit its instance
 func _place_melon():
-	var new_tower = _towers[_chosen_melon].instance()
+	var new_tower = load(_towers[_chosen_melon]).instance()
 	new_tower.position = get_global_mouse_position()
 
 	emit_signal("tower_placed", new_tower)
