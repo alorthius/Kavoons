@@ -45,20 +45,22 @@ func _ready():
 	_hud.set_visible(false)
 	_range_texture.set_visible(false)
 	
-	for butt in get_tree().get_nodes_in_group("melon_buttons"):
+	var upgr_butts := _upgrade_butt_bar.get_children()
+	var sell_butts := _sell_butt_bar.get_children()
+	var targ_butts := _target_butt_bar.get_children()
+	
+	for butt in upgr_butts + sell_butts + targ_butts:
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
+		
+		if butt in upgr_butts:
+			assert(butt.connect("pressed", self, "_upgrade_melon", [butt.name]) == 0)
 
-	for butt in _upgrade_butt_bar.get_children():
-		assert(butt.connect("pressed", self, "_upgrade_melon", [butt.name]) == 0)
-	
-	for butt in _sell_butt_bar.get_children():
-		assert(butt.connect("pressed", self, "_sell_melon") == 0)
-	
-	for butt in _target_butt_bar.get_children():
-		if butt.name != "Targeting":
+		if butt in sell_butts:
+			assert(butt.connect("pressed", self, "_sell_melon") == 0)
+		
+		if butt in targ_butts and butt.name != "Targeting":
 			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
-
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node. Create the upgrade and sell buttons for the melon.

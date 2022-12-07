@@ -45,7 +45,7 @@ rect_min_size = Vector2( 180, 80 )
 custom_constants/separation = 10
 alignment = 1
 
-[node name="1" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
+[node name="1" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 5.0
 margin_right = 85.0
 margin_bottom = 80.0
@@ -71,7 +71,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="2" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
+[node name="2" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 95.0
 margin_right = 175.0
 margin_bottom = 80.0
@@ -97,7 +97,7 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar" groups=["melon_buttons"]]
+[node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 185.0
 margin_right = 265.0
 margin_bottom = 80.0
@@ -139,7 +139,7 @@ size_flags_vertical = 5
 custom_constants/separation = 10
 alignment = 1
 
-[node name="ToLeft" type="TextureButton" parent="UI/HUD/TargetingBar" groups=["melon_buttons"]]
+[node name="ToLeft" type="TextureButton" parent="UI/HUD/TargetingBar"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
@@ -188,7 +188,7 @@ size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
 align = 1
 
-[node name="ToRight" type="TextureButton" parent="UI/HUD/TargetingBar" groups=["melon_buttons"]]
+[node name="ToRight" type="TextureButton" parent="UI/HUD/TargetingBar"]
 margin_left = 140.0
 margin_right = 180.0
 margin_bottom = 40.0
@@ -223,7 +223,7 @@ grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 alignment = 1
 
-[node name="Sell" type="TextureButton" parent="UI/HUD/SellBar" groups=["melon_buttons"]]
+[node name="Sell" type="TextureButton" parent="UI/HUD/SellBar"]
 margin_right = 80.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 80, 80 )
