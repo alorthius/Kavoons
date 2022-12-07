@@ -49,6 +49,7 @@ onready var _range_sprite: Sprite = $BaseRange
 ## Is the reload of a melon basic attack finished
 var _ready_to_attack: bool = false
 var _projectile: Resource
+var _damage_popup: Resource = preload("res://src/scenes/effects/Damage.tscn")
 
 ## Timer to track the cool-down of a basic attacks
 onready var _base_attack_timer: Timer = $BaseAttackTimer
@@ -170,13 +171,35 @@ func _rotate_to():
 	if _curr_enemy != null:
 		_melon_sprite.look_at(_curr_enemy.get_global_transform().origin)
 
+func _is_miss():
+	if rand_range(0, 1) < _miss_rate:
+		return true
+	return false
+
+func _calculate_damage():
+	var damage: int
+	if is_instance_valid(_curr_enemy):
+		if _base_attack_type == Constants.DAMAGE_TYPES.PHYSICAL:
+			damage = _base_attack_damage - (_curr_enemy._physical_armor_flat - _armor_reduction_flat)
+		elif _base_attack_type == Constants.DAMAGE_TYPES.MAGICAL:
+			damage = _base_attack_damage * (1 - _curr_enemy._magical_resistance_percentage + _resistance_reduction_percentage)
+		elif _base_attack_type == Constants.DAMAGE_TYPES.PURE:
+			damage = _base_attack_damage
+	return damage
+
 ## Hit the curently selected enemy with a basic attack
 func _perform_base_attack():
-	if _curr_enemy != null and _ready_to_attack:
+	if is_instance_valid(_curr_enemy) and _ready_to_attack:
+		var damage = 0
+		if not _is_miss():
+			damage = _calculate_damage()
+		
 		var new_projectile: Projectile = _projectile.instance()
-		new_projectile._set_properties(_projectile_speed, _base_attack_damage, _miss_rate, _curr_enemy)
+		new_projectile._set_properties(_projectile_speed, damage, _curr_enemy)
 		new_projectile.position = position
 		add_child(new_projectile)
+		
+#		print(new_projectile.position - _curr_enemy.position, (new_projectile.position - _curr_enemy.position).length())
 
 		_ready_to_attack = false
 		_base_attack_timer.start()

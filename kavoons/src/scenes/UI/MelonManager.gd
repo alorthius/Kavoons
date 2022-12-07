@@ -106,13 +106,13 @@ func _set_upgr_icons():
 func _focus_button(butt: TextureButton):
 	butt.rect_size += _focus_delta_size
 	butt.rect_position += - _focus_delta_size / 2.0
-	
+	print(self)
 	if butt.name == "Sell":
 		modulate.a = 0.65
 	
 	if not butt.name in ["1", "2", "3"]:
 		return
-
+	
 	var next_range = _next_ranges[int(butt.name) - 1]
 	var color = _next_colors[int(butt.name) - 1]
 	
