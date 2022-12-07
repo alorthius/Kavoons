@@ -18,6 +18,7 @@ func _ready():
 	set_as_toplevel(true)  # move independent from parent node
 	set_scale(Vector2(3.5, 3.5))
 
+
 func _set_properties(speed: float, damage: int, target: Cat):
 	_speed = speed
 	_dmg = damage
@@ -28,6 +29,12 @@ func _set_properties(speed: float, damage: int, target: Cat):
 		
 	if is_instance_valid(_target):
 		_cached_target_position = _target.position
+
+
+func _set_miss(target_position: Vector2):
+	_is_miss = true
+	_miss_position = target_position + Vector2(randi() % 20, randi() % 20)
+
 
 ## Follow the enemy's moving position
 func _physics_process(delta):
@@ -48,12 +55,9 @@ func _physics_process(delta):
 		Events.emit_signal("show_damage_dealt", position, 0)
 		queue_free()
 
+
 func _on_Projectile_area_entered(area):
 	if area == _target_area:
 		_target.on_hit(_dmg)
 		Events.emit_signal("show_damage_dealt", position, _dmg)
 		queue_free()
-
-func _set_miss(target_position: Vector2):
-	_is_miss = true
-	_miss_position = target_position + Vector2(randi() % 20, randi() % 20)

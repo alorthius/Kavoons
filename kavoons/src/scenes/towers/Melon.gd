@@ -183,7 +183,7 @@ func _is_miss():
 	return false
 
 func _calculate_damage():
-	var damage: int
+	var damage: float
 	if is_instance_valid(_curr_enemy):
 		if _base_attack_type == Constants.DAMAGE_TYPES.PHYSICAL:
 			damage = _base_attack_damage - (_curr_enemy._physical_armor_flat - _armor_reduction_flat)
@@ -191,7 +191,7 @@ func _calculate_damage():
 			damage = _base_attack_damage * (1 - _curr_enemy._magical_resistance_percentage + _resistance_reduction_percentage)
 		elif _base_attack_type == Constants.DAMAGE_TYPES.PURE:
 			damage = _base_attack_damage
-	return damage
+	return int(damage)
 
 ## Hit the curently selected enemy with a basic attack
 func _perform_base_attack():
