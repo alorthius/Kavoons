@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scenes/maps/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/scenes/main/GameScene.gd" type="Script" id=2]
+[ext_resource path="res://src/scenes/main/EffectsManager.gd" type="Script" id=3]
 [ext_resource path="res://src/scenes/UI/Builder.tscn" type="PackedScene" id=4]
 
 [node name="GameScene" type="Node2D"]
@@ -15,5 +16,8 @@ script = ExtResource( 2 )
 
 [node name="WavesTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="EffectsManager" type="Node" parent="."]
+script = ExtResource( 3 )
 
 [connection signal="timeout" from="WavesTimer" to="." method="_on_WavesTimer_timeout"]

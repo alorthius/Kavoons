@@ -103,6 +103,7 @@ func _parse_tower_data():
 	_color = data["color"]
 
 func _physics_process(_delta):
+	_clear_invalid_enemies()
 	_select_enemy()
 	_rotate_to()
 	_perform_base_attack()
@@ -170,6 +171,11 @@ func _select_enemy():
 func _rotate_to():
 	if _curr_enemy != null:
 		_melon_sprite.look_at(_curr_enemy.get_global_transform().origin)
+
+func _clear_invalid_enemies():
+	for enemy in _enemies_in_range:
+		if not is_instance_valid(_curr_enemy):
+			_enemies_in_range.erase(_curr_enemy)
 
 func _is_miss():
 	if rand_range(0, 1) < _miss_rate:
