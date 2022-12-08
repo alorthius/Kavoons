@@ -15,10 +15,12 @@ onready var _waves_timer: Timer = $WavesTimer
 onready var _towers_container: Node = $Towers
 ## Container with all the spawned cats
 onready var _cats_pathes: Array = $Map/Pathes.get_children()
+## Spawns effects
+#onready var _effects_manager: Node = $EffectsManager
 
 var _curr_wave: Wave
 
-## The preloaded [Upgrader] for the towers, is instanced for every new melon separately.
+## The preloaded [MelonManager] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
 var _melon_manager: PackedScene = preload("res://src/scenes/UI/MelonManager.tscn")
 
@@ -46,11 +48,11 @@ func _on_WavesTimer_timeout():
 	_curr_wave = wave
 	add_child(wave, true)
 	
-	assert(_curr_wave.connect("spawn_enemy", self, "_on_cat_spawn") == 0)
+	assert(_curr_wave.connect("spawn_enemy", self, "_attach_cat") == 0)
 	assert(_curr_wave.connect("spawning_ended", self, "_on_spawn_end") == 0)
 
 ## Spawn the cat
-func _on_cat_spawn(cat):
+func _attach_cat(cat):
 	var path_idx = randi() % _cats_pathes.size()
 	_cats_pathes[path_idx].add_child(cat, true)
 
@@ -58,3 +60,5 @@ func _on_cat_spawn(cat):
 func _on_spawn_end():
 	_curr_wave.queue_free()
 	_waves_timer.start()
+
+

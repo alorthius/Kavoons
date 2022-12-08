@@ -29,6 +29,7 @@ var _miss_rate: float
 
 var _crit_rate: float
 var _crit_strike_multiplier: int
+var _is_crit: bool = false
 
 var _armor_reduction_flat: int
 var _resistance_reduction_percentage: float
@@ -102,6 +103,7 @@ func _parse_tower_data():
 	_color = data["color"]
 
 func _physics_process(_delta):
+	_clear_invalid_enemies()
 	_select_enemy()
 	_rotate_to()
 	_perform_base_attack()
@@ -170,15 +172,46 @@ func _rotate_to():
 	if _curr_enemy != null:
 		_melon_sprite.look_at(_curr_enemy.get_global_transform().origin)
 
+func _clear_invalid_enemies():
+	for enemy in _enemies_in_range:
+		if not is_instance_valid(_curr_enemy):
+			_enemies_in_range.erase(_curr_enemy)
+
+func _is_miss():
+	if rand_range(0, 1) < _miss_rate:
+		return true
+	return false
+
+func _calculate_damage():
+	var damage: float
+	if is_instance_valid(_curr_enemy):
+		if _base_attack_type == Constants.DAMAGE_TYPES.PHYSICAL:
+			damage = _base_attack_damage - (_curr_enemy._physical_armor_flat - _armor_reduction_flat)
+		elif _base_attack_type == Constants.DAMAGE_TYPES.MAGICAL:
+			damage = _base_attack_damage * (1 - _curr_enemy._magical_resistance_percentage + _resistance_reduction_percentage)
+		elif _base_attack_type == Constants.DAMAGE_TYPES.PURE:
+			damage = _base_attack_damage
+	
+	if rand_range(0, 1) < _crit_rate:
+		damage *= _crit_strike_multiplier
+		_is_crit = true
+
+	return int(damage)
+
 ## Hit the curently selected enemy with a basic attack
 func _perform_base_attack():
-	if _curr_enemy != null and _ready_to_attack:
+	if is_instance_valid(_curr_enemy) and _ready_to_attack:
+		var damage = 0
+		if not _is_miss():
+			damage = _calculate_damage()
+		
 		var new_projectile: Projectile = _projectile.instance()
-		new_projectile._set_properties(_projectile_speed, _base_attack_damage, _miss_rate, _curr_enemy)
+		new_projectile._set_properties(_projectile_speed, damage, _base_attack_type, _is_crit, _curr_enemy)
 		new_projectile.position = position
 		add_child(new_projectile)
 
 		_ready_to_attack = false
+		_is_crit = false
 		_base_attack_timer.start()
 
 ## Save the enemy entered the tower range

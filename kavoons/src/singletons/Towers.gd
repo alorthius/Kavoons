@@ -48,9 +48,9 @@ var T2_towers: Dictionary = {
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
 			"base_attack_damage": 20,
 			
-			"attack_speed": 1.5,
+			"attack_speed": 2.5,
 			"projectile_speed": 500,
-			"miss_rate": 0,
+			"miss_rate": 0.8,
 			
 			"crit_rate": 0,
 			"crit_strike_multiplier": 2,
@@ -74,11 +74,11 @@ var T2_towers: Dictionary = {
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
 			"base_attack_damage": 50,
 			
-			"attack_speed": 0.7,
+			"attack_speed": 1.5,
 			"projectile_speed": 500,
 			"miss_rate": 0,
 			
-			"crit_rate": 0,
+			"crit_rate": 0.8,
 			"crit_strike_multiplier": 2,
 			
 			"armor_reduction_flat": 5,
@@ -105,18 +105,19 @@ var T1_towers: Dictionary = {
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
 			"base_attack_damage": 20,
 			
-			"attack_speed": 1,
+			"attack_speed": 1.5,
 			"projectile_speed": 500,
 			"miss_rate": 0,
 			
-			"crit_rate": 0,
-			"crit_strike_multiplier": 2,
+			"crit_rate": 0.5,
+			"crit_strike_multiplier": 1.5,
 			
 			"armor_reduction_flat": 5,
 			"resistance_reduction_percentage": 0,
 			
 			"color": Color(0.5, 1, 0.8),
-			"next": [T2_towers["NinjaMelon"][0], T2_towers["NinjaMelon"][1]],
+			"next": [T2_towers["NinjaMelon"][0],
+					 T2_towers["NinjaMelon"][1]],
 		},
 	}
 }
