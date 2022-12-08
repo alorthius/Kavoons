@@ -60,7 +60,7 @@ func _physics_process(delta):
 
 
 func _on_Projectile_area_entered(area):
-	if area == _target_area:
+	if area == _target_area and _dmg != 0:
 		_target.on_hit(_dmg)
 		_notify_and_free(_dmg)
 
