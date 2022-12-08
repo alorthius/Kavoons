@@ -11,10 +11,7 @@ var _range_valid_rgba: Color = Color(1, 1, 1, 0.5)
 var _range_invalid_rgba: Color = Color(0.5, 0, 0, 0.8)
 
 onready var _tower_sprite: Sprite = $Tower
-
 onready var _range_sprite: Sprite = $Range
-
-onready var _tower_shape: CollisionShape2D = $BuildingShape/CollisionShape2D
 
 # TODO: preload all melon sprites and range values in a dictionary
 

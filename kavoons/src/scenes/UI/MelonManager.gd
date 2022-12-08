@@ -63,7 +63,7 @@ func _ready():
 			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
 
 ## Wrap this node above the given melon instance. The melon is added as a child
-## as a sibling of UI (CanvasLayer) node. Create the upgrade and sell buttons for the melon.
+## as a sibling of UI (CanvasLayer) node.
 func attach_melon(melon: Melon):
 	_curr_melon = melon
 	self.add_child(_curr_melon)
@@ -108,6 +108,8 @@ func _set_upgr_icons():
 func _focus_button(butt: TextureButton):
 	butt.rect_size += _focus_delta_size
 	butt.rect_position += - _focus_delta_size / 2.0
+	
+	print(_curr_melon._range_shape)
 
 	if butt.name == "Sell":
 		modulate.a = 0.65
