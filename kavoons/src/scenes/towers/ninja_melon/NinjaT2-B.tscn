@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T4_LL.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
 
 [node name="NinjaT2-B" instance=ExtResource( 1 )]
 base_tower = "NinjaMelon"
@@ -10,3 +12,6 @@ branch = 1
 
 [node name="BaseSprite" parent="." index="1"]
 texture = ExtResource( 2 )
+
+[node name="CollisionShape" parent="Range" index="0"]
+shape = SubResource( 1 )
