@@ -23,12 +23,12 @@ func _set_properties(speed: float, damage: int, target: Cat):
 	_speed = speed
 	_dmg = damage
 	_target = target
-	
-	if damage == 0:
-		_set_miss(target.position)
 		
 	if is_instance_valid(_target):
 		_cached_target_position = _target.position
+	
+	if damage == 0:
+		_set_miss(target.position)
 
 
 func _set_miss(target_position: Vector2):
@@ -52,12 +52,15 @@ func _physics_process(delta):
 	position += velocity * delta
 	
 	if _is_miss and (position - _miss_position).abs() <= Vector2(5, 5):
-		Events.emit_signal("show_damage_dealt", position, 0)
-		queue_free()
+		_notify_and_free(0)
 
 
 func _on_Projectile_area_entered(area):
 	if area == _target_area:
 		_target.on_hit(_dmg)
-		Events.emit_signal("show_damage_dealt", position, _dmg)
-		queue_free()
+		_notify_and_free(_dmg)
+
+
+func _notify_and_free(dmg: int):
+	Events.emit_signal("show_damage_dealt", position + Vector2(36, -25), dmg)
+	queue_free()

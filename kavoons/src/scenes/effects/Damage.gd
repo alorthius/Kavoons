@@ -19,7 +19,7 @@ func _ready():
 
 func _animate():
 	_tween.interpolate_property(self, "scale", _init_scale, _peak_scale, 0.3, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	_tween.interpolate_property(self, "scale", _peak_scale, _fade_scale, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0.4)
+	_tween.interpolate_property(self, "scale", _peak_scale, _fade_scale, 0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0.3)
 	_tween.start()
 
 
