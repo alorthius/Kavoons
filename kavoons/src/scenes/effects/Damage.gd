@@ -4,6 +4,8 @@ var _init_scale := Vector2(0.8, 0.8)
 var _peak_scale := Vector2(1, 1)
 var _fade_scale := Vector2(0.4, 0.4)
 
+var _velocity := Vector2(36, 36)
+
 onready var _label = $Label
 onready var _tween = $Tween
 
@@ -18,6 +20,8 @@ func _ready():
 	scale = _init_scale
 	_animate()
 
+func _process(delta):
+	position -= _velocity * delta
 
 func _animate():
 	_tween.interpolate_property(self, "scale", _init_scale, _peak_scale, 0.3, Tween.TRANS_LINEAR, Tween.EASE_OUT)

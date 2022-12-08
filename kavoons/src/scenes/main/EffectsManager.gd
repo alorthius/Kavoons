@@ -6,6 +6,7 @@ var damage_popup: Resource = preload("res://src/scenes/effects/Damage.tscn")
 func _ready():
 	assert(Events.connect("show_damage_dealt", self, "_spawn_damage_popup") == 0)
 
+
 func _spawn_damage_popup(position: Vector2, damage: int, damage_type: int):
 	var popup = damage_popup.instance()
 	add_child(popup, true)
