@@ -149,17 +149,17 @@ func _sell_melon():
 func _change_targeting(action: String):
 	var new_targeting: int
 	if action == "ToLeft":
-		new_targeting = (_curr_melon._target_priority - 1) % Constants.TARGET_PRIORITY.size()
+		new_targeting = (_curr_melon._target_priority - 1) % Constants.TargetPriority.size()
 	elif action == "ToRight":
-		new_targeting = (_curr_melon._target_priority + 1) % Constants.TARGET_PRIORITY.size()
+		new_targeting = (_curr_melon._target_priority + 1) % Constants.TargetPriority.size()
 	if new_targeting == -1:  # -1 % 7 = -1
-		new_targeting = Constants.TARGET_PRIORITY.size() - 1
+		new_targeting = Constants.TargetPriority.size() - 1
 	
 	_curr_melon._target_priority = new_targeting
 	_set_targeting_label()
 
 func _set_targeting_label():
-	var text: String = Constants.TARGET_PRIORITY.keys()[_curr_melon._target_priority].to_lower()
+	var text: String = Constants.TargetPriority.keys()[_curr_melon._target_priority].to_lower()
 	_target_label.text = text.replace("_", "\n")
 
 ## Trigger the UI display on melon collision shape hover with making visible

@@ -45,7 +45,7 @@ var T2_towers: Dictionary = {
 			"buy_cost": 100,
 			
 			"base_attack_radius": 350,
-			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
+			"base_attack_type": Constants.DamageTypes.PHYSICAL,
 			"base_attack_damage": 20,
 			
 			"attack_speed": 2.5,
@@ -71,7 +71,7 @@ var T2_towers: Dictionary = {
 			"buy_cost": 100,
 			
 			"base_attack_radius": 150,
-			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
+			"base_attack_type": Constants.DamageTypes.PHYSICAL,
 			"base_attack_damage": 50,
 			
 			"attack_speed": 1.5,
@@ -102,7 +102,7 @@ var T1_towers: Dictionary = {
 			"buy_cost": 100,
 			
 			"base_attack_radius": 300,
-			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
+			"base_attack_type": Constants.DamageTypes.PHYSICAL,
 			"base_attack_damage": 20,
 			
 			"attack_speed": 1.5,

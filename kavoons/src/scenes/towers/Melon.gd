@@ -20,7 +20,7 @@ export(int) var branch
 var sell_cost: int
 
 var _base_attack_radius: int
-var _base_attack_type  # from global enum DAMAGE_TYPES
+var _base_attack_type  # from global enum DamageTypes
 var _base_attack_damage: int
 
 var _attack_speed: float
@@ -34,7 +34,7 @@ var _is_crit: bool = false
 var _armor_reduction_flat: int
 var _resistance_reduction_percentage: float
 
-var _target_priority: int = Constants.TARGET_PRIORITY.FIRST
+var _target_priority: int = Constants.TargetPriority.FIRST
 
 var last_hit_counter: int = 0
 
@@ -109,7 +109,7 @@ func _physics_process(_delta):
 	_perform_base_attack()
 
 ## Choose one single enemy out of all in tower range to attack with different targetings
-## from global enum Constants.TARGET_PRIORITY:
+## from global enum Constants.TargetPriority:
 ## - FIRST - the first enemy entered melon vision
 ## - LAST - the last enemy entered melon vision
 ## - HIGHEST_LIFECOST - the enemy with the highest life cost
@@ -124,41 +124,41 @@ func _select_enemy():
 
 	var chosen_enemy: Cat
 	
-	if _target_priority == Constants.TARGET_PRIORITY.FIRST:
+	if _target_priority == Constants.TargetPriority.FIRST:
 		chosen_enemy = _enemies_in_range[0]
 	
-	elif _target_priority == Constants.TARGET_PRIORITY.LAST:
+	elif _target_priority == Constants.TargetPriority.LAST:
 		chosen_enemy = _enemies_in_range[-1]
 	
-	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_LIFECOST:
+	elif _target_priority == Constants.TargetPriority.HIGHEST_LIFECOST:
 		var max_lifecost := - INF
 		for enemy in _enemies_in_range:
 			if enemy._life_cost > max_lifecost:
 				chosen_enemy = enemy
 				max_lifecost = enemy._life_cost
 				
-	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_ARMOR:
+	elif _target_priority == Constants.TargetPriority.HIGHEST_ARMOR:
 		var max_armor := - INF
 		for enemy in _enemies_in_range:
 			if enemy._physical_armor_flat > max_armor:
 				chosen_enemy = enemy
 				max_armor = enemy._physical_armor_flat
 	
-	elif _target_priority == Constants.TARGET_PRIORITY.HIGHEST_RESISTENCE:
+	elif _target_priority == Constants.TargetPriority.HIGHEST_RESISTENCE:
 		var max_resist := - INF
 		for enemy in _enemies_in_range:
 			if enemy._magical_resistance_percentage > max_resist:
 				chosen_enemy = enemy
 				max_resist = enemy._magical_resistance_percentage
 
-	elif _target_priority == Constants.TARGET_PRIORITY.LEAST_HP:
+	elif _target_priority == Constants.TargetPriority.LEAST_HP:
 		var min_hp := INF
 		for enemy in _enemies_in_range:
 			if enemy._hp < min_hp:
 				chosen_enemy = enemy
 				min_hp = enemy._hp
 
-	elif _target_priority == Constants.TARGET_PRIORITY.CLOSEST:
+	elif _target_priority == Constants.TargetPriority.CLOSEST:
 		var max_passed := - INF
 		for enemy in _enemies_in_range:
 			if enemy.unit_offset > max_passed:
@@ -185,11 +185,11 @@ func _is_miss():
 func _calculate_damage():
 	var damage: float
 	if is_instance_valid(_curr_enemy):
-		if _base_attack_type == Constants.DAMAGE_TYPES.PHYSICAL:
+		if _base_attack_type == Constants.DamageTypes.PHYSICAL:
 			damage = _base_attack_damage - (_curr_enemy._physical_armor_flat - _armor_reduction_flat)
-		elif _base_attack_type == Constants.DAMAGE_TYPES.MAGICAL:
+		elif _base_attack_type == Constants.DamageTypes.MAGICAL:
 			damage = _base_attack_damage * (1 - _curr_enemy._magical_resistance_percentage + _resistance_reduction_percentage)
-		elif _base_attack_type == Constants.DAMAGE_TYPES.PURE:
+		elif _base_attack_type == Constants.DamageTypes.PURE:
 			damage = _base_attack_damage
 	
 	if rand_range(0, 1) < _crit_rate:
