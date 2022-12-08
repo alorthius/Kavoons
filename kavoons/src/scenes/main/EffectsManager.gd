@@ -21,11 +21,11 @@ func _spawn_damage_popup(position: Vector2, damage: int, damage_type: int):
 	else:
 		display_text = String(damage)
 		if damage_type == Constants.DAMAGE_TYPES.PHYSICAL:
-			color = Color(0.7, 0, 0, 1)
+			color = Color(1, 0.574219, 0.574219)
 		elif damage_type == Constants.DAMAGE_TYPES.MAGICAL:
-			color = Color(0, 0.7, 1, 1)
+			color = Color(0, 0.7, 1)
 		elif damage_type == Constants.DAMAGE_TYPES.PURE:
-			color = Color(0.7, 0, 1, 1)
+			color = Color(0.8, 0.7, 1)
 		
 	popup.set_label(display_text)
 	popup.set_color(color)

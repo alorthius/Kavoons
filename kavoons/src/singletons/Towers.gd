@@ -48,9 +48,9 @@ var T2_towers: Dictionary = {
 			"base_attack_type": Constants.DAMAGE_TYPES.PHYSICAL,
 			"base_attack_damage": 20,
 			
-			"attack_speed": 1.5,
+			"attack_speed": 2.5,
 			"projectile_speed": 500,
-			"miss_rate": 0,
+			"miss_rate": 0.8,
 			
 			"crit_rate": 0,
 			"crit_strike_multiplier": 2,

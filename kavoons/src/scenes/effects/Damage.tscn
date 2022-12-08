@@ -6,7 +6,7 @@
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
 size = 30
-outline_color = Color( 0.394531, 0.126373, 0.126373, 1 )
+outline_color = Color( 1, 0.574219, 0.574219, 1 )
 font_data = ExtResource( 1 )
 
 [node name="Damage" type="Position2D"]
