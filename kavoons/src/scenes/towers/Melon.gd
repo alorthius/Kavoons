@@ -201,7 +201,7 @@ func _perform_base_attack():
 			damage = _calculate_damage()
 		
 		var new_projectile: Projectile = _projectile.instance()
-		new_projectile._set_properties(_projectile_speed, damage, _curr_enemy)
+		new_projectile._set_properties(_projectile_speed, damage, _base_attack_type, _curr_enemy)
 		new_projectile.position = position
 		add_child(new_projectile)
 		

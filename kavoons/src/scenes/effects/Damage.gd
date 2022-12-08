@@ -11,6 +11,8 @@ onready var _tween = $Tween
 func set_label(text: String):
 	_label.text = text
 
+func set_color(color: Color):
+	_label.set("custom_colors/font_color", color)
 
 func _ready():
 	scale = _init_scale
