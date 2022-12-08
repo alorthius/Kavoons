@@ -1,4 +1,4 @@
 extends Node
 
 
-signal show_damage_dealt(position, damage, damage_type)
+signal show_damage_dealt(position, damage, damage_type, is_crit)

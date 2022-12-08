@@ -6,6 +6,7 @@ class_name Projectile
 var _speed: float
 var _dmg: int
 var _dmg_type: int
+var _is_crit: bool
 
 var _is_miss: bool
 var _miss_position: Vector2
@@ -20,10 +21,11 @@ func _ready():
 	set_scale(Vector2(3.5, 3.5))
 
 
-func _set_properties(speed: float, damage: int, damage_type: int, target: Cat):
+func _set_properties(speed: float, damage: int, damage_type: int, is_crit: bool, target: Cat):
 	_speed = speed
 	_dmg = damage
 	_dmg_type = damage_type
+	_is_crit = is_crit
 	_target = target
 		
 	if is_instance_valid(_target):
@@ -64,5 +66,5 @@ func _on_Projectile_area_entered(area):
 
 
 func _notify_and_free(dmg: int):
-	Events.emit_signal("show_damage_dealt", position + Vector2(36, -25), dmg, _dmg_type)
+	Events.emit_signal("show_damage_dealt", position + Vector2(36, -25), dmg, _dmg_type, _is_crit)
 	queue_free()

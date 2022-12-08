@@ -29,6 +29,7 @@ var _miss_rate: float
 
 var _crit_rate: float
 var _crit_strike_multiplier: int
+var _is_crit: bool = false
 
 var _armor_reduction_flat: int
 var _resistance_reduction_percentage: float
@@ -49,7 +50,6 @@ onready var _range_sprite: Sprite = $BaseRange
 ## Is the reload of a melon basic attack finished
 var _ready_to_attack: bool = false
 var _projectile: Resource
-var _damage_popup: Resource = preload("res://src/scenes/effects/Damage.tscn")
 
 ## Timer to track the cool-down of a basic attacks
 onready var _base_attack_timer: Timer = $BaseAttackTimer
@@ -191,6 +191,11 @@ func _calculate_damage():
 			damage = _base_attack_damage * (1 - _curr_enemy._magical_resistance_percentage + _resistance_reduction_percentage)
 		elif _base_attack_type == Constants.DAMAGE_TYPES.PURE:
 			damage = _base_attack_damage
+	
+	if rand_range(0, 1) < _crit_rate:
+		damage *= _crit_strike_multiplier
+		_is_crit = true
+
 	return int(damage)
 
 ## Hit the curently selected enemy with a basic attack
@@ -201,13 +206,12 @@ func _perform_base_attack():
 			damage = _calculate_damage()
 		
 		var new_projectile: Projectile = _projectile.instance()
-		new_projectile._set_properties(_projectile_speed, damage, _base_attack_type, _curr_enemy)
+		new_projectile._set_properties(_projectile_speed, damage, _base_attack_type, _is_crit, _curr_enemy)
 		new_projectile.position = position
 		add_child(new_projectile)
-		
-#		print(new_projectile.position - _curr_enemy.position, (new_projectile.position - _curr_enemy.position).length())
 
 		_ready_to_attack = false
+		_is_crit = false
 		_base_attack_timer.start()
 
 ## Save the enemy entered the tower range

@@ -16,18 +16,24 @@ func set_label(text: String):
 func set_color(color: Color):
 	_label.set("custom_colors/font_color", color)
 
-func _ready():
-	scale = _init_scale
-	_animate()
+func set_scale_pair(init: Vector2, peak: Vector2):
+	_init_scale = init
+	_peak_scale = peak
+
+func _set_velocity():
+	_velocity *= _peak_scale.length()
+
 
 func _process(delta):
 	position -= _velocity * delta
 
-func _animate():
+
+func animate():
+	_set_velocity()
+	scale = _init_scale
 	_tween.interpolate_property(self, "scale", _init_scale, _peak_scale, 0.3, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	_tween.interpolate_property(self, "scale", _peak_scale, _fade_scale, 0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0.3)
 	_tween.start()
-
 
 func _on_Tween_tween_all_completed():
 	queue_free()
