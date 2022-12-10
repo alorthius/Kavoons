@@ -13,6 +13,8 @@ class_name Builder
 ## All Tier-1 towers preloaded to likely place them in the future
 var _towers: Dictionary
 
+onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
+
 ## Is building currently active
 var _is_active: bool = false
 
