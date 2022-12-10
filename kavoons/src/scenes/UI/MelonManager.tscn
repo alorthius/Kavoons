@@ -20,12 +20,12 @@ font_data = ExtResource( 6 )
 [node name="MelonManager" type="Control"]
 script = ExtResource( 1 )
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="NextRange" type="Sprite" parent="UI"]
+[node name="NextRange" type="Sprite" parent="."]
 visible = false
-self_modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.784314 )
 texture = ExtResource( 3 )
+
+[node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="UI"]
 margin_right = 140.0
@@ -80,11 +80,10 @@ anchor_bottom = 1.0
 margin_left = -20.0
 margin_top = -26.0
 margin_right = 20.0
-custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "666"
 align = 1
-valign = 1
+valign = 2
 
 [node name="2" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 95.0
@@ -122,8 +121,9 @@ margin_top = -26.0
 margin_right = 20.0
 custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
 custom_fonts/font = ExtResource( 9 )
+text = "666"
 align = 1
-valign = 1
+valign = 2
 
 [node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar"]
 margin_left = 185.0
@@ -161,8 +161,9 @@ margin_top = -26.0
 margin_right = 20.0
 custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
 custom_fonts/font = ExtResource( 9 )
+text = "666"
 align = 1
-valign = 1
+valign = 2
 
 [node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5

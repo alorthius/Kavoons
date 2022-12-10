@@ -19,7 +19,7 @@ onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
 var _focus_delta_size = Vector2(5, 5)
 
-onready var _range_texture: Sprite = $UI/NextRange
+onready var _range_texture: Sprite = $NextRange
 #var _next_ranges: Array
 #var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
@@ -109,7 +109,11 @@ func _set_upgr_icons():
 		else:
 			var icon: TextureRect = butt.get_node("Icon")
 			icon.texture = load(_next_icons[i])
-			icon.get_node("Cost").text = String(_next_costs[i])
+			
+			var label: Label = icon.get_node("Cost")
+			label.text = String(_next_costs[i])
+			label.set("custom_colors/font_color", _next_colors[i])
+			label.set("custom_colors/font_outline_modulate", _next_colors[i].darkened(0.65))
 
 			butt.self_modulate = _next_colors[i]
 

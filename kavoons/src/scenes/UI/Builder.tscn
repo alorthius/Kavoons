@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/scenes/UI/TowerPreview.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/Builder.gd" type="Script" id=2]
@@ -7,9 +7,17 @@
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/disabled_build_button.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/pressed_build_button.png" type="Texture" id=7]
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.0
+
+[sub_resource type="DynamicFont" id=2]
+resource_local_to_scene = true
+size = 30
+outline_size = 3
+extra_spacing_char = 1
+font_data = ExtResource( 8 )
 
 [node name="Builder" type="Control"]
 script = ExtResource( 2 )
@@ -75,6 +83,20 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 3 )
 expand = true
+
+[node name="Cost" type="Label" parent="UI/HUD/BuildBar/NinjaMelon/Icon"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -36.0
+margin_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = SubResource( 2 )
+align = 1
+valign = 2
 
 [connection signal="area_entered" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_entered"]
 [connection signal="area_exited" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_exited"]

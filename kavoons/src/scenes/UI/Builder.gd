@@ -13,6 +13,7 @@ class_name Builder
 ## All Tier-1 towers preloaded to likely place them in the future
 var _towers: Dictionary
 var _costs: Dictionary
+var _colors: Dictionary
 
 onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
 onready var _build_butts: Array = _build_bar.get_children()
@@ -47,6 +48,7 @@ func _init():
 		var data = Towers.T1_towers[base_tower][0]
 		_towers[base_tower] = data["scene"]
 		_costs[base_tower] = data["cost"]
+		_colors[base_tower] = data["color"]
 
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
@@ -57,6 +59,11 @@ func _ready():
 		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
+		
+		var label: Label = butt.get_node("Icon/Cost")
+		label.text = String(_costs[butt.name])
+		label.set("custom_colors/font_color", _colors[butt.name])
+		label.set("custom_colors/font_outline_modulate", _colors[butt.name].darkened(0.65))
 
 ## Render the preview of the currently selected tower
 func _process(_delta):
