@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-var money_total: int
+var money_total: int = 0
 
 onready var _label: Label = $Label
 

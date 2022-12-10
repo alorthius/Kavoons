@@ -31,6 +31,7 @@ var _signal_err: int = 0
 
 func _ready():
 	_measures.set_init_money(666)
+	_measures.set_init_lifes(69)
 
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)

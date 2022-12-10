@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=2]
 [ext_resource path="res://src/scenes/UI/standalone/Economy.gd" type="Script" id=3]
 [ext_resource path="res://assets/UI/heart.png" type="Texture" id=4]
 [ext_resource path="res://src/scenes/UI/standalone/MeasuresManager.gd" type="Script" id=5]
+[ext_resource path="res://src/scenes/UI/standalone/Lifes.gd" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -57,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -65.0
 custom_constants/separation = 10
+script = ExtResource( 6 )
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/Lifes"]
 margin_right = 65.0
