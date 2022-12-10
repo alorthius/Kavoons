@@ -26,6 +26,8 @@ onready var _range_texture: Sprite = $UI/NextRange
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
 
+var _next_costs := []
+
 var _next_num: int
 var _next_icons := []
 var _next_ranges := []
@@ -80,6 +82,8 @@ func attach_melon(melon: Melon):
 	
 	_next_num = len(data["next"])
 	for next in data["next"]:
+		_next_costs.append(next["cost"])
+
 		_next_icons.append(next["sprite"])
 		_next_ranges.append(next["base_attack_radius"])
 		_next_colors.append(next["color"])
@@ -103,7 +107,10 @@ func _set_upgr_icons():
 		if i >= _next_num:
 			butt.set_visible(false)
 		else:
-			butt.get_child(0).texture = load(_next_icons[i])
+			var icon: TextureRect = butt.get_node("Icon")
+			icon.texture = load(_next_icons[i])
+			icon.get_node("Cost").text = String(_next_costs[i])
+
 			butt.self_modulate = _next_colors[i]
 
 ## Expand button on hover, show next melon range if button is upgrade

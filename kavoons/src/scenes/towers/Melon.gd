@@ -17,7 +17,7 @@ export(int) var tier
 export(int) var branch
 
 
-var sell_cost: int
+var total_money: int = 0
 
 var _base_attack_radius: int
 var _base_attack_type  # from global enum DamageTypes
