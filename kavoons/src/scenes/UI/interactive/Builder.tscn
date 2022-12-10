@@ -58,13 +58,14 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="NinjaMelon" type="TextureButton" parent="UI/HUD/BuildBar"]
+visible = false
 margin_left = 375.0
 margin_right = 475.0
 margin_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 texture_disabled = ExtResource( 6 )

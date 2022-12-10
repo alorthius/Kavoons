@@ -10,11 +10,6 @@ extends Control
 ## using the signal [signal tower_placed].
 class_name Builder
 
-#var _towers: Dictionary
-#var _costs: Dictionary
-#var _colors: Dictionary
-
-#var _build_data: Dictionary
 
 onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
 onready var _build_butts: Array = _build_bar.get_children()
@@ -47,19 +42,42 @@ signal tower_placed(new_tower)
 func _get_attr(base_tower: String, attr: String):
 	return Towers.T1_towers[base_tower][0][attr]
 
-func _init():
-	for base_tower in Towers.T1_towers:
-		var data = Towers.T1_towers[base_tower][0]
-#		_build_data[base_tower]["scene"] = data["scene"]
-#		_build_data[base_tower]["icon"] = data["sprite"]
-#		_build_data[base_tower]["cost"] = data["cost"]
-#		_build_data[base_tower]["color"] = data["color"]
+func _create_build_button(tower_name: String):
+	var butt: TextureButton = TextureButton.new()
+	_build_bar.add_child(butt)
+
+	butt.name = tower_name
+	butt.expand = true
+	
+	butt.texture_normal = load("res://assets/UI/tower_build_button.png")
+	butt.texture_disabled = load("res://assets/UI/disabled_build_button.png")
+	
+	butt.rect_min_size = Vector2(100, 100)
+	butt.size_flags_horizontal = SIZE_SHRINK_CENTER
+	butt.size_flags_vertical = SIZE_SHRINK_CENTER
+	
+	var icon: TextureRect = TextureRect.new()
+	butt.add_child(icon)
+	
+	icon.name = "Icon"
+	icon.expand = true
+	
+	icon.texture = load(_get_attr(tower_name, "sprite"))
+	icon.rect_size = Vector2(80, 80)
+	icon.margin_left = 10
+	icon.margin_top = 10
+	icon.margin_right = -10
+	icon.margin_bottom = -10
 
 
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
 func _ready():
 	_tower_preview.visible = false
+	
+	for base_tower in Towers.T1_towers:
+		var data = Towers.T1_towers[base_tower][0]
+		_create_build_button(base_tower)
 
 	for butt in _build_butts:
 		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
