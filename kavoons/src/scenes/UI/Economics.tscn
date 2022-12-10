@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=2]
 [ext_resource path="res://src/scenes/UI/Economics.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -21,29 +22,54 @@ script = ExtResource( 3 )
 margin_left = 40.0
 margin_top = 40.0
 margin_right = 360.0
-margin_bottom = 240.0
+margin_bottom = 190.0
 rect_min_size = Vector2( 200, 70 )
 
-[node name="HBox" type="HBoxContainer" parent="UI/HUD"]
+[node name="Economy" type="HBoxContainer" parent="UI/HUD"]
 anchor_right = 1.0
-margin_bottom = 105.0
+margin_bottom = 65.0
 custom_constants/separation = 10
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/HBox"]
-margin_top = 20.0
+[node name="Icon" type="TextureRect" parent="UI/HUD/Economy"]
 margin_right = 65.0
-margin_bottom = 85.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 65, 65 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Label" type="Label" parent="UI/HUD/HBox"]
+[node name="Label" type="Label" parent="UI/HUD/Economy"]
 margin_left = 75.0
-margin_top = 27.0
+margin_top = 7.0
 margin_right = 123.0
-margin_bottom = 78.0
+margin_bottom = 58.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "69"
+valign = 1
+
+[node name="Lifes" type="HBoxContainer" parent="UI/HUD"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -65.0
+custom_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/Lifes"]
+margin_right = 65.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 65, 65 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Label" type="Label" parent="UI/HUD/Lifes"]
+margin_left = 75.0
+margin_top = 7.0
+margin_right = 123.0
+margin_bottom = 58.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 text = "69"

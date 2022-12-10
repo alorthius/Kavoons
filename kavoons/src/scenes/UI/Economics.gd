@@ -4,7 +4,7 @@ class_name Economics
 
 var _curr_money: int
 
-onready var label: Label = $UI/HUD/HBox/Label
+onready var label: Label = $UI/HUD/Economy/Label
 
 signal total_money_changed(new_total)
 
