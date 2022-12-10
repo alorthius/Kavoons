@@ -4,7 +4,7 @@ extends Node
 var cats: Dictionary = {
 	"Cat1": {
 		"lifes_cost": 1,
-		"hp": 80,
+		"hp": 120,
 		
 		"move_speed": 200,
 		"physical_armor_flat": 0,
