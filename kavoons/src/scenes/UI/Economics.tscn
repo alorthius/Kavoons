@@ -20,28 +20,31 @@ script = ExtResource( 3 )
 [node name="HUD" type="Control" parent="UI"]
 margin_left = 40.0
 margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 360.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 200, 70 )
 
 [node name="HBox" type="HBoxContainer" parent="UI/HUD"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 50.0
-custom_constants/separation = 20
+margin_bottom = 105.0
+custom_constants/separation = 10
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/HBox"]
-margin_right = 70.0
-margin_bottom = 105.0
-rect_min_size = Vector2( 70, 70 )
+margin_top = 20.0
+margin_right = 65.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 65, 65 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
 [node name="Label" type="Label" parent="UI/HUD/HBox"]
-margin_left = 90.0
-margin_right = 90.0
-margin_bottom = 105.0
+margin_left = 75.0
+margin_top = 27.0
+margin_right = 123.0
+margin_bottom = 78.0
+size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
-text = "
-"
+text = "69"
 valign = 1
