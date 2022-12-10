@@ -64,7 +64,7 @@ func _ready():
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
-func attach_melon(melon: Melon):
+func attach_melon(melon: Melon):	
 	_curr_melon = melon
 	self.add_child(_curr_melon)
 	
@@ -76,6 +76,8 @@ func attach_melon(melon: Melon):
 	_set_targeting_label()
 
 	var data: Dictionary = _curr_melon._get_tower_dict()
+	Events.emit_signal("update_money", - data["cost"])
+	
 	_next_num = len(data["next"])
 	for next in data["next"]:
 		_next_icons.append(next["sprite"])

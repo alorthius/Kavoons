@@ -193,7 +193,6 @@ func _calculate_damage():
 			damage = _base_attack_damage
 	
 	if rand_range(0, 1) < _crit_rate:
-		print(_crit_strike_multiplier)
 		damage *= _crit_strike_multiplier
 		_is_crit = true
 

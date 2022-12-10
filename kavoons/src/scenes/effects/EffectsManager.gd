@@ -28,10 +28,10 @@ func _spawn_damage_popup(position: Vector2, damage: int, damage_type: int, is_cr
 		elif damage_type == Constants.DamageTypes.PURE:
 			color = Color(0.8, 0.7, 1)
 	
-	if is_crit:
-		popup.set_scale_pair(Vector2(1, 1), Vector2(1.5, 1.5))
-		color = Color(1, 0.4, 0.4)
-		
+		if is_crit:
+			popup.set_scale_pair(Vector2(1, 1), Vector2(1.5, 1.5))
+			color = Color(1, 0.4, 0.4)
+			
 	popup.set_label(display_text)
 	popup.set_color(color)
 	

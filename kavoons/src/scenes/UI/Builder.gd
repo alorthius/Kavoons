@@ -12,8 +12,10 @@ class_name Builder
 
 ## All Tier-1 towers preloaded to likely place them in the future
 var _towers: Dictionary
+var _costs: Dictionary
 
 onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
+onready var _build_butts: Array = _build_bar.get_children()
 
 ## Is building currently active
 var _is_active: bool = false
@@ -42,15 +44,17 @@ signal tower_placed(new_tower)
 
 func _init():
 	for base_tower in Towers.T1_towers:
-		_towers[base_tower] = Towers.T1_towers[base_tower][0]["scene"]
+		var data = Towers.T1_towers[base_tower][0]
+		_towers[base_tower] = data["scene"]
+		_costs[base_tower] = data["cost"]
 
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
 func _ready():
 	_tower_preview.visible = false
 
-	for butt in get_tree().get_nodes_in_group("build_buttons"):
-		assert(butt.connect("pressed", self, "_activate_building", [butt.get_name()]) == 0)
+	for butt in _build_butts:
+		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 
@@ -59,12 +63,20 @@ func _process(_delta):
 	if _is_active:
 		_update_tower_preview()
 
+## Disable buttons if not enough money for purchase
+func _validate_price(total: int):
+	for butt in _build_butts:
+		if _costs[butt.name] > total:
+			butt.disabled = true
+		else:
+			butt.disabled = false
+
 ## Listen to the left and right mouse buttons clicks.
 ## On left click finishes the the new tower and emits it,
 ## on right click cancels the building mode
 func _unhandled_input(event):
 	if _is_active:
-		_validate()
+		_validate_position()
 		if event.is_action_pressed("ui_accept") and _is_valid:
 			_place_melon()
 			_cancel_building()
@@ -93,7 +105,7 @@ func _update_tower_preview():
 	_tower_preview.update_preview(get_global_mouse_position(), _is_valid)
 
 ## Check whether the current position of a mouse is valid to place the tower
-func _validate():
+func _validate_position():
 	# valid only if the current melon doesn't overlap with other melons and collision tiles (e.g. road)
 	_is_valid = _overlapped_melons.empty() and _overlapped_tiles.empty()
 
