@@ -44,6 +44,7 @@ func _attach_melon(new_tower: Melon):
 	new_manager.attach_melon(new_tower)
 	
 	assert(_builder.connect("build_status", new_manager, "_toggle_build_status") == 0)
+	assert(_economy.connect("total_money_changed", new_manager, "_validate_price") == 0)
 
 	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
 

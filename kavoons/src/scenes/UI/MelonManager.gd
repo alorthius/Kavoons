@@ -12,6 +12,8 @@ onready var _hud: Control = $UI/HUD
 var _hud_box: Rect2
 
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
+onready var _upgr_butts := _upgrade_butt_bar.get_children()
+
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
 
@@ -48,15 +50,14 @@ func _ready():
 	_hud.set_visible(false)
 	_range_texture.set_visible(false)
 	
-	var upgr_butts := _upgrade_butt_bar.get_children()
 	var sell_butts := _sell_butt_bar.get_children()
 	var targ_butts := _target_butt_bar.get_children()
 	
-	for butt in upgr_butts + sell_butts + targ_butts:
+	for butt in _upgr_butts + sell_butts + targ_butts:
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 		
-		if butt in upgr_butts:
+		if butt in _upgr_butts:
 			assert(butt.connect("pressed", self, "_upgrade_melon", [butt.name]) == 0)
 
 		if butt in sell_butts:
@@ -96,8 +97,8 @@ func attach_melon(melon: Melon):
 		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
 		_hud.rect_size -= y_delta
 		_hud.rect_position += y_delta
-	else:
-		_set_upgr_icons()
+
+	_set_upgr_icons()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 	
@@ -111,7 +112,7 @@ func _set_upgr_icons():
 	for i in range(_upgrade_butt_bar.get_child_count()):
 		var butt: TextureButton = _upgrade_butt_bar.get_child(i)
 		if i >= _next_num:
-			butt.set_visible(false)
+			butt.queue_free()
 		else:
 			var icon: TextureRect = butt.get_node("Icon")
 			icon.texture = load(_next_icons[i])
@@ -122,6 +123,17 @@ func _set_upgr_icons():
 			label.set("custom_colors/font_outline_modulate", _next_colors[i].darkened(0.65))
 
 			butt.self_modulate = _next_colors[i]
+
+## Disable buttons if not enough money for purchase
+func _validate_price(total: int):
+	for butt in _upgr_butts:
+		if not is_instance_valid(butt):
+			continue
+
+		if _next_costs[int(butt.name) - 1] > total:
+			butt.disabled = true
+		else:
+			butt.disabled = false
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
