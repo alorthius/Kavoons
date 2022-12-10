@@ -12,6 +12,8 @@ onready var _hud: Control = $UI/HUD
 var _hud_box: Rect2
 
 onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
+onready var _upgr_butts := _upgrade_butt_bar.get_children()
+
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
 
@@ -19,12 +21,15 @@ onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
 var _focus_delta_size = Vector2(5, 5)
 
-onready var _range_texture: Sprite = $UI/NextRange
+onready var _range_texture: Sprite = $NextRange
 #var _next_ranges: Array
 #var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
+
+var _sell_cost: int
+var _next_costs := []
 
 var _next_num: int
 var _next_icons := []
@@ -45,15 +50,14 @@ func _ready():
 	_hud.set_visible(false)
 	_range_texture.set_visible(false)
 	
-	var upgr_butts := _upgrade_butt_bar.get_children()
 	var sell_butts := _sell_butt_bar.get_children()
 	var targ_butts := _target_butt_bar.get_children()
 	
-	for butt in upgr_butts + sell_butts + targ_butts:
+	for butt in _upgr_butts + sell_butts + targ_butts:
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 		
-		if butt in upgr_butts:
+		if butt in _upgr_butts:
 			assert(butt.connect("pressed", self, "_upgrade_melon", [butt.name]) == 0)
 
 		if butt in sell_butts:
@@ -64,7 +68,7 @@ func _ready():
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
-func attach_melon(melon: Melon):
+func attach_melon(melon: Melon):	
 	_curr_melon = melon
 	self.add_child(_curr_melon)
 	
@@ -76,8 +80,12 @@ func attach_melon(melon: Melon):
 	_set_targeting_label()
 
 	var data: Dictionary = _curr_melon._get_tower_dict()
+	Events.emit_signal("update_money", - data["cost"])
+	
 	_next_num = len(data["next"])
 	for next in data["next"]:
+		_next_costs.append(next["cost"])
+
 		_next_icons.append(next["sprite"])
 		_next_ranges.append(next["base_attack_radius"])
 		_next_colors.append(next["color"])
@@ -89,20 +97,47 @@ func attach_melon(melon: Melon):
 		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
 		_hud.rect_size -= y_delta
 		_hud.rect_position += y_delta
-	else:
-		_set_upgr_icons()
+
+	_set_upgr_icons()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
+	
+	_sell_cost = int(0.7 * _curr_melon.total_money)
+	var sell_label: Label = _sell_butt_bar.get_node("Sell/Icon/Cost")
+	sell_label.text = String(_sell_cost)
+
 
 ## Set icons of the future towers for the upgrade buttons
 func _set_upgr_icons():
 	for i in range(_upgrade_butt_bar.get_child_count()):
 		var butt: TextureButton = _upgrade_butt_bar.get_child(i)
 		if i >= _next_num:
-			butt.set_visible(false)
+			butt.queue_free()
 		else:
-			butt.get_child(0).texture = load(_next_icons[i])
+			var icon: TextureRect = butt.get_node("Icon")
+			icon.texture = load(_next_icons[i])
+			
+			var label: Label = icon.get_node("Cost")
+			label.text = String(_next_costs[i])
+			label.set("custom_colors/font_color", _next_colors[i])
+			label.set("custom_colors/font_outline_modulate", _next_colors[i].darkened(0.65))
+
 			butt.self_modulate = _next_colors[i]
+
+## Disable buttons if not enough money for purchase
+func _validate_price(total: int):
+	for butt in _upgr_butts:
+		if not is_instance_valid(butt) or int(butt.name) > len(_next_costs):
+			continue
+		
+		var icon: TextureRect = butt.get_node("Icon")
+		if _next_costs[int(butt.name) - 1] > total:
+			if not butt.disabled:
+				butt.disabled = true
+				icon.self_modulate = icon.modulate.darkened(0.5)
+		else:
+			butt.disabled = false
+			icon.self_modulate = Color(1, 1, 1, 1)
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
@@ -136,6 +171,7 @@ func _upgrade_melon(upgrade: String):
 	var new_melon: Melon = load(_next_scenes[int(upgrade) - 1]).instance()
 	new_melon.position = _curr_melon.position
 	new_melon._target_priority = _curr_melon._target_priority
+	new_melon.total_money += _curr_melon.total_money
 	
 	emit_signal("upgrade_to", new_melon)
 	
@@ -143,7 +179,7 @@ func _upgrade_melon(upgrade: String):
 
 ## Sell the melon. Emit signal with the money earned with it
 func _sell_melon():
-	# TODO: emit signal
+	Events.emit_signal("update_money", _sell_cost)
 	queue_free()
 
 func _change_targeting(action: String):

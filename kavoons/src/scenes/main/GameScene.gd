@@ -9,6 +9,8 @@ extends Node2D
 onready var _builder: Builder = $Builder
 onready var _is_build_active: bool = false
 
+onready var _economy: Economics = $Economics
+
 ## Timer managing the flow of the waves of a map
 onready var _waves_timer: Timer = $WavesTimer
 ## Container with all the placed towers
@@ -28,7 +30,10 @@ var _signal_err: int = 0
 
 
 func _ready():
+	_economy._set_init_money(666)
+
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
+	assert(_economy.connect("total_money_changed", _builder, "_validate_price") == 0)
 
 	_waves_timer.start()
 
@@ -39,8 +44,12 @@ func _attach_melon(new_tower: Melon):
 	new_manager.attach_melon(new_tower)
 	
 	assert(_builder.connect("build_status", new_manager, "_toggle_build_status") == 0)
+	assert(_economy.connect("total_money_changed", new_manager, "_validate_price") == 0)
 
 	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
+	
+	# forces melons to validate cost of upgrades according to current amount of money
+	_economy.emit_signal("total_money_changed", _economy._curr_money)  # shitcode
 
 ## Start a new wave
 func _on_WavesTimer_timeout():

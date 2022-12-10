@@ -17,7 +17,7 @@ export(int) var tier
 export(int) var branch
 
 
-var sell_cost: int
+var total_money: int = 0
 
 var _base_attack_radius: int
 var _base_attack_type  # from global enum DamageTypes
@@ -28,7 +28,7 @@ var _projectile_speed: float
 var _miss_rate: float
 
 var _crit_rate: float
-var _crit_strike_multiplier: int
+var _crit_strike_multiplier: float
 var _is_crit: bool = false
 
 var _armor_reduction_flat: int
@@ -101,6 +101,8 @@ func _parse_tower_data():
 	_resistance_reduction_percentage = data["resistance_reduction_percentage"]
 	
 	_color = data["color"]
+	
+	total_money += data["cost"]
 
 func _physics_process(_delta):
 	_clear_invalid_enemies()

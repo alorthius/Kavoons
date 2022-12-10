@@ -42,7 +42,7 @@ var T2_towers: Dictionary = {
 			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
 			"sprite": "res://assets/towers/ninja_melon/T3_LR.png",
 			
-			"buy_cost": 100,
+			"cost": 150,
 			
 			"base_attack_radius": 350,
 			"base_attack_type": Constants.DamageTypes.PHYSICAL,
@@ -50,7 +50,7 @@ var T2_towers: Dictionary = {
 			
 			"attack_speed": 2.5,
 			"projectile_speed": 500,
-			"miss_rate": 0.8,
+			"miss_rate": 0.3,
 			
 			"crit_rate": 0,
 			"crit_strike_multiplier": 2,
@@ -68,17 +68,17 @@ var T2_towers: Dictionary = {
 			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
 			"sprite": "res://assets/towers/ninja_melon/T3_RR.png",
 			
-			"buy_cost": 100,
+			"cost": 200,
 			
 			"base_attack_radius": 150,
 			"base_attack_type": Constants.DamageTypes.PHYSICAL,
 			"base_attack_damage": 50,
 			
-			"attack_speed": 1.5,
+			"attack_speed": 1,
 			"projectile_speed": 500,
 			"miss_rate": 0,
 			
-			"crit_rate": 0.8,
+			"crit_rate": 0.5,
 			"crit_strike_multiplier": 2,
 			
 			"armor_reduction_flat": 5,
@@ -99,7 +99,7 @@ var T1_towers: Dictionary = {
 			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
 			"sprite": "res://assets/towers/ninja_melon/T1.png",
 			
-			"buy_cost": 100,
+			"cost": 100,
 			
 			"base_attack_radius": 300,
 			"base_attack_type": Constants.DamageTypes.PHYSICAL,
