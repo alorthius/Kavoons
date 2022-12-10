@@ -26,6 +26,7 @@ onready var _range_texture: Sprite = $NextRange
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
 
+var _sell_cost: int
 var _next_costs := []
 
 var _next_num: int
@@ -99,6 +100,11 @@ func attach_melon(melon: Melon):
 		_set_upgr_icons()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
+	
+	_sell_cost = int(0.7 * _curr_melon.total_money)
+	var sell_label: Label = _sell_butt_bar.get_node("Sell/Icon/Cost")
+	sell_label.text = String(_sell_cost)
+
 
 ## Set icons of the future towers for the upgrade buttons
 func _set_upgr_icons():
@@ -149,6 +155,7 @@ func _upgrade_melon(upgrade: String):
 	var new_melon: Melon = load(_next_scenes[int(upgrade) - 1]).instance()
 	new_melon.position = _curr_melon.position
 	new_melon._target_priority = _curr_melon._target_priority
+	new_melon.total_money += _curr_melon.total_money
 	
 	emit_signal("upgrade_to", new_melon)
 	
@@ -156,7 +163,7 @@ func _upgrade_melon(upgrade: String):
 
 ## Sell the melon. Emit signal with the money earned with it
 func _sell_melon():
-	# TODO: emit signal
+	Events.emit_signal("update_money", _sell_cost)
 	queue_free()
 
 func _change_targeting(action: String):

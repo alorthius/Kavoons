@@ -281,5 +281,14 @@ margin_bottom = -10.0
 mouse_filter = 2
 expand = true
 
+[node name="Cost" type="Label" parent="UI/HUD/SellBar/Sell/Icon"]
+anchor_right = 1.0
+margin_bottom = 14.0
+grow_horizontal = 2
+custom_colors/font_color = Color( 1, 0.937255, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0.541176, 0.396078, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
+align = 1
+
 [connection signal="mouse_entered" from="UI/HUD" to="." method="_on_HUD_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD" to="." method="_on_HUD_mouse_exited"]

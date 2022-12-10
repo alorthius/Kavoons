@@ -101,6 +101,8 @@ func _parse_tower_data():
 	_resistance_reduction_percentage = data["resistance_reduction_percentage"]
 	
 	_color = data["color"]
+	
+	total_money += data["cost"]
 
 func _physics_process(_delta):
 	_clear_invalid_enemies()
