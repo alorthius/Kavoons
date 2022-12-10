@@ -47,6 +47,9 @@ func _attach_melon(new_tower: Melon):
 	assert(_economy.connect("total_money_changed", new_manager, "_validate_price") == 0)
 
 	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
+	
+	# forces melons to validate cost of upgrades according to current amount of money
+	_economy.emit_signal("total_money_changed", _economy._curr_money)  # shitcode
 
 ## Start a new wave
 func _on_WavesTimer_timeout():

@@ -127,7 +127,7 @@ func _set_upgr_icons():
 ## Disable buttons if not enough money for purchase
 func _validate_price(total: int):
 	for butt in _upgr_butts:
-		if not is_instance_valid(butt):
+		if not is_instance_valid(butt) or int(butt.name) > len(_next_costs):
 			continue
 		
 		var icon: TextureRect = butt.get_node("Icon")
