@@ -73,10 +73,15 @@ func _process(_delta):
 ## Disable buttons if not enough money for purchase
 func _validate_price(total: int):
 	for butt in _build_butts:
+		var icon: TextureRect = butt.get_node("Icon")
+		
 		if _costs[butt.name] > total:
-			butt.disabled = true
+			if not butt.disabled:
+				butt.disabled = true
+				icon.self_modulate = icon.modulate.darkened(0.5)
 		else:
 			butt.disabled = false
+			icon.self_modulate = Color(1, 1, 1, 1)
 
 ## Listen to the left and right mouse buttons clicks.
 ## On left click finishes the the new tower and emits it,

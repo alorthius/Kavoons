@@ -129,11 +129,15 @@ func _validate_price(total: int):
 	for butt in _upgr_butts:
 		if not is_instance_valid(butt):
 			continue
-
+		
+		var icon: TextureRect = butt.get_node("Icon")
 		if _next_costs[int(butt.name) - 1] > total:
-			butt.disabled = true
+			if not butt.disabled:
+				butt.disabled = true
+				icon.self_modulate = icon.modulate.darkened(0.5)
 		else:
 			butt.disabled = false
+			icon.self_modulate = Color(1, 1, 1, 1)
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):

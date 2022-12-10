@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/scenes/UI/TowerPreview.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/Builder.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=4]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/disabled_build_button.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/pressed_build_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -68,7 +67,6 @@ rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
-texture_hover = ExtResource( 7 )
 texture_disabled = ExtResource( 6 )
 expand = true
 
