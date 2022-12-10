@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/scenes/UI/MelonManager.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/to_right.png" type="Texture" id=8]
 [ext_resource path="res://src/resources/fonts/upgrade_cost.tres" type="DynamicFont" id=9]
+[ext_resource path="res://assets/UI/disabled_build_button.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -57,6 +58,7 @@ mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 10 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/1"]
@@ -95,6 +97,7 @@ mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 10 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/2"]
@@ -133,6 +136,7 @@ mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 10 )
 expand = true
 
 [node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/3"]
