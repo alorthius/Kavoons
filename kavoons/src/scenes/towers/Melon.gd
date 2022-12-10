@@ -28,7 +28,7 @@ var _projectile_speed: float
 var _miss_rate: float
 
 var _crit_rate: float
-var _crit_strike_multiplier: int
+var _crit_strike_multiplier: float
 var _is_crit: bool = false
 
 var _armor_reduction_flat: int
@@ -193,6 +193,7 @@ func _calculate_damage():
 			damage = _base_attack_damage
 	
 	if rand_range(0, 1) < _crit_rate:
+		print(_crit_strike_multiplier)
 		damage *= _crit_strike_multiplier
 		_is_crit = true
 

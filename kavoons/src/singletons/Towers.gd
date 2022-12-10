@@ -50,7 +50,7 @@ var T2_towers: Dictionary = {
 			
 			"attack_speed": 2.5,
 			"projectile_speed": 500,
-			"miss_rate": 0.8,
+			"miss_rate": 0.3,
 			
 			"crit_rate": 0,
 			"crit_strike_multiplier": 2,
@@ -74,11 +74,11 @@ var T2_towers: Dictionary = {
 			"base_attack_type": Constants.DamageTypes.PHYSICAL,
 			"base_attack_damage": 50,
 			
-			"attack_speed": 1.5,
+			"attack_speed": 1,
 			"projectile_speed": 500,
 			"miss_rate": 0,
 			
-			"crit_rate": 0.8,
+			"crit_rate": 0.5,
 			"crit_strike_multiplier": 2,
 			
 			"armor_reduction_flat": 5,
