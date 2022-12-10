@@ -58,6 +58,7 @@ config/icon="res://icon.png"
 
 Constants="*res://src/singletons/Constants.gd"
 Towers="*res://src/singletons/Towers.gd"
+Cats="*res://src/singletons/Cats.gd"
 Events="*res://src/singletons/Events.gd"
 
 [display]

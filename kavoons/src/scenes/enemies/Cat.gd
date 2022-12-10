@@ -5,8 +5,10 @@ extends PathFollow2D
 ## Describe the cat object following a prediscribed path.
 class_name Cat
 
+export(String) var base_name
+
 ## The number of lifes to remove if cat successfully reaches the path end
-var _life_cost: int
+var _lifes_cost: int
 
 var _hp: int
 onready var _hp_bar = $HP
@@ -20,10 +22,10 @@ onready var _hit_timer: Timer = $HitTimer
 
 var _on_hit_color: Color = Color(0.8, 0.2, 0.2, 0.8)
 
-var _dodge_rate: float
-
 ## Attach the health bar to a cat and spawn it with a random vertical offset
 func _ready():
+	_parse_cat_data()
+	
 	_hp_bar.max_value = _hp
 	_hp_bar.value = _hp_bar.max_value
 	_hp_bar.set_as_toplevel(true)
@@ -41,7 +43,7 @@ func _physics_process(delta):
 
 ## Destroy the cat on reach of the path end
 func _reached_end():
-	Events.emit_signal("update_lifes", - _life_cost)
+	Events.emit_signal("update_lifes", - _lifes_cost)
 	queue_free()
 
 ## Process the hit of the cat
@@ -55,3 +57,13 @@ func on_hit(dmg: int):
 
 func _on_HitTimer_timeout():
 	_sprite.set_modulate(Color(1, 1, 1, 1))
+
+func _parse_cat_data():
+	var data: Dictionary = Cats.cats[base_name]
+	
+	_lifes_cost = data["lifes_cost"]
+	_hp = data["hp"]
+
+	_move_speed = data["move_speed"]
+	_physical_armor_flat = data["physical_armor_flat"]
+	_magical_resistance_percentage = data["magical_resistance_percentage"]
