@@ -9,7 +9,7 @@ extends Node2D
 onready var _builder: Builder = $Builder
 onready var _is_build_active: bool = false
 
-onready var _economy: Economics = $Economics
+onready var _measures = $MeasuresManager
 
 ## Timer managing the flow of the waves of a map
 onready var _waves_timer: Timer = $WavesTimer
@@ -24,16 +24,16 @@ var _curr_wave: Wave
 
 ## The preloaded [MelonManager] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
-var _melon_manager: PackedScene = preload("res://src/scenes/UI/MelonManager.tscn")
+var _melon_manager: PackedScene = preload("res://src/scenes/UI/interactive/MelonManager.tscn")
 
 var _signal_err: int = 0
 
 
 func _ready():
-	_economy._set_init_money(666)
+	_measures.set_init_money(666)
 
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
-	assert(_economy.connect("total_money_changed", _builder, "_validate_price") == 0)
+	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)
 
 	_waves_timer.start()
 
@@ -44,12 +44,12 @@ func _attach_melon(new_tower: Melon):
 	new_manager.attach_melon(new_tower)
 	
 	assert(_builder.connect("build_status", new_manager, "_toggle_build_status") == 0)
-	assert(_economy.connect("total_money_changed", new_manager, "_validate_price") == 0)
+	assert(_measures._economics.connect("total_money_changed", new_manager, "_validate_price") == 0)
 
 	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
 	
 	# forces melons to validate cost of upgrades according to current amount of money
-	_economy.emit_signal("total_money_changed", _economy._curr_money)  # shitcode
+	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
 
 ## Start a new wave
 func _on_WavesTimer_timeout():

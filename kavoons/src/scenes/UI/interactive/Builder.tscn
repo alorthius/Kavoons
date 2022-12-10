@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://src/scenes/UI/TowerPreview.gd" type="Script" id=1]
-[ext_resource path="res://src/scenes/UI/Builder.gd" type="Script" id=2]
+[ext_resource path="res://src/scenes/UI/interactive/TowerPreview.gd" type="Script" id=1]
+[ext_resource path="res://src/scenes/UI/interactive/Builder.gd" type="Script" id=2]
 [ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=4]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=5]
