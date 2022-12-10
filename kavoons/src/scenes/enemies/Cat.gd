@@ -41,7 +41,7 @@ func _physics_process(delta):
 
 ## Destroy the cat on reach of the path end
 func _reached_end():
-	# TODO: emit signal, deduct lifes
+	Events.emit_signal("update_lifes", - _life_cost)
 	queue_free()
 
 ## Process the hit of the cat
