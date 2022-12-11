@@ -12,17 +12,12 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Builder",
 "language": "GDScript",
-"path": "res://src/scenes/UI/Builder.gd"
+"path": "res://src/scenes/UI/interactive/Builder.gd"
 }, {
 "base": "PathFollow2D",
 "class": "Cat",
 "language": "GDScript",
 "path": "res://src/scenes/enemies/Cat.gd"
-}, {
-"base": "Control",
-"class": "Economics",
-"language": "GDScript",
-"path": "res://src/scenes/UI/Economics.gd"
 }, {
 "base": "Area2D",
 "class": "Melon",
@@ -32,7 +27,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "MelonManager",
 "language": "GDScript",
-"path": "res://src/scenes/UI/MelonManager.gd"
+"path": "res://src/scenes/UI/interactive/MelonManager.gd"
 }, {
 "base": "Area2D",
 "class": "Projectile",
@@ -47,7 +42,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Builder": "",
 "Cat": "",
-"Economics": "",
 "Melon": "",
 "MelonManager": "",
 "Projectile": "",
@@ -64,6 +58,7 @@ config/icon="res://icon.png"
 
 Constants="*res://src/singletons/Constants.gd"
 Towers="*res://src/singletons/Towers.gd"
+Cats="*res://src/singletons/Cats.gd"
 Events="*res://src/singletons/Events.gd"
 
 [display]
