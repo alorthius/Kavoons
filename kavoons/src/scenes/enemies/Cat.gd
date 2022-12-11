@@ -37,13 +37,13 @@ func _physics_process(delta):
 	set_offset(get_offset() + _move_speed * delta)
 	
 	if get_unit_offset() >= 1:  # reached the path end
+		Events.emit_signal("update_lifes", - _lifes_cost)
 		_reached_end()
 	
 	_hp_bar.set_position(position - Vector2(25, 40))
 
 ## Destroy the cat on reach of the path end
 func _reached_end():
-	Events.emit_signal("update_lifes", - _lifes_cost)
 	queue_free()
 
 ## Process the hit of the cat
