@@ -63,7 +63,7 @@ func _create_build_button(tower_name: String):
 	icon.expand = true
 	
 	icon.texture = load(_get_attr(tower_name, "sprite"))
-	icon.rect_size = Vector2(80, 80)
+	icon.rect_min_size = Vector2(80, 80)
 	icon.margin_left = 10
 	icon.margin_top = 10
 	icon.margin_right = -10
