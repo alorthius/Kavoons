@@ -5,6 +5,7 @@ var cats: Dictionary = {
 	"Cat1": {
 		"lifes_cost": 1,
 		"hp": 120,
+		"reward": 5,
 		
 		"move_speed": 200,
 		"physical_armor_flat": 0,

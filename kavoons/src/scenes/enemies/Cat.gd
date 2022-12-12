@@ -10,6 +10,8 @@ export(String) var base_name
 ## The number of lifes to remove if cat successfully reaches the path end
 var _lifes_cost: int
 
+var _money_reward: int
+
 var _hp: int
 onready var _hp_bar = $HP
 
@@ -37,14 +39,9 @@ func _physics_process(delta):
 	set_offset(get_offset() + _move_speed * delta)
 	
 	if get_unit_offset() >= 1:  # reached the path end
-		Events.emit_signal("update_lifes", - _lifes_cost)
 		_reached_end()
 	
 	_hp_bar.set_position(position - Vector2(25, 40))
-
-## Destroy the cat on reach of the path end
-func _reached_end():
-	queue_free()
 
 ## Process the hit of the cat
 func on_hit(dmg: int):
@@ -52,17 +49,34 @@ func on_hit(dmg: int):
 	_sprite.set_modulate(_on_hit_color)
 	_hp = _hp - dmg
 	if _hp <= 0:
-		_reached_end()
+		_killed()
 	_hp_bar.value = _hp
+
 
 func _on_HitTimer_timeout():
 	_sprite.set_modulate(Color(1, 1, 1, 1))
+
+
+func _killed():
+	Events.emit_signal("update_money", _money_reward)
+	_free()
+
+
+func _reached_end():
+	Events.emit_signal("update_lifes", - _lifes_cost)
+	_free()
+
+
+func _free():
+	queue_free()
+
 
 func _parse_cat_data():
 	var data: Dictionary = Cats.cats[base_name]
 	
 	_lifes_cost = data["lifes_cost"]
 	_hp = data["hp"]
+	_money_reward = data["reward"]
 
 	_move_speed = data["move_speed"]
 	_physical_armor_flat = data["physical_armor_flat"]
