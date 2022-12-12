@@ -119,5 +119,5 @@ var T1_towers: Dictionary = {
 			"next": [T2_towers["NinjaMelon"][0],
 					 T2_towers["NinjaMelon"][1]],
 		},
-	}
+	},
 }
