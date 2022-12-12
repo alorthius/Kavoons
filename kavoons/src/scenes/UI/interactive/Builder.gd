@@ -12,7 +12,8 @@ class_name Builder
 
 
 onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
-onready var _build_butts: Array = _build_bar.get_children()
+#onready var _build_butts: Array = _build_bar.get_children()
+onready var _build_butts: Array = []
 
 ## Is building currently active
 var _is_active: bool = false
@@ -68,6 +69,25 @@ func _create_build_button(tower_name: String):
 	icon.margin_top = 10
 	icon.margin_right = -10
 	icon.margin_bottom = -10
+	icon.anchor_right = 1
+	icon.anchor_bottom = 1
+	
+	icon.size_flags_horizontal = SIZE_SHRINK_CENTER
+	icon.size_flags_vertical = SIZE_SHRINK_CENTER
+	
+	var label: Label = Label.new()
+	icon.add_child(label)
+	
+	label.name = "Cost"
+	label.align = Label.ALIGN_CENTER
+	label.valign = Label.VALIGN_BOTTOM
+	
+	label.margin_top = -30
+	label.rect_min_size = Vector2(80, 30)
+	
+	label.set("custom_fonts/font", load("res://src/resources/fonts/build_cost.tres"))
+	
+	_build_butts.push_back(butt)
 
 
 ## Connect the signal on press for every button; the press action

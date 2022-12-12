@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/TowerPreview.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/interactive/Builder.gd" type="Script" id=2]
@@ -6,17 +6,10 @@
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=4]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/disabled_build_button.png" type="Texture" id=6]
-[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://src/resources/fonts/build_cost.tres" type="DynamicFont" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.0
-
-[sub_resource type="DynamicFont" id=2]
-resource_local_to_scene = true
-size = 30
-outline_size = 3
-extra_spacing_char = 1
-font_data = ExtResource( 8 )
 
 [node name="Builder" type="Control"]
 script = ExtResource( 2 )
@@ -57,7 +50,7 @@ rect_min_size = Vector2( 600, 100 )
 custom_constants/separation = 10
 alignment = 1
 
-[node name="NinjaMelon" type="TextureButton" parent="UI/HUD/BuildBar"]
+[node name="NinjaMelonTest" type="TextureButton" parent="UI/HUD/BuildBar"]
 visible = false
 margin_left = 375.0
 margin_right = 475.0
@@ -71,7 +64,7 @@ texture_normal = ExtResource( 4 )
 texture_disabled = ExtResource( 6 )
 expand = true
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/NinjaMelon"]
+[node name="Icon" type="TextureRect" parent="UI/HUD/BuildBar/NinjaMelonTest"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -83,14 +76,14 @@ size_flags_vertical = 4
 texture = ExtResource( 3 )
 expand = true
 
-[node name="Cost" type="Label" parent="UI/HUD/BuildBar/NinjaMelon/Icon"]
+[node name="Cost" type="Label" parent="UI/HUD/BuildBar/NinjaMelonTest/Icon"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -31.0
 grow_horizontal = 2
 grow_vertical = 0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = ExtResource( 7 )
 align = 1
 valign = 2
 
