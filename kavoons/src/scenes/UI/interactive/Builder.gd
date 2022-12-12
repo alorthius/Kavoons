@@ -84,6 +84,9 @@ func _create_build_button(tower_name: String):
 	
 	label.margin_top = -30
 	label.rect_min_size = Vector2(80, 30)
+	label.anchor_top = 1
+	label.anchor_right = 1
+	label.anchor_bottom = 1
 	
 	label.set("custom_fonts/font", load("res://src/resources/fonts/build_cost.tres"))
 	
