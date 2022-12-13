@@ -1,8 +1,7 @@
 extends Node
 
-
 # warning-ignore:unused_class_variable
-var T3_towers: Dictionary = {
+var T3: Dictionary = {
 	"NinjaMelon": {
 		0: {
 			"scene": "",
@@ -35,7 +34,7 @@ var T3_towers: Dictionary = {
 	}
 }
 
-var T2_towers: Dictionary = {
+var T2: Dictionary = {
 	"NinjaMelon": {
 
 		0: {
@@ -61,7 +60,7 @@ var T2_towers: Dictionary = {
 
 			"color": Color(1, 0.9, 0),
 			"next": [],
-#			"next": [T3_towers["NinjaMelon"][0], T3_towers["NinjaMelon"][1]],
+#			"next": [T3["NinjaMelon"][0], T3["NinjaMelon"][1]],
 		},
 
 		1: {
@@ -87,13 +86,13 @@ var T2_towers: Dictionary = {
 
 			"color": Color(1, 0.4, 0.5),
 			"next": [],
-#			"next": [T3_towers["NinjaMelon"][2], T3_towers["NinjaMelon"][3]],
+#			"next": [T3["NinjaMelon"][2], T3["NinjaMelon"][3]],
 		},
 	}
 }
 
 # warning-ignore:unused_class_variable
-var T1_towers: Dictionary = {
+var T1: Dictionary = {
 	"NinjaMelon": {
 
 		0: {
@@ -118,8 +117,22 @@ var T1_towers: Dictionary = {
 			"resistance_reduction_percentage": 0,
 			
 			"color": Color(0.5, 1, 0.8),
-			"next": [T2_towers["NinjaMelon"][0],
-					 T2_towers["NinjaMelon"][1]],
+			"next": [T2["NinjaMelon"][0],
+					 T2["NinjaMelon"][1]],
 		},
 	},
 }
+
+func get_tower_dict(tier: int, base_tower: String, branch: int):
+	var map: Dictionary
+	if tier == 1:
+		map = T1
+	elif tier == 2:
+		map = T2
+	elif tier == 3:
+		map = T3
+	
+	return map[base_tower][branch]
+
+func get_T1_attr(base_tower: String, attr: String):
+	return Towers.T1[base_tower][0][attr]

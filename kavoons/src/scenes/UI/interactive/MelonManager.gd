@@ -77,7 +77,7 @@ func attach_melon(melon: Melon):
 	
 	_set_targeting_label()
 
-	var data: Dictionary = _curr_melon._get_tower_dict()
+	var data: Dictionary = Towers.get_tower_dict(_curr_melon.tier, _curr_melon.base_tower, _curr_melon.branch)
 	Events.emit_signal("update_money", - data["cost"])
 	
 	_next_num = len(data["next"])

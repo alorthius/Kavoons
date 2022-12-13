@@ -37,8 +37,6 @@ signal build_status(is_active)
 ## Emits a newly placed melon instance to the [GameScene] node
 signal tower_placed(new_tower)
 
-func _get_attr(base_tower: String, attr: String):
-	return Towers.T1_towers[base_tower][0][attr]
 
 ## Create a TextureButton with a TextureRect icon and Label
 func _create_build_button(tower_name: String):
@@ -61,7 +59,7 @@ func _create_build_button(tower_name: String):
 	icon.name = "Icon"
 	icon.expand = true
 	
-	icon.texture = load(_get_attr(tower_name, "sprite"))
+	icon.texture = load(Towers.get_T1_attr(tower_name, "sprite"))
 	icon.rect_min_size = Vector2(80, 80)
 	icon.margin_left = 10
 	icon.margin_top = 10
@@ -96,7 +94,7 @@ func _create_build_button(tower_name: String):
 func _ready():
 	_tower_preview.visible = false
 	
-	for base_tower in Towers.T1_towers:
+	for base_tower in Towers.T1:
 		_create_build_button(base_tower)
 
 	for butt in _build_butts:
@@ -105,9 +103,9 @@ func _ready():
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 		
 		var label: Label = butt.get_node("Icon/Cost")
-		label.text = String(_get_attr(butt.name, "cost"))
-		label.set("custom_colors/font_color", _get_attr(butt.name, "color"))
-		label.set("custom_colors/font_outline_modulate", _get_attr(butt.name, "color").darkened(0.65))
+		label.text = String(Towers.get_T1_attr(butt.name, "cost"))
+		label.set("custom_colors/font_color", Towers.get_T1_attr(butt.name, "color"))
+		label.set("custom_colors/font_outline_modulate", Towers.get_T1_attr(butt.name, "color").darkened(0.65))
 
 ## Render the preview of the currently selected tower
 func _process(_delta):
@@ -119,7 +117,7 @@ func _validate_price(total: int):
 	for butt in _build_butts:
 		var icon: TextureRect = butt.get_node("Icon")
 		
-		if _get_attr(butt.name, "cost") > total:
+		if Towers.get_T1_attr(butt.name, "cost") > total:
 			if not butt.disabled:
 				butt.disabled = true
 				icon.self_modulate = icon.modulate.darkened(0.5)
@@ -167,7 +165,7 @@ func _validate_position():
 
 ## Choose the final tower position and emit its instance
 func _place_melon():
-	var new_tower = load(_get_attr(_chosen_melon, "scene")).instance()
+	var new_tower = load(Towers.get_T1_attr(_chosen_melon, "scene")).instance()
 	new_tower.position = get_global_mouse_position()
 
 	emit_signal("tower_placed", new_tower)
