@@ -1,6 +1,7 @@
 extends Node
 
 
+# warning-ignore:unused_class_variable
 var cats: Dictionary = {
 	"Cat1": {
 		"lifes_cost": 1,

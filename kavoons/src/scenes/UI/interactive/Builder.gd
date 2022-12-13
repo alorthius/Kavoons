@@ -30,10 +30,7 @@ var _focus_delta_size = Vector2(10, 10)
 ## The node managing the melon preview while building is active
 onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
 
-var _build_position: Vector2
 var _chosen_melon: String
-
-var _signal_err: int = 0
 
 ## Emits building status to not trigger other ui during the building
 signal build_status(is_active)
@@ -99,7 +96,6 @@ func _ready():
 	_tower_preview.visible = false
 	
 	for base_tower in Towers.T1_towers:
-		var data = Towers.T1_towers[base_tower][0]
 		_create_build_button(base_tower)
 
 	for butt in _build_butts:

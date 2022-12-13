@@ -1,6 +1,7 @@
 extends Node
 
 
+# warning-ignore:unused_class_variable
 var T3_towers: Dictionary = {
 	"NinjaMelon": {
 		0: {
@@ -91,6 +92,7 @@ var T2_towers: Dictionary = {
 	}
 }
 
+# warning-ignore:unused_class_variable
 var T1_towers: Dictionary = {
 	"NinjaMelon": {
 

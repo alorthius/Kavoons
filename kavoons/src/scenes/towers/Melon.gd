@@ -36,9 +36,7 @@ var _resistance_reduction_percentage: float
 
 var _target_priority: int = Constants.TargetPriority.FIRST
 
-var last_hit_counter: int = 0
-
-var _range_scale: float = 1
+#var last_hit_counter: int = 0
 
 
 onready var _melon_sprite: Sprite = $BaseSprite
@@ -66,6 +64,7 @@ func _ready():
 	_range_sprite.modulate = _color
 	_range_shape.shape.radius = _base_attack_radius
 	
+	_base_attack_timer.wait_time = 1.0 / _attack_speed
 	_base_attack_timer.start()
 	display_range(false)
 
@@ -91,7 +90,8 @@ func _parse_tower_data():
 	_base_attack_type = data["base_attack_type"]
 	_base_attack_damage = data["base_attack_damage"]
 	
-	_base_attack_timer.wait_time = 1.0 / data["attack_speed"]
+	_attack_speed = data["attack_speed"]
+	
 	_projectile_speed = data["projectile_speed"]
 	_miss_rate = data["miss_rate"]
 	
@@ -135,9 +135,9 @@ func _select_enemy():
 	elif _target_priority == Constants.TargetPriority.HIGHEST_LIFECOST:
 		var max_lifecost := - INF
 		for enemy in _enemies_in_range:
-			if enemy._life_cost > max_lifecost:
+			if enemy._lifes_cost > max_lifecost:
 				chosen_enemy = enemy
-				max_lifecost = enemy._life_cost
+				max_lifecost = enemy._lifes_cost
 				
 	elif _target_priority == Constants.TargetPriority.HIGHEST_ARMOR:
 		var max_armor := - INF

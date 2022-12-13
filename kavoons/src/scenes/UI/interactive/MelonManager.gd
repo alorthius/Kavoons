@@ -40,8 +40,6 @@ var _next_scenes := []
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
-var _signal_err: int = 0
-
 ## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
 

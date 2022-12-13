@@ -7,7 +7,6 @@ extends Node2D
 
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $Builder
-onready var _is_build_active: bool = false
 
 onready var _measures = $MeasuresManager
 
@@ -25,8 +24,6 @@ var _curr_wave: Wave
 ## The preloaded [MelonManager] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
 var _melon_manager: PackedScene = preload("res://src/scenes/UI/interactive/MelonManager.tscn")
-
-var _signal_err: int = 0
 
 
 func _ready():
