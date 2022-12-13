@@ -12,7 +12,6 @@ class_name Builder
 
 
 onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
-#onready var _build_butts: Array = _build_bar.get_children()
 onready var _build_butts: Array = []
 
 ## Is building currently active
@@ -20,11 +19,12 @@ var _is_active: bool = false
 
 ## Is position of the new melon valid
 var _is_valid: bool = false
-## List of already places melons currently overlapping with the building one
+## List of already placed melons currently overlapping with the building one
 var _overlapped_melons = []
 ## List of path tiles currently overlapping with the building one
 var _overlapped_tiles = []
 
+## Change of rect_size vector when mouse hovers the button
 var _focus_delta_size = Vector2(10, 10)
 
 ## The node managing the melon preview while building is active
@@ -40,6 +40,7 @@ signal tower_placed(new_tower)
 func _get_attr(base_tower: String, attr: String):
 	return Towers.T1_towers[base_tower][0][attr]
 
+## Create a TextureButton with a TextureRect icon and Label
 func _create_build_button(tower_name: String):
 	var butt: TextureButton = TextureButton.new()
 	_build_bar.add_child(butt)

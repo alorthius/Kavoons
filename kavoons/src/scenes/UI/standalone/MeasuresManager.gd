@@ -1,5 +1,7 @@
 extends Control
 
+## Manages the economy and life systems
+
 onready var _economics: HBoxContainer = $UI/HUD/Economy
 
 onready var _lifes: HBoxContainer = $UI/HUD/Lifes

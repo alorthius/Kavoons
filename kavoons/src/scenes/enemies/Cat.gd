@@ -10,6 +10,7 @@ export(String) var base_name
 ## The number of lifes to remove if cat successfully reaches the path end
 var _lifes_cost: int
 
+## AMount of money the player earns on cats death
 var _money_reward: int
 
 var _hp: int
