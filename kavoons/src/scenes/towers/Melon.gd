@@ -60,8 +60,8 @@ var _curr_enemy: Cat
 func _ready():
 	_parse_tower_data()
 	
-	_range_sprite.scale = 2 * _base_attack_radius * Vector2(1, 1) / _range_sprite.texture.get_size()
-	_range_sprite.modulate = _color
+#	_range_sprite.scale = 2 * _base_attack_radius * Vector2(1, 1) / _range_sprite.texture.get_size()
+#	_range_sprite.modulate = _color
 	_range_shape.shape.radius = _base_attack_radius  # the shape should always be a Circle
 	
 	_base_attack_timer.wait_time = 1.0 / _attack_speed

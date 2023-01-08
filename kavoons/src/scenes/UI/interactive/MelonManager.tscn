@@ -23,6 +23,10 @@ script = ExtResource( 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="CurrRange" type="Sprite" parent="UI"]
+visible = false
+texture = ExtResource( 9 )
+
 [node name="NextRange" type="Sprite" parent="UI"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0.784314 )
