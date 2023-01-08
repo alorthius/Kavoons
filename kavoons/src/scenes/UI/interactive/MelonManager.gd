@@ -21,7 +21,7 @@ onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
 var _focus_delta_size = Vector2(5, 5)
 
-onready var _range_texture: Sprite = $NextRange
+onready var _range_texture: Sprite = $UI/NextRange
 #var _next_ranges: Array
 #var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
 
