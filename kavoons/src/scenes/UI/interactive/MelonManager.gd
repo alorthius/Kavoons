@@ -215,7 +215,6 @@ func _on_melon_mouse_entered():
 ### Display the UI
 func _on_HUD_mouse_entered():
 	_curr_range.set_visible(true)
-	_curr_melon.display_range(true)
 
 ## Hide the UI
 func _on_HUD_mouse_exited():
