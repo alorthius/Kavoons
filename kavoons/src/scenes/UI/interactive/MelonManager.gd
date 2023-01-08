@@ -21,9 +21,9 @@ onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
 
 var _focus_delta_size = Vector2(5, 5)
 
-onready var _range_texture: Sprite = $NextRange
-#var _next_ranges: Array
-#var _next_ranges_colors: Array = [Color(1, 0.9, 0, 0.5), Color(1, 0.4, 0.5, 0.5)]  # TODO: refactor
+onready var _next_range: Sprite = $UI/NextRange
+onready var _curr_range: Sprite = $UI/CurrRange
+
 
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
@@ -46,7 +46,8 @@ signal upgrade_to(new_melon)
 
 func _ready():
 	_hud.set_visible(false)
-	_range_texture.set_visible(false)
+	_next_range.set_visible(false)
+	_curr_range.set_visible(true)
 	
 	var sell_butts := _sell_butt_bar.get_children()
 	var targ_butts := _target_butt_bar.get_children()
@@ -73,7 +74,11 @@ func attach_melon(melon: Melon):
 	assert(_curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered") == 0)
 	
 	_hud.rect_position = _curr_melon.position - Vector2(60, 140)  # shift HUD to capture the melon
-	_range_texture.position = _curr_melon.position
+	_next_range.position = _curr_melon.position
+	_curr_range.position = _curr_melon.position
+	
+	_curr_range.scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.texture.get_size()
+	_curr_range.modulate = _curr_melon._color
 	
 	_set_targeting_label()
 
@@ -151,13 +156,14 @@ func _focus_button(butt: TextureButton):
 	var next_range = _next_ranges[int(butt.name) - 1]
 	var color = _next_colors[int(butt.name) - 1]
 	
-	_range_texture.scale = 2 * next_range * Vector2(1, 1) / _range_texture.texture.get_size()
-	_range_texture.modulate = color
-	_range_texture.set_visible(true)
+	_next_range.scale = 2 * next_range * Vector2(1, 1) / _next_range.texture.get_size()
+	_next_range.modulate = color
+	_next_range.set_visible(true)
 
 ## Shrink button on hover
 func _unfocus_button(butt: TextureButton):
-	_range_texture.set_visible(false)
+	_curr_range.set_visible(false)
+	_next_range.set_visible(false)
 	butt.rect_size -= _focus_delta_size
 	butt.rect_position -= - _focus_delta_size / 2.0
 
@@ -204,12 +210,11 @@ func _set_targeting_label():
 ## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
 func _on_melon_mouse_entered():
 	if not _is_build_active:
-		_curr_melon.display_range(true)
 		_hud.set_visible(true)
 
 ### Display the UI
 func _on_HUD_mouse_entered():
-	_curr_melon.display_range(true)
+	_curr_range.set_visible(true)
 
 ## Hide the UI
 func _on_HUD_mouse_exited():
@@ -232,7 +237,7 @@ func _on_HUD_mouse_exited():
 	# so that the exit via top shapes instantly trigger the enter of the _hud shape.
 	# The collision shape of a current melon should be fully inside the _hud shape!
 	if not _hud_box.has_point(get_local_mouse_position()):
-		_curr_melon.display_range(false)
+		_curr_range.set_visible(false)
 		_hud.set_visible(false)
 
 ## Listens to the signal from the builder to catch its status
