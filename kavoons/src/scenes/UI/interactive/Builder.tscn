@@ -51,7 +51,6 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="NinjaMelonTest" type="TextureButton" parent="UI/HUD/BuildBar"]
-visible = false
 margin_left = 375.0
 margin_right = 475.0
 margin_bottom = 100.0
