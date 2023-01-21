@@ -54,6 +54,7 @@ margin_right = 1048.0
 margin_bottom = 300.0
 
 [node name="MyLabeledButt" parent="." instance=ExtResource( 8 )]
+material = null
 margin_left = 1057.0
 margin_top = 199.0
 margin_right = 1157.0

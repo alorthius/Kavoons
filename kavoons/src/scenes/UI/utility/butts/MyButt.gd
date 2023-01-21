@@ -2,7 +2,7 @@ extends TextureButton
 
 export var focus_scale := Vector2(0.1, 0.1)
 
-
+onready var _icon: TextureRect = $Icon
 onready var _tween: Tween = $Tween
 
 onready var _scale_init := rect_scale
@@ -20,12 +20,19 @@ func _on_MyButt_mouse_entered():
 	assert(_tween.interpolate_property(self, "rect_scale", _scale_init, _scale_final, _tween_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(self, "rect_position", _position_init, _position_final, _tween_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
+#	disable()
 
 func _on_MyButt_mouse_exited():
 	assert(_tween.interpolate_property(self, "rect_scale", _scale_final, _scale_init, _tween_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(self, "rect_position", _position_final, _position_init, _tween_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
+#	enable()
 
+
+func enable():
+	disabled = false
+	_icon.modulate = Color(1, 1, 1, 1)
 
 func disable():
-	pass
+	disabled = true
+	_icon.modulate = _icon.modulate.darkened(0.5)
