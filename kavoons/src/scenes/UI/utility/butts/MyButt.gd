@@ -20,6 +20,7 @@ onready var _modulate_icon_final := modulate.darkened(icon_darkened)
 var _scale_time: float = 0.05
 var _modulate_time: float = 0.1
 
+
 func _on_MyButt_mouse_entered():
 	# There is no pretty way to keep button centered on changing its rect
 	# https://godotengine.org/qa/10047/how-to-scale-button-when-pressed
@@ -33,12 +34,22 @@ func _on_MyButt_mouse_exited():
 	assert(_tween.start())
 
 
+func _on_MyButt_pressed():
+	_on_press()
+
+# Virtual function
+func _on_press():
+	pass
+
+
 func enable():
+	disabled = false
 	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_butt_final, _modulate_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(_icon, "self_modulate", _modulate_icon_final, _modulate_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
 
 func disable():
+	disabled = true
 	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_init, _modulate_butt_final, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(_icon, "self_modulate", _modulate_init, _modulate_icon_final, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
