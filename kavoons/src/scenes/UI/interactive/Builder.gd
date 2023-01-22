@@ -37,6 +37,7 @@ signal build_status(is_active)
 ## Emits a newly placed melon instance to the [GameScene] node
 signal tower_placed(new_tower)
 
+var _build_butt := preload("res://src/scenes/UI/utility/butts/BuildButt.tscn")
 
 ## Create a TextureButton with a TextureRect icon and Label
 func _create_build_button(tower_name: String):
@@ -95,17 +96,26 @@ func _ready():
 	_tower_preview.visible = false
 	
 	for base_tower in Towers.T1:
-		_create_build_button(base_tower)
-
-	for butt in _build_butts:
-		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
-		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
-		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
+		var butt: Object = _build_butt.instance()
+		_build_bar.add_child(butt)
+		butt.butt_name(base_tower).butt_icon(Towers.get_T1_attr(base_tower, "sprite"))
+	
+	for base_tower in Towers.T1:
+		var butt: Object = _build_butt.instance()
+		_build_bar.add_child(butt)
+		butt.butt_name(base_tower).butt_icon(Towers.get_T1_attr(base_tower, "sprite"))
 		
-		var label: Label = butt.get_node("Icon/Cost")
-		label.text = String(Towers.get_T1_attr(butt.name, "cost"))
-		label.set("custom_colors/font_color", Towers.get_T1_attr(butt.name, "color"))
-		label.set("custom_colors/font_outline_modulate", Towers.get_T1_attr(butt.name, "color").darkened(0.65))
+#		_create_build_button(base_tower)
+#
+#	for butt in _build_butts:
+#		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
+#		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
+#		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
+#
+#		var label: Label = butt.get_node("Icon/Cost")
+#		label.text = String(Towers.get_T1_attr(butt.name, "cost"))
+#		label.set("custom_colors/font_color", Towers.get_T1_attr(butt.name, "color"))
+#		label.set("custom_colors/font_outline_modulate", Towers.get_T1_attr(butt.name, "color").darkened(0.65))
 
 ## Render the preview of the currently selected tower
 func _process(_delta):
