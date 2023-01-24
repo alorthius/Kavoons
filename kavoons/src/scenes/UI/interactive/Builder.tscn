@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/TowerPreview.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/interactive/Builder.gd" type="Script" id=2]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=5]
-[ext_resource path="res://src/scenes/UI/utility/butts/BuildButt.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.0
@@ -45,14 +44,6 @@ grow_vertical = 2
 rect_min_size = Vector2( 600, 100 )
 custom_constants/separation = 10
 alignment = 1
-
-[node name="BuildButt" parent="UI/HUD/BuildBar" instance=ExtResource( 8 )]
-margin_left = 555.0
-margin_right = 655.0
-
-[node name="BuildButt2" parent="UI/HUD/BuildBar" instance=ExtResource( 8 )]
-margin_left = 665.0
-margin_right = 765.0
 
 [connection signal="area_entered" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_entered"]
 [connection signal="area_exited" from="UI/HUD/TowerPreview/BuildingShape" to="." method="_on_BuildingShape_area_exited"]

@@ -99,14 +99,14 @@ func _ready():
 		var butt: Object = _build_butt.instance()
 		_build_bar.add_child(butt)
 		butt.butt_name(base_tower).butt_icon(Towers.get_T1_attr(base_tower, "sprite"))
-	
+
 	for base_tower in Towers.T1:
 		var butt: Object = _build_butt.instance()
 		_build_bar.add_child(butt)
 		butt.butt_name(base_tower).butt_icon(Towers.get_T1_attr(base_tower, "sprite"))
 		
 #		_create_build_button(base_tower)
-#
+##
 #	for butt in _build_butts:
 #		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
 #		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)

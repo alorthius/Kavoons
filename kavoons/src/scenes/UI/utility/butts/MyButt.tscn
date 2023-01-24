@@ -14,7 +14,7 @@ texture_normal = ExtResource( 1 )
 expand = true
 stretch_mode = 4
 script = ExtResource( 3 )
-focus_scale = 0.1
+focus_scale = 0.2
 butt_darkened = 0.5
 icon_darkened = 0.3
 

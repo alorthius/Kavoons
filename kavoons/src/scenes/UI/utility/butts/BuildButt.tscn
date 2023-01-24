@@ -14,7 +14,6 @@ margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 texture_normal = ExtResource( 3 )
-stretch_mode = 0
 
 [node name="Icon" parent="." index="0"]
 margin_left = 10.0

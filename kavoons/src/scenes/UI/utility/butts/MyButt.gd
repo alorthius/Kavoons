@@ -21,20 +21,24 @@ var _scale_time: float = 0.05
 var _modulate_time: float = 0.1
 
 func _ready():
-	print(rect_position)
+	# Godot bug? On _ready rect_position is (0, 0), but yielding one frame fixes it
+	# https://github.com/godotengine/godot/issues/20896
+	yield(get_tree(), "idle_frame") 
+	_position_init = rect_position
+	_position_final = rect_position - rect_size * focus_scale * Vector2.ONE / 2.0
+
 
 func _on_MyButt_mouse_entered():
-	print(_position_init, _position_final)
 	# There is no pretty way to keep button centered on changing its rect
 	# https://godotengine.org/qa/10047/how-to-scale-button-when-pressed
 	assert(_tween.interpolate_property(self, "rect_scale", _scale_init, _scale_final, _scale_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(self, "rect_position", _position_init, _position_final, _scale_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "rect_position", null, _position_final, _scale_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
 
 func _on_MyButt_mouse_exited():
-	print(_position_init, _position_final)
+#	print(_position_init, _position_final)
 	assert(_tween.interpolate_property(self, "rect_scale", _scale_final, _scale_init, _scale_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(self, "rect_position", _position_final, _position_init, _scale_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "rect_position", null, _position_init, _scale_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
 
 
