@@ -24,9 +24,6 @@ var _overlapped_melons = []
 ## List of path tiles currently overlapping with the building one
 var _overlapped_tiles = []
 
-## Change of rect_size vector when mouse hovers the button
-var _focus_delta_size = Vector2(10, 10)
-
 ## The node managing the melon preview while building is active
 onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
 

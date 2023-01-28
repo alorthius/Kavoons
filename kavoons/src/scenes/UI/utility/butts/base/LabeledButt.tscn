@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/scenes/UI/utility/butts/base/Butt.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/scenes/UI/utility/butts/base/LabeledButt.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+extra_spacing_bottom = -2
+font_data = ExtResource( 3 )
+
+[node name="MyLabeledButt" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="." index="2"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = SubResource( 1 )
+text = "666"
+align = 1
+valign = 2
