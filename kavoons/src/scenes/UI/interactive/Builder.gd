@@ -39,56 +39,6 @@ signal tower_placed(new_tower)
 
 var _build_butt := preload("res://src/scenes/UI/utility/butts/BuildButt.tscn")
 
-## Create a TextureButton with a TextureRect icon and Label
-func _create_build_button(tower_name: String):
-	var butt: TextureButton = TextureButton.new()
-	_build_bar.add_child(butt)
-
-	butt.name = tower_name
-	butt.expand = true
-	
-	butt.texture_normal = load("res://assets/UI/tower_build_button.png")
-	butt.texture_disabled = load("res://assets/UI/disabled_build_button.png")
-	
-	butt.rect_min_size = Vector2(100, 100)
-	butt.size_flags_horizontal = SIZE_SHRINK_CENTER
-	butt.size_flags_vertical = SIZE_SHRINK_CENTER
-	
-	var icon: TextureRect = TextureRect.new()
-	butt.add_child(icon)
-	
-	icon.name = "Icon"
-	icon.expand = true
-	
-	icon.texture = load(Towers.get_T1_attr(tower_name, "sprite"))
-	icon.rect_min_size = Vector2(80, 80)
-	icon.margin_left = 10
-	icon.margin_top = 10
-	icon.margin_right = -10
-	icon.margin_bottom = -10
-	icon.anchor_right = 1
-	icon.anchor_bottom = 1
-	
-	icon.size_flags_horizontal = SIZE_SHRINK_CENTER
-	icon.size_flags_vertical = SIZE_SHRINK_CENTER
-	
-	var label: Label = Label.new()
-	icon.add_child(label)
-	
-	label.name = "Cost"
-	label.align = Label.ALIGN_CENTER
-	label.valign = Label.VALIGN_BOTTOM
-	
-	label.margin_top = -30
-	label.rect_min_size = Vector2(80, 30)
-	label.anchor_top = 1
-	label.anchor_right = 1
-	label.anchor_bottom = 1
-	
-	label.set("custom_fonts/font", load("res://src/resources/fonts/build_cost.tres"))
-	
-	_build_butts.push_back(butt)
-
 
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
@@ -96,26 +46,14 @@ func _ready():
 	_tower_preview.visible = false
 	
 	for base_tower in Towers.T1:
-		var butt: Object = _build_butt.instance()
-		_build_bar.add_child(butt)
-		butt.butt_name(base_tower).butt_icon(Towers.get_T1_attr(base_tower, "sprite"))
-
-	for base_tower in Towers.T1:
-		var butt: Object = _build_butt.instance()
-		_build_bar.add_child(butt)
-		butt.butt_name(base_tower).butt_icon(Towers.get_T1_attr(base_tower, "sprite"))
+		var icon = Towers.get_T1_attr(base_tower, "sprite")
+		var text = String(Towers.get_T1_attr(base_tower, "cost"))
 		
-#		_create_build_button(base_tower)
-##
-#	for butt in _build_butts:
-#		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
-#		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
-#		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
-#
-#		var label: Label = butt.get_node("Icon/Cost")
-#		label.text = String(Towers.get_T1_attr(butt.name, "cost"))
-#		label.set("custom_colors/font_color", Towers.get_T1_attr(butt.name, "color"))
-#		label.set("custom_colors/font_outline_modulate", Towers.get_T1_attr(butt.name, "color").darkened(0.65))
+		var butt: Object = _build_butt.instance()
+		_build_bar.add_child(butt)
+		butt.butt_name(base_tower).butt_icon(icon).butt_label(text)
+		
+		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
 
 ## Render the preview of the currently selected tower
 func _process(_delta):
@@ -146,15 +84,6 @@ func _unhandled_input(event):
 			_cancel_building()
 		if event.is_action_pressed("ui_cancel"):
 			_cancel_building()
-
-func _focus_button(butt: TextureButton):
-	butt.rect_size += _focus_delta_size
-	butt.rect_position += - _focus_delta_size / 2.0
-
-## Shrink button on hover
-func _unfocus_button(butt: TextureButton):
-	butt.rect_size -= _focus_delta_size
-	butt.rect_position -= - _focus_delta_size / 2.0
 
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):

@@ -1,4 +1,4 @@
-extends "res://src/scenes/UI/utility/butts/MyButt.gd"
+extends "res://src/scenes/UI/utility/butts/Butt.gd"
 
 onready var _label: Label = $Label
 

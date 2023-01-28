@@ -42,14 +42,6 @@ func _on_MyButt_mouse_exited():
 	assert(_tween.start())
 
 
-func _on_MyButt_pressed():
-	_on_press()
-
-# Virtual function
-func _on_press():
-	pass
-
-
 func enable():
 	disabled = false
 	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_butt_final, _modulate_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
