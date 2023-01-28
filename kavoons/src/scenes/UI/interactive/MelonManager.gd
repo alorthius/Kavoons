@@ -11,8 +11,10 @@ class_name MelonManager
 onready var _hud: Control = $UI/HUD
 var _hud_box: Rect2
 
-onready var _upgrade_butt_bar: HBoxContainer = $UI/HUD/UpgradeBar
-onready var _upgr_butts := _upgrade_butt_bar.get_children()
+onready var _upgrade_bar: HBoxContainer = $UI/HUD/UpgradeBar
+onready var _upgr_butts := _upgrade_bar.get_children()
+
+onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
 
 onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
 onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
@@ -52,7 +54,7 @@ func _ready():
 	var sell_butts := _sell_butt_bar.get_children()
 	var targ_butts := _target_butt_bar.get_children()
 	
-	for butt in _upgr_butts + sell_butts + targ_butts:
+	for butt in sell_butts + targ_butts:
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
 		
@@ -87,21 +89,23 @@ func attach_melon(melon: Melon):
 	
 	_next_num = len(data["next"])
 	for next in data["next"]:
-		_next_costs.append(next["cost"])
-
-		_next_icons.append(next["sprite"])
-		_next_ranges.append(next["base_attack_radius"])
-		_next_colors.append(next["color"])
-		_next_scenes.append(next["scene"])
+		_create_butt(next)
+		
+#		_next_costs.append(next["cost"])
+#
+#		_next_icons.append(next["sprite"])
+#		_next_ranges.append(next["base_attack_radius"])
+#		_next_colors.append(next["color"])
+#		_next_scenes.append(next["scene"])
 	
 	if _next_num == 0:
-		_upgrade_butt_bar.set_visible(false)
+		_upgrade_bar.set_visible(false)
 		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
-		var y_delta := Vector2(0, _upgrade_butt_bar.rect_size[1])
+		var y_delta := Vector2(0, _upgrade_bar.rect_size[1])
 		_hud.rect_size -= y_delta
 		_hud.rect_position += y_delta
 
-	_set_upgr_icons()
+#	_set_upgr_icons()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 	
@@ -110,10 +114,16 @@ func attach_melon(melon: Melon):
 	sell_label.text = String(_sell_cost)
 
 
+func _create_butt(dict: Dictionary):	
+	var butt: Object = _upgrade_butt.instance()
+	_upgrade_bar.add_child(butt)
+	butt.butt_icon(dict["sprite"]).butt_label(String(dict["cost"])).color(dict["color"])
+	
+
 ## Set icons of the future towers for the upgrade buttons
 func _set_upgr_icons():
-	for i in range(_upgrade_butt_bar.get_child_count()):
-		var butt: TextureButton = _upgrade_butt_bar.get_child(i)
+	for i in range(_upgrade_bar.get_child_count()):
+		var butt: TextureButton = _upgrade_bar.get_child(i)
 		if i >= _next_num:
 			butt.queue_free()
 		else:

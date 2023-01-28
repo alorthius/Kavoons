@@ -52,6 +52,7 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="1" type="TextureButton" parent="UI/HUD/UpgradeBar"]
+visible = false
 margin_left = 5.0
 margin_right = 85.0
 margin_bottom = 80.0
@@ -91,8 +92,9 @@ align = 1
 valign = 2
 
 [node name="2" type="TextureButton" parent="UI/HUD/UpgradeBar"]
-margin_left = 95.0
-margin_right = 175.0
+visible = false
+margin_left = 50.0
+margin_right = 130.0
 margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -130,8 +132,9 @@ align = 1
 valign = 2
 
 [node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar"]
-margin_left = 185.0
-margin_right = 265.0
+visible = false
+margin_left = 95.0
+margin_right = 175.0
 margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2

@@ -62,3 +62,7 @@ func butt_name(new_name: String):
 func butt_icon(texture_path: String):
 	_icon.texture = load(texture_path)
 	return self
+
+func color(new_color: Color):
+	self_modulate = new_color
+	return self
