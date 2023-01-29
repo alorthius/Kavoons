@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/MelonManager.gd" type="Script" id=1]
-[ext_resource path="res://src/resources/fonts/upgrade_cost.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=9]
@@ -150,35 +149,12 @@ grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 alignment = 1
 
-[node name="Sell" type="TextureButton" parent="UI/HUD/SellBar"]
+[node name="SellButt" parent="UI/HUD/SellBar" instance=ExtResource( 2 )]
 margin_right = 80.0
 margin_bottom = 80.0
-rect_min_size = Vector2( 80, 80 )
-mouse_filter = 1
-size_flags_horizontal = 5
-size_flags_vertical = 5
-texture_normal = ExtResource( 4 )
-expand = true
-stretch_mode = 5
-
-[node name="Icon" type="TextureRect" parent="UI/HUD/SellBar/Sell"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-mouse_filter = 2
-expand = true
-
-[node name="Cost" type="Label" parent="UI/HUD/SellBar/Sell/Icon"]
-anchor_right = 1.0
-margin_bottom = 14.0
-grow_horizontal = 2
-custom_colors/font_color = Color( 1, 0.937255, 0, 1 )
-custom_colors/font_outline_modulate = Color( 0.541176, 0.396078, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-align = 1
 
 [connection signal="mouse_entered" from="UI/HUD" to="." method="_on_HUD_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD" to="." method="_on_HUD_mouse_exited"]
+[connection signal="mouse_entered" from="UI/HUD/SellBar/SellButt" to="." method="_on_SellButt_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/SellBar/SellButt" to="." method="_on_SellButt_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/SellBar/SellButt" to="." method="_on_SellButt_pressed"]

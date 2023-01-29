@@ -11,12 +11,11 @@ class_name MelonManager
 onready var _hud: Control = $UI/HUD
 var _hud_box: Rect2
 
-onready var _upgrade_bar: HBoxContainer = $UI/HUD/UpgradeBar
-onready var _upgr_butts := _upgrade_bar.get_children()
-
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
+onready var _upgrade_bar: HBoxContainer = $UI/HUD/UpgradeBar
 
-onready var _sell_butt_bar: HBoxContainer = $UI/HUD/SellBar
+onready var _sell_butt: TextureButton = $UI/HUD/SellBar/SellButt
+
 onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
 
 onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
@@ -31,7 +30,6 @@ onready var _curr_range: Sprite = $UI/CurrRange
 var _curr_melon: Melon
 
 var _sell_cost: int
-var _next_costs := []
 
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
@@ -45,18 +43,13 @@ func _ready():
 	_next_range.set_visible(false)
 	_curr_range.set_visible(true)
 	
-	var sell_butts := _sell_butt_bar.get_children()
+	
+	
 	var targ_butts := _target_butt_bar.get_children()
 	
-	for butt in sell_butts + targ_butts:
+	for butt in targ_butts:
 		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
 		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
-		
-		if butt in _upgr_butts:
-			assert(butt.connect("pressed", self, "_upgrade_melon", [butt.name]) == 0)
-
-		if butt in sell_butts:
-			assert(butt.connect("pressed", self, "_sell_melon") == 0)
 		
 		if butt in targ_butts and butt.name != "Targeting":
 			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
@@ -93,12 +86,10 @@ func attach_melon(melon: Melon):
 		var y_delta := Vector2(0, _upgrade_bar.rect_size[1])
 		_hud.rect_size -= y_delta
 		_hud.rect_position += y_delta
+		
+	_add_sell_butt()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
-	
-	_sell_cost = int(0.7 * _curr_melon.total_money)
-	var sell_label: Label = _sell_butt_bar.get_node("Sell/Icon/Cost")
-	sell_label.text = String(_sell_cost)
 
 
 func _add_upgrade_butt(name: String, dict: Dictionary):	
@@ -106,36 +97,59 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 	_upgrade_bar.add_child(butt)
 	butt.title(name).store(dict)
 	
-	assert(butt.connect("pressed", self, "_upgrade_melon", [butt]) == 0)
-	
-	assert(butt.connect("mouse_entered", self, "_show_upgrade_range", [butt]) == 0)
-	assert(butt.connect("mouse_exited", self, "_hide_upgrade_range") == 0)
+	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
+	assert(butt.connect("mouse_entered", self, "_on_UpgradeButt_mouse_entered", [butt]) == 0)
+	assert(butt.connect("mouse_exited", self, "_on_UpgradeButt_mouse_exited") == 0)
+
+func _add_sell_butt():
+	_sell_cost = int(0.7 * _curr_melon.total_money)
+	_sell_butt.label(str(_sell_cost))
 
 
-func _show_upgrade_range(butt):
+func _on_UpgradeButt_mouse_entered(butt):
 	_next_range.scale = 2 * butt.radius * Vector2(1, 1) / _next_range.texture.get_size()
 	_next_range.modulate = butt.color
 	_next_range.set_visible(true)
 
-
-func _hide_upgrade_range():
+func _on_UpgradeButt_mouse_exited():
 	_next_range.set_visible(false)
+
+func _on_UpgradeButt_pressed(butt):
+	var new_melon: Melon = load(butt.scene).instance()
+	new_melon.position = _curr_melon.position
+	new_melon._target_priority = _curr_melon._target_priority
+	new_melon.total_money += _curr_melon.total_money
+	
+	emit_signal("upgrade_to", new_melon)
+	queue_free()
+	
+
+func _on_SellButt_mouse_entered():
+	modulate.a = 0.65
+
+func _on_SellButt_mouse_exited():
+	modulate.a = 1
+
+func _on_SellButt_pressed():
+	Events.emit_signal("update_money", _sell_cost)
+	queue_free()
 
 
 ## Disable buttons if not enough money for purchase
 func _validate_price(total: int):
-	for butt in _upgr_butts:
-		if not is_instance_valid(butt) or int(butt.name) > len(_next_costs):
-			continue
-		
-		var icon: TextureRect = butt.get_node("Icon")
-		if _next_costs[int(butt.name) - 1] > total:
-			if not butt.disabled:
-				butt.disabled = true
-				icon.self_modulate = icon.modulate.darkened(0.5)
-		else:
-			butt.disabled = false
-			icon.self_modulate = Color(1, 1, 1, 1)
+	pass
+#	for butt in _upgr_butts:
+#		if not is_instance_valid(butt) or int(butt.name) > len(_next_costs):
+#			continue
+#
+#		var icon: TextureRect = butt.get_node("Icon")
+#		if _next_costs[int(butt.name) - 1] > total:
+#			if not butt.disabled:
+#				butt.disabled = true
+#				icon.self_modulate = icon.modulate.darkened(0.5)
+#		else:
+#			butt.disabled = false
+#			icon.self_modulate = Color(1, 1, 1, 1)
 
 ## Expand button on hover, show next melon range if button is upgrade
 func _focus_button(butt: TextureButton):
@@ -165,21 +179,6 @@ func _unfocus_button(butt: TextureButton):
 	if butt.name == "Sell":
 		modulate.a = 1
 
-## Upgrade the current melon. Pass the new melon instance via signal and delete current node
-func _upgrade_melon(butt: TextureButton):
-	var new_melon: Melon = load(butt.scene).instance()
-	new_melon.position = _curr_melon.position
-	new_melon._target_priority = _curr_melon._target_priority
-	new_melon.total_money += _curr_melon.total_money
-	
-	emit_signal("upgrade_to", new_melon)
-	
-	queue_free()
-
-## Sell the melon. Emit signal with the money earned with it
-func _sell_melon():
-	Events.emit_signal("update_money", _sell_cost)
-	queue_free()
 
 func _change_targeting(action: String):
 	var new_targeting: int
