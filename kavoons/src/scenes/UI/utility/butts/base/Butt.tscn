@@ -31,5 +31,5 @@ expand = true
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="mouse_entered" from="." to="." method="_on_MyButt_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_MyButt_mouse_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_Butt_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Butt_mouse_exited"]

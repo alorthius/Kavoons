@@ -1,13 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/MelonManager.gd" type="Script" id=1]
 [ext_resource path="res://src/resources/fonts/upgrade_cost.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/disabled_build_button.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=7]
-[ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=8]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/to_right.png" type="Texture" id=10]
 
@@ -42,134 +40,15 @@ rect_min_size = Vector2( 140, 150 )
 [node name="UpgradeBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -135.0
-margin_right = 135.0
-margin_bottom = 80.0
+margin_left = -125.0
+margin_top = -30.0
+margin_right = 125.0
+margin_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 180, 80 )
 custom_constants/separation = 10
 alignment = 1
-
-[node name="1" type="TextureButton" parent="UI/HUD/UpgradeBar"]
-visible = false
-margin_left = 5.0
-margin_right = 85.0
-margin_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 80, 80 )
-mouse_filter = 1
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture_normal = ExtResource( 7 )
-texture_disabled = ExtResource( 5 )
-expand = true
-
-[node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/1"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-mouse_filter = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource( 8 )
-expand = true
-
-[node name="Cost" type="Label" parent="UI/HUD/UpgradeBar/1/Icon"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-custom_fonts/font = ExtResource( 2 )
-text = "666"
-align = 1
-valign = 2
-
-[node name="2" type="TextureButton" parent="UI/HUD/UpgradeBar"]
-visible = false
-margin_left = 50.0
-margin_right = 130.0
-margin_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 80, 80 )
-mouse_filter = 1
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture_normal = ExtResource( 7 )
-texture_disabled = ExtResource( 5 )
-expand = true
-
-[node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-mouse_filter = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource( 8 )
-expand = true
-
-[node name="Cost" type="Label" parent="UI/HUD/UpgradeBar/2/Icon"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-custom_fonts/font = ExtResource( 2 )
-text = "666"
-align = 1
-valign = 2
-
-[node name="3" type="TextureButton" parent="UI/HUD/UpgradeBar"]
-visible = false
-margin_left = 95.0
-margin_right = 175.0
-margin_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 80, 80 )
-mouse_filter = 1
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture_normal = ExtResource( 7 )
-texture_disabled = ExtResource( 5 )
-expand = true
-
-[node name="Icon" type="TextureRect" parent="UI/HUD/UpgradeBar/3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-mouse_filter = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource( 8 )
-expand = true
-
-[node name="Cost" type="Label" parent="UI/HUD/UpgradeBar/3/Icon"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-custom_fonts/font = ExtResource( 2 )
-text = "666"
-align = 1
-valign = 2
 
 [node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
