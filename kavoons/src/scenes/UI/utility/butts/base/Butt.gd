@@ -22,7 +22,6 @@ var _modulate_time: float = 0.1
 
 
 func _ready():
-	print("Butt")
 	# Godot bug? On _ready rect_position is (0, 0), but yielding one frame fixes it
 	# https://github.com/godotengine/godot/issues/20896
 	yield(get_tree(), "idle_frame") 
@@ -56,11 +55,11 @@ func disable():
 	assert(_tween.start())
 
 
-func butt_name(new_name: String):
+func title(new_name: String):
 	name = new_name
 	return self
 
-func butt_icon(texture_path: String):
+func icon(texture_path: String):
 	_icon.texture = load(texture_path)
 	return self
 

@@ -33,12 +33,6 @@ var _curr_melon: Melon
 var _sell_cost: int
 var _next_costs := []
 
-var _next_num: int
-var _next_icons := []
-var _next_ranges := []
-var _next_colors := []
-var _next_scenes := []
-
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
@@ -87,25 +81,18 @@ func attach_melon(melon: Melon):
 	var data: Dictionary = Towers.get_tower_dict(_curr_melon.tier, _curr_melon.base_tower, _curr_melon.branch)
 	Events.emit_signal("update_money", - data["cost"])
 	
-	_next_num = len(data["next"])
+	var idx := 0
+	var next_num = len(data["next"])
 	for next in data["next"]:
-		_create_butt(next)
-		
-#		_next_costs.append(next["cost"])
-#
-#		_next_icons.append(next["sprite"])
-#		_next_ranges.append(next["base_attack_radius"])
-#		_next_colors.append(next["color"])
-#		_next_scenes.append(next["scene"])
+		idx += 1
+		_add_upgrade_butt(str(idx), next)
 	
-	if _next_num == 0:
+	if next_num == 0:
 		_upgrade_bar.set_visible(false)
 		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
 		var y_delta := Vector2(0, _upgrade_bar.rect_size[1])
 		_hud.rect_size -= y_delta
 		_hud.rect_position += y_delta
-
-#	_set_upgr_icons()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 	
@@ -114,28 +101,26 @@ func attach_melon(melon: Melon):
 	sell_label.text = String(_sell_cost)
 
 
-func _create_butt(dict: Dictionary):	
+func _add_upgrade_butt(name: String, dict: Dictionary):	
 	var butt: Object = _upgrade_butt.instance()
 	_upgrade_bar.add_child(butt)
-	butt.butt_icon(dict["sprite"]).butt_label(String(dict["cost"])).color(dict["color"])
+	butt.title(name).store(dict)
 	
+	assert(butt.connect("pressed", self, "_upgrade_melon", [butt]) == 0)
+	
+	assert(butt.connect("mouse_entered", self, "_show_upgrade_range", [butt]) == 0)
+	assert(butt.connect("mouse_exited", self, "_hide_upgrade_range") == 0)
 
-## Set icons of the future towers for the upgrade buttons
-func _set_upgr_icons():
-	for i in range(_upgrade_bar.get_child_count()):
-		var butt: TextureButton = _upgrade_bar.get_child(i)
-		if i >= _next_num:
-			butt.queue_free()
-		else:
-			var icon: TextureRect = butt.get_node("Icon")
-			icon.texture = load(_next_icons[i])
-			
-			var label: Label = icon.get_node("Cost")
-			label.text = String(_next_costs[i])
-			label.set("custom_colors/font_color", _next_colors[i])
-			label.set("custom_colors/font_outline_modulate", _next_colors[i].darkened(0.65))
 
-			butt.self_modulate = _next_colors[i]
+func _show_upgrade_range(butt):
+	_next_range.scale = 2 * butt.radius * Vector2(1, 1) / _next_range.texture.get_size()
+	_next_range.modulate = butt.color
+	_next_range.set_visible(true)
+
+
+func _hide_upgrade_range():
+	_next_range.set_visible(false)
+
 
 ## Disable buttons if not enough money for purchase
 func _validate_price(total: int):
@@ -163,8 +148,8 @@ func _focus_button(butt: TextureButton):
 	if not butt.name in ["1", "2", "3"]:
 		return
 	
-	var next_range = _next_ranges[int(butt.name) - 1]
-	var color = _next_colors[int(butt.name) - 1]
+	var next_range = butt.radius
+	var color = butt.color
 	
 	_next_range.scale = 2 * next_range * Vector2(1, 1) / _next_range.texture.get_size()
 	_next_range.modulate = color
@@ -181,8 +166,8 @@ func _unfocus_button(butt: TextureButton):
 		modulate.a = 1
 
 ## Upgrade the current melon. Pass the new melon instance via signal and delete current node
-func _upgrade_melon(upgrade: String):
-	var new_melon: Melon = load(_next_scenes[int(upgrade) - 1]).instance()
+func _upgrade_melon(butt: TextureButton):
+	var new_melon: Melon = load(butt.scene).instance()
 	new_melon.position = _curr_melon.position
 	new_melon._target_priority = _curr_melon._target_priority
 	new_melon.total_money += _curr_melon.total_money

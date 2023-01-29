@@ -48,7 +48,7 @@ func _ready():
 		
 		var butt: Object = _build_butt.instance()
 		_build_bar.add_child(butt)
-		butt.butt_name(base_tower).butt_icon(icon).butt_label(text)
+		butt.title(base_tower).icon(icon).label(text)
 		
 		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
 
