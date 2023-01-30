@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/upgrade_1.png-3ebc6b38edc973b7c44c7f7bf0c045ca.stex"
+path="res://.import/arrow.png-ce5e7d241088ed5ce824cfd1968825ab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/butts/upgrade_1.png"
-dest_files=[ "res://.import/upgrade_1.png-3ebc6b38edc973b7c44c7f7bf0c045ca.stex" ]
+source_file="res://assets/UI/butts/arrow.png"
+dest_files=[ "res://.import/arrow.png-ce5e7d241088ed5ce824cfd1968825ab.stex" ]
 
 [params]
 

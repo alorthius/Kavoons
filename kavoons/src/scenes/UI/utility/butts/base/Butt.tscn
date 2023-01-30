@@ -1,8 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/UI/disabled_build_button.png" type="Texture" id=1]
 [ext_resource path="res://src/scenes/UI/utility/butts/base/Butt.gd" type="Script" id=3]
 [ext_resource path="res://assets/UI/heart.png" type="Texture" id=4]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/disabled_build_button.png-44c1fe8ac8e6459e228a6760ae9ab31a.stex"
 
 [node name="Butt" type="TextureButton"]
 margin_right = 50.0
@@ -10,7 +12,7 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource( 1 )
+texture_normal = SubResource( 1 )
 expand = true
 stretch_mode = 4
 script = ExtResource( 3 )

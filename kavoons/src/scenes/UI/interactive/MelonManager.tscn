@@ -1,18 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/MelonManager.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/UI/upgr_right.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/tower_build_button.png" type="Texture" id=7]
+[ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=5]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=9]
-[ext_resource path="res://assets/UI/to_right.png" type="Texture" id=10]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 resource_local_to_scene = true
 size = 20
-extra_spacing_top = -3
-extra_spacing_bottom = -3
+extra_spacing_bottom = -2
+extra_spacing_char = 1
 font_data = ExtResource( 3 )
 
 [node name="MelonManager" type="Control"]
@@ -49,92 +48,69 @@ rect_min_size = Vector2( 180, 80 )
 custom_constants/separation = 15
 alignment = 1
 
-[node name="TargetingBar" type="HBoxContainer" parent="UI/HUD"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -90.0
-margin_top = -130.0
-margin_right = 90.0
-margin_bottom = -90.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-custom_constants/separation = 10
-alignment = 1
-
-[node name="ToLeft" type="TextureButton" parent="UI/HUD/TargetingBar"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-mouse_filter = 1
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource( 6 )
-expand = true
-
-[node name="Icon" type="TextureRect" parent="UI/HUD/TargetingBar/ToLeft"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 8.0
-margin_right = -5.0
-margin_bottom = -5.0
-mouse_filter = 2
-texture = ExtResource( 10 )
-expand = true
-flip_h = true
-
-[node name="Targeting" type="TextureRect" parent="UI/HUD/TargetingBar"]
-margin_left = 50.0
-margin_right = 130.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 80, 40 )
-mouse_filter = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource( 7 )
-expand = true
-
-[node name="Label" type="Label" parent="UI/HUD/TargetingBar/Targeting"]
+[node name="TargetingBar" type="VBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -14.0
-margin_top = -10.5
-margin_right = 14.0
-margin_bottom = 10.5
+margin_left = -164.5
+margin_top = -1.0
+margin_right = 164.5
+margin_bottom = 107.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 1 )
+custom_constants/separation = -60
+alignment = 1
+
+[node name="Interactive" type="HBoxContainer" parent="UI/HUD/TargetingBar"]
+margin_right = 429.0
+margin_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 60
+alignment = 1
+
+[node name="ToLeft" parent="UI/HUD/TargetingBar/Interactive" instance=ExtResource( 4 )]
+margin_right = 60.0
+margin_bottom = 84.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/HUD/TargetingBar/Interactive"]
+margin_left = 120.0
+margin_right = 309.0
+margin_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
+text = "6666666666666666666"
 align = 1
+valign = 1
 
-[node name="ToRight" type="TextureButton" parent="UI/HUD/TargetingBar"]
-margin_left = 140.0
-margin_right = 180.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-mouse_filter = 1
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource( 6 )
-expand = true
+[node name="ToRight" parent="UI/HUD/TargetingBar/Interactive" instance=ExtResource( 4 )]
+margin_left = 369.0
+margin_right = 429.0
+margin_bottom = 84.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+flip_h = true
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/TargetingBar/ToRight"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 8.0
-margin_right = -5.0
-margin_bottom = -5.0
-mouse_filter = 2
-texture = ExtResource( 10 )
+[node name="TextUnderline" type="TextureRect" parent="UI/HUD/TargetingBar"]
+margin_top = 24.0
+margin_right = 429.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 200, 80 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 5 )
 expand = true
+stretch_mode = 6
 
 [node name="SellBar" type="HBoxContainer" parent="UI/HUD"]
 anchor_left = 0.5
@@ -142,16 +118,19 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -40.0
-margin_top = -80.0
+margin_top = -60.0
 margin_right = 40.0
+margin_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
 alignment = 1
 
 [node name="SellButt" parent="UI/HUD/SellBar" instance=ExtResource( 2 )]
-margin_right = 80.0
-margin_bottom = 80.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 70.0
 
 [connection signal="mouse_entered" from="UI/HUD" to="." method="_on_HUD_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD" to="." method="_on_HUD_mouse_exited"]

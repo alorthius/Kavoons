@@ -45,14 +45,14 @@ func _ready():
 	
 	
 	
-	var targ_butts := _target_butt_bar.get_children()
-	
-	for butt in targ_butts:
-		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
-		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
-		
-		if butt in targ_butts and butt.name != "Targeting":
-			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
+#	var targ_butts := _target_butt_bar.get_children()
+#
+#	for butt in targ_butts:
+#		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
+#		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
+#
+#		if butt in targ_butts and butt.name != "Targeting":
+#			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
@@ -95,6 +95,7 @@ func attach_melon(melon: Melon):
 func _add_upgrade_butt(name: String, dict: Dictionary):	
 	var butt: Object = _upgrade_butt.instance()
 	_upgrade_bar.add_child(butt)
+#	butt.title(name).store(dict).color(_curr_melon._color.linear_interpolate(dict["color"], 0.7))
 	butt.title(name).store(dict)
 	
 	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
@@ -194,7 +195,7 @@ func _change_targeting(action: String):
 
 func _set_targeting_label():
 	var text: String = Constants.TargetPriority.keys()[_curr_melon._target_priority].to_lower()
-	_target_label.text = text.replace("_", "\n")
+#	_target_label.text = text.replace("_", "\n")
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.
