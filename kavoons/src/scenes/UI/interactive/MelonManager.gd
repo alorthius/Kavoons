@@ -8,23 +8,24 @@ extends Control
 class_name MelonManager
 
 ## Define the region for the UI buttons
-onready var _hud: Control = $UI/HUD
+onready var _hud: VBoxContainer = $UI/Pos/HUD
 var _hud_box: Rect2
 
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
-onready var _upgrade_bar: HBoxContainer = $UI/HUD/UpgradeBar
+onready var _upgrade_bar: HBoxContainer = $UI/Pos/HUD/UpgradeBar
 
-onready var _sell_butt: TextureButton = $UI/HUD/SellBar/SellButt
+onready var _sell_butt: TextureButton = $UI/Pos/HUD/BaseActions/SellBar/SellButt
 
-onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
+#onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
 
-onready var _target_label: Label = $UI/HUD/TargetingBar/Targeting/Label
+onready var _target_label: Label = $UI/Pos/HUD/BaseActions/TargetingBar/Targeting/Label
 
 var _focus_delta_size = Vector2(5, 5)
 
-onready var _next_range: Sprite = $UI/NextRange
-onready var _curr_range: Sprite = $UI/CurrRange
+onready var _next_range: Sprite = $UI/Pos/NextRange
+onready var _curr_range: Sprite = $UI/Pos/CurrRange
 
+onready var _pos: Position2D = $UI/Pos
 
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
@@ -39,11 +40,8 @@ signal upgrade_to(new_melon)
 
 
 func _ready():
-	_hud.set_visible(false)
-	_next_range.set_visible(false)
-	_curr_range.set_visible(true)
-	
-	
+#	_hud.set_visible(false)
+	_next_range.set_visible(false)	
 	
 #	var targ_butts := _target_butt_bar.get_children()
 #
@@ -54,6 +52,7 @@ func _ready():
 #		if butt in targ_butts and butt.name != "Targeting":
 #			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
 
+
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
 func attach_melon(melon: Melon):	
@@ -62,9 +61,11 @@ func attach_melon(melon: Melon):
 	
 	assert(_curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered") == 0)
 	
-	_hud.rect_position = _curr_melon.position - Vector2(60, 140)  # shift HUD to capture the melon
-	_next_range.position = _curr_melon.position
-	_curr_range.position = _curr_melon.position
+	_pos.position = _curr_melon.position
+	
+#	_hud.rect_position = _curr_melon.position - Vector2(190, 180) # shift HUD to capture the melon
+#	_next_range.position = _curr_melon.position
+#	_curr_range.position = _curr_melon.position
 	
 	_curr_range.scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.texture.get_size()
 	_curr_range.modulate = _curr_melon._color
@@ -90,6 +91,25 @@ func attach_melon(melon: Melon):
 	_add_sell_butt()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
+
+
+func a():
+	print("base melon")
+	if not _is_build_active:
+		print("brrr")
+		_curr_melon.get_node("UI").visible = true
+#		_hud.set_visible(true)
+
+func b():
+	print("collision on")
+	
+	_hud.visible = true
+
+func c():
+	print("collision off")
+	_hud.visible = false
+	_curr_melon.get_node("UI").visible = false
+	
 
 
 func _add_upgrade_butt(name: String, dict: Dictionary):	
@@ -195,7 +215,7 @@ func _change_targeting(action: String):
 
 func _set_targeting_label():
 	var text: String = Constants.TargetPriority.keys()[_curr_melon._target_priority].to_lower()
-#	_target_label.text = text.replace("_", "\n")
+	_target_label.text = text.replace("_", "\n")
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.
@@ -205,11 +225,7 @@ func _set_targeting_label():
 ## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
 func _on_melon_mouse_entered():
 	if not _is_build_active:
-		_hud.set_visible(true)
-
-### Display the UI
-func _on_HUD_mouse_entered():
-	_curr_range.set_visible(true)
+		$UI.visible = true
 
 ## Hide the UI
 func _on_HUD_mouse_exited():
@@ -231,10 +247,16 @@ func _on_HUD_mouse_exited():
 	# Important!!! The code expects the overlying shapes to end in the _hud region,
 	# so that the exit via top shapes instantly trigger the enter of the _hud shape.
 	# The collision shape of a current melon should be fully inside the _hud shape!
-	if not _hud_box.has_point(get_local_mouse_position()):
-		_curr_range.set_visible(false)
-		_hud.set_visible(false)
+#	if not _hud_box.has_point(get_local_mouse_position()):
+#		_curr_range.set_visible(false)
+#		_hud.set_visible(false)
+	pass
 
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
 	_is_build_active = status
+
+
+func _on_Area2D_mouse_exited():
+	$UI.visible = false
+	print("exited")
