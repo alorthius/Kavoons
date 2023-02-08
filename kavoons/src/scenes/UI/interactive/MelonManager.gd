@@ -22,8 +22,8 @@ onready var _target_label: Label = $UI/Pos/HUD/BaseActions/TargetingBar/Targetin
 
 var _focus_delta_size = Vector2(5, 5)
 
-onready var _next_range: Sprite = $UI/Pos/NextRange
-onready var _curr_range: Sprite = $UI/Pos/CurrRange
+onready var _next_range: TextureRect = $UI/Pos/NextRange
+onready var _curr_range: TextureRect = $UI/Pos/CurrRange
 
 onready var _pos: Position2D = $UI/Pos
 
@@ -67,7 +67,7 @@ func attach_melon(melon: Melon):
 #	_next_range.position = _curr_melon.position
 #	_curr_range.position = _curr_melon.position
 	
-	_curr_range.scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.texture.get_size()
+	_curr_range.rect_scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.rect_min_size
 	_curr_range.modulate = _curr_melon._color
 	
 	_set_targeting_label()
@@ -128,7 +128,7 @@ func _add_sell_butt():
 
 
 func _on_UpgradeButt_mouse_entered(butt):
-	_next_range.scale = 2 * butt.radius * Vector2(1, 1) / _next_range.texture.get_size()
+	_next_range.rect_scale = 2 * butt.radius * Vector2(1, 1) / _next_range.rect_min_size
 	_next_range.modulate = butt.color
 	_next_range.set_visible(true)
 
@@ -260,3 +260,7 @@ func _toggle_build_status(status: bool):
 func _on_Area2D_mouse_exited():
 	$UI.visible = false
 	print("exited")
+
+
+func _on_Area2D_mouse_entered():
+	print("entered")
