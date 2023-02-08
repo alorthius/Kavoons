@@ -5,11 +5,8 @@
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=6]
 [ext_resource path="res://assets/towers/range.png" type="Texture" id=9]
-
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 165.0
-height = 70.0
 
 [sub_resource type="DynamicFont" id=2]
 resource_local_to_scene = true
@@ -25,10 +22,54 @@ script = ExtResource( 1 )
 
 [node name="Pos" type="Position2D" parent="UI"]
 
-[node name="Area2D" type="Area2D" parent="UI/Pos"]
+[node name="HoverArea" type="Control" parent="UI/Pos"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+mouse_filter = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Pos/Area2D"]
-shape = SubResource( 3 )
+[node name="V" type="TextureRect" parent="UI/Pos/HoverArea"]
+modulate = Color( 1, 1, 1, 0.0784314 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -65.0
+margin_top = -80.0
+margin_right = 65.0
+margin_bottom = 180.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+expand = true
+
+[node name="HTargeting" type="TextureRect" parent="UI/Pos/HoverArea"]
+modulate = Color( 1, 1, 1, 0.0784314 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -205.0
+margin_top = 2.0
+margin_right = 205.0
+margin_bottom = 82.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+expand = true
+
+[node name="HUpgrades" type="TextureRect" parent="UI/Pos/HoverArea"]
+modulate = Color( 1, 1, 1, 0.0784314 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -95.0
+margin_top = -160.0
+margin_right = 95.0
+margin_bottom = -80.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+expand = true
 
 [node name="CurrRange" type="TextureRect" parent="UI/Pos"]
 anchor_left = 0.5
@@ -43,7 +84,6 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 36, 36 )
 rect_pivot_offset = Vector2( 18, 18 )
-mouse_filter = 2
 texture = ExtResource( 9 )
 expand = true
 
@@ -73,7 +113,7 @@ anchor_bottom = 0.5
 margin_left = -200.0
 margin_top = -160.0
 margin_right = 200.0
-margin_bottom = 240.0
+margin_bottom = 182.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 140, 330 )
@@ -130,7 +170,6 @@ alignment = 1
 [node name="ToLeft" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
 margin_right = 60.0
 margin_bottom = 60.0
-mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -152,7 +191,6 @@ valign = 1
 margin_left = 340.0
 margin_right = 400.0
 margin_bottom = 60.0
-mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 flip_h = true
@@ -176,6 +214,7 @@ margin_bottom = 174.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 80 )
+mouse_filter = 2
 alignment = 1
 
 [node name="SellButt" parent="UI/Pos/HUD/BaseActions/SellBar" instance=ExtResource( 2 )]
@@ -183,10 +222,7 @@ margin_left = 170.0
 margin_top = 10.0
 margin_right = 230.0
 margin_bottom = 70.0
-mouse_filter = 1
 
-[connection signal="mouse_entered" from="UI/Pos/Area2D" to="." method="_on_Area2D_mouse_entered"]
-[connection signal="mouse_exited" from="UI/Pos/Area2D" to="." method="_on_Area2D_mouse_exited"]
 [connection signal="mouse_entered" from="UI/Pos/HUD/BaseActions/SellBar/SellButt" to="." method="_on_SellButt_mouse_entered"]
 [connection signal="mouse_exited" from="UI/Pos/HUD/BaseActions/SellBar/SellButt" to="." method="_on_SellButt_mouse_exited"]
 [connection signal="pressed" from="UI/Pos/HUD/BaseActions/SellBar/SellButt" to="." method="_on_SellButt_pressed"]

@@ -35,12 +35,28 @@ var _sell_cost: int
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
+
 ## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
 
+## Ultra shitcode part
+#onready var _hover_areas := $UI/Pos/HoverArea.get_children()
+var _hover_boxes = []
+
+
+func _process(_delta):
+	if _hover_boxes.empty():
+		return
+
+	var to_show = false
+	for box in _hover_boxes:
+		if box.has_point(get_local_mouse_position()):
+			to_show = true
+
+	if to_show == false:
+		$UI.visible = false
 
 func _ready():
-#	_hud.set_visible(false)
 	_next_range.set_visible(false)	
 	
 #	var targ_butts := _target_butt_bar.get_children()
@@ -51,6 +67,7 @@ func _ready():
 #
 #		if butt in targ_butts and butt.name != "Targeting":
 #			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
+
 
 
 ## Wrap this node above the given melon instance. The melon is added as a child
@@ -91,26 +108,10 @@ func attach_melon(melon: Melon):
 	_add_sell_butt()
 
 	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
-
-
-func a():
-	print("base melon")
-	if not _is_build_active:
-		print("brrr")
-		_curr_melon.get_node("UI").visible = true
-#		_hud.set_visible(true)
-
-func b():
-	print("collision on")
 	
-	_hud.visible = true
-
-func c():
-	print("collision off")
-	_hud.visible = false
-	_curr_melon.get_node("UI").visible = false
-	
-
+	for child in $UI/Pos/HoverArea.get_children():
+		child.visible = false
+		_hover_boxes.append(child.get_global_rect())
 
 func _add_upgrade_butt(name: String, dict: Dictionary):	
 	var butt: Object = _upgrade_butt.instance()
@@ -255,12 +256,3 @@ func _on_HUD_mouse_exited():
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
 	_is_build_active = status
-
-
-func _on_Area2D_mouse_exited():
-	$UI.visible = false
-	print("exited")
-
-
-func _on_Area2D_mouse_entered():
-	print("entered")
