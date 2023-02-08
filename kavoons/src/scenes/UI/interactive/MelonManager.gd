@@ -7,40 +7,31 @@ extends Control
 ## delete and view the information about a particular melon.
 class_name MelonManager
 
-## Define the region for the UI buttons
-onready var _hud: VBoxContainer = $UI/Pos/HUD
 onready var _ui: CanvasLayer = $UI
+onready var _pos: Position2D = $UI/Pos
 
-var _hud_box: Rect2
-
-onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
 onready var _upgrade_bar: HBoxContainer = $UI/Pos/HUD/UpgradeBar
-
+onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
 onready var _sell_butt: TextureButton = $UI/Pos/HUD/BaseActions/SellBar/SellButt
-
-#onready var _target_butt_bar: HBoxContainer = $UI/HUD/TargetingBar
-
 onready var _target_label: Label = $UI/Pos/HUD/BaseActions/TargetingBar/Targeting/Label
 
-var _focus_delta_size = Vector2(5, 5)
+var _upgrade_butts := []
 
 onready var _next_range: TextureRect = $UI/Pos/NextRange
 onready var _curr_range: TextureRect = $UI/Pos/CurrRange
 
-onready var _pos: Position2D = $UI/Pos
-
 ## Ultra shitcode part.
 ## An array of every HoverArea children' rect. They are used to check whether
 ## to display the UI or not by checking mouse belonging to the rectangles.
-var _hover_boxes = []
-
-## The reference to the current melon this class is wrapped above
-var _curr_melon: Melon
-
-var _sell_cost: int
+var _hover_boxes := []
 
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
+
+## The reference to the current melon this class is wrapped above
+var _curr_melon: Melon
+var _sell_cost: int
+
 
 ## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
@@ -56,12 +47,25 @@ func _physics_process(_delta):
 	if to_show == false:
 		_hide_ui()
 
+## Trigger the UI display on melon collision shape hover with making visible
+## the larger area of mouse focus [member _hud]  with connected mouse signals.
+## There is no signal _on_melon_mouse_exited as the UI hides on that signal
+## connected to [member _hud] member.
+## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
+## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
+func _on_melon_mouse_entered():
+	if not _is_build_active:
+		$UI.visible = true
+
 ## Hide the UI and restore all possible features toggled while view to default
 func _hide_ui():
 	_ui.visible = false
 	_next_range.visible = false
 	modulate.a = 1
-	
+
+## Listens to the signal from the builder to catch its status
+func _toggle_build_status(status: bool):
+	_is_build_active = status
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
@@ -89,11 +93,7 @@ func attach_melon(melon: Melon):
 	
 	if next_num == 0:
 		_upgrade_bar.set_visible(false)
-		# there are no more upgrades, so trim the _hud size on upgrade bar's vertical size
-		var y_delta := Vector2(0, _upgrade_bar.rect_size[1])
-		_hud.rect_size -= y_delta
-		_hud.rect_position += y_delta
-		
+
 	_add_sell_butt()
 	
 	## Save the rect of HoverArea nodes to prevent recalculations in _physics_process
@@ -102,20 +102,20 @@ func attach_melon(melon: Melon):
 		_hover_boxes.append(child.get_global_rect())
 
 
+# ------------------------- #
+
+# Buttons and their signals #
+
 func _add_upgrade_butt(name: String, dict: Dictionary):	
 	var butt: Object = _upgrade_butt.instance()
 	_upgrade_bar.add_child(butt)
+	_upgrade_butts.append(butt)
 #	butt.title(name).store(dict).color(_curr_melon._color.linear_interpolate(dict["color"], 0.7))
 	butt.title(name).store(dict)
 	
 	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
 	assert(butt.connect("mouse_entered", self, "_on_UpgradeButt_mouse_entered", [butt]) == 0)
 	assert(butt.connect("mouse_exited", self, "_on_UpgradeButt_mouse_exited") == 0)
-
-func _add_sell_butt():
-	_sell_cost = int(0.7 * _curr_melon.total_money)
-	_sell_butt.label(str(_sell_cost))
-
 
 func _on_UpgradeButt_mouse_entered(butt):
 	_next_range.rect_scale = 2 * butt.radius * Vector2(1, 1) / _next_range.rect_min_size
@@ -135,6 +135,10 @@ func _on_UpgradeButt_pressed(butt):
 	queue_free()
 	
 
+func _add_sell_butt():
+	_sell_cost = int(0.7 * _curr_melon.total_money)
+	_sell_butt.label(str(_sell_cost))
+
 func _on_SellButt_mouse_entered():
 	modulate.a = 0.65
 
@@ -147,20 +151,15 @@ func _on_SellButt_pressed():
 
 
 ## Disable buttons if not enough money for purchase
+## The function is called externaly if ammount of money was changed by listening
+## to the global signal total_money_changed emmitted from MeasuresManager
 func _validate_price(total: int):
-	pass
-#	for butt in _upgr_butts:
-#		if not is_instance_valid(butt) or int(butt.name) > len(_next_costs):
-#			continue
-#
-#		var icon: TextureRect = butt.get_node("Icon")
-#		if _next_costs[int(butt.name) - 1] > total:
-#			if not butt.disabled:
-#				butt.disabled = true
-#				icon.self_modulate = icon.modulate.darkened(0.5)
-#		else:
-#			butt.disabled = false
-#			icon.self_modulate = Color(1, 1, 1, 1)
+	for butt in _upgrade_butts:
+		if butt.cost > total:
+			butt.disable()
+		else:
+			butt.enable()
+
 
 ## Change the current targeting. The action argument is either 1 or -1
 ## If action = 1, then the targeting goes to the next in ascending list order.
@@ -183,18 +182,15 @@ func _on_ToLeft_pressed():
 func _on_ToRight_pressed():
 	_change_targeting(1)
 
-## Trigger the UI display on melon collision shape hover with making visible
-## the larger area of mouse focus [member _hud]  with connected mouse signals.
-## There is no signal _on_melon_mouse_exited as the UI hides on that signal
-## connected to [member _hud] member.
-## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
-## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
-func _on_melon_mouse_entered():
-	if not _is_build_active:
-		$UI.visible = true
+
+
+# ------------------------------------------------------------------- #
+
+# OLD FUNCTIONALITY TO REMEMBER WHY I WAS FORCED BY GODOT TO SHITCODE
 
 ## Hide the UI
-func _on_HUD_mouse_exited():
+#func _on_HUD_mouse_exited():
+
 	# The signal is wrongly triggered when mouse enters the child nodes of the
 	# _hud node, even with pass mouse filter! The issue is also described here:
 	# https://github.com/godotengine/godot/issues/16854
@@ -213,11 +209,7 @@ func _on_HUD_mouse_exited():
 	# Important!!! The code expects the overlying shapes to end in the _hud region,
 	# so that the exit via top shapes instantly trigger the enter of the _hud shape.
 	# The collision shape of a current melon should be fully inside the _hud shape!
+
 #	if not _hud_box.has_point(get_local_mouse_position()):
 #		_curr_range.set_visible(false)
 #		_hud.set_visible(false)
-	pass
-
-## Listens to the signal from the builder to catch its status
-func _toggle_build_status(status: bool):
-	_is_build_active = status

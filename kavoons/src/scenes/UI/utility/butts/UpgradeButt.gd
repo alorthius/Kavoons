@@ -13,4 +13,3 @@ func store(dict: Dictionary):
 	
 	icon(dict["sprite"]).label(str(cost)).color(color)
 	return self
-	
