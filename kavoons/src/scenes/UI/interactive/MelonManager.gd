@@ -9,6 +9,8 @@ class_name MelonManager
 
 ## Define the region for the UI buttons
 onready var _hud: VBoxContainer = $UI/Pos/HUD
+onready var _ui: CanvasLayer = $UI
+
 var _hud_box: Rect2
 
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
@@ -27,6 +29,11 @@ onready var _curr_range: TextureRect = $UI/Pos/CurrRange
 
 onready var _pos: Position2D = $UI/Pos
 
+## Ultra shitcode part.
+## An array of every HoverArea children' rect. They are used to check whether
+## to display the UI or not by checking mouse belonging to the rectangles.
+var _hover_boxes = []
+
 ## The reference to the current melon this class is wrapped above
 var _curr_melon: Melon
 
@@ -35,40 +42,26 @@ var _sell_cost: int
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
-
 ## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
 
-## Ultra shitcode part
-#onready var _hover_areas := $UI/Pos/HoverArea.get_children()
-var _hover_boxes = []
 
-
-func _process(_delta):
-	if _hover_boxes.empty():
-		return
-
+## Hide UI if mouse is outside HoverArea boxes
+func _physics_process(_delta):
 	var to_show = false
 	for box in _hover_boxes:
 		if box.has_point(get_local_mouse_position()):
 			to_show = true
 
 	if to_show == false:
-		$UI.visible = false
+		_hide_ui()
 
-func _ready():
-	_next_range.set_visible(false)	
+## Hide the UI and restore all possible features toggled while view to default
+func _hide_ui():
+	_ui.visible = false
+	_next_range.visible = false
+	modulate.a = 1
 	
-#	var targ_butts := _target_butt_bar.get_children()
-#
-#	for butt in targ_butts:
-#		assert(butt.connect("mouse_entered", self, "_focus_button", [butt]) == 0)
-#		assert(butt.connect("mouse_exited", self, "_unfocus_button", [butt]) == 0)
-#
-#		if butt in targ_butts and butt.name != "Targeting":
-#			assert(butt.connect("pressed", self, "_change_targeting", [butt.name]) == 0)
-
-
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
@@ -79,11 +72,7 @@ func attach_melon(melon: Melon):
 	assert(_curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered") == 0)
 	
 	_pos.position = _curr_melon.position
-	
-#	_hud.rect_position = _curr_melon.position - Vector2(190, 180) # shift HUD to capture the melon
-#	_next_range.position = _curr_melon.position
-#	_curr_range.position = _curr_melon.position
-	
+
 	_curr_range.rect_scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.rect_min_size
 	_curr_range.modulate = _curr_melon._color
 	
@@ -106,12 +95,12 @@ func attach_melon(melon: Melon):
 		_hud.rect_position += y_delta
 		
 	_add_sell_butt()
-
-	_hud_box = _hud.get_rect()  # prevents recalculations in _on_HUD_mouse_exited signal
 	
+	## Save the rect of HoverArea nodes to prevent recalculations in _physics_process
 	for child in $UI/Pos/HoverArea.get_children():
 		child.visible = false
 		_hover_boxes.append(child.get_global_rect())
+
 
 func _add_upgrade_butt(name: String, dict: Dictionary):	
 	var butt: Object = _upgrade_butt.instance()
@@ -173,41 +162,11 @@ func _validate_price(total: int):
 #			butt.disabled = false
 #			icon.self_modulate = Color(1, 1, 1, 1)
 
-## Expand button on hover, show next melon range if button is upgrade
-func _focus_button(butt: TextureButton):
-	butt.rect_size += _focus_delta_size
-	butt.rect_position += - _focus_delta_size / 2.0
-
-	if butt.name == "Sell":
-		modulate.a = 0.65
-	
-	if not butt.name in ["1", "2", "3"]:
-		return
-	
-	var next_range = butt.radius
-	var color = butt.color
-	
-	_next_range.scale = 2 * next_range * Vector2(1, 1) / _next_range.texture.get_size()
-	_next_range.modulate = color
-	_next_range.set_visible(true)
-
-## Shrink button on hover
-func _unfocus_button(butt: TextureButton):
-	_curr_range.set_visible(false)
-	_next_range.set_visible(false)
-	butt.rect_size -= _focus_delta_size
-	butt.rect_position -= - _focus_delta_size / 2.0
-
-	if butt.name == "Sell":
-		modulate.a = 1
-
-
-func _change_targeting(action: String):
-	var new_targeting: int
-	if action == "ToLeft":
-		new_targeting = (_curr_melon._target_priority - 1) % Constants.TargetPriority.size()
-	elif action == "ToRight":
-		new_targeting = (_curr_melon._target_priority + 1) % Constants.TargetPriority.size()
+## Change the current targeting. The action argument is either 1 or -1
+## If action = 1, then the targeting goes to the next in ascending list order.
+## If action = -1, then it returns back in the descending order
+func _change_targeting(action: int):
+	var new_targeting = (_curr_melon._target_priority + action) % Constants.TargetPriority.size()
 	if new_targeting == -1:  # -1 % 7 = -1
 		new_targeting = Constants.TargetPriority.size() - 1
 	
@@ -216,7 +175,13 @@ func _change_targeting(action: String):
 
 func _set_targeting_label():
 	var text: String = Constants.TargetPriority.keys()[_curr_melon._target_priority].to_lower()
-	_target_label.text = text.replace("_", "\n")
+	_target_label.text = text.replace("_", " ")
+
+func _on_ToLeft_pressed():
+	_change_targeting(-1)
+
+func _on_ToRight_pressed():
+	_change_targeting(1)
 
 ## Trigger the UI display on melon collision shape hover with making visible
 ## the larger area of mouse focus [member _hud]  with connected mouse signals.
