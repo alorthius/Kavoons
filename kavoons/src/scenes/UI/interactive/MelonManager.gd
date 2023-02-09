@@ -87,11 +87,18 @@ func _hide_ui():
 	_curr_range.modulate.a = 1
 
 	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	assert(_tween.interpolate_property(_pos, "scale", Vector2(1, 1), Vector2(0.5, 0.5), _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_pos, "scale", _scale_final, _scale_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	
 	assert(_tween.interpolate_property(_ui, "visible", true, false, 0, Tween.TRANS_BACK, Tween.EASE_IN, _exit_time))
 	assert(_tween.start())
-	
+
+func _prep_to_free():
+	_hide_ui()
+	# resume function when tween finished animations
+	yield(_tween, "tween_completed")
+	# automatically emit "completed" signal from this func as object
+	# write `yield(_prep_to_free(), "completed")` in another function
+	# to run it only after this one waits for tween execution
 
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
@@ -152,6 +159,9 @@ func _on_UpgradeButt_mouse_exited():
 	_next_range.set_visible(false)
 
 func _on_UpgradeButt_pressed(butt):
+	# hide UI with tween and wait for animation to complete
+	yield(_prep_to_free(), "completed")
+	
 	var new_melon: Melon = load(butt.scene).instance()
 	new_melon.position = _curr_melon.position
 	new_melon._target_priority = _curr_melon._target_priority
@@ -174,6 +184,9 @@ func _on_SellButt_mouse_exited():
 	_curr_range.modulate.a = 1
 
 func _on_SellButt_pressed():
+	# hide UI with tween and wait for animation to complete
+	yield(_prep_to_free(), "completed")
+
 	Events.emit_signal("update_money", _sell_cost)
 	queue_free()
 
