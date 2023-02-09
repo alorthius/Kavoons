@@ -20,6 +20,20 @@ var _upgrade_butts := []
 onready var _next_range: TextureRect = $UI/Pos/NextRange
 onready var _curr_range: TextureRect = $UI/Pos/CurrRange
 
+
+var _is_showing = false
+
+onready var _tween: Tween = $UI/Pos/Tween
+
+var _entrance_time: float = 0.4
+var _exit_time: float = 0.4
+
+var _rotation_init: int = 180
+var _rotation_final: int = 360
+
+var _scale_init := 0.1 * Vector2.ONE
+var _scale_final := Vector2.ONE
+
 ## Ultra shitcode part.
 ## An array of every HoverArea children' rect. They are used to check whether
 ## to display the UI or not by checking mouse belonging to the rectangles.
@@ -39,12 +53,12 @@ signal upgrade_to(new_melon)
 
 ## Hide UI if mouse is outside HoverArea boxes
 func _physics_process(_delta):
-	var to_show = false
+	var show = false
 	for box in _hover_boxes:
 		if box.has_point(get_local_mouse_position()):
-			to_show = true
+			show = true
 
-	if to_show == false:
+	if show == false and _is_showing == true:
 		_hide_ui()
 
 ## Trigger the UI display on melon collision shape hover with making visible
@@ -55,13 +69,29 @@ func _physics_process(_delta):
 ## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
 func _on_melon_mouse_entered():
 	if not _is_build_active:
-		$UI.visible = true
+		_show_ui()
+
+func _show_ui():
+	_is_showing = true
+	_ui.visible = true
+
+	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
+	assert(_tween.start())
 
 ## Hide the UI and restore all possible features toggled while view to default
 func _hide_ui():
-	_ui.visible = false
+	_is_showing = false
 	_next_range.visible = false
 	modulate.a = 1
+	_curr_range.modulate.a = 1
+
+	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_pos, "scale", Vector2(1, 1), Vector2(0.5, 0.5), _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	
+	assert(_tween.interpolate_property(_ui, "visible", true, false, 0, Tween.TRANS_BACK, Tween.EASE_IN, _exit_time))
+	assert(_tween.start())
+	
 
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
@@ -86,7 +116,6 @@ func attach_melon(melon: Melon):
 	Events.emit_signal("update_money", - data["cost"])
 	
 	var idx := 0
-	var next_num = len(data["next"])
 	for next in data["next"]:
 		idx += 1
 		_add_upgrade_butt(str(idx), next)
