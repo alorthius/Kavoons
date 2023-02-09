@@ -216,7 +216,3 @@ func _on_Range_area_exited(area):
 ## Finish basic attack reload and make tower ready to shoot
 func _on_BaseAttackTimer_timeout():
 	_ready_to_attack = true
-
-
-func _on_Melon_mouse_entered():
-	print("haha")
