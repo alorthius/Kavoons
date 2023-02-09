@@ -41,8 +41,8 @@ one_shot = true
 [node name="EffectsManager" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="Builder" parent="." instance=ExtResource( 4 )]
-
 [node name="MeasuresManager" parent="." instance=ExtResource( 5 )]
+
+[node name="Builder" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="WavesTimer" to="." method="_on_WavesTimer_timeout"]

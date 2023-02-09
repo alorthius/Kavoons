@@ -78,7 +78,7 @@ func attach_melon(melon: Melon):
 	_pos.position = _curr_melon.position
 
 	_curr_range.rect_scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.rect_min_size
-	_curr_range.modulate = _curr_melon._color
+	_curr_range.self_modulate = _curr_melon._color
 	
 	_set_targeting_label()
 
@@ -90,9 +90,6 @@ func attach_melon(melon: Melon):
 	for next in data["next"]:
 		idx += 1
 		_add_upgrade_butt(str(idx), next)
-	
-	if next_num == 0:
-		_upgrade_bar.set_visible(false)
 
 	_add_sell_butt()
 	
@@ -141,9 +138,11 @@ func _add_sell_butt():
 
 func _on_SellButt_mouse_entered():
 	modulate.a = 0.65
+	_curr_range.modulate.a = 0.65
 
 func _on_SellButt_mouse_exited():
 	modulate.a = 1
+	_curr_range.modulate.a = 1
 
 func _on_SellButt_pressed():
 	Events.emit_signal("update_money", _sell_cost)

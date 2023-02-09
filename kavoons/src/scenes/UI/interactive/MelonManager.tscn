@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/MelonManager.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/ranges/final.png" type="Texture" id=7]
-[ext_resource path="res://assets/UI/ranges/outline_simple.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/ranges/W.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/ranges/next.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/ranges/G.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=2]
 resource_local_to_scene = true
@@ -85,6 +86,18 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 36, 36 )
 rect_pivot_offset = Vector2( 18, 18 )
+texture = ExtResource( 9 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="UI/Pos/CurrRange"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.0
+margin_top = -18.0
+margin_right = 18.0
+margin_bottom = 18.0
 texture = ExtResource( 7 )
 expand = true
 
