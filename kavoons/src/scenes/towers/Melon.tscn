@@ -25,6 +25,7 @@ shape = SubResource( 1 )
 
 [node name="BaseAttackTimer" type="Timer" parent="."]
 
+[connection signal="mouse_entered" from="." to="." method="_on_Melon_mouse_entered"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
 [connection signal="timeout" from="BaseAttackTimer" to="." method="_on_BaseAttackTimer_timeout"]

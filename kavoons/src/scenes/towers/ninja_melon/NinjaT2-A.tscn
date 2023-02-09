@@ -9,7 +9,7 @@
 base_tower = "NinjaMelon"
 tier = 2
 
-[node name="BaseSprite" parent="." index="1"]
+[node name="BaseSprite" parent="." index="0"]
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" parent="Range" index="0"]

@@ -61,13 +61,9 @@ func _physics_process(_delta):
 	if show == false and _is_showing == true:
 		_hide_ui()
 
-## Trigger the UI display on melon collision shape hover with making visible
-## the larger area of mouse focus [member _hud]  with connected mouse signals.
-## There is no signal _on_melon_mouse_exited as the UI hides on that signal
-## connected to [member _hud] member.
-## The signal [signal _on_HUD_mouse_entered] is instantly triggered after this one,
-## hiding the UI only when receiving the [signal _on_HUD_mouse_exited]
+## Trigger the UI display on melon collision shape hover
 func _on_melon_mouse_entered():
+	print("lk")
 	if not _is_build_active:
 		_show_ui()
 
@@ -114,10 +110,13 @@ func _toggle_build_status(status: bool):
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
 func attach_melon(melon: Melon):
+	_ui.visible = false
+	
 	_curr_melon = melon
 	self.add_child(_curr_melon)
-	
+	print(_curr_melon)
 	assert(_curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered") == 0)
+	print(_curr_melon.get_node("TowerShape"))
 	
 	_pos.position = _curr_melon.position
 
