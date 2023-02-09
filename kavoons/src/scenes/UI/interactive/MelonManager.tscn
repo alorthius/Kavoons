@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/scenes/UI/interactive/MelonManager.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/cat_hp_bar.png" type="Texture" id=6]
-[ext_resource path="res://assets/towers/range.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/ranges/final.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/ranges/outline_simple.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=2]
 resource_local_to_scene = true
@@ -84,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 36, 36 )
 rect_pivot_offset = Vector2( 18, 18 )
-texture = ExtResource( 9 )
+texture = ExtResource( 7 )
 expand = true
 
 [node name="NextRange" type="TextureRect" parent="UI/Pos"]
@@ -102,7 +103,7 @@ grow_vertical = 2
 rect_min_size = Vector2( 36, 36 )
 rect_pivot_offset = Vector2( 18, 18 )
 mouse_filter = 2
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 expand = true
 
 [node name="HUD" type="VBoxContainer" parent="UI/Pos"]

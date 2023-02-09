@@ -180,8 +180,7 @@ func _on_ToLeft_pressed():
 	_change_targeting(-1)
 
 func _on_ToRight_pressed():
-	_change_targeting(1)
-
+	_change_targeting( 1)
 
 
 # ------------------------------------------------------------------- #
