@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/scenes/UI/utility/butts/base/LabeledButt.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/butts/upgrade.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://src/scenes/UI/utility/butts/UpgradeButt.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 25
+extra_spacing_bottom = -2
+font_data = ExtResource( 4 )
+
+[node name="UpgradeButt" instance=ExtResource( 1 )]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 90, 90 )
+texture_normal = ExtResource( 3 )
+script = ExtResource( 5 )
+
+[node name="Icon" parent="." index="0"]
+margin_left = 10.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -15.0
+texture = ExtResource( 2 )
+
+[node name="Label" parent="." index="2"]
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 1 )

@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/scenes/UI/utility/butts/base/Butt.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=4]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/disabled_build_button.png-44c1fe8ac8e6459e228a6760ae9ab31a.stex"
+
+[node name="Butt" type="TextureButton"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource( 1 )
+expand = true
+stretch_mode = 4
+script = ExtResource( 3 )
+focus_scale = 0.2
+butt_darkened = 0.5
+icon_darkened = 0.3
+
+[node name="Icon" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="mouse_entered" from="." to="." method="_on_Butt_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Butt_mouse_exited"]

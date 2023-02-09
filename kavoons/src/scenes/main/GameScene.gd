@@ -24,6 +24,7 @@ var _curr_wave: Wave
 ## The preloaded [MelonManager] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
 var _melon_manager: PackedScene = preload("res://src/scenes/UI/interactive/MelonManager.tscn")
+var _melon_manager_final: PackedScene = preload("res://src/scenes/UI/interactive/MelonManagerFinal.tscn")
 
 
 func _ready():
@@ -37,7 +38,15 @@ func _ready():
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
-	var new_manager: MelonManager = _melon_manager.instance()
+	var _manager: PackedScene
+	
+	var data: Dictionary = Towers.get_tower_dict(new_tower.tier, new_tower.base_tower, new_tower.branch)
+	if len(data["next"]) == 0:
+		_manager = _melon_manager_final
+	else:
+		_manager = _melon_manager
+	
+	var new_manager: MelonManager = _manager.instance()
 	_towers_container.add_child(new_manager, true)
 	new_manager.attach_melon(new_tower)
 	
