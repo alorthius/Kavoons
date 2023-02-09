@@ -94,11 +94,18 @@ func _hide_ui():
 
 func _prep_to_free():
 	_hide_ui()
-	# resume function when tween finished animations
-	yield(_tween, "tween_completed")
-	# automatically emit "completed" signal from this func as object
-	# write `yield(_prep_to_free(), "completed")` in another function
-	# to run it only after this one waits for tween execution
+	
+	# fade melon paralell to UI fade
+	assert(_tween.interpolate_property(_curr_melon, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_curr_melon, "scale", _scale_final, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.start())
+	
+	# resume function when tween finished all the animations
+	yield(_tween, "tween_all_completed")
+	
+	# automatically emit "completed" signal after function return
+	# write `yield(_prep_to_free(), "completed")` in another function to resume it
+	# only after completion of all the animations by tween
 
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
@@ -106,7 +113,7 @@ func _toggle_build_status(status: bool):
 
 ## Wrap this node above the given melon instance. The melon is added as a child
 ## as a sibling of UI (CanvasLayer) node.
-func attach_melon(melon: Melon):	
+func attach_melon(melon: Melon):
 	_curr_melon = melon
 	self.add_child(_curr_melon)
 	

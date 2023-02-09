@@ -178,31 +178,31 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 40
+custom_constants/separation = 20
 alignment = 1
 
 [node name="ToLeft" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
-margin_right = 60.0
+margin_right = 100.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting"]
-margin_left = 100.0
-margin_right = 300.0
+margin_left = 120.0
+margin_right = 280.0
 margin_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 200, 60 )
+rect_min_size = Vector2( 160, 60 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 2 )
-text = "66666666666666666"
+text = "highest resistance"
 align = 1
 valign = 1
 
 [node name="ToRight" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
-margin_left = 340.0
+margin_left = 300.0
 margin_right = 400.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
@@ -210,13 +210,14 @@ size_flags_vertical = 3
 flip_h = true
 
 [node name="TextUnderline" type="TextureRect" parent="UI/Pos/HUD/BaseActions/TargetingBar"]
+margin_left = 100.0
 margin_top = 10.0
-margin_right = 400.0
+margin_right = 300.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 200, 80 )
 mouse_filter = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
