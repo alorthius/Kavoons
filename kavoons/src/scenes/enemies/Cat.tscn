@@ -70,4 +70,6 @@ playback_speed = 1.5
 anims/Cat1_walk = SubResource( 2 )
 anims/base_walk = ExtResource( 3 )
 
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

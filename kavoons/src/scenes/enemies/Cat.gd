@@ -17,6 +17,9 @@ var _hp: int
 onready var _hp_bar = $BarPos/HP
 onready var _hp_bar_pos = $BarPos
 
+onready var _tween: Tween = $Tween
+var _hp_reduction_duration := 0.7
+
 var _move_speed: int
 var _physical_armor_flat: int
 var _magical_resistance_percentage: float
@@ -51,7 +54,6 @@ func _physics_process(delta):
 		_reached_end()
 	
 	_hp_bar_pos.set_position(position)
-#	 - Vector2(25, 40)
 
 ## Process the hit of the cat
 func on_hit(dmg: int):
@@ -60,7 +62,12 @@ func on_hit(dmg: int):
 	_hp = _hp - dmg
 	if _hp <= 0:
 		_killed()
-	_hp_bar.value = _hp
+	_reduce_health()
+
+
+func _reduce_health():
+	assert(_tween.interpolate_property(_hp_bar, "value", _hp_bar.value, _hp, _hp_reduction_duration, Tween.TRANS_EXPO, Tween.EASE_OUT))
+	assert(_tween.start())
 
 
 func _on_HitTimer_timeout():
