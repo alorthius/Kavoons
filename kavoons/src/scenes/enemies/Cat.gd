@@ -14,7 +14,8 @@ var _lifes_cost: int
 var _money_reward: int
 
 var _hp: int
-onready var _hp_bar = $HP
+onready var _hp_bar = $BarPos/HP
+onready var _hp_bar_pos = $BarPos
 
 var _move_speed: int
 var _physical_armor_flat: int
@@ -33,7 +34,7 @@ func _ready():
 	
 	_hp_bar.max_value = _hp
 	_hp_bar.value = _hp_bar.max_value
-	_hp_bar.set_as_toplevel(true)
+	_hp_bar_pos.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
 	
@@ -49,7 +50,8 @@ func _physics_process(delta):
 	if get_unit_offset() >= 1:  # reached the path end
 		_reached_end()
 	
-	_hp_bar.set_position(position - Vector2(25, 40))
+	_hp_bar_pos.set_position(position)
+#	 - Vector2(25, 40)
 
 ## Process the hit of the cat
 func on_hit(dmg: int):
