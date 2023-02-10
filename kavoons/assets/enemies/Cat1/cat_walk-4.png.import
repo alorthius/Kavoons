@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cat_walk-1.png-e0643f0a8cc7798dc2e3ce98c38e27ba.stex"
+path="res://.import/cat_walk-4.png-b8a75de89b1ced5a763ed1da5cc835c7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/regular/3/cat_walk-1.png"
-dest_files=[ "res://.import/cat_walk-1.png-e0643f0a8cc7798dc2e3ce98c38e27ba.stex" ]
+source_file="res://assets/enemies/Cat1/cat_walk-4.png"
+dest_files=[ "res://.import/cat_walk-4.png-b8a75de89b1ced5a763ed1da5cc835c7.stex" ]
 
 [params]
 
