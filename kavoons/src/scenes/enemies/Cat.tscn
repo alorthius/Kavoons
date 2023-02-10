@@ -46,7 +46,7 @@ shape = SubResource( 1 )
 [node name="HP" type="TextureProgress" parent="."]
 margin_right = 30.0
 margin_bottom = 3.0
-rect_min_size = Vector2( 40, 3 )
+rect_min_size = Vector2( 80, 6 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 2 )
 tint_under = Color( 0.0705882, 0.0627451, 0.172549, 1 )
