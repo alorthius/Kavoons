@@ -37,7 +37,10 @@ func _ready():
 
 	v_offset = rand_range(-40, 0)
 	
-	_animation.play("walk")
+#	var inherited_walk = _animation.get_animation("base_walk").duplicate()
+#	_animation.add_animation(base_name + "_walk", inherited_walk)
+	
+	_animation.play(base_name + "_walk")
 
 ## Move the cat on a path
 func _physics_process(delta):

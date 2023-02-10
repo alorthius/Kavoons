@@ -5,9 +5,12 @@ class_name Wave
 
 # TODO: set the arrays via method
 
-var _cat = load("res://src/scenes/enemies/Cat1.tscn")
+var _cat_1 = load("res://src/scenes/enemies/Cat1.tscn")
+var _cat_2 = load("res://src/scenes/enemies/Cat2.tscn")
+var _cat_3 = load("res://src/scenes/enemies/Cat3.tscn")
+
 ## Array with all the enemies expected to be spawn during current wave
-var _enemies_to_spawn: Array = [_cat, _cat, _cat]
+var _enemies_to_spawn: Array = [_cat_3, _cat_1, _cat_2]
 ## Array with time to wait before the enemy was spawn, e.g.
 ## the first entry defines the time to wait before the first enemy spawn
 var _time_between_spawns: Array = [1, 2, 3]
