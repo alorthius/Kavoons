@@ -1,11 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/enemies/regular/cat1.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemies/regular/1/cat_walk-2.png" type="Texture" id=1]
 [ext_resource path="res://src/scenes/enemies/Cat.tscn" type="PackedScene" id=2]
 
 [node name="Cat1" instance=ExtResource( 2 )]
+scale = Vector2( 1.5, 1.5 )
 base_name = "Cat1"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
-flip_h = true
+
+[node name="AnimationPlayer" parent="." index="4"]
+playback_speed = 1.5

@@ -21,6 +21,8 @@ var _physical_armor_flat: int
 var _magical_resistance_percentage: float
 
 onready var _sprite: Sprite = $Sprite
+onready var _animation: AnimationPlayer = $AnimationPlayer
+
 onready var _hit_timer: Timer = $HitTimer
 
 var _on_hit_color: Color = Color(0.8, 0.2, 0.2, 0.8)
@@ -34,6 +36,8 @@ func _ready():
 	_hp_bar.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
+	
+	_animation.play("walk")
 
 ## Move the cat on a path
 func _physics_process(delta):
