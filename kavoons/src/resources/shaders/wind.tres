@@ -50,7 +50,7 @@ void vertex() {
 
 [resource]
 shader = SubResource( 57 )
-shader_param/speed = 2.0
+shader_param/speed = 1.0
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.1
 shader_param/strengthScale = 100.0
