@@ -14,8 +14,12 @@ var _lifes_cost: int
 var _money_reward: int
 
 var _hp: int
-onready var _hp_bar = $BarPos/HP
-onready var _hp_bar_pos = $BarPos
+
+onready var _ui = $UI
+onready var _ui_pos = $UI/Pos
+
+onready var _hp_bar = $UI/Pos/HP
+
 
 onready var _tween: Tween = $Tween
 var _hp_reduction_duration := 0.7
@@ -37,7 +41,7 @@ func _ready():
 	
 	_hp_bar.max_value = _hp
 	_hp_bar.value = _hp_bar.max_value
-	_hp_bar_pos.set_as_toplevel(true)
+	_ui_pos.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
 	
@@ -53,7 +57,7 @@ func _physics_process(delta):
 	if get_unit_offset() >= 1:  # reached the path end
 		_reached_end()
 	
-	_hp_bar_pos.set_position(position)
+	_ui_pos.set_position(position)
 
 ## Process the hit of the cat
 func on_hit(dmg: int):
@@ -98,3 +102,10 @@ func _parse_cat_data():
 	_move_speed = data["move_speed"]
 	_physical_armor_flat = data["physical_armor_flat"]
 	_magical_resistance_percentage = data["magical_resistance_percentage"]
+
+
+
+func _on_Area2D_input_event(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
+		_ui.visible = not _ui.visible
+
