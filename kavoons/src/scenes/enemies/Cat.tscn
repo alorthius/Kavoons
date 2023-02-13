@@ -59,13 +59,6 @@ shader_param/deform = Vector2( 0, 0 )
 shader_param/offset = Vector2( 2, -2 )
 shader_param/modulate = Color( 0.12549, 0.0509804, 0.172549, 0.392157 )
 
-[sub_resource type="DynamicFont" id=5]
-resource_local_to_scene = true
-size = 30
-extra_spacing_bottom = -2
-extra_spacing_char = 2
-font_data = ExtResource( 12 )
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 22, 13.875 )
 
@@ -89,6 +82,13 @@ tracks/0/keys = {
 radius = 43.0
 height = 70.0
 
+[sub_resource type="DynamicFont" id=5]
+resource_local_to_scene = true
+size = 30
+extra_spacing_bottom = -2
+extra_spacing_char = 2
+font_data = ExtResource( 12 )
+
 [node name="Cat" type="PathFollow2D" groups=["enemies"]]
 loop = false
 script = ExtResource( 1 )
@@ -97,6 +97,28 @@ script = ExtResource( 1 )
 material = SubResource( 4 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/Cat1_walk = SubResource( 2 )
+anims/base_walk = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AreaUI" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaUI"]
+rotation = 1.5708
+shape = SubResource( 6 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
@@ -310,27 +332,10 @@ margin_bottom = 19.0
 custom_fonts/font = ExtResource( 14 )
 text = "%"
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
-
-[node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.2
+[node name="UITimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 1.5
-anims/Cat1_walk = SubResource( 2 )
-anims/base_walk = ExtResource( 3 )
-
-[node name="Tween" type="Tween" parent="."]
-
-[node name="AreaUI" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaUI"]
-rotation = 1.5708
-shape = SubResource( 6 )
 
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="input_event" from="AreaUI" to="." method="_on_AreaUI_input_event"]
+[connection signal="timeout" from="UITimer" to="." method="_on_UITimer_timeout"]

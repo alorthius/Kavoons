@@ -19,6 +19,7 @@ onready var _ui = $UI
 onready var _ui_pos = $UI/Pos
 
 onready var _hp_bar = $UI/Pos/HP
+onready var _curr_hp_ui = $UI/Pos/OnHover/Stats/Left/HP/CurrHP
 
 
 onready var _tween: Tween = $Tween
@@ -32,6 +33,7 @@ onready var _sprite: Sprite = $Sprite
 onready var _animation: AnimationPlayer = $AnimationPlayer
 
 onready var _hit_timer: Timer = $HitTimer
+onready var _ui_timer: Timer = $UITimer
 
 var _on_hit_color: Color = Color(0.8, 0.2, 0.2, 0.8)
 
@@ -45,9 +47,6 @@ func _ready():
 	_ui_pos.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
-	
-#	var inherited_walk = _animation.get_animation("base_walk").duplicate()
-#	_animation.add_animation(base_name + "_walk", inherited_walk)
 	
 	_animation.play(base_name + "_walk")
 
@@ -71,7 +70,7 @@ func on_hit(dmg: int):
 
 
 func _reduce_health():
-	$UI/Pos/OnHover/Stats/Left/HP/CurrHP.text = str(_hp)
+	_curr_hp_ui.text = str(_hp)
 	
 	assert(_tween.interpolate_property(_hp_bar, "value", _hp_bar.value, _hp, _hp_reduction_duration, Tween.TRANS_EXPO, Tween.EASE_OUT))
 	assert(_tween.start())
@@ -129,3 +128,10 @@ func _apply_cat_data():
 func _on_AreaUI_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		_ui.visible = not _ui.visible
+		
+		if _ui.visible:
+			_ui_timer.start()
+
+
+func _on_UITimer_timeout():
+	_ui.visible = false
