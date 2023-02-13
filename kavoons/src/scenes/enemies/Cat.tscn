@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/scenes/enemies/Cat.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/hp_bar/hp_bar-3.png" type="Texture" id=2]
@@ -84,6 +84,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ]
 }
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 43.0
+height = 70.0
 
 [node name="Cat" type="PathFollow2D" groups=["enemies"]]
 loop = false
@@ -322,5 +326,11 @@ anims/base_walk = ExtResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
+[node name="AreaUI" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaUI"]
+rotation = 1.5708
+shape = SubResource( 6 )
+
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="input_event" from="AreaUI" to="." method="_on_AreaUI_input_event"]

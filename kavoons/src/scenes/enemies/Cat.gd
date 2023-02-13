@@ -120,6 +120,7 @@ func _apply_cat_data():
 	$UI/Pos/OnHover/Stats/Right/PhysicalArmor/Label.text = str(_physical_armor_flat)
 	$UI/Pos/OnHover/Stats/Right/MagicalResistance/Label.text = str(_magical_resistance_percentage)
 
-func _on_Area2D_input_event(_viewport, event, _shape_idx):
+
+func _on_AreaUI_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		_ui.visible = not _ui.visible
