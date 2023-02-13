@@ -87,6 +87,8 @@ func _on_HitTimer_timeout():
 
 
 func _killed():
+#	_prep_to_free()
+#	yield(_tween, "tween_all_completed")
 	Events.emit_signal("update_money", _money_reward)
 	_free()
 
@@ -139,10 +141,8 @@ func _on_AreaUI_input_event(_viewport, event, _shape_idx):
 		else:
 			_hide_ui()
 
-
 func _on_UITimer_timeout():
 	_hide_ui()
-
 
 func _show_ui():
 	_ui.visible = true
@@ -151,10 +151,17 @@ func _show_ui():
 	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
 
-func _hide_ui():	
+func _hide_ui():
 	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_final, _rotation_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
 	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_final, _scale_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
 	assert(_tween.start())
 	
 	yield(_tween, "tween_all_completed")
 	_ui.visible = false
+
+func _prep_to_free():
+	if _ui.visible:
+		_hide_ui()
+	
+	assert(_tween.interpolate_property(self, "scale", _scale_final, Vector2.ZERO, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.start())
