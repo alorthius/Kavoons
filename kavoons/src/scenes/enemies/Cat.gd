@@ -32,6 +32,12 @@ var _magical_resistance_percentage: float
 onready var _sprite: Sprite = $Sprite
 onready var _animation: AnimationPlayer = $AnimationPlayer
 
+var _rotation_init := 270
+var _rotation_final := 360
+var _scale_init := 0.2 * Vector2.ONE
+var _scale_final := Vector2.ONE
+var _entrance_time := 0.5
+
 onready var _hit_timer: Timer = $HitTimer
 onready var _ui_timer: Timer = $UITimer
 
@@ -127,11 +133,28 @@ func _apply_cat_data():
 
 func _on_AreaUI_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
-		_ui.visible = not _ui.visible
-		
-		if _ui.visible:
+		if not _ui.visible:
+			_show_ui()
 			_ui_timer.start()
+		else:
+			_hide_ui()
 
 
 func _on_UITimer_timeout():
+	_hide_ui()
+
+
+func _show_ui():
+	_ui.visible = true
+	
+	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.start())
+
+func _hide_ui():	
+	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_final, _rotation_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_final, _scale_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.start())
+	
+	yield(_tween, "tween_all_completed")
 	_ui.visible = false

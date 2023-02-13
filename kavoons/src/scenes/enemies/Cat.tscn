@@ -62,6 +62,17 @@ shader_param/modulate = Color( 0.12549, 0.0509804, 0.172549, 0.392157 )
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 22, 13.875 )
 
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 43.0
+height = 70.0
+
+[sub_resource type="DynamicFont" id=5]
+resource_local_to_scene = true
+size = 30
+extra_spacing_bottom = -2
+extra_spacing_char = 2
+font_data = ExtResource( 12 )
+
 [sub_resource type="Animation" id=2]
 resource_name = "Cat1_walk"
 loop = true
@@ -77,17 +88,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ]
 }
-
-[sub_resource type="CapsuleShape2D" id=6]
-radius = 43.0
-height = 70.0
-
-[sub_resource type="DynamicFont" id=5]
-resource_local_to_scene = true
-size = 30
-extra_spacing_bottom = -2
-extra_spacing_char = 2
-font_data = ExtResource( 12 )
 
 [node name="Cat" type="PathFollow2D" groups=["enemies"]]
 loop = false
@@ -106,13 +106,6 @@ shape = SubResource( 1 )
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 1.5
-anims/Cat1_walk = SubResource( 2 )
-anims/base_walk = ExtResource( 3 )
-
-[node name="Tween" type="Tween" parent="."]
 
 [node name="AreaUI" type="Area2D" parent="."]
 
@@ -335,6 +328,13 @@ text = "%"
 [node name="UITimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/Cat1_walk = SubResource( 2 )
+anims/base_walk = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="input_event" from="AreaUI" to="." method="_on_AreaUI_input_event"]
