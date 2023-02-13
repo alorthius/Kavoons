@@ -108,19 +108,24 @@ func _parse_cat_data():
 
 
 func _apply_cat_data():
-	$UI/Pos/OnHover/Name.text = base_name
+	var hover_ui := $UI/Pos/OnHover
+	hover_ui.get_node("Name").text = base_name
 	
-	$UI/Pos/OnHover/Stats/Left/HP/CurrHP.text = str(_hp)
-	$UI/Pos/OnHover/Stats/Left/HP/MaxHP.text = str(_hp)
+	var stats := $UI/Pos/OnHover/Stats
+	var left := stats.get_node("Left")
+	var right := stats.get_node("Right")
 	
-	$UI/Pos/OnHover/Stats/Left/LifesCost/Label.text = str(_lifes_cost)
-	$UI/Pos/OnHover/Stats/Left/MoneyReward/Label.text = str(_money_reward)
+	left.get_node("HP/CurrHP").text = str(_hp)
+	left.get_node("HP/MaxHP").text = str(_hp)
 	
-	$UI/Pos/OnHover/Stats/Right/MoveSpeed/Label.text = str(_move_speed)
-	$UI/Pos/OnHover/Stats/Right/PhysicalArmor/Label.text = str(_physical_armor_flat)
-	$UI/Pos/OnHover/Stats/Right/MagicalResistance/Label.text = str(_magical_resistance_percentage)
+	left.get_node("LifesCost/Label").text = str(_lifes_cost)
+	left.get_node("MoneyReward/Label").text = str(_money_reward)
+	
+	right.get_node("MoveSpeed/Label").text = str(_move_speed)
+	right.get_node("PhysicalArmor/Label").text = str(_physical_armor_flat)
+	right.get_node("MagicalResistance/Label").text = str(_magical_resistance_percentage)
 
 
-func _on_AreaUI_input_event(viewport, event, shape_idx):
+func _on_AreaUI_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		_ui.visible = not _ui.visible
