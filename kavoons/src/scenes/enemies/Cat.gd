@@ -14,8 +14,13 @@ var _lifes_cost: int
 var _money_reward: int
 
 var _hp: int
-onready var _hp_bar = $BarPos/HP
-onready var _hp_bar_pos = $BarPos
+
+onready var _ui = $UI
+onready var _ui_pos = $UI/Pos
+
+onready var _hp_bar = $UI/Pos/HP
+onready var _curr_hp_ui = $UI/Pos/OnHover/Stats/Left/HP/CurrHP
+
 
 onready var _tween: Tween = $Tween
 var _hp_reduction_duration := 0.7
@@ -27,22 +32,27 @@ var _magical_resistance_percentage: float
 onready var _sprite: Sprite = $Sprite
 onready var _animation: AnimationPlayer = $AnimationPlayer
 
+var _rotation_init := 270
+var _rotation_final := 360
+var _scale_init := 0.2 * Vector2.ONE
+var _scale_final := Vector2.ONE
+var _entrance_time := 0.5
+
 onready var _hit_timer: Timer = $HitTimer
+onready var _ui_timer: Timer = $UITimer
 
 var _on_hit_color: Color = Color(0.8, 0.2, 0.2, 0.8)
 
 ## Attach the health bar to a cat and spawn it with a random vertical offset
 func _ready():
 	_parse_cat_data()
+	_apply_cat_data()
 	
 	_hp_bar.max_value = _hp
 	_hp_bar.value = _hp_bar.max_value
-	_hp_bar_pos.set_as_toplevel(true)
+	_ui_pos.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
-	
-#	var inherited_walk = _animation.get_animation("base_walk").duplicate()
-#	_animation.add_animation(base_name + "_walk", inherited_walk)
 	
 	_animation.play(base_name + "_walk")
 
@@ -53,7 +63,7 @@ func _physics_process(delta):
 	if get_unit_offset() >= 1:  # reached the path end
 		_reached_end()
 	
-	_hp_bar_pos.set_position(position)
+	_ui_pos.set_position(position)
 
 ## Process the hit of the cat
 func on_hit(dmg: int):
@@ -66,6 +76,8 @@ func on_hit(dmg: int):
 
 
 func _reduce_health():
+	_curr_hp_ui.text = str(_hp)
+	
 	assert(_tween.interpolate_property(_hp_bar, "value", _hp_bar.value, _hp, _hp_reduction_duration, Tween.TRANS_EXPO, Tween.EASE_OUT))
 	assert(_tween.start())
 
@@ -75,6 +87,8 @@ func _on_HitTimer_timeout():
 
 
 func _killed():
+#	_prep_to_free()
+#	yield(_tween, "tween_all_completed")
 	Events.emit_signal("update_money", _money_reward)
 	_free()
 
@@ -98,3 +112,56 @@ func _parse_cat_data():
 	_move_speed = data["move_speed"]
 	_physical_armor_flat = data["physical_armor_flat"]
 	_magical_resistance_percentage = data["magical_resistance_percentage"]
+
+
+func _apply_cat_data():
+	var hover_ui := $UI/Pos/OnHover
+	hover_ui.get_node("Name").text = base_name
+	
+	var stats := $UI/Pos/OnHover/Stats
+	var left := stats.get_node("Left")
+	var right := stats.get_node("Right")
+	
+	left.get_node("HP/CurrHP").text = str(_hp)
+	left.get_node("HP/MaxHP").text = str(_hp)
+	
+	left.get_node("LifesCost/Label").text = str(_lifes_cost)
+	left.get_node("MoneyReward/Label").text = str(_money_reward)
+	
+	right.get_node("MoveSpeed/Label").text = str(_move_speed)
+	right.get_node("PhysicalArmor/Label").text = str(_physical_armor_flat)
+	right.get_node("MagicalResistance/Label").text = str(_magical_resistance_percentage)
+
+
+func _on_AreaUI_input_event(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
+		if not _ui.visible:
+			_show_ui()
+			_ui_timer.start()
+		else:
+			_hide_ui()
+
+func _on_UITimer_timeout():
+	_hide_ui()
+
+func _show_ui():
+	_ui.visible = true
+	
+	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.start())
+
+func _hide_ui():
+	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_final, _rotation_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_final, _scale_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.start())
+	
+	yield(_tween, "tween_all_completed")
+	_ui.visible = false
+
+func _prep_to_free():
+	if _ui.visible:
+		_hide_ui()
+	
+	assert(_tween.interpolate_property(self, "scale", _scale_final, Vector2.ZERO, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.start())

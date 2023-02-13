@@ -83,9 +83,10 @@ func _hide_ui():
 
 	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	assert(_tween.interpolate_property(_pos, "scale", _scale_final, _scale_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	
-	assert(_tween.interpolate_property(_ui, "visible", true, false, 0, Tween.TRANS_BACK, Tween.EASE_IN, _exit_time))
 	assert(_tween.start())
+	
+	yield(_tween, "tween_all_completed")
+	_ui.visible = false
 
 func _prep_to_free():
 	_hide_ui()
