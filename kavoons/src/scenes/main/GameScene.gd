@@ -10,15 +10,18 @@ onready var _map = $Map
 onready var _pathes = $Map/Pathes
 onready var _starters = $Map/Starters.get_children()
 
+onready var _curr_wave_label = $UI/Wave/CurrWave
+onready var _total_waves_label = $UI/Wave/TotalWaves
+
 onready var _wave_scene = preload("res://src/scenes/waves/Wave.tscn")
+
 
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $UI/Builder
 
 onready var _measures = $UI/MeasuresManager
 
-## Timer managing the flow of the waves of a map
-onready var _waves_timer: Timer = $WavesTimer
+
 ## Container with all the placed towers
 onready var _towers_container: Node = $Towers
 ## Container with all the spawned cats
@@ -42,6 +45,9 @@ func attach_map(map):
 	
 
 func _ready():
+	_total_waves_label.text = str(_map.waves.keys()[-1])
+	_curr_wave_label.text = str(_wave_idx)
+	
 	_measures.set_init_money(666)
 	_measures.set_init_lifes(69)
 
@@ -75,11 +81,9 @@ func _attach_melon(new_tower: Melon):
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
 
 func _start_wave():
-	_waves_timer.start()
-
-## Start a new wave
-func _on_WavesTimer_timeout():
 	_wave_idx += 1
+	_curr_wave_label.text = str(_wave_idx)
+	
 	var wave = _wave_scene.instance()
 	wave.set_wave_info(_map.waves[_wave_idx], _cats_pathes.size())
 	add_child(wave, true)
@@ -88,6 +92,7 @@ func _on_WavesTimer_timeout():
 	assert(wave.connect("spawning_ended", self, "_on_spawn_end") == 0)
 	
 	_active_waves.append(wave)
+
 
 ## Spawn the cat
 func _attach_cat(cat, wave_idx):
