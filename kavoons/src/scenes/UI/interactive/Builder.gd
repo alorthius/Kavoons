@@ -56,6 +56,14 @@ func _ready():
 func _process(_delta):
 	if _is_active:
 		_update_tower_preview()
+		_validate_position()
+		
+		if Input.is_action_pressed("ui_accept") and _is_valid:
+			_place_melon()
+			_cancel_building()
+		
+		if Input.is_action_pressed("ui_cancel"):
+			_cancel_building()
 
 ## Disable buttons if not enough money for purchase
 func _validate_price(total: int):
@@ -70,17 +78,6 @@ func _validate_price(total: int):
 			butt.disabled = false
 			icon.self_modulate = Color(1, 1, 1, 1)
 
-## Listen to the left and right mouse buttons clicks.
-## On left click finishes the the new tower and emits it,
-## on right click cancels the building mode
-func _unhandled_input(event):
-	if _is_active:
-		_validate_position()
-		if event.is_action_pressed("ui_accept") and _is_valid:
-			_place_melon()
-			_cancel_building()
-		if event.is_action_pressed("ui_cancel"):
-			_cancel_building()
 
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):

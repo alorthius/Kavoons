@@ -99,8 +99,22 @@ func _attach_cat(cat, wave_idx):
 #	var path_idx = randi() % _cats_pathes.size()
 	_cats_pathes[wave_idx].add_child(cat, true)
 
-## Manage the wave end; start the countdown for a new one
+## Manage the end of spawning enemies for a wave
 func _on_spawn_end(wave):
 	_active_waves.erase(wave)
 	wave.queue_free()
-#	_waves_timer.start()
+	givno_loop()
+
+func _on_wave_end():
+	print("lllll")
+
+func givno_loop():
+	while true:
+		var all_ded = true
+		for path in _cats_pathes:
+			if path.get_children_count() != 0:
+				all_ded = false
+		if all_ded:
+			break
+	_on_wave_end()
+

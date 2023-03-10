@@ -32,22 +32,16 @@ margin_left = 60.0
 margin_top = 40.0
 margin_right = -1687.0
 margin_bottom = -890.0
+mouse_filter = 2
 
 [node name="Builder" parent="UI" instance=ExtResource( 4 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -960.0
-margin_top = 360.0
-margin_right = 960.0
-margin_bottom = 510.0
 
 [node name="Wave" type="HBoxContainer" parent="UI"]
 anchor_right = 1.0
 margin_left = 500.0
 margin_right = -500.0
 margin_bottom = 100.0
+mouse_filter = 2
 alignment = 1
 
 [node name="Wave" type="Label" parent="UI/Wave"]

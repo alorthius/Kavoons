@@ -8,6 +8,11 @@
 radius = 35.0
 
 [node name="Builder" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+mouse_filter = 1
 script = ExtResource( 2 )
 
 [node name="TowerPreview" type="Node2D" parent="."]
