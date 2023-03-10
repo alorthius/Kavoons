@@ -1,14 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scenes/UI/utility/butts/base/Butt.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/UI/skull.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/circle.png" type="Texture" id=3]
+[ext_resource path="res://src/scenes/UI/utility/butts/WaveStarter.gd" type="Script" id=4]
+[ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=5]
 
 [node name="WaveStarter" instance=ExtResource( 1 )]
 self_modulate = Color( 0.94902, 0.784314, 1, 0.847059 )
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 3 )
+script = ExtResource( 4 )
+focus_scale = 0.0
+butt_darkened = 0.0
+icon_darkened = 0.0
 
 [node name="Icon" parent="." index="0"]
 self_modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="." index="2"]
+margin_left = 59.3333
+margin_top = 13.3333
+margin_right = 99.3333
+margin_bottom = 27.3333
+custom_fonts/font = ExtResource( 5 )
+text = "jhsdhd"
+
+[connection signal="pressed" from="." to="." method="_on_WaveStarter_pressed"]

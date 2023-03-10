@@ -54,8 +54,11 @@ func _ready():
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)
 	
+	var i = 1
 	for butt in _starters:
-		assert(butt.connect("pressed", self, "_start_wave") == 0)
+		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["enemies"])
+		assert(butt.connect("start_wave", self, "_start_wave") == 0)
+		i += 1
 
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
@@ -81,6 +84,10 @@ func _attach_melon(new_tower: Melon):
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
 
 func _start_wave():
+	for butt in _starters:
+		butt.clear_data()
+		butt.disabled = true
+		
 	_wave_idx += 1
 	_curr_wave_label.text = str(_wave_idx)
 	
@@ -103,3 +110,15 @@ func _attach_cat(cat, wave_idx):
 func _on_spawn_end(wave):
 	_active_waves.erase(wave)
 	wave.queue_free()
+	end_wave()
+
+func end_wave():
+	if _wave_idx == _map.waves.keys()[-1]:
+		_curr_wave_label.text = "SRAKAAA"
+		return
+
+	var i = 1
+	for butt in _starters:
+		butt.disabled = false
+		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["enemies"])
+		i += 1

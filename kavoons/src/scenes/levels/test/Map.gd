@@ -25,8 +25,8 @@ var waves: Dictionary = {
 			"spawns":  [1,          1,          0.5,        0.5,        0.5,        2,          1         ],
 		},
 		"Path2": {
-			"enemies": [],
-			"spawns":  [],
+			"enemies": [Cats.cat_2, Cats.cat_2],
+			"spawns":  [10,         2         ],
 		},
 	},
 }
