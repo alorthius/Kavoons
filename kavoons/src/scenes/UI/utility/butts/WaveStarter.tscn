@@ -6,7 +6,7 @@
 
 [node name="WaveStarter" instance=ExtResource( 1 )]
 self_modulate = Color( 0.94902, 0.784314, 1, 0.847059 )
-rect_scale = Vector2( 2, 2 )
+rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 3 )
 
 [node name="Icon" parent="." index="0"]

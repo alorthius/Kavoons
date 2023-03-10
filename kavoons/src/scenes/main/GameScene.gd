@@ -13,9 +13,9 @@ onready var _starters = $Map/Starters.get_children()
 onready var _wave_scene = preload("res://src/scenes/waves/Wave.tscn")
 
 ## The only [Builder] instance responsible to build and create new towers
-onready var _builder: Builder = $Builder
+onready var _builder: Builder = $UI/Builder
 
-onready var _measures = $MeasuresManager
+onready var _measures = $UI/MeasuresManager
 
 ## Timer managing the flow of the waves of a map
 onready var _waves_timer: Timer = $WavesTimer

@@ -11,7 +11,7 @@ extends Control
 class_name Builder
 
 
-onready var _build_bar: HBoxContainer = $UI/HUD/BuildBar
+onready var _build_bar: HBoxContainer = $BuildBar
 onready var _build_butts: Array = []
 
 ## Is building currently active
@@ -25,7 +25,7 @@ var _overlapped_melons = []
 var _overlapped_tiles = []
 
 ## The node managing the melon preview while building is active
-onready var _tower_preview: Node2D = $UI/HUD/TowerPreview
+onready var _tower_preview: Node2D = $TowerPreview
 
 var _chosen_melon: String
 
