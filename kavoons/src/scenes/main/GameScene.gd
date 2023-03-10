@@ -103,18 +103,3 @@ func _attach_cat(cat, wave_idx):
 func _on_spawn_end(wave):
 	_active_waves.erase(wave)
 	wave.queue_free()
-	givno_loop()
-
-func _on_wave_end():
-	print("lllll")
-
-func givno_loop():
-	while true:
-		var all_ded = true
-		for path in _cats_pathes:
-			if path.get_children_count() != 0:
-				all_ded = false
-		if all_ded:
-			break
-	_on_wave_end()
-

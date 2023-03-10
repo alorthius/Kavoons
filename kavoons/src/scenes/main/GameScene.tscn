@@ -35,9 +35,7 @@ margin_bottom = -890.0
 mouse_filter = 2
 
 [node name="Builder" parent="UI" instance=ExtResource( 4 )]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
+mouse_filter = 2
 
 [node name="Wave" type="HBoxContainer" parent="UI"]
 anchor_right = 1.0
