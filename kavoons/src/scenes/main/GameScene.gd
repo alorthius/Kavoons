@@ -5,6 +5,13 @@ extends Node2D
 ## Create the playable map, connect all the game logical parts and instances.
 ## A parent for all the map itself, UI, economy and life systems, enemy waves, and towers.
 
+var _map_folder: String
+onready var _map = $Map
+onready var _pathes = $Map/Pathes
+onready var _starters = $Map/Starters.get_children()
+
+onready var _wave_scene = preload("res://src/scenes/waves/Wave.tscn")
+
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $Builder
 
@@ -19,7 +26,8 @@ onready var _cats_pathes: Array = $Map/Pathes.get_children()
 ## Spawns effects
 #onready var _effects_manager: Node = $EffectsManager
 
-var _curr_wave: Wave
+var _wave_idx: int = 0
+var _active_waves := []
 
 ## The preloaded [MelonManager] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
@@ -27,14 +35,22 @@ var _melon_manager: PackedScene = preload("res://src/scenes/UI/interactive/Melon
 var _melon_manager_final: PackedScene = preload("res://src/scenes/UI/interactive/MelonManagerFinal.tscn")
 
 
+# TODO: MAKE IT WORK
+func attach_map(map):
+	pass
+#	_map = map
+	
+
 func _ready():
 	_measures.set_init_money(666)
 	_measures.set_init_lifes(69)
 
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)
+	
+	for butt in _starters:
+		assert(butt.connect("pressed", self, "_start_wave") == 0)
 
-	_waves_timer.start()
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
@@ -58,23 +74,28 @@ func _attach_melon(new_tower: Melon):
 	# forces melons to validate cost of upgrades according to current amount of money
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
 
-## Start a new wave
-func _on_WavesTimer_timeout():
-	var wave = load("res://src/scenes/waves/Wave.tscn").instance()
-	_curr_wave = wave
-	add_child(wave, true)
-	
-	assert(_curr_wave.connect("spawn_enemy", self, "_attach_cat") == 0)
-	assert(_curr_wave.connect("spawning_ended", self, "_on_spawn_end") == 0)
-
-## Spawn the cat
-func _attach_cat(cat):
-	var path_idx = randi() % _cats_pathes.size()
-	_cats_pathes[path_idx].add_child(cat, true)
-
-## Manage the wave end; start the countdown for a new one
-func _on_spawn_end():
-	_curr_wave.queue_free()
+func _start_wave():
 	_waves_timer.start()
 
+## Start a new wave
+func _on_WavesTimer_timeout():
+	_wave_idx += 1
+	var wave = _wave_scene.instance()
+	wave.set_wave_info(_map.waves[_wave_idx], _cats_pathes.size())
+	add_child(wave, true)
+	
+	assert(wave.connect("spawn_enemy", self, "_attach_cat") == 0)
+	assert(wave.connect("spawning_ended", self, "_on_spawn_end") == 0)
+	
+	_active_waves.append(wave)
 
+## Spawn the cat
+func _attach_cat(cat, wave_idx):
+#	var path_idx = randi() % _cats_pathes.size()
+	_cats_pathes[wave_idx].add_child(cat, true)
+
+## Manage the wave end; start the countdown for a new one
+func _on_spawn_end(wave):
+	_active_waves.erase(wave)
+	wave.queue_free()
+#	_waves_timer.start()
