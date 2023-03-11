@@ -37,6 +37,7 @@ var _active_waves := []
 var _melon_manager: PackedScene = preload("res://src/scenes/UI/interactive/MelonManager.tscn")
 var _melon_manager_final: PackedScene = preload("res://src/scenes/UI/interactive/MelonManagerFinal.tscn")
 
+var enemies = []
 
 # TODO: MAKE IT WORK
 func attach_map(map):
@@ -105,12 +106,19 @@ func _start_wave():
 func _attach_cat(cat, wave_idx):
 #	var path_idx = randi() % _cats_pathes.size()
 	_cats_pathes[wave_idx].add_child(cat, true)
+	enemies.append(cat)
+	cat.connect("cat_deleted", self, "_remove_cat")
+
+func _remove_cat(cat):
+	enemies.erase(cat)
+	if enemies.empty() and _active_waves.empty():
+		end_wave()
 
 ## Manage the end of spawning enemies for a wave
 func _on_spawn_end(wave):
 	_active_waves.erase(wave)
 	wave.queue_free()
-	end_wave()
+#	end_wave()
 
 func end_wave():
 	if _wave_idx == _map.waves.keys()[-1]:

@@ -43,6 +43,9 @@ onready var _ui_timer: Timer = $UITimer
 
 var _on_hit_color: Color = Color(0.8, 0.2, 0.2, 0.8)
 
+signal cat_deleted(cat)
+
+
 ## Attach the health bar to a cat and spawn it with a random vertical offset
 func _ready():
 	_parse_cat_data()
@@ -89,11 +92,13 @@ func _on_HitTimer_timeout():
 func _killed():
 #	_prep_to_free()
 #	yield(_tween, "tween_all_completed")
+	emit_signal("cat_deleted", self)
 	Events.emit_signal("update_money", _money_reward)
 	_free()
 
 
 func _reached_end():
+	emit_signal("cat_deleted", self)
 	Events.emit_signal("update_lifes", - _lifes_cost)
 	_free()
 
