@@ -57,7 +57,7 @@ func _ready():
 	
 	var i = 1
 	for butt in _starters:
-		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["enemies"])
+		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
 		assert(butt.connect("start_wave", self, "_start_wave") == 0)
 		i += 1
 
@@ -128,5 +128,5 @@ func end_wave():
 	var i = 1
 	for butt in _starters:
 		butt.disabled = false
-		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["enemies"])
+		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
 		i += 1
