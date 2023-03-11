@@ -4,6 +4,6 @@
 
 [resource]
 resource_local_to_scene = true
-size = 25
+size = 100
 extra_spacing_bottom = -2
 font_data = ExtResource( 1 )

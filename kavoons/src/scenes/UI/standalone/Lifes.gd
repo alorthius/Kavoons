@@ -4,6 +4,7 @@ var _lifes_remain: int = 0
 
 onready var _label: Label = $Label
 
+signal finish_game()
 
 func _ready():
 	assert(Events.connect("update_lifes", self, "_update_lifes") == 0)
@@ -13,8 +14,7 @@ func _ready():
 func _update_lifes(delta: int):
 	_lifes_remain += delta
 	if _lifes_remain <= 0:
-		#TODO
-		print("GAME OVER UR DED")
+		emit_signal("finish_game")
 	_update_label()
 
 ## Update label text to a new amount of lifes

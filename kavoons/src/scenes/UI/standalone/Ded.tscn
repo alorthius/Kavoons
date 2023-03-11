@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0181818, 0.727273, 1 )
+colors = PoolColorArray( 0.109804, 0.0588235, 0.141176, 1, 0.305882, 0.145098, 0.262745, 1, 0.368627, 0.160784, 0.235294, 1 )
+
+[sub_resource type="GradientTexture2D" id=2]
+flags = 15
+gradient = SubResource( 1 )
+
+[node name="Ded" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.745098 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 300.0
+margin_top = -300.0
+margin_right = -300.0
+margin_bottom = 100.0
+texture = SubResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="TextureRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -49.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 1 )
+text = "UR DED LMAO NAB"
+align = 1

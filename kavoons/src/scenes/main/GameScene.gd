@@ -50,10 +50,11 @@ func _ready():
 	_curr_wave_label.text = str(_wave_idx)
 	
 	_measures.set_init_money(666)
-	_measures.set_init_lifes(69)
+	_measures.set_init_lifes(1)
 
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)
+	assert(_measures._lifes.connect("finish_game", self, "_finish_game") == 0)
 	
 	var i = 1
 	for butt in _starters:
@@ -130,3 +131,8 @@ func end_wave():
 		butt.disabled = false
 		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
 		i += 1
+
+func _finish_game():
+	var ded = load("res://src/scenes/UI/standalone/Ded.tscn").instance()
+	$UI.add_child(ded)
+	get_tree().paused = true

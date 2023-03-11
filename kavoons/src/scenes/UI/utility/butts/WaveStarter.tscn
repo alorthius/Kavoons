@@ -7,7 +7,7 @@
 [ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=5]
 
 [node name="WaveStarter" instance=ExtResource( 1 )]
-self_modulate = Color( 0.94902, 0.784314, 1, 0.847059 )
+self_modulate = Color( 1, 0.784314, 0.882353, 0.556863 )
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 3 )
 script = ExtResource( 4 )
