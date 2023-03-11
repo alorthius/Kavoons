@@ -134,5 +134,5 @@ func end_wave():
 
 func _finish_game():
 	var ded = load("res://src/scenes/UI/standalone/Ded.tscn").instance()
-	$UI.add_child(ded)
+	add_child(ded)
 	get_tree().paused = true

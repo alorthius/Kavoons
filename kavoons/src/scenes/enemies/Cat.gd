@@ -53,7 +53,6 @@ func _ready():
 	
 	_hp_bar.max_value = _hp
 	_hp_bar.value = _hp_bar.max_value
-	_ui_pos.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
 	
