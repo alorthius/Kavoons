@@ -2,6 +2,8 @@ extends "res://src/scenes/UI/utility/butts/base/Butt.gd"
 
 signal start_wave()
 
+onready var _position_shifted = _position_init + Vector2(0, 40)
+
 var is_showing = false
 var data := ""
 
@@ -30,4 +32,5 @@ func clear_data():
 
 func fade_out():
 	assert(_tween.interpolate_property(self, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 1, Tween.TRANS_EXPO, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "rect_position", _position_init, _position_shifted, 1, Tween.TRANS_EXPO, Tween.EASE_OUT))
 	assert(_tween.start())
