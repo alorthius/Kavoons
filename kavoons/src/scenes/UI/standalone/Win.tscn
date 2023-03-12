@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0181818, 0.727273, 1 )
+colors = PoolColorArray( 0.109804, 0.0588235, 0.141176, 1, 0.305882, 0.145098, 0.262745, 1, 0.368627, 0.160784, 0.235294, 1 )
+
+[sub_resource type="GradientTexture2D" id=2]
+flags = 15
+gradient = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+resource_local_to_scene = true
+size = 100
+extra_spacing_bottom = -2
+font_data = ExtResource( 1 )
+
+[node name="Ded" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color( 1, 1, 1, 0.745098 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 300.0
+margin_top = -300.0
+margin_right = -300.0
+margin_bottom = 100.0
+texture = SubResource( 2 )
+expand = true
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -49.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 3 )
+text = "VICTORY!"
+align = 1

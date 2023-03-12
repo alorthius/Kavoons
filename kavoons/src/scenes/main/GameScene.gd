@@ -130,7 +130,9 @@ func _on_spawn_end(wave):
 
 func end_wave():
 	if _wave_idx == _map.waves.keys()[-1]:
-		_curr_wave_label.text = "SRAKAAA"
+		var win_scene = load("res://src/scenes/UI/standalone/Win.tscn").instance()
+		add_child(win_scene)
+		get_tree().paused = true
 		return
 
 	var i = 1
