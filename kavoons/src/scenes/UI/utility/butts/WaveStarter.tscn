@@ -17,7 +17,6 @@ self_modulate = Color( 1, 0.784314, 0.882353, 0.556863 )
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 3 )
 script = ExtResource( 4 )
-focus_scale = 0.0
 butt_darkened = 0.0
 icon_darkened = 0.0
 

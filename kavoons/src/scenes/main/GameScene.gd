@@ -85,7 +85,14 @@ func _attach_melon(new_tower: Melon):
 	# forces melons to validate cost of upgrades according to current amount of money
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
 
+func _fade_all_starters():
+	for butt in _starters:
+		butt.fade_out()
+	for butt in _starters:
+		yield(butt._tween, "tween_all_completed")
+
 func _start_wave():
+	yield(_fade_all_starters(), "completed")
 	for butt in _starters:
 		butt.clear_data()
 		butt.disabled = true

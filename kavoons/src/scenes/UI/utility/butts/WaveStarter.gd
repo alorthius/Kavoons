@@ -20,10 +20,14 @@ func _on_WaveStarter_pressed():
 		is_showing = true
 		show_data()
 	else:
-		is_showing = false
-		$Label.visible = false
+		is_showing = false	
 		emit_signal("start_wave")
 
 func clear_data():
 	data = ""
 	visible = false
+	modulate = Color(1, 1, 1, 1)
+
+func fade_out():
+	assert(_tween.interpolate_property(self, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 1, Tween.TRANS_EXPO, Tween.EASE_OUT))
+	assert(_tween.start())
