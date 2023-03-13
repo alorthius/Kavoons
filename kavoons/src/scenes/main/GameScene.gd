@@ -50,7 +50,7 @@ func _ready():
 	_curr_wave_label.text = str(_wave_idx)
 	
 	_measures.set_init_money(666)
-	_measures.set_init_lifes(1)
+	_measures.set_init_lifes(100)
 
 	assert(_builder.connect("tower_placed", self, "_attach_melon") == 0)
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)

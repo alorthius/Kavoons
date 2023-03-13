@@ -47,6 +47,12 @@ custom_fonts/font = SubResource( 1 )
 text = "6969"
 valign = 1
 
+[node name="PosFrom" type="Position2D" parent="Economy"]
+position = Vector2( 165, 5 )
+
+[node name="PosTo" type="Position2D" parent="Economy"]
+position = Vector2( 165, 50 )
+
 [node name="Lifes" type="HBoxContainer" parent="."]
 margin_top = 77.0
 margin_right = 173.0
@@ -72,3 +78,9 @@ size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 text = "69"
 valign = 1
+
+[node name="PosFrom" type="Position2D" parent="Lifes"]
+position = Vector2( 115, 5 )
+
+[node name="PosTo" type="Position2D" parent="Lifes"]
+position = Vector2( 115, 50 )
