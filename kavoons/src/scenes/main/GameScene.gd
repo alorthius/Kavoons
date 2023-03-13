@@ -92,13 +92,13 @@ func _fade_all_starters():
 		yield(butt._tween, "tween_all_completed")
 
 func _start_wave():
+	_wave_idx += 1
+	_curr_wave_label.text = str(_wave_idx)
+	
 	yield(_fade_all_starters(), "completed")
 	for butt in _starters:
 		butt.clear_data()
 		butt.disabled = true
-		
-	_wave_idx += 1
-	_curr_wave_label.text = str(_wave_idx)
 	
 	var wave = _wave_scene.instance()
 	wave.set_wave_info(_map.waves[_wave_idx], _cats_pathes.size())
