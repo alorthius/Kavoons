@@ -51,7 +51,6 @@ func fade_out():
 	assert(_tween.interpolate_property(self, "rect_position", _position_init, _position_shifted, 1, Tween.TRANS_EXPO, Tween.EASE_OUT))
 	assert(_tween.start())
 
-
 func _on_WaveStarter_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == BUTTON_LEFT:

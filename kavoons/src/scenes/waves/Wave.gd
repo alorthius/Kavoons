@@ -13,7 +13,6 @@ var _dicts = []
 
 
 func set_wave_info(info: Dictionary, num_pathes: int):
-	
 	for i in range(num_pathes):
 		var dict = info["Path" + str(i + 1)]
 		dict["enemies_left"] = len(dict["enemies"])
@@ -23,9 +22,9 @@ func set_wave_info(info: Dictionary, num_pathes: int):
 		_dicts.append(dict)
 		
 		add_child(new_timer, true)
-			
+		
 		assert(new_timer.connect("timeout", self, "_on_CatsTimer_timeout", [i]) == 0)
-					
+		
 		new_timer.set_wait_time(_dicts[i]["spawns"].pop_front())
 
 ## Set timer to wait for the first cat

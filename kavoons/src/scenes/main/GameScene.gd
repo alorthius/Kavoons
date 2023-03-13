@@ -126,9 +126,10 @@ func _remove_cat(cat):
 func _on_spawn_end(wave):
 	_active_waves.erase(wave)
 	wave.queue_free()
-#	end_wave()
 
 func end_wave():
+	Events.emit_signal("update_money", _map.waves[_wave_idx]["reward"])
+	
 	if _wave_idx == _map.waves.keys()[-1]:
 		var win_scene = load("res://src/scenes/UI/standalone/Win.tscn").instance()
 		add_child(win_scene)
