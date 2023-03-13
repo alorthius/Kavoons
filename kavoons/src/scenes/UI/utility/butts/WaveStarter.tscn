@@ -32,4 +32,4 @@ margin_bottom = 27.3333
 custom_fonts/font = SubResource( 1 )
 text = "jhsdhd"
 
-[connection signal="pressed" from="." to="." method="_on_WaveStarter_pressed"]
+[connection signal="gui_input" from="." to="." method="_on_WaveStarter_gui_input"]
