@@ -2,12 +2,14 @@ extends "res://src/scenes/UI/utility/butts/base/Butt.gd"
 
 signal start_wave()
 
-onready var _position_shifted = _position_init + Vector2(0, 40)
+onready var _position_init = rect_position
+onready var _position_shifted = rect_position + Vector2(0, 40)
 
 var is_showing = false
 var data := ""
 
 func set_data(new_data):
+	rect_position = _position_init
 	visible = true
 	$Label.visible = false
 	data = str(new_data)

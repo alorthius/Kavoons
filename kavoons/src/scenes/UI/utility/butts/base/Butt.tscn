@@ -10,6 +10,7 @@ load_path = "res://.import/disabled_build_button.png-44c1fe8ac8e6459e228a6760ae9
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
+rect_pivot_offset = Vector2( 25, 25 )
 mouse_filter = 1
 size_flags_horizontal = 4
 size_flags_vertical = 4
