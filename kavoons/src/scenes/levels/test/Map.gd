@@ -3,9 +3,12 @@ extends Node2D
 # warning-ignore:unused_class_variable
 var waves: Dictionary = {
 	1: {
-		"prestart": 0,
 		"duration": 20,
 		"reward": 50,
+		
+		"prestart": 0,
+		"prestart_reward": 0,
+
 		"Path1": {
 			"enemies": [Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1],
 			"spawns":  [2,          1,          4,          1,          2,          4,          1,          2,        ],
@@ -19,9 +22,12 @@ var waves: Dictionary = {
 	},
 
 	2: {
-		"prestart": 3,
 		"duration": 10,
 		"reward": 70,
+		
+		"prestart": 3,
+		"prestart_reward": 30,
+		
 		"Path1": {
 			"enemies": [Cats.cat_1, Cats.cat_2, Cats.cat_2, Cats.cat_2, Cats.cat_2, Cats.cat_1, Cats.cat_2],
 			"spawns":  [1,          1,          0.5,        0.5,        0.5,        2,          1         ],
