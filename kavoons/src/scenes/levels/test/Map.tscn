@@ -301,13 +301,13 @@ curve = SubResource( 34 )
 [node name="Starters" type="Node2D" parent="."]
 
 [node name="WaveStarter1" parent="Starters" instance=ExtResource( 5 )]
-margin_left = 86.0
-margin_top = 240.0
-margin_right = 136.0
-margin_bottom = 290.0
+margin_left = 54.0
+margin_top = 228.0
+margin_right = 104.0
+margin_bottom = 278.0
 
 [node name="WaveStarter2" parent="Starters" instance=ExtResource( 5 )]
-margin_left = 23.0
-margin_top = 362.0
-margin_right = 73.0
-margin_bottom = 412.0
+margin_left = 51.0
+margin_top = 357.0
+margin_right = 101.0
+margin_bottom = 407.0

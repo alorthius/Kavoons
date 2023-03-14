@@ -16,7 +16,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = SubResource( 1 )
 expand = true
-stretch_mode = 4
+stretch_mode = 5
 script = ExtResource( 3 )
 focus_scale = 0.2
 butt_darkened = 0.5
@@ -32,6 +32,7 @@ margin_bottom = -6.0
 mouse_filter = 2
 texture = ExtResource( 4 )
 expand = true
+stretch_mode = 6
 
 [node name="Tween" type="Tween" parent="."]
 

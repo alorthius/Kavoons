@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hp_bar-1.png-b1a77d70453fa18e4770b7218fff5f6d.stex"
+path="res://.import/cat_skull.png-9e647fde47efd0780a0e93d188d1daad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/hp_bar/hp_bar-1.png"
-dest_files=[ "res://.import/hp_bar-1.png-b1a77d70453fa18e4770b7218fff5f6d.stex" ]
+source_file="res://assets/UI/butts/cat_skull.png"
+dest_files=[ "res://.import/cat_skull.png-9e647fde47efd0780a0e93d188d1daad.stex" ]
 
 [params]
 

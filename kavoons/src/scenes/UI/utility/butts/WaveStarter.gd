@@ -63,3 +63,4 @@ func _on_WaveStarter_gui_input(event):
 			_on_WaveStarter_pressed()
 		if event.button_index == BUTTON_RIGHT:
 			hide_data()
+

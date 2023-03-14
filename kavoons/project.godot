@@ -79,6 +79,11 @@ window/stretch/aspect="keep"
 rendering=false
 warning=false
 warnings=false
+dpi=false
+
+[gui]
+
+common/snap_controls_to_pixels=false
 
 [importer_defaults]
 
