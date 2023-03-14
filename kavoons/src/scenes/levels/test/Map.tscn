@@ -1,10 +1,9 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/resources/shaders/wind.tres" type="Material" id=1]
 [ext_resource path="res://assets/tilesets/background.png" type="Texture" id=2]
 [ext_resource path="res://assets/tilesets/road.png" type="Texture" id=3]
 [ext_resource path="res://assets/tilesets/grass.png" type="Texture" id=4]
-[ext_resource path="res://src/scenes/UI/utility/butts/WaveStarter.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/scenes/levels/test/Map.gd" type="Script" id=6]
 
 [sub_resource type="TileSet" id=35]
@@ -300,14 +299,8 @@ curve = SubResource( 34 )
 
 [node name="Starters" type="Node2D" parent="."]
 
-[node name="WaveStarter1" parent="Starters" instance=ExtResource( 5 )]
-margin_left = 54.0
-margin_top = 228.0
-margin_right = 104.0
-margin_bottom = 278.0
+[node name="StarterPos1" type="Position2D" parent="Starters"]
+position = Vector2( 80, 255 )
 
-[node name="WaveStarter2" parent="Starters" instance=ExtResource( 5 )]
-margin_left = 51.0
-margin_top = 357.0
-margin_right = 101.0
-margin_bottom = 407.0
+[node name="StarterPos2" type="Position2D" parent="Starters"]
+position = Vector2( 80, 380 )

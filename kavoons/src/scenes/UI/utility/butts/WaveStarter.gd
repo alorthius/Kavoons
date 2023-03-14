@@ -13,13 +13,11 @@ var _rotation_final := 360
 var is_showing = false
 var data := ""
 
+func _ready():
+	_anim_player.play("pulsating")
+	$Label.visible = false
 
 func set_data(new_data):
-	_anim_player.play("pulsating")
-	
-	rect_position = _position_init
-	visible = true
-	$Label.visible = false
 	data = str(new_data)
 	return self
 
@@ -46,16 +44,12 @@ func _on_WaveStarter_pressed():
 		is_showing = false
 		emit_signal("start_wave")
 
-func clear_data():
-	_anim_player.stop(true)
-	data = ""
-	visible = false
-	modulate = Color(1, 1, 1, 1)
-
 func fade_out():
 	assert(_tween.interpolate_property(self, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), 1, Tween.TRANS_EXPO, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(self, "rect_position", _position_init, _position_shifted, 1, Tween.TRANS_EXPO, Tween.EASE_OUT))
 	assert(_tween.start())
+	yield(_tween, "tween_all_completed")
+	queue_free()
 
 func _on_WaveStarter_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:

@@ -8,7 +8,7 @@ extends Node2D
 var _map_folder: String
 onready var _map = $Map
 onready var _pathes = $Map/Pathes
-onready var _starters = $Map/Starters.get_children()
+#onready var _starters = $Map/Starters.get_children()
 
 onready var _curr_wave_label = $UI/Wave/CurrWave
 onready var _total_waves_label = $UI/Wave/TotalWaves
@@ -16,6 +16,8 @@ onready var _total_waves_label = $UI/Wave/TotalWaves
 onready var _wave_scene = preload("res://src/scenes/waves/Wave.tscn")
 
 onready var _prestart_timer = $WavePrestart
+onready var _starters_positions = $Map/Starters.get_children()
+onready var _starter_butt = preload("res://src/scenes/UI/utility/butts/WaveStarter.tscn")
 
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $UI/Builder
@@ -28,6 +30,7 @@ onready var _towers_container: Node = $Towers
 ## Container with all the spawned cats
 onready var _cats_pathes: Array = $Map/Pathes.get_children()
 ## Spawns effects
+onready var _starters_container: Node = $Starters
 #onready var _effects_manager: Node = $EffectsManager
 
 var _wave_idx: int = 0
@@ -57,12 +60,16 @@ func _ready():
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)
 	assert(_measures._lifes.connect("finish_game", self, "_finish_game") == 0)
 	
-	var i = 1
-	for butt in _starters:
-		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
-		assert(butt.connect("start_wave", self, "_start_wave") == 0)
-		i += 1
+	_create_starters()
 
+func _create_starters():
+	for i in  range(len(_starters_positions)):
+		var butt = _starter_butt.instance()
+		butt.rect_position = _starters_positions[i].position
+		_starters_container.add_child(butt)
+		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
+		assert(butt.connect("start_wave", self, "_start_wave") == 0)
+	
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
@@ -87,22 +94,18 @@ func _attach_melon(new_tower: Melon):
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
 
 func _fade_all_starters():
-	for butt in _starters:
+	for butt in _starters_container.get_children():
 		butt.fade_out()
-	for butt in _starters:
-		yield(butt._tween, "tween_all_completed")
 
 func _start_wave():
+	_fade_all_starters()
+	
 	_wave_idx += 1
 	_curr_wave_label.text = str(_wave_idx)
 	
-	yield(_fade_all_starters(), "completed")
-	for butt in _starters:
-		butt.clear_data()
-		butt.disabled = true
-	
-	_prestart_timer.wait_time = _map.waves[_wave_idx]["duration"] - _map.waves[_wave_idx]["prestart_next"]
-	_prestart_timer.start()
+	if _map.waves[_wave_idx]["prestart_next"] > 0:
+		_prestart_timer.wait_time = _map.waves[_wave_idx]["duration"] - _map.waves[_wave_idx]["prestart_next"]
+		_prestart_timer.start()
 	
 	var wave = _wave_scene.instance()
 	wave.set_wave_info(_map.waves[_wave_idx], _cats_pathes.size())
@@ -133,18 +136,12 @@ func _on_spawn_end(wave):
 
 func end_wave():
 	Events.emit_signal("update_money", _map.waves[_wave_idx]["reward"])
-	
 	if _wave_idx == _map.waves.keys()[-1]:
 		var win_scene = load("res://src/scenes/UI/standalone/Win.tscn").instance()
 		add_child(win_scene)
 		get_tree().paused = true
-		return
-
-	var i = 1
-	for butt in _starters:
-		butt.disabled = false
-		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
-		i += 1
+	else:
+		_create_starters()
 
 func _finish_game():
 	var ded = load("res://src/scenes/UI/standalone/Ded.tscn").instance()
@@ -153,8 +150,4 @@ func _finish_game():
 
 
 func _on_WavePrestart_timeout():
-	var i = 1
-	for butt in _starters:
-		butt.disabled = false
-		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
-		i += 1
+	_create_starters()
