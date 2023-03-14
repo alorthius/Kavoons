@@ -5,13 +5,18 @@ signal start_wave()
 onready var _position_init = rect_position
 onready var _position_shifted = rect_position + Vector2(0, 40)
 
+onready var _anim_player = $PulsatingAnimation
+
 var _rotation_init := 330
 var _rotation_final := 360
 
 var is_showing = false
 var data := ""
 
+
 func set_data(new_data):
+	_anim_player.play("pulsating")
+	
 	rect_position = _position_init
 	visible = true
 	$Label.visible = false
@@ -42,6 +47,7 @@ func _on_WaveStarter_pressed():
 		emit_signal("start_wave")
 
 func clear_data():
+	_anim_player.stop(true)
 	data = ""
 	visible = false
 	modulate = Color(1, 1, 1, 1)
