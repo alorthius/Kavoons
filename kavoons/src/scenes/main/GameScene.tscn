@@ -104,3 +104,8 @@ custom_fonts/font = SubResource( 3 )
 text = " 666"
 align = 1
 valign = 1
+
+[node name="WavePrestart" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WavePrestart" to="." method="_on_WavePrestart_timeout"]

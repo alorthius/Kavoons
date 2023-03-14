@@ -15,6 +15,7 @@ onready var _total_waves_label = $UI/Wave/TotalWaves
 
 onready var _wave_scene = preload("res://src/scenes/waves/Wave.tscn")
 
+onready var _prestart_timer = $WavePrestart
 
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $UI/Builder
@@ -100,6 +101,9 @@ func _start_wave():
 		butt.clear_data()
 		butt.disabled = true
 	
+	_prestart_timer.wait_time = _map.waves[_wave_idx]["duration"] - _map.waves[_wave_idx]["prestart_next"]
+	_prestart_timer.start()
+	
 	var wave = _wave_scene.instance()
 	wave.set_wave_info(_map.waves[_wave_idx], _cats_pathes.size())
 	add_child(wave, true)
@@ -146,3 +150,11 @@ func _finish_game():
 	var ded = load("res://src/scenes/UI/standalone/Ded.tscn").instance()
 	add_child(ded)
 	get_tree().paused = true
+
+
+func _on_WavePrestart_timeout():
+	var i = 1
+	for butt in _starters:
+		butt.disabled = false
+		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i)]["label"])
+		i += 1

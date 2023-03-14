@@ -8,6 +8,7 @@ signal spawn_enemy(cat, wave)
 ## Emit the current wave ended
 signal spawning_ended(wave)
 
+
 var _timers = []
 var _dicts = []
 
