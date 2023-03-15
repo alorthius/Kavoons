@@ -89,17 +89,17 @@ func _on_WaveStarter_gui_input(event):
 		if event.button_index == BUTTON_RIGHT:
 			hide_data()
 
-func _on_Timer_timeout():
+func _on_UpdatePerSec_timeout():
+	_x_tick += 1
+#	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
+#	var scale = - 1.0 / pow(_timer.wait_time, 2) * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
+	var scale = 0.5 * cos(PI / _timer.wait_time * _x_tick) + 0.5
+	_prestart_reward = scale * _prestart_max_reward
+	$PrestartReward.text = str(_prestart_reward)
+
+
+func _on_PrestartTimer_timeout():
 	set_physics_process(false)
 	_timer_per_sec.stop()
 	_prestart_reward = 0
-	$PrestartReward.text = str(_prestart_reward)
-
-func _on_UpdatePerSec_timeout():
-#	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
-	_x_tick += 1
-#	var scale = - 1.0 / pow(_timer.wait_time, 2) * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
-	var scale = 0.5 * cos(PI / _timer.wait_time * _x_tick) + 0.5
-	print(scale)
-	_prestart_reward = scale * _prestart_max_reward
 	$PrestartReward.text = str(_prestart_reward)
