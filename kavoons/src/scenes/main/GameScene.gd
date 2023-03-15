@@ -5,33 +5,29 @@ extends Node2D
 ## Create the playable map, connect all the game logical parts and instances.
 ## A parent for all the map itself, UI, economy and life systems, enemy waves, and towers.
 
-var _map_folder: String
 onready var _map = $Map
-onready var _pathes = $Map/Pathes
-#onready var _starters = $Map/Starters.get_children()
 
 onready var _curr_wave_label = $UI/Wave/CurrWave
 onready var _total_waves_label = $UI/Wave/TotalWaves
 
 onready var _wave_scene = preload("res://src/scenes/waves/Wave.tscn")
 
-onready var _prestart_timer = $WavePrestart
 onready var _starters_positions = $Map/Starters.get_children()
 onready var _starter_butt = preload("res://src/scenes/UI/utility/butts/WaveStarter.tscn")
+
+onready var _prestart_timer = $WavePrestart
 
 ## The only [Builder] instance responsible to build and create new towers
 onready var _builder: Builder = $UI/Builder
 
 onready var _measures = $UI/MeasuresManager
 
-
+onready var _starters_container: Node = $Starters
 ## Container with all the placed towers
 onready var _towers_container: Node = $Towers
 ## Container with all the spawned cats
 onready var _cats_pathes: Array = $Map/Pathes.get_children()
-## Spawns effects
-onready var _starters_container: Node = $Starters
-#onready var _effects_manager: Node = $EffectsManager
+
 
 var _wave_idx: int = 0
 var _active_waves := []
@@ -60,16 +56,20 @@ func _ready():
 	assert(_measures._economics.connect("total_money_changed", _builder, "_validate_price") == 0)
 	assert(_measures._lifes.connect("finish_game", self, "_finish_game") == 0)
 	
-	_create_starters()
+	_create_starters(false)
 
-func _create_starters():
-	for i in  range(len(_starters_positions)):
+func _create_starters(prestart=true):
+	for i in range(len(_starters_positions)):
 		var butt = _starter_butt.instance()
 		butt.rect_position = _starters_positions[i].position
 		_starters_container.add_child(butt)
 		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
+		if prestart:
+			butt.set_prestart(_map.waves[_wave_idx]["prestart_enable"])
+		else:
+			butt.set_prestart(0)
 		assert(butt.connect("start_wave", self, "_start_wave") == 0)
-	
+
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
@@ -103,8 +103,9 @@ func _start_wave():
 	_wave_idx += 1
 	_curr_wave_label.text = str(_wave_idx)
 	
-	if _map.waves[_wave_idx]["prestart_next"] > 0:
-		_prestart_timer.wait_time = _map.waves[_wave_idx]["duration"] - _map.waves[_wave_idx]["prestart_next"]
+	if _map.waves[_wave_idx]["prestart_enable"] > 0:
+		print("started")
+		_prestart_timer.wait_time = _map.waves[_wave_idx]["duration"] - _map.waves[_wave_idx]["prestart_enable"]
 		_prestart_timer.start()
 	
 	var wave = _wave_scene.instance()
@@ -140,14 +141,12 @@ func end_wave():
 		var win_scene = load("res://src/scenes/UI/standalone/Win.tscn").instance()
 		add_child(win_scene)
 		get_tree().paused = true
-	else:
-		_create_starters()
 
 func _finish_game():
 	var ded = load("res://src/scenes/UI/standalone/Ded.tscn").instance()
 	add_child(ded)
 	get_tree().paused = true
 
-
 func _on_WavePrestart_timeout():
+	print("timeout")
 	_create_starters()

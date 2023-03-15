@@ -16,7 +16,7 @@ tracks/0/keys = {
 "values": [ Vector2( 2, 2 ), Vector2( 2.2, 2.2 ), Vector2( 2, 2 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TextureProgress:self_modulate")
+tracks/1/path = NodePath("Countdown:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false

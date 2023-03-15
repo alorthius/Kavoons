@@ -6,12 +6,17 @@ onready var _position_init = rect_position
 onready var _position_shifted = rect_position + Vector2(0, 40)
 
 onready var _anim_player = $PulsatingAnimation
+onready var _countdown = $Countdown
+onready var _timer = $Timer
 
 var _rotation_init := 330
 var _rotation_final := 360
 
 var is_showing = false
 var data := ""
+
+func _physics_process(delta):
+	_countdown.value = _timer.wait_time - _timer.time_left
 
 func _ready():
 	_anim_player.play("pulsating")
@@ -20,6 +25,15 @@ func _ready():
 func set_data(new_data):
 	data = str(new_data)
 	return self
+
+func set_prestart(time):
+	if time == 0:
+		_countdown.value = _countdown.max_value
+		return
+	_timer.wait_time = time
+	_timer.start()
+	_countdown.max_value = time
+	set_physics_process(true)
 
 func show_data():
 	$Label.visible = true
@@ -58,3 +72,5 @@ func _on_WaveStarter_gui_input(event):
 		if event.button_index == BUTTON_RIGHT:
 			hide_data()
 
+func _on_Timer_timeout():
+	set_physics_process(false)
