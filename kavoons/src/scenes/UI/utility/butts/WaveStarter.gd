@@ -19,6 +19,9 @@ var _prestart_max_reward: int
 var _prestart_reward: int
 var _x_tick = 0
 
+signal prestart(reward)
+
+
 func _physics_process(delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
 
@@ -40,9 +43,10 @@ func set_prestart(time, max_reward):
 	_prestart_reward = _prestart_max_reward
 	$PrestartReward.text = str(_prestart_reward)
 	
+	_timer_per_sec.start()
+	
 	_timer.wait_time = time
 	_timer.start()
-	_timer_per_sec.start()
 	
 	_countdown.max_value = time
 	set_physics_process(true)
@@ -67,7 +71,8 @@ func _on_WaveStarter_pressed():
 		is_showing = true
 		show_data()
 	else:
-		is_showing = false
+		if _timer.time_left > 0:  # prestarted wave
+			Events.emit_signal("update_money", _prestart_reward)
 		emit_signal("start_wave")
 
 func fade_out():
@@ -87,11 +92,14 @@ func _on_WaveStarter_gui_input(event):
 func _on_Timer_timeout():
 	set_physics_process(false)
 	_timer_per_sec.stop()
+	_prestart_reward = 0
+	$PrestartReward.text = str(_prestart_reward)
 
 func _on_UpdatePerSec_timeout():
 #	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
-#	_prestart_reward = pow(2, - _x_tick) * _prestart_max_reward
-	var scale = - 1.0 / 25 * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
-	_prestart_reward = scale * _prestart_max_reward
 	_x_tick += 1
+#	var scale = - 1.0 / pow(_timer.wait_time, 2) * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
+	var scale = 0.5 * cos(PI / _timer.wait_time * _x_tick) + 0.5
+	print(scale)
+	_prestart_reward = scale * _prestart_max_reward
 	$PrestartReward.text = str(_prestart_reward)

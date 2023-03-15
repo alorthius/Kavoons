@@ -6,8 +6,8 @@ var waves: Dictionary = {
 		"duration": 20,
 		"reward": 50,
 		
-		"prestart_enable": 5,
-		"prestart_reward": 50,
+		"prestart_enable": 10,
+		"prestart_reward": 20,
 
 		"Path1": {
 			"enemies": [Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1],
