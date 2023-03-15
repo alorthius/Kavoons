@@ -7,13 +7,17 @@ onready var _position_shifted = rect_position + Vector2(0, 40)
 
 onready var _anim_player = $PulsatingAnimation
 onready var _countdown = $Countdown
-onready var _timer = $Timer
+onready var _timer = $PrestartTimer
+onready var _timer_per_sec = $UpdatePerSec
 
 var _rotation_init := 330
 var _rotation_final := 360
 
 var is_showing = false
 var data := ""
+var _prestart_max_reward: int
+var _prestart_reward: int
+var _x_tick = 0
 
 func _physics_process(delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
@@ -21,17 +25,25 @@ func _physics_process(delta):
 func _ready():
 	_anim_player.play("pulsating")
 	$Label.visible = false
+	set_physics_process(false)
 
 func set_data(new_data):
 	data = str(new_data)
 	return self
 
-func set_prestart(time):
+func set_prestart(time, max_reward):
 	if time == 0:
 		_countdown.value = _countdown.max_value
 		return
+	
+	_prestart_max_reward = max_reward
+	_prestart_reward = _prestart_max_reward
+	$PrestartReward.text = str(_prestart_reward)
+	
 	_timer.wait_time = time
 	_timer.start()
+	_timer_per_sec.start()
+	
 	_countdown.max_value = time
 	set_physics_process(true)
 
@@ -74,3 +86,12 @@ func _on_WaveStarter_gui_input(event):
 
 func _on_Timer_timeout():
 	set_physics_process(false)
+	_timer_per_sec.stop()
+
+func _on_UpdatePerSec_timeout():
+#	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
+#	_prestart_reward = pow(2, - _x_tick) * _prestart_max_reward
+	var scale = - 1.0 / 25 * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
+	_prestart_reward = scale * _prestart_max_reward
+	_x_tick += 1
+	$PrestartReward.text = str(_prestart_reward)

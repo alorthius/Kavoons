@@ -65,9 +65,9 @@ func _create_starters(prestart=true):
 		_starters_container.add_child(butt)
 		butt.set_data(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
 		if prestart:
-			butt.set_prestart(_map.waves[_wave_idx]["prestart_enable"])
+			butt.set_prestart(_map.waves[_wave_idx]["prestart_enable"], _map.waves[_wave_idx]["prestart_reward"])
 		else:
-			butt.set_prestart(0)
+			butt.set_prestart(0, 0)
 		assert(butt.connect("start_wave", self, "_start_wave") == 0)
 
 
