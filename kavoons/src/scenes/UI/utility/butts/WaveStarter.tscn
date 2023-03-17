@@ -59,6 +59,7 @@ margin_bottom = 9.5
 grow_vertical = 2
 custom_fonts/font = SubResource( 1 )
 text = "jhsdhd"
+valign = 1
 
 [node name="PrestartReward" type="Label" parent="." index="4"]
 anchor_left = 0.5
@@ -70,6 +71,8 @@ margin_right = 13.5
 margin_bottom = 19.0
 custom_fonts/font = SubResource( 1 )
 text = "666"
+align = 1
+valign = 1
 
 [node name="PulsatingAnimation" type="AnimationPlayer" parent="." index="5"]
 anims/pulsating = ExtResource( 8 )

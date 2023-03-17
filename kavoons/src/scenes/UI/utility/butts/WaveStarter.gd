@@ -26,6 +26,7 @@ func _physics_process(delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
 
 func _ready():
+	_reward_label.text = ""
 	_anim_player.play("pulsating")
 	_hide_labels()
 	set_physics_process(false)
@@ -72,7 +73,7 @@ func _hide_data():
 
 func _process_left_click():
 	if _clicked:
-		if _timer.time_left > 0:  # prestarted wave
+		if _timer.time_left > 0 and _prestart_reward > 0:  # prestarted wave
 			Events.emit_signal("update_money", _prestart_reward)
 		emit_signal("start_wave")
 	else:
@@ -102,13 +103,10 @@ func _on_Timer_timeout():
 	set_physics_process(false)
 	_timer_per_sec.stop()
 	_prestart_reward = 0
-	_reward_label.text = str(_prestart_reward)
+	_reward_label.text = ""
 
 func _on_UpdatePerSec_timeout():
-#	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
 	_x_tick += 1
-#	var scale = - 1.0 / pow(_timer.wait_time, 2) * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
 	var scale = 0.5 * cos(PI / _timer.wait_time * _x_tick) + 0.5
-	print(scale)
 	_prestart_reward = scale * _prestart_max_reward
 	_reward_label.text = str(_prestart_reward)
