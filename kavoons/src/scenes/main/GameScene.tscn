@@ -108,6 +108,6 @@ valign = 1
 [node name="WavePrestart" type="Timer" parent="."]
 one_shot = true
 
-[node name="Starters" type="Node" parent="."]
+[node name="Starters" type="CanvasLayer" parent="."]
 
 [connection signal="timeout" from="WavePrestart" to="." method="_on_WavePrestart_timeout"]
