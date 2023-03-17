@@ -32,10 +32,6 @@ func _ready():
 	_hide_labels()
 	set_physics_process(false)
 
-#func set_data(new_data):
-#	_enemies_label.text = str(new_data)
-#	return self
-
 func set_prestart(time, max_reward):
 	if time == 0:
 		_countdown.value = _countdown.max_value
