@@ -1,4 +1,4 @@
-extends "res://src/scenes/UI/utility/butts/base/Butt.gd"
+extends "res://src/scenes/UI/utility/butts/base/LabeledButt.gd"
 
 signal start_wave()
 
@@ -23,8 +23,6 @@ var _prestart_max_reward: int
 var _prestart_reward: int
 var _x_tick = 0
 
-signal prestart(reward)
-
 
 func _physics_process(delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
@@ -34,9 +32,9 @@ func _ready():
 	_hide_labels()
 	set_physics_process(false)
 
-func set_data(new_data):
-	_enemies_label.text = str(new_data)
-	return self
+#func set_data(new_data):
+#	_enemies_label.text = str(new_data)
+#	return self
 
 func set_prestart(time, max_reward):
 	if time == 0:
@@ -66,7 +64,6 @@ func _show_labels():
 func _update_reward_label():
 	_reward_label.text = str(_prestart_reward)
 	assert(_tween.interpolate_property(_reward_label, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-#	assert(_tween.interpolate_property(_reward_label, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
 
 func show_data():
@@ -118,4 +115,3 @@ func _on_PrestartTimer_timeout():
 	set_physics_process(false)
 	_timer_per_sec.stop()
 	_prestart_reward = 0
-#	_update_reward_label()
