@@ -48,18 +48,26 @@ rect_pivot_offset = Vector2( 19, 19 )
 texture = ExtResource( 2 )
 
 [node name="EnemiesLabel" type="Label" parent="." index="3"]
-margin_left = 59.3333
-margin_top = 13.3333
-margin_right = 99.3333
-margin_bottom = 27.3333
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 5.0
+margin_top = -9.5
+margin_right = 52.0
+margin_bottom = 9.5
+grow_vertical = 2
 custom_fonts/font = SubResource( 1 )
 text = "jhsdhd"
 
 [node name="PrestartReward" type="Label" parent="." index="4"]
-margin_left = 48.7773
-margin_top = -10.9085
-margin_right = 95.7773
-margin_bottom = 8.09149
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -13.5
+margin_right = 13.5
+margin_bottom = 19.0
 custom_fonts/font = SubResource( 1 )
 text = "666"
 

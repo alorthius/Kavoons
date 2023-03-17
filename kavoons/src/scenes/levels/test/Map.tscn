@@ -300,7 +300,7 @@ curve = SubResource( 34 )
 [node name="Starters" type="Node2D" parent="."]
 
 [node name="StarterPos1" type="Position2D" parent="Starters"]
-position = Vector2( 80, 255 )
+position = Vector2( 80, 200 )
 
 [node name="StarterPos2" type="Position2D" parent="Starters"]
-position = Vector2( 80, 380 )
+position = Vector2( 80, 360 )
