@@ -104,7 +104,6 @@ func _start_wave():
 	_curr_wave_label.text = str(_wave_idx)
 	
 	if _map.waves[_wave_idx]["prestart_enable"] > 0:
-		print("started")
 		_prestart_timer.wait_time = _map.waves[_wave_idx]["duration"] - _map.waves[_wave_idx]["prestart_enable"]
 		_prestart_timer.start()
 	
@@ -148,5 +147,4 @@ func _finish_game():
 	get_tree().paused = true
 
 func _on_WavePrestart_timeout():
-	print("timeout")
 	_create_starters()
