@@ -47,7 +47,7 @@ rect_scale = Vector2( 0.8, 0.8 )
 rect_pivot_offset = Vector2( 19, 19 )
 texture = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="." index="3"]
+[node name="EnemiesLabel" type="Label" parent="." index="3"]
 margin_left = 59.3333
 margin_top = 13.3333
 margin_right = 99.3333
