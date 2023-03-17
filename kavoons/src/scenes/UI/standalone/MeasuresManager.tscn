@@ -13,27 +13,22 @@ size = 50
 extra_spacing_char = 2
 font_data = ExtResource( 1 )
 
-[node name="MeasuresManager" type="Control"]
+[node name="MeasuresManager" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -1770.0
+margin_bottom = -930.0
+alignment = 1
 script = ExtResource( 5 )
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="HUD" type="Control" parent="UI"]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 360.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 200, 70 )
-
-[node name="Economy" type="HBoxContainer" parent="UI/HUD"]
-anchor_right = 1.0
-margin_bottom = 65.0
+[node name="Economy" type="HBoxContainer" parent="."]
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 73.0
 custom_constants/separation = 10
 script = ExtResource( 3 )
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/Economy"]
+[node name="Icon" type="TextureRect" parent="Economy"]
 margin_right = 65.0
 margin_bottom = 65.0
 rect_min_size = Vector2( 65, 65 )
@@ -42,25 +37,30 @@ size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Label" type="Label" parent="UI/HUD/Economy"]
+[node name="Label" type="Label" parent="Economy"]
 margin_left = 75.0
 margin_top = 7.0
-margin_right = 123.0
+margin_right = 173.0
 margin_bottom = 58.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
-text = "69"
+text = "6969"
 valign = 1
 
-[node name="Lifes" type="HBoxContainer" parent="UI/HUD"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -65.0
+[node name="PosFrom" type="Position2D" parent="Economy"]
+position = Vector2( 165, 5 )
+
+[node name="PosTo" type="Position2D" parent="Economy"]
+position = Vector2( 165, 50 )
+
+[node name="Lifes" type="HBoxContainer" parent="."]
+margin_top = 77.0
+margin_right = 173.0
+margin_bottom = 142.0
 custom_constants/separation = 10
 script = ExtResource( 6 )
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/Lifes"]
+[node name="Icon" type="TextureRect" parent="Lifes"]
 margin_right = 65.0
 margin_bottom = 65.0
 rect_min_size = Vector2( 65, 65 )
@@ -69,7 +69,7 @@ size_flags_vertical = 4
 texture = ExtResource( 4 )
 expand = true
 
-[node name="Label" type="Label" parent="UI/HUD/Lifes"]
+[node name="Label" type="Label" parent="Lifes"]
 margin_left = 75.0
 margin_top = 7.0
 margin_right = 123.0
@@ -78,3 +78,9 @@ size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 text = "69"
 valign = 1
+
+[node name="PosFrom" type="Position2D" parent="Lifes"]
+position = Vector2( 115, 5 )
+
+[node name="PosTo" type="Position2D" parent="Lifes"]
+position = Vector2( 115, 50 )

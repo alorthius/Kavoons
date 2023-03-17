@@ -15,11 +15,11 @@ var _money_reward: int
 
 var _hp: int
 
-onready var _ui = $UI
+onready var _ui = $UI/Pos/OnClick
 onready var _ui_pos = $UI/Pos
 
 onready var _hp_bar = $UI/Pos/HP
-onready var _curr_hp_ui = $UI/Pos/OnHover/Stats/Left/HP/CurrHP
+onready var _curr_hp_ui = _ui.get_node("Stats/Left/HP/CurrHP")
 
 
 onready var _tween: Tween = $Tween
@@ -43,6 +43,9 @@ onready var _ui_timer: Timer = $UITimer
 
 var _on_hit_color: Color = Color(0.8, 0.2, 0.2, 0.8)
 
+signal cat_deleted(cat)
+
+
 ## Attach the health bar to a cat and spawn it with a random vertical offset
 func _ready():
 	_parse_cat_data()
@@ -50,7 +53,6 @@ func _ready():
 	
 	_hp_bar.max_value = _hp
 	_hp_bar.value = _hp_bar.max_value
-	_ui_pos.set_as_toplevel(true)
 
 	v_offset = rand_range(-40, 0)
 	
@@ -89,11 +91,13 @@ func _on_HitTimer_timeout():
 func _killed():
 #	_prep_to_free()
 #	yield(_tween, "tween_all_completed")
+	emit_signal("cat_deleted", self)
 	Events.emit_signal("update_money", _money_reward)
 	_free()
 
 
 func _reached_end():
+	emit_signal("cat_deleted", self)
 	Events.emit_signal("update_lifes", - _lifes_cost)
 	_free()
 
@@ -115,12 +119,11 @@ func _parse_cat_data():
 
 
 func _apply_cat_data():
-	var hover_ui := $UI/Pos/OnHover
-	hover_ui.get_node("Name").text = base_name
+	_ui.get_node("Name").text = base_name
 	
-	var stats := $UI/Pos/OnHover/Stats
-	var left := stats.get_node("Left")
-	var right := stats.get_node("Right")
+	var stats = _ui.get_node("Stats")
+	var left = stats.get_node("Left")
+	var right = stats.get_node("Right")
 	
 	left.get_node("HP/CurrHP").text = str(_hp)
 	left.get_node("HP/MaxHP").text = str(_hp)
@@ -147,13 +150,13 @@ func _on_UITimer_timeout():
 func _show_ui():
 	_ui.visible = true
 	
-	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_ui, "rect_rotation", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_ui, "rect_scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
 
 func _hide_ui():
-	assert(_tween.interpolate_property(_ui_pos, "rotation_degrees", _rotation_final, _rotation_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
-	assert(_tween.interpolate_property(_ui_pos, "scale", _scale_final, _scale_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_ui, "rect_rotation", _rotation_final, _rotation_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_ui, "rect_scale", _scale_final, _scale_init, _entrance_time, Tween.TRANS_ELASTIC, Tween.EASE_IN))
 	assert(_tween.start())
 	
 	yield(_tween, "tween_all_completed")

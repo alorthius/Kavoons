@@ -13,6 +13,7 @@ font_data = ExtResource( 1 )
 margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 50, 50 )
 texture_normal = ExtResource( 3 )
 
 [node name="Icon" parent="." index="0"]
