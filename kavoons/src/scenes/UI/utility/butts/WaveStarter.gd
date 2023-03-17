@@ -1,4 +1,4 @@
-extends "res://src/scenes/UI/utility/butts/base/LabeledButt.gd"
+extends "res://src/scenes/UI/utility/butts/base/Butt.gd"
 
 signal start_wave()
 
@@ -10,29 +10,29 @@ onready var _countdown = $Countdown
 onready var _timer = $PrestartTimer
 onready var _timer_per_sec = $UpdatePerSec
 
-onready var _reward_label = $VBoxContainer/PrestartReward
-
-
 var _rotation_init := 330
 var _rotation_final := 360
 
 var is_showing = false
-
+var data := ""
 var _prestart_max_reward: int
 var _prestart_reward: int
 var _x_tick = 0
+
+signal prestart(reward)
 
 
 func _physics_process(delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
 
 func _ready():
-	_label = $VBoxContainer/Label  # override label
-	
 	_anim_player.play("pulsating")
-	_hide_labels()
+	$Label.visible = false
 	set_physics_process(false)
 
+func set_data(new_data):
+	data = str(new_data)
+	return self
 
 func set_prestart(time, max_reward):
 	if time == 0:
@@ -41,7 +41,7 @@ func set_prestart(time, max_reward):
 	
 	_prestart_max_reward = max_reward
 	_prestart_reward = _prestart_max_reward
-	_update_reward_label()
+	$PrestartReward.text = str(_prestart_reward)
 	
 	_timer_per_sec.start()
 	
@@ -51,10 +51,12 @@ func set_prestart(time, max_reward):
 	_countdown.max_value = time
 	set_physics_process(true)
 
-
-func _hide_labels():
-	_label.visible = false
-	_reward_label.visible = false
+func show_data():
+	$Label.visible = true
+	$Label.text = data
+	assert(_tween.interpolate_property(self, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.start())
 
 func hide_data():
 	if not is_showing:
@@ -62,23 +64,7 @@ func hide_data():
 	is_showing = false
 	assert(_tween.interpolate_property(self, "rect_rotation", 400, _rotation_final, 0.3, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
-	_hide_labels()
-
-func _show_labels():
-	_label.visible = true
-	_reward_label.visible = true
-
-func show_data():
-	_show_labels()
-	assert(_tween.interpolate_property(self, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(self, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.start())
-
-
-func _update_reward_label():
-	_reward_label.text = str(_prestart_reward)
-	assert(_tween.interpolate_property(_reward_label, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.start())
+	$Label.visible = false
 
 func _on_WaveStarter_pressed():
 	if not is_showing:
@@ -103,15 +89,17 @@ func _on_WaveStarter_gui_input(event):
 		if event.button_index == BUTTON_RIGHT:
 			hide_data()
 
-func _on_UpdatePerSec_timeout():
-	_x_tick += 1
-#	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
-#	var scale = - 1.0 / pow(_timer.wait_time, 2) * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
-	var scale = 0.5 * cos(PI / _timer.wait_time * _x_tick) + 0.5
-	_prestart_reward = scale * _prestart_max_reward
-	_update_reward_label()
-
-func _on_PrestartTimer_timeout():
+func _on_Timer_timeout():
 	set_physics_process(false)
 	_timer_per_sec.stop()
 	_prestart_reward = 0
+	$PrestartReward.text = str(_prestart_reward)
+
+func _on_UpdatePerSec_timeout():
+#	_prestart_reward -= _prestart_max_reward / float(_timer.wait_time)
+	_x_tick += 1
+#	var scale = - 1.0 / pow(_timer.wait_time, 2) * (_x_tick + _timer.wait_time) * (_x_tick - _timer.wait_time)
+	var scale = 0.5 * cos(PI / _timer.wait_time * _x_tick) + 0.5
+	print(scale)
+	_prestart_reward = scale * _prestart_max_reward
+	$PrestartReward.text = str(_prestart_reward)
