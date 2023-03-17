@@ -10,8 +10,7 @@ onready var _countdown = $Countdown
 onready var _timer = $PrestartTimer
 onready var _timer_per_sec = $UpdatePerSec
 
-onready var _enemies_label = $Label
-onready var _reward_label = $PrestartReward
+onready var _reward_label = $VBoxContainer/PrestartReward
 
 
 var _rotation_init := 330
@@ -28,9 +27,12 @@ func _physics_process(delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
 
 func _ready():
+	_label = $VBoxContainer/Label  # override label
+	
 	_anim_player.play("pulsating")
 	_hide_labels()
 	set_physics_process(false)
+
 
 func set_prestart(time, max_reward):
 	if time == 0:
@@ -49,24 +51,10 @@ func set_prestart(time, max_reward):
 	_countdown.max_value = time
 	set_physics_process(true)
 
+
 func _hide_labels():
-	_enemies_label.visible = false
+	_label.visible = false
 	_reward_label.visible = false
-
-func _show_labels():
-	_enemies_label.visible = true
-	_reward_label.visible = true
-
-func _update_reward_label():
-	_reward_label.text = str(_prestart_reward)
-	assert(_tween.interpolate_property(_reward_label, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.start())
-
-func show_data():
-	_show_labels()
-	assert(_tween.interpolate_property(self, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(self, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
-	assert(_tween.start())
 
 func hide_data():
 	if not is_showing:
@@ -75,6 +63,22 @@ func hide_data():
 	assert(_tween.interpolate_property(self, "rect_rotation", 400, _rotation_final, 0.3, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
 	_hide_labels()
+
+func _show_labels():
+	_label.visible = true
+	_reward_label.visible = true
+
+func show_data():
+	_show_labels()
+	assert(_tween.interpolate_property(self, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.start())
+
+
+func _update_reward_label():
+	_reward_label.text = str(_prestart_reward)
+	assert(_tween.interpolate_property(_reward_label, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
+	assert(_tween.start())
 
 func _on_WaveStarter_pressed():
 	if not is_showing:

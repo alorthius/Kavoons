@@ -8,15 +8,14 @@
 [ext_resource path="res://assets/UI/progress_bars/waves_timer_bar/waves_timer-1.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/progress_bars/waves_timer_bar/waves_timer-4.png" type="Texture" id=7]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 resource_local_to_scene = true
 size = 20
 extra_spacing_bottom = -2
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 resource_local_to_scene = true
-size = 20
 extra_spacing_bottom = -2
 font_data = ExtResource( 5 )
 
@@ -87,30 +86,42 @@ nine_patch_stretch = true
 self_modulate = Color( 1, 1, 1, 0.860389 )
 texture = ExtResource( 2 )
 
-[node name="Label" parent="." index="3"]
-margin_left = 52.0
-margin_top = -36.0
-margin_right = 52.0
-margin_bottom = -21.0
-custom_fonts/font = SubResource( 1 )
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="3"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_right = 32.0
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
 
-[node name="PrestartReward" type="Label" parent="." index="4"]
-margin_left = 49.0
-margin_top = -11.0
-margin_right = 79.0
-margin_bottom = 9.0
+[node name="PrestartReward" type="Label" parent="VBoxContainer" index="0"]
+margin_right = 27.0
+margin_bottom = 19.0
 rect_pivot_offset = Vector2( 15, 10 )
 custom_fonts/font = SubResource( 2 )
+text = "666"
 align = 1
 valign = 1
 
-[node name="PulsatingAnimation" type="AnimationPlayer" parent="." index="5"]
+[node name="Label" type="Label" parent="VBoxContainer" index="1"]
+margin_top = 23.0
+margin_right = 27.0
+margin_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_fonts/font = SubResource( 4 )
+text = "fff"
+align = 1
+
+[node name="PulsatingAnimation" type="AnimationPlayer" parent="." index="4"]
 anims/pulsating = SubResource( 3 )
 
-[node name="PrestartTimer" type="Timer" parent="." index="6"]
+[node name="PrestartTimer" type="Timer" parent="." index="5"]
 one_shot = true
 
-[node name="UpdatePerSec" type="Timer" parent="." index="7"]
+[node name="UpdatePerSec" type="Timer" parent="." index="6"]
 
 [connection signal="gui_input" from="." to="." method="_on_WaveStarter_gui_input"]
 [connection signal="timeout" from="PrestartTimer" to="." method="_on_PrestartTimer_timeout"]
