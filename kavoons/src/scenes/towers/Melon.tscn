@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T4_RR.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/UI/ranges/next.png" type="Texture" id=5]
 [ext_resource path="res://src/scenes/towers/MelonManager.gd" type="Script" id=6]
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/ranges/G.png" type="Texture" id=8]
@@ -43,57 +42,18 @@ shape = SubResource( 1 )
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
 
-[node name="Pos" type="Position2D" parent="UI"]
+[node name="RangesPos" type="Position2D" parent="UI"]
 
-[node name="CurrRange" type="TextureRect" parent="UI/Pos"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -18.0
-margin_top = -18.0
-margin_right = 18.0
-margin_bottom = 18.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 36, 36 )
-rect_pivot_offset = Vector2( 18, 18 )
-mouse_filter = 2
+[node name="CurrRangeContour" type="Sprite" parent="UI/RangesPos"]
 texture = ExtResource( 8 )
-expand = true
 
-[node name="TextureRect" type="TextureRect" parent="UI/Pos/CurrRange"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -18.0
-margin_top = -18.0
-margin_right = 18.0
-margin_bottom = 18.0
-mouse_filter = 2
+[node name="CurrRangeDecor" type="Sprite" parent="UI/RangesPos/CurrRangeContour"]
 texture = ExtResource( 9 )
-expand = true
 
-[node name="NextRange" type="TextureRect" parent="UI/Pos"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -18.0
-margin_top = -18.0
-margin_right = 18.0
-margin_bottom = 18.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 36, 36 )
-rect_pivot_offset = Vector2( 18, 18 )
-mouse_filter = 2
-texture = ExtResource( 5 )
-expand = true
+[node name="BasePos" type="Position2D" parent="UI"]
+position = Vector2( 0, 100 )
 
-[node name="HUD" type="VBoxContainer" parent="UI/Pos"]
+[node name="HUD" type="VBoxContainer" parent="UI/BasePos"]
 margin_left = -200.0
 margin_top = -160.0
 margin_right = 200.0
@@ -103,7 +63,7 @@ grow_vertical = 2
 rect_min_size = Vector2( 140, 330 )
 mouse_filter = 2
 
-[node name="UpgradeBar" type="HBoxContainer" parent="UI/Pos/HUD"]
+[node name="UpgradeBar" type="HBoxContainer" parent="UI/BasePos/HUD"]
 margin_left = 110.0
 margin_right = 290.0
 margin_bottom = 80.0
@@ -116,7 +76,7 @@ size_flags_vertical = 4
 custom_constants/separation = 15
 alignment = 1
 
-[node name="BaseActions" type="VBoxContainer" parent="UI/Pos/HUD"]
+[node name="BaseActions" type="VBoxContainer" parent="UI/BasePos/HUD"]
 margin_top = 84.0
 margin_right = 400.0
 margin_bottom = 258.0
@@ -124,7 +84,7 @@ mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
 
-[node name="TargetingBar" type="VBoxContainer" parent="UI/Pos/HUD/BaseActions"]
+[node name="TargetingBar" type="VBoxContainer" parent="UI/BasePos/HUD/BaseActions"]
 margin_right = 400.0
 margin_bottom = 90.0
 grow_horizontal = 2
@@ -135,7 +95,7 @@ size_flags_vertical = 3
 custom_constants/separation = -50
 alignment = 1
 
-[node name="Targeting" type="HBoxContainer" parent="UI/Pos/HUD/BaseActions/TargetingBar"]
+[node name="Targeting" type="HBoxContainer" parent="UI/BasePos/HUD/BaseActions/TargetingBar"]
 margin_right = 400.0
 margin_bottom = 60.0
 grow_horizontal = 2
@@ -146,13 +106,13 @@ size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 1
 
-[node name="ToLeft" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
+[node name="ToLeft" parent="UI/BasePos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
 margin_right = 100.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting"]
+[node name="Label" type="Label" parent="UI/BasePos/HUD/BaseActions/TargetingBar/Targeting"]
 margin_left = 120.0
 margin_right = 280.0
 margin_bottom = 60.0
@@ -166,7 +126,7 @@ text = "highest resistance"
 align = 1
 valign = 1
 
-[node name="ToRight" parent="UI/Pos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
+[node name="ToRight" parent="UI/BasePos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
 margin_left = 300.0
 margin_right = 400.0
 margin_bottom = 60.0
@@ -174,7 +134,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 flip_h = true
 
-[node name="TextUnderline" type="TextureRect" parent="UI/Pos/HUD/BaseActions/TargetingBar"]
+[node name="TextUnderline" type="TextureRect" parent="UI/BasePos/HUD/BaseActions/TargetingBar"]
 margin_left = 100.0
 margin_top = 10.0
 margin_right = 300.0
@@ -187,7 +147,7 @@ texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 
-[node name="SellBar" type="HBoxContainer" parent="UI/Pos/HUD/BaseActions"]
+[node name="SellBar" type="HBoxContainer" parent="UI/BasePos/HUD/BaseActions"]
 margin_top = 94.0
 margin_right = 400.0
 margin_bottom = 174.0
@@ -197,13 +157,13 @@ rect_min_size = Vector2( 80, 80 )
 mouse_filter = 2
 alignment = 1
 
-[node name="SellButt" parent="UI/Pos/HUD/BaseActions/SellBar" instance=ExtResource( 11 )]
+[node name="SellButt" parent="UI/BasePos/HUD/BaseActions/SellBar" instance=ExtResource( 11 )]
 margin_left = 170.0
 margin_top = 10.0
 margin_right = 230.0
 margin_bottom = 70.0
 
-[node name="Tween" type="Tween" parent="UI/Pos"]
+[node name="Tween" type="Tween" parent="UI/BasePos"]
 
 [connection signal="input_event" from="." to="UI" method="_on_Melon_input_event"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]

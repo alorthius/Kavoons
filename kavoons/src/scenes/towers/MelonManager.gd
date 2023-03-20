@@ -7,20 +7,20 @@ extends CanvasLayer
 ## delete and view the information about a particular melon.
 class_name MelonManager
 
-onready var _pos: Position2D = $Pos
+onready var _pos: Position2D = $BasePos
 
-onready var _upgrade_bar: HBoxContainer = $Pos/HUD/UpgradeBar
+onready var _ranges_pos: Position2D = $RangesPos
+onready var _curr_range = $RangesPos/CurrRangeContour
+
+onready var _upgrade_bar: HBoxContainer = $BasePos/HUD/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
-onready var _sell_butt: TextureButton = $Pos/HUD/BaseActions/SellBar/SellButt
-onready var _target_label: Label = $Pos/HUD/BaseActions/TargetingBar/Targeting/Label
+onready var _sell_butt: TextureButton = $BasePos/HUD/BaseActions/SellBar/SellButt
+onready var _target_label: Label = $BasePos/HUD/BaseActions/TargetingBar/Targeting/Label
 
 var _upgrade_butts := []
 
-onready var _next_range: TextureRect = $Pos/NextRange
-onready var _curr_range: TextureRect = $Pos/CurrRange
 
-
-onready var _tween: Tween = $Pos/Tween
+onready var _tween: Tween = $BasePos/Tween
 
 var _entrance_time: float = 0.4
 var _exit_time: float = 0.4
@@ -48,7 +48,8 @@ signal change_targeting(new_targeting)
 
 
 func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
-	_curr_range.rect_scale = 2 * radius * Vector2(1, 1) / _curr_range.rect_min_size
+	_ranges_pos.scale = Vector2(4, 4)
+#	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.rect_min_size
 	_curr_range.self_modulate = range_color
 	_sell_cost = sell_cost
 	_target_priority = target_priority
@@ -83,7 +84,7 @@ func _show_ui():
 
 ## Hide the UI and restore all possible features toggled while view to default
 func _hide_ui():
-	_next_range.visible = false
+#	_next_range.visible = false
 #	modulate.a = 1
 #	_curr_range.modulate.a = 1
 
@@ -119,24 +120,36 @@ func _toggle_build_status(status: bool):
 
 # Buttons and their signals #
 
+func _create_next_range_sprite(name: String, color):
+	var sprite = Sprite.new()
+	_ranges_pos.add_child(sprite)
+	sprite.texture = load("res://assets/UI/ranges/G.png")
+	sprite.modulate = color
+	return sprite
+
 func _add_upgrade_butt(name: String, dict: Dictionary):	
 	var butt: Object = _upgrade_butt.instance()
 	_upgrade_bar.add_child(butt)
 	_upgrade_butts.append(butt)
-#	butt.title(name).store(dict).color(_curr_melon._color.linear_interpolate(dict["color"], 0.7))
 	butt.title(name).store(dict)
+	
+	var sprite = _create_next_range_sprite(name, dict["color"])
+	butt.sprite(sprite)
+	
+#	radius = dict["base_attack_radius"]
 	
 	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
 	assert(butt.connect("mouse_entered", self, "_on_UpgradeButt_mouse_entered", [butt]) == 0)
-	assert(butt.connect("mouse_exited", self, "_on_UpgradeButt_mouse_exited") == 0)
+	assert(butt.connect("mouse_exited", self, "_on_UpgradeButt_mouse_exited", [butt]) == 0)
 
 func _on_UpgradeButt_mouse_entered(butt):
-	_next_range.rect_scale = 2 * butt.radius * Vector2(1, 1) / _next_range.rect_min_size
-	_next_range.modulate = butt.color
-	_next_range.set_visible(true)
+	butt._range_sprite.visible = true
+#	_next_range.rect_scale = 2 * butt.radius * Vector2(1, 1) / _next_range.rect_min_size
+#	_next_range.modulate = butt.color
+#	_next_range.set_visible(true)
 
-func _on_UpgradeButt_mouse_exited():
-	_next_range.set_visible(false)
+func _on_UpgradeButt_mouse_exited(butt):
+	butt._range_sprite.visible = false
 
 func _on_UpgradeButt_pressed(butt):
 	# hide UI with tween and wait for animation to complete
