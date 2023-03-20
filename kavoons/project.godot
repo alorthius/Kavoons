@@ -24,10 +24,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/scenes/towers/Melon.gd"
 }, {
-"base": "Control",
+"base": "CanvasLayer",
 "class": "MelonManager",
 "language": "GDScript",
-"path": "res://src/scenes/UI/interactive/MelonManager.gd"
+"path": "res://src/scenes/towers/MelonManager.gd"
 }, {
 "base": "Area2D",
 "class": "Projectile",

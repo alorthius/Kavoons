@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 ## Provide the tower managing interface
 ##
@@ -7,23 +7,20 @@ extends Control
 ## delete and view the information about a particular melon.
 class_name MelonManager
 
-onready var _ui: CanvasLayer = $UI
-onready var _pos: Position2D = $UI/Pos
+onready var _pos: Position2D = $Pos
 
-onready var _upgrade_bar: HBoxContainer = $UI/Pos/HUD/UpgradeBar
+onready var _upgrade_bar: HBoxContainer = $Pos/HUD/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
-onready var _sell_butt: TextureButton = $UI/Pos/HUD/BaseActions/SellBar/SellButt
-onready var _target_label: Label = $UI/Pos/HUD/BaseActions/TargetingBar/Targeting/Label
+onready var _sell_butt: TextureButton = $Pos/HUD/BaseActions/SellBar/SellButt
+onready var _target_label: Label = $Pos/HUD/BaseActions/TargetingBar/Targeting/Label
 
 var _upgrade_butts := []
 
-onready var _next_range: TextureRect = $UI/Pos/NextRange
-onready var _curr_range: TextureRect = $UI/Pos/CurrRange
+onready var _next_range: TextureRect = $Pos/NextRange
+onready var _curr_range: TextureRect = $Pos/CurrRange
 
 
-var _is_showing = false
-
-onready var _tween: Tween = $UI/Pos/Tween
+onready var _tween: Tween = $Pos/Tween
 
 var _entrance_time: float = 0.4
 var _exit_time: float = 0.4
@@ -34,41 +31,51 @@ var _rotation_final: int = 360
 var _scale_init := 0.1 * Vector2.ONE
 var _scale_final := Vector2.ONE
 
-## Ultra shitcode part.
-## An array of every HoverArea children' rect. They are used to check whether
-## to display the UI or not by checking mouse belonging to the rectangles.
-var _hover_boxes := []
-
 ## Is the building mode currently active. If so, ignore the UI input
 var _is_build_active: bool = false
 
-## The reference to the current melon this class is wrapped above
-var _curr_melon: Melon
 var _sell_cost: int
+
+var _target_priority
 
 
 ## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
 
+signal fade_out()
 
-## Hide UI if mouse is outside HoverArea boxes
-func _physics_process(_delta):
-	var show = false
-	for box in _hover_boxes:
-		if box.has_point(get_local_mouse_position()):
-			show = true
+signal change_targeting(new_targeting)
 
-	if show == false and _is_showing == true:
-		_hide_ui()
 
-## Trigger the UI display on melon collision shape hover
-func _on_melon_mouse_entered():
-	if not _is_build_active:
-		_show_ui()
+func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
+	_curr_range.rect_scale = 2 * radius * Vector2(1, 1) / _curr_range.rect_min_size
+	_curr_range.self_modulate = range_color
+	_sell_cost = sell_cost
+	_target_priority = target_priority
+	
+	_set_targeting_label()
+	
+	var idx := 0
+	for next in data["next"]:
+		idx += 1
+		_add_upgrade_butt(str(idx), next)
+
+	_add_sell_butt()
+
+
+func _on_Melon_input_event(viewport, event, shape_idx):
+	if _is_build_active:
+		return
+	
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == BUTTON_LEFT:
+			_show_ui()
+		if event.button_index == BUTTON_RIGHT:
+			_hide_ui()
+
 
 func _show_ui():
-	_is_showing = true
-	_ui.visible = true
+	visible = true
 
 	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
@@ -76,25 +83,26 @@ func _show_ui():
 
 ## Hide the UI and restore all possible features toggled while view to default
 func _hide_ui():
-	_is_showing = false
 	_next_range.visible = false
-	modulate.a = 1
-	_curr_range.modulate.a = 1
+#	modulate.a = 1
+#	_curr_range.modulate.a = 1
 
 	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	assert(_tween.interpolate_property(_pos, "scale", _scale_final, _scale_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	assert(_tween.start())
 	
 	yield(_tween, "tween_all_completed")
-	_ui.visible = false
+	visible = false
 
 func _prep_to_free():
 	_hide_ui()
 	
-	# fade melon paralell to UI fade
-	assert(_tween.interpolate_property(_curr_melon, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	assert(_tween.interpolate_property(_curr_melon, "scale", _scale_final, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	assert(_tween.start())
+	emit_signal("fade_out")
+	
+#	# fade melon paralell to UI fade
+#	assert(_tween.interpolate_property(_curr_melon, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+#	assert(_tween.interpolate_property(_curr_melon, "scale", _scale_final, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+#	assert(_tween.start())
 	
 	# resume function when tween finished all the animations
 	yield(_tween, "tween_all_completed")
@@ -106,38 +114,6 @@ func _prep_to_free():
 ## Listens to the signal from the builder to catch its status
 func _toggle_build_status(status: bool):
 	_is_build_active = status
-
-## Wrap this node above the given melon instance. The melon is added as a child
-## as a sibling of UI (CanvasLayer) node.
-func attach_melon(melon: Melon):
-	_ui.visible = false
-	
-	_curr_melon = melon
-	self.add_child(_curr_melon)
-	assert(_curr_melon.connect("mouse_entered", self, "_on_melon_mouse_entered") == 0)
-	
-	_pos.position = _curr_melon.position
-
-	_curr_range.rect_scale = 2 * _curr_melon._base_attack_radius * Vector2(1, 1) / _curr_range.rect_min_size
-	_curr_range.self_modulate = _curr_melon._color
-	
-	_set_targeting_label()
-
-	var data: Dictionary = Towers.get_tower_dict(_curr_melon.tier, _curr_melon.base_tower, _curr_melon.branch)
-	Events.emit_signal("update_money", - data["cost"])
-	
-	var idx := 0
-	for next in data["next"]:
-		idx += 1
-		_add_upgrade_butt(str(idx), next)
-
-	_add_sell_butt()
-	
-	## Save the rect of HoverArea nodes to prevent recalculations in _physics_process
-	for child in $UI/Pos/HoverArea.get_children():
-		child.visible = false
-		_hover_boxes.append(child.get_global_rect())
-
 
 # ------------------------- #
 
@@ -167,24 +143,23 @@ func _on_UpgradeButt_pressed(butt):
 	yield(_prep_to_free(), "completed")
 	
 	var new_melon: Melon = load(butt.scene).instance()
-	new_melon.position = _curr_melon.position
-	new_melon._target_priority = _curr_melon._target_priority
-	new_melon.total_money += _curr_melon.total_money
+#	new_melon.position = _curr_melon.position
+#	new_melon._target_priority = _curr_melon._target_priority
+#	new_melon.total_money += _curr_melon.total_money
 	
 	emit_signal("upgrade_to", new_melon)
 	queue_free()
 	
 
 func _add_sell_butt():
-	_sell_cost = int(0.7 * _curr_melon.total_money)
 	_sell_butt.label(str(_sell_cost))
 
 func _on_SellButt_mouse_entered():
-	modulate.a = 0.65
+#	modulate.a = 0.65
 	_curr_range.modulate.a = 0.65
 
 func _on_SellButt_mouse_exited():
-	modulate.a = 1
+#	modulate.a = 1
 	_curr_range.modulate.a = 1
 
 func _on_SellButt_pressed():
@@ -210,15 +185,15 @@ func _validate_price(total: int):
 ## If action = 1, then the targeting goes to the next in ascending list order.
 ## If action = -1, then it returns back in the descending order
 func _change_targeting(action: int):
-	var new_targeting = (_curr_melon._target_priority + action) % Constants.TargetPriority.size()
+	var new_targeting = (_target_priority + action) % Constants.TargetPriority.size()
 	if new_targeting == -1:  # -1 % 7 = -1
 		new_targeting = Constants.TargetPriority.size() - 1
 	
-	_curr_melon._target_priority = new_targeting
+	emit_signal("change_targeting", new_targeting)
 	_set_targeting_label()
 
 func _set_targeting_label():
-	var text: String = Constants.TargetPriority.keys()[_curr_melon._target_priority].to_lower()
+	var text: String = Constants.TargetPriority.keys()[_target_priority].to_lower()
 	_target_label.text = text.replace("_", " ")
 
 func _on_ToLeft_pressed():
@@ -257,3 +232,4 @@ func _on_ToRight_pressed():
 #	if not _hud_box.has_point(get_local_mouse_position()):
 #		_curr_range.set_visible(false)
 #		_hud.set_visible(false)
+

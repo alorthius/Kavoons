@@ -34,8 +34,6 @@ var _active_waves := []
 
 ## The preloaded [MelonManager] for the towers, is instanced for every new melon separately.
 ## Contains the melon itself as a child node and provides the UI to manage it.
-var _melon_manager: PackedScene = preload("res://src/scenes/UI/interactive/MelonManager.tscn")
-var _melon_manager_final: PackedScene = preload("res://src/scenes/UI/interactive/MelonManagerFinal.tscn")
 
 var enemies = []
 
@@ -73,22 +71,12 @@ func _create_starters(prestart=true):
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
 func _attach_melon(new_tower: Melon):
-	var _manager: PackedScene
+	_towers_container.add_child(new_tower, true)
 	
-	var data: Dictionary = Towers.get_tower_dict(new_tower.tier, new_tower.base_tower, new_tower.branch)
-	if len(data["next"]) == 0:
-		_manager = _melon_manager_final
-	else:
-		_manager = _melon_manager
-	
-	var new_manager: MelonManager = _manager.instance()
-	_towers_container.add_child(new_manager, true)
-	new_manager.attach_melon(new_tower)
-	
-	assert(_builder.connect("build_status", new_manager, "_toggle_build_status") == 0)
-	assert(_measures._economics.connect("total_money_changed", new_manager, "_validate_price") == 0)
+	assert(_builder.connect("build_status", new_tower._ui, "_toggle_build_status") == 0)
+#	assert(_measures._economics.connect("total_money_changed", new_manager, "_validate_price") == 0)
 
-	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
+#	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
 	
 	# forces melons to validate cost of upgrades according to current amount of money
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode
