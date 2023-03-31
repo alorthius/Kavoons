@@ -39,21 +39,23 @@ shape = SubResource( 1 )
 
 [node name="BaseAttackTimer" type="Timer" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="Control" parent="."]
 script = ExtResource( 6 )
 
-[node name="RangesPos" type="Position2D" parent="UI"]
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
 
-[node name="CurrRangeContour" type="Sprite" parent="UI/RangesPos"]
+[node name="RangesPos" type="Position2D" parent="UI/CanvasLayer"]
+
+[node name="CurrRangeContour" type="Sprite" parent="UI/CanvasLayer/RangesPos"]
 texture = ExtResource( 8 )
 
-[node name="CurrRangeDecor" type="Sprite" parent="UI/RangesPos/CurrRangeContour"]
+[node name="CurrRangeDecor" type="Sprite" parent="UI/CanvasLayer/RangesPos/CurrRangeContour"]
 texture = ExtResource( 9 )
 
-[node name="BasePos" type="Position2D" parent="UI"]
+[node name="BasePos" type="Position2D" parent="UI/CanvasLayer"]
 position = Vector2( 0, 100 )
 
-[node name="HUD" type="VBoxContainer" parent="UI/BasePos"]
+[node name="HUD" type="VBoxContainer" parent="UI/CanvasLayer/BasePos"]
 margin_left = -200.0
 margin_top = -160.0
 margin_right = 200.0
@@ -63,7 +65,7 @@ grow_vertical = 2
 rect_min_size = Vector2( 140, 330 )
 mouse_filter = 2
 
-[node name="UpgradeBar" type="HBoxContainer" parent="UI/BasePos/HUD"]
+[node name="UpgradeBar" type="HBoxContainer" parent="UI/CanvasLayer/BasePos/HUD"]
 margin_left = 110.0
 margin_right = 290.0
 margin_bottom = 80.0
@@ -76,7 +78,7 @@ size_flags_vertical = 4
 custom_constants/separation = 15
 alignment = 1
 
-[node name="BaseActions" type="VBoxContainer" parent="UI/BasePos/HUD"]
+[node name="BaseActions" type="VBoxContainer" parent="UI/CanvasLayer/BasePos/HUD"]
 margin_top = 84.0
 margin_right = 400.0
 margin_bottom = 258.0
@@ -84,7 +86,7 @@ mouse_filter = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
 
-[node name="TargetingBar" type="VBoxContainer" parent="UI/BasePos/HUD/BaseActions"]
+[node name="TargetingBar" type="VBoxContainer" parent="UI/CanvasLayer/BasePos/HUD/BaseActions"]
 margin_right = 400.0
 margin_bottom = 90.0
 grow_horizontal = 2
@@ -95,7 +97,7 @@ size_flags_vertical = 3
 custom_constants/separation = -50
 alignment = 1
 
-[node name="Targeting" type="HBoxContainer" parent="UI/BasePos/HUD/BaseActions/TargetingBar"]
+[node name="Targeting" type="HBoxContainer" parent="UI/CanvasLayer/BasePos/HUD/BaseActions/TargetingBar"]
 margin_right = 400.0
 margin_bottom = 60.0
 grow_horizontal = 2
@@ -106,13 +108,13 @@ size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 1
 
-[node name="ToLeft" parent="UI/BasePos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
+[node name="ToLeft" parent="UI/CanvasLayer/BasePos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
 margin_right = 100.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="UI/BasePos/HUD/BaseActions/TargetingBar/Targeting"]
+[node name="Label" type="Label" parent="UI/CanvasLayer/BasePos/HUD/BaseActions/TargetingBar/Targeting"]
 margin_left = 120.0
 margin_right = 280.0
 margin_bottom = 60.0
@@ -126,7 +128,7 @@ text = "highest resistance"
 align = 1
 valign = 1
 
-[node name="ToRight" parent="UI/BasePos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
+[node name="ToRight" parent="UI/CanvasLayer/BasePos/HUD/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
 margin_left = 300.0
 margin_right = 400.0
 margin_bottom = 60.0
@@ -134,7 +136,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 flip_h = true
 
-[node name="TextUnderline" type="TextureRect" parent="UI/BasePos/HUD/BaseActions/TargetingBar"]
+[node name="TextUnderline" type="TextureRect" parent="UI/CanvasLayer/BasePos/HUD/BaseActions/TargetingBar"]
 margin_left = 100.0
 margin_top = 10.0
 margin_right = 300.0
@@ -147,7 +149,7 @@ texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 
-[node name="SellBar" type="HBoxContainer" parent="UI/BasePos/HUD/BaseActions"]
+[node name="SellBar" type="HBoxContainer" parent="UI/CanvasLayer/BasePos/HUD/BaseActions"]
 margin_top = 94.0
 margin_right = 400.0
 margin_bottom = 174.0
@@ -157,13 +159,13 @@ rect_min_size = Vector2( 80, 80 )
 mouse_filter = 2
 alignment = 1
 
-[node name="SellButt" parent="UI/BasePos/HUD/BaseActions/SellBar" instance=ExtResource( 11 )]
+[node name="SellButt" parent="UI/CanvasLayer/BasePos/HUD/BaseActions/SellBar" instance=ExtResource( 11 )]
 margin_left = 170.0
 margin_top = 10.0
 margin_right = 230.0
 margin_bottom = 70.0
 
-[node name="Tween" type="Tween" parent="UI/BasePos"]
+[node name="Tween" type="Tween" parent="UI/CanvasLayer/BasePos"]
 
 [connection signal="input_event" from="." to="UI" method="_on_Melon_input_event"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]

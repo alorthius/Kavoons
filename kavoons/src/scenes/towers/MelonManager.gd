@@ -1,26 +1,25 @@
-extends CanvasLayer
+extends Control
 
 ## Provide the tower managing interface
 ##
 ## A decorator of a melon instance. It wraps above every melon using the unique
 ## instances for each melon separately. Provides the interface to upgrade,
 ## delete and view the information about a particular melon.
-class_name MelonManager
 
-onready var _pos: Position2D = $BasePos
+onready var _pos: Position2D = $CanvasLayer/BasePos
 
-onready var _ranges_pos: Position2D = $RangesPos
-onready var _curr_range = $RangesPos/CurrRangeContour
+onready var _ranges_pos: Position2D = $CanvasLayer/RangesPos
+onready var _curr_range = $CanvasLayer/RangesPos/CurrRangeContour
 
-onready var _upgrade_bar: HBoxContainer = $BasePos/HUD/UpgradeBar
+onready var _upgrade_bar: HBoxContainer = $CanvasLayer/BasePos/HUD/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
-onready var _sell_butt: TextureButton = $BasePos/HUD/BaseActions/SellBar/SellButt
-onready var _target_label: Label = $BasePos/HUD/BaseActions/TargetingBar/Targeting/Label
+onready var _sell_butt: TextureButton = $CanvasLayer/BasePos/HUD/BaseActions/SellBar/SellButt
+onready var _target_label: Label = $CanvasLayer/BasePos/HUD/BaseActions/TargetingBar/Targeting/Label
 
 var _upgrade_butts := []
 
 
-onready var _tween: Tween = $BasePos/Tween
+onready var _tween: Tween = $CanvasLayer/BasePos/Tween
 
 var _entrance_time: float = 0.4
 var _exit_time: float = 0.4
@@ -48,6 +47,8 @@ signal change_targeting(new_targeting)
 
 
 func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
+	print(get_children())
+	print(_ranges_pos)
 	_ranges_pos.scale = Vector2(4, 4)
 #	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.rect_min_size
 	_curr_range.self_modulate = range_color
