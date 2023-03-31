@@ -11,10 +11,10 @@ onready var _pos: Position2D = $BasePos
 onready var _ranges_pos: Position2D = $RangesPos
 onready var _curr_range = $RangesPos/CurrRangeContour
 
-onready var _upgrade_bar: HBoxContainer = $BasePos/HUD/UpgradeBar
+onready var _upgrade_bar: HBoxContainer = $BasePos/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
-onready var _sell_butt: TextureButton = $BasePos/HUD/BaseActions/SellBar/SellButt
-onready var _target_label: Label = $BasePos/HUD/BaseActions/TargetingBar/Targeting/Label
+onready var _sell_butt: TextureButton = $BasePos/BaseActions/SellBar/SellButt
+onready var _target_label: Label = $BasePos/BaseActions/TargetingBar/Targeting/Label
 
 var _upgrade_butts := []
 
