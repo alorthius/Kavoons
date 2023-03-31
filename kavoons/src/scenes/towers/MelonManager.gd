@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 ## Provide the tower managing interface
 ##
@@ -6,20 +6,20 @@ extends Control
 ## instances for each melon separately. Provides the interface to upgrade,
 ## delete and view the information about a particular melon.
 
-onready var _pos: Position2D = $CanvasLayer/BasePos
+onready var _pos: Position2D = $BasePos
 
-onready var _ranges_pos: Position2D = $CanvasLayer/RangesPos
-onready var _curr_range = $CanvasLayer/RangesPos/CurrRangeContour
+onready var _ranges_pos: Position2D = $RangesPos
+onready var _curr_range = $RangesPos/CurrRangeContour
 
-onready var _upgrade_bar: HBoxContainer = $CanvasLayer/BasePos/HUD/UpgradeBar
+onready var _upgrade_bar: HBoxContainer = $BasePos/HUD/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
-onready var _sell_butt: TextureButton = $CanvasLayer/BasePos/HUD/BaseActions/SellBar/SellButt
-onready var _target_label: Label = $CanvasLayer/BasePos/HUD/BaseActions/TargetingBar/Targeting/Label
+onready var _sell_butt: TextureButton = $BasePos/HUD/BaseActions/SellBar/SellButt
+onready var _target_label: Label = $BasePos/HUD/BaseActions/TargetingBar/Targeting/Label
 
 var _upgrade_butts := []
 
 
-onready var _tween: Tween = $CanvasLayer/BasePos/Tween
+onready var _tween: Tween = $BasePos/Tween
 
 var _entrance_time: float = 0.4
 var _exit_time: float = 0.4

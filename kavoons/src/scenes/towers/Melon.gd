@@ -40,7 +40,7 @@ var _target_priority: int = Constants.TargetPriority.FIRST
 
 
 onready var _melon_sprite: Sprite = $BaseSprite
-onready var _ui: Control = $UI
+onready var _ui: CanvasLayer = $UI
 
 var _color: Color
 onready var _range_shape: CollisionShape2D = $Range/CollisionShape
