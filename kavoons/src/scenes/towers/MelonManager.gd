@@ -45,6 +45,8 @@ signal fade_out()
 
 signal change_targeting(new_targeting)
 
+func _ready():
+	visible = false
 
 func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
 	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.texture.get_size()
@@ -68,28 +70,26 @@ func _on_Melon_input_event(viewport, event, shape_idx):
 	
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == BUTTON_LEFT:
-			_show_ui()
+			if visible:
+				_hide_ui()
+			else:
+				_show_ui()
 		if event.button_index == BUTTON_RIGHT:
-			_hide_ui()
+			if visible:
+				_hide_ui()
 
 
 func _show_ui():
 	visible = true
-
-	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(_pos, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
 	assert(_tween.start())
 
 ## Hide the UI and restore all possible features toggled while view to default
 func _hide_ui():
-#	_next_range.visible = false
-#	modulate.a = 1
-#	_curr_range.modulate.a = 1
-
-	assert(_tween.interpolate_property(_pos, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	assert(_tween.interpolate_property(_pos, "scale", _scale_final, _scale_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(self, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(self, "scale", _scale_final, _scale_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	assert(_tween.start())
-	
 	yield(_tween, "tween_all_completed")
 	visible = false
 
@@ -118,11 +118,12 @@ func _toggle_build_status(status: bool):
 
 # Buttons and their signals #
 
-func _create_next_range_sprite(name: String, color):
+func _create_next_range_sprite(name: String, color: Color):
 	var sprite = Sprite.new()
 	_ranges_pos.add_child(sprite)
 	sprite.texture = load("res://assets/UI/ranges/G.png")
 	sprite.modulate = color
+	sprite.visible = false
 	return sprite
 
 func _add_upgrade_butt(name: String, dict: Dictionary):	
@@ -133,7 +134,9 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 	
 	var sprite = _create_next_range_sprite(name, dict["color"])
 	butt.sprite(sprite)
-	sprite.scale = butt.radius * Vector2.ONE
+#	sprite.scale = Vector2.ONE * dict["base_attack_radius"]
+#	sprite.scale = Vector2(3, 3)
+#	sprite.scale = butt.radius * Vector2.ONE
 	
 #	radius = dict["base_attack_radius"]
 	

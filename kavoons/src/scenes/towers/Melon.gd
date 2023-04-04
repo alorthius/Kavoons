@@ -65,8 +65,10 @@ func _ready():
 	_base_attack_timer.wait_time = 1.0 / _attack_speed
 	_base_attack_timer.start()
 	
-	_ui._pos.position += position
-	_ui._ranges_pos.position = position
+	_ui.offset = position
+	
+#	_ui._pos.position += position
+#	_ui._ranges_pos.position = position
 	_ui.set_upgrades(Towers.get_tower_dict(tier, base_tower, branch), _base_attack_radius, _color, int(0.7 * total_money), _target_priority)
 
 ## Parse all the current melon data stored in a global dictionary
