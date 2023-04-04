@@ -16,6 +16,8 @@ onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeB
 onready var _sell_butt: TextureButton = $BasePos/BaseActions/SellBar/SellButt
 onready var _target_label: Label = $BasePos/BaseActions/TargetingBar/Targeting/Label
 
+onready var _stop_mouse = $StopMouse
+
 var _upgrade_butts := []
 
 
@@ -29,9 +31,6 @@ var _rotation_final: int = 360
 
 var _scale_init := 0.1 * Vector2.ONE
 var _scale_final := Vector2.ONE
-
-## Is the building mode currently active. If so, ignore the UI input
-var _is_build_active: bool = false
 
 var _sell_cost: int
 
@@ -47,6 +46,7 @@ signal change_targeting(new_targeting)
 
 func _ready():
 	visible = false
+	_stop_mouse.visible = false
 
 func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
 	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.texture.get_size()
@@ -65,9 +65,6 @@ func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost
 
 
 func _on_Melon_input_event(viewport, event, shape_idx):
-	if _is_build_active:
-		return
-	
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == BUTTON_LEFT:
 			if visible:
@@ -78,8 +75,12 @@ func _on_Melon_input_event(viewport, event, shape_idx):
 			if visible:
 				_hide_ui()
 
+func _on_StopMouse_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		_hide_ui()
 
 func _show_ui():
+	_stop_mouse.visible = true
 	visible = true
 	assert(_tween.interpolate_property(self, "rotation_degrees", _rotation_init, _rotation_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(self, "scale", _scale_init, _scale_final, _entrance_time, Tween.TRANS_BACK, Tween.EASE_OUT))
@@ -92,6 +93,7 @@ func _hide_ui():
 	assert(_tween.start())
 	yield(_tween, "tween_all_completed")
 	visible = false
+	_stop_mouse.visible = false
 
 func _prep_to_free():
 	_hide_ui()
@@ -109,10 +111,6 @@ func _prep_to_free():
 	# automatically emit "completed" signal after function return
 	# write `yield(_prep_to_free(), "completed")` in another function to resume it
 	# only after completion of all the animations by tween
-
-## Listens to the signal from the builder to catch its status
-func _toggle_build_status(status: bool):
-	_is_build_active = status
 
 # ------------------------- #
 
@@ -247,4 +245,3 @@ func _on_ToRight_pressed():
 #	if not _hud_box.has_point(get_local_mouse_position()):
 #		_curr_range.set_visible(false)
 #		_hud.set_visible(false)
-

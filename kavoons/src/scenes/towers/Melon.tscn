@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/towers/ninja_melon/T3-4.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/scenes/towers/MelonManager.gd" type="Script" id=6]
+[ext_resource path="res://src/scenes/towers/UI.gd" type="Script" id=6]
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/ranges/G.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/ranges/W.png" type="Texture" id=9]
@@ -38,10 +38,16 @@ shape = SubResource( 2 )
 [node name="CollisionShape" type="CollisionShape2D" parent="Range"]
 shape = SubResource( 1 )
 
-[node name="BaseAttackTimer" type="Timer" parent="."]
-
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
+
+[node name="StopMouse" type="Control" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3840.0
+margin_top = -2160.0
 
 [node name="RangesPos" type="Position2D" parent="UI"]
 
@@ -160,7 +166,10 @@ margin_bottom = 70.0
 
 [node name="Tween" type="Tween" parent="UI/BasePos"]
 
+[node name="BaseAttackTimer" type="Timer" parent="."]
+
 [connection signal="input_event" from="." to="UI" method="_on_Melon_input_event"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
+[connection signal="gui_input" from="UI/StopMouse" to="UI" method="_on_StopMouse_gui_input"]
 [connection signal="timeout" from="BaseAttackTimer" to="." method="_on_BaseAttackTimer_timeout"]
