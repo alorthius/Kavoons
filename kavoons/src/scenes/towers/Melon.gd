@@ -55,6 +55,8 @@ onready var _base_attack_timer: Timer = $BaseAttackTimer
 ## Single enemy the tower currently attacks
 var _curr_enemy: Cat
 
+onready var _tween: Tween = $Tween
+var _exit_time: float = 0.4
 
 signal tower_upgraded(new_tower)
 
@@ -236,5 +238,8 @@ func _on_UI_upgrade_to(new_melon):
 	emit_signal("tower_upgraded", new_melon)
 
 func _on_UI_fade_out():
-	print('k')
+	assert(_tween.interpolate_property(self, "rotation_degrees", rotation_degrees, 90, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(self, "scale", scale, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.start())
+	yield(_tween, "tween_all_completed")
 	queue_free()

@@ -68,7 +68,7 @@ func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost
 	_add_sell_butt()
 
 
-func _on_Melon_input_event(viewport, event, shape_idx):
+func _on_Melon_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == BUTTON_LEFT:
 			if visible:
@@ -101,26 +101,15 @@ func _hide_ui():
 
 func _prep_to_free():
 	_hide_ui()
-	
-#	emit_signal("fade_out")
-	
-#	# fade melon paralell to UI fade
-#	assert(_tween.interpolate_property(_curr_melon, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-#	assert(_tween.interpolate_property(_curr_melon, "scale", _scale_final, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-#	assert(_tween.start())
-	
+	emit_signal("fade_out")
 	# resume function when tween finished all the animations
 	yield(_tween, "tween_all_completed")
-	
-	# automatically emit "completed" signal after function return
-	# write `yield(_prep_to_free(), "completed")` in another function to resume it
-	# only after completion of all the animations by tween
 
 # ------------------------- #
 
 # Buttons and their signals #
 
-func _create_next_range_sprite(name: String, color: Color, radius: float):
+func _create_next_range_sprite(color: Color, radius: float):
 	var sprite = Sprite.new()
 	_ranges_pos.add_child(sprite)
 	sprite.texture = load("res://assets/UI/ranges/G.png")
@@ -135,7 +124,7 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 	_upgrade_butts.append(butt)
 	butt.title(name).store(dict)
 	
-	var sprite = _create_next_range_sprite(name, dict["color"], dict["base_attack_radius"])
+	var sprite = _create_next_range_sprite(dict["color"], dict["base_attack_radius"])
 	butt.sprite(sprite)
 	
 	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
@@ -151,12 +140,9 @@ func _on_UpgradeButt_mouse_exited(butt):
 func _on_UpgradeButt_pressed(butt):
 	# hide UI with tween and wait for animation to complete
 	yield(_prep_to_free(), "completed")
-	
 	var new_melon: Melon = load(butt.scene).instance()
-
 	emit_signal("upgrade_to", new_melon)
-	queue_free()
-	
+	emit_signal("fade_out")
 
 func _add_sell_butt():
 	_sell_butt.label(_sell_cost)
@@ -173,8 +159,6 @@ func _on_SellButt_pressed():
 	# hide UI with tween and wait for animation to complete
 	yield(_prep_to_free(), "completed")
 	emit_signal("fade_out")
-
-	queue_free()
 
 
 ## Disable buttons if not enough money for purchase

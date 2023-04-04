@@ -168,6 +168,8 @@ margin_bottom = 70.0
 
 [node name="BaseAttackTimer" type="Timer" parent="."]
 
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="input_event" from="." to="UI" method="_on_Melon_input_event"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
