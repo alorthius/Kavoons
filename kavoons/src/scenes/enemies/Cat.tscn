@@ -134,7 +134,6 @@ tint_over = Color( 0.921569, 0.839216, 0.878431, 1 )
 nine_patch_stretch = true
 
 [node name="OnClick" type="Control" parent="UI/Pos"]
-visible = false
 margin_left = -50.0
 margin_top = -60.0
 margin_right = -50.0

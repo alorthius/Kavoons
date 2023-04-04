@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T3-4.png" type="Texture" id=2]
@@ -9,7 +9,13 @@
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/ranges/outline_simple.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/ranges/W.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/slash.png" type="Texture" id=10]
 [ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/UI/armor2.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/speed.png" type="Texture" id=13]
+[ext_resource path="res://assets/UI/armor.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/skull.png" type="Texture" id=16]
+[ext_resource path="res://src/resources/fonts/cat_ui.tres" type="DynamicFont" id=17]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 35.0
@@ -86,11 +92,223 @@ size_flags_vertical = 4
 custom_constants/separation = 15
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/BasePos"]
-margin_left = -22.0
-margin_top = -62.0
-margin_right = 18.0
-margin_bottom = -22.0
+[node name="MainStats" type="HBoxContainer" parent="UI/BasePos"]
+margin_left = -86.0
+margin_top = -159.0
+margin_right = 87.0
+margin_bottom = -138.0
+mouse_filter = 2
+alignment = 1
+
+[node name="Damage" type="HBoxContainer" parent="UI/BasePos/MainStats"]
+margin_right = 66.0
+margin_bottom = 21.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/BasePos/MainStats/Damage"]
+margin_top = 1.0
+margin_right = 42.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 42, 19 )
+custom_fonts/font = ExtResource( 17 )
+text = "6666"
+align = 2
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/MainStats/Damage"]
+margin_left = 46.0
+margin_right = 66.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+
+[node name="AttackSpeed" type="HBoxContainer" parent="UI/BasePos/MainStats"]
+margin_left = 70.0
+margin_right = 125.0
+margin_bottom = 21.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/BasePos/MainStats/AttackSpeed"]
+margin_top = 1.0
+margin_right = 31.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 17 )
+text = "666"
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/MainStats/AttackSpeed"]
+margin_left = 35.0
+margin_right = 55.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 13 )
+expand = true
+
+[node name="MissRate" type="HBoxContainer" parent="UI/BasePos/MainStats"]
+margin_left = 129.0
+margin_right = 173.0
+margin_bottom = 21.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/BasePos/MainStats/MissRate"]
+margin_top = 1.0
+margin_right = 9.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 17 )
+text = "6"
+
+[node name="Label2" type="Label" parent="UI/BasePos/MainStats/MissRate"]
+margin_left = 13.0
+margin_top = 1.0
+margin_right = 20.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 17 )
+text = "%"
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/MainStats/MissRate"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 10 )
+expand = true
+
+[node name="Additional" type="HBoxContainer" parent="UI/BasePos"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.0
+margin_top = -128.0
+margin_right = 131.0
+margin_bottom = -77.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+custom_constants/separation = 100
+alignment = 1
+
+[node name="Left" type="VBoxContainer" parent="UI/BasePos/Additional"]
+margin_left = 28.0
+margin_right = 85.0
+margin_bottom = 51.0
+mouse_filter = 2
+
+[node name="CritChance" type="HBoxContainer" parent="UI/BasePos/Additional/Left"]
+margin_right = 57.0
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Left/CritChance"]
+modulate = Color( 0, 0, 0, 1 )
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Label" type="Label" parent="UI/BasePos/Additional/Left/CritChance"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "66"
+
+[node name="Label2" type="Label" parent="UI/BasePos/Additional/Left/CritChance"]
+margin_left = 48.0
+margin_right = 55.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "%"
+
+[node name="CritMultiplier" type="HBoxContainer" parent="UI/BasePos/Additional/Left"]
+margin_top = 24.0
+margin_right = 57.0
+margin_bottom = 44.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Left/CritMultiplier"]
+modulate = Color( 0, 0, 0, 1 )
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Label2" type="Label" parent="UI/BasePos/Additional/Left/CritMultiplier"]
+margin_left = 24.0
+margin_right = 33.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "x"
+
+[node name="Label" type="Label" parent="UI/BasePos/Additional/Left/CritMultiplier"]
+margin_left = 37.0
+margin_right = 57.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "66"
+
+[node name="Right" type="VBoxContainer" parent="UI/BasePos/Additional"]
+margin_left = 185.0
+margin_right = 229.0
+margin_bottom = 51.0
+mouse_filter = 2
+
+[node name="ArmorReduction" type="HBoxContainer" parent="UI/BasePos/Additional/Right"]
+margin_right = 44.0
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Right/ArmorReduction"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+
+[node name="Label" type="Label" parent="UI/BasePos/Additional/Right/ArmorReduction"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "66"
+
+[node name="ResistanceReduction" type="HBoxContainer" parent="UI/BasePos/Additional/Right"]
+margin_top = 24.0
+margin_right = 44.0
+margin_bottom = 44.0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Right/ResistanceReduction"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 12 )
+expand = true
+
+[node name="Label" type="Label" parent="UI/BasePos/Additional/Right/ResistanceReduction"]
+margin_left = 24.0
+margin_right = 33.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "6"
+
+[node name="Percent" type="Label" parent="UI/BasePos/Additional/Right/ResistanceReduction"]
+margin_left = 37.0
+margin_right = 44.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 17 )
+text = "%"
 
 [node name="TextUnderline" type="TextureRect" parent="UI/BasePos"]
 anchor_top = 0.5

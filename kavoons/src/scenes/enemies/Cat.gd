@@ -48,6 +48,7 @@ signal cat_deleted(cat)
 
 ## Attach the health bar to a cat and spawn it with a random vertical offset
 func _ready():
+	_ui.visible = false
 	_parse_cat_data()
 	_apply_cat_data()
 	
