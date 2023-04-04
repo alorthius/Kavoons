@@ -44,6 +44,7 @@ signal fade_out()
 
 signal change_targeting(new_targeting)
 
+
 func _ready():
 	visible = false
 	_stop_mouse.visible = false
@@ -101,7 +102,7 @@ func _hide_ui():
 func _prep_to_free():
 	_hide_ui()
 	
-	emit_signal("fade_out")
+#	emit_signal("fade_out")
 	
 #	# fade melon paralell to UI fade
 #	assert(_tween.interpolate_property(_curr_melon, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
@@ -143,9 +144,6 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 
 func _on_UpgradeButt_mouse_entered(butt):
 	butt._range_sprite.visible = true
-#	_next_range.rect_scale = 2 * butt.radius * Vector2(1, 1) / _next_range.rect_min_size
-#	_next_range.modulate = butt.color
-#	_next_range.set_visible(true)
 
 func _on_UpgradeButt_mouse_exited(butt):
 	butt._range_sprite.visible = false
@@ -155,16 +153,13 @@ func _on_UpgradeButt_pressed(butt):
 	yield(_prep_to_free(), "completed")
 	
 	var new_melon: Melon = load(butt.scene).instance()
-#	new_melon.position = _curr_melon.position
-#	new_melon._target_priority = _curr_melon._target_priority
-#	new_melon.total_money += _curr_melon.total_money
 
 	emit_signal("upgrade_to", new_melon)
 	queue_free()
 	
 
 func _add_sell_butt():
-	_sell_butt.label(str(_sell_cost))
+	_sell_butt.label(_sell_cost)
 
 func _on_SellButt_mouse_entered():
 	_ranges_pos.modulate.a = 0.65
@@ -177,8 +172,8 @@ func _on_SellButt_mouse_exited():
 func _on_SellButt_pressed():
 	# hide UI with tween and wait for animation to complete
 	yield(_prep_to_free(), "completed")
+	emit_signal("fade_out")
 
-	Events.emit_signal("update_money", _sell_cost)
 	queue_free()
 
 

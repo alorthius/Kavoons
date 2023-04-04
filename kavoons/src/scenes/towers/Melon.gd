@@ -56,6 +56,9 @@ onready var _base_attack_timer: Timer = $BaseAttackTimer
 var _curr_enemy: Cat
 
 
+signal tower_upgraded(new_tower)
+
+
 ## Fill all the tower data and preprocess melon fields
 func _ready():
 	_parse_tower_data()
@@ -224,3 +227,14 @@ func _on_BaseAttackTimer_timeout():
 
 func _on_UI_change_targeting(new_targeting: int):
 	_target_priority = new_targeting
+
+func _on_UI_upgrade_to(new_melon):
+	new_melon.position = position
+	new_melon._target_priority = _target_priority
+	new_melon.total_money += total_money
+	
+	emit_signal("tower_upgraded", new_melon)
+
+func _on_UI_fade_out():
+	print('k')
+	queue_free()

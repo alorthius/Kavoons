@@ -70,12 +70,11 @@ func _create_starters(prestart=true):
 
 
 ## Wrap the newly created melon with the new [Upgrader] instance.
-func _attach_melon(new_tower: Melon):
+func _attach_melon(new_tower: Melon):	
 	_towers_container.add_child(new_tower, true)
-
-#	assert(_measures._economics.connect("total_money_changed", new_manager, "_validate_price") == 0)
-
-#	assert(new_manager.connect("upgrade_to", self, "_attach_melon") == 0)
+	
+	assert(new_tower.connect("tower_upgraded", self, "_attach_melon") == 0)
+	assert(_measures._economics.connect("total_money_changed", new_tower._ui, "_validate_price") == 0)
 	
 	# forces melons to validate cost of upgrades according to current amount of money
 	_measures._economics.emit_signal("total_money_changed", _measures._economics.money_total)  # shitcode

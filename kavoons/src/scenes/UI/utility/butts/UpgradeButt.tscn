@@ -36,3 +36,5 @@ texture = ExtResource( 2 )
 [node name="Label" parent="." index="2"]
 margin_bottom = 24.0
 custom_fonts/font = SubResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_UpgradeButt_pressed"]

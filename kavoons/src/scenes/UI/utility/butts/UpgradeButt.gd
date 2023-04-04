@@ -11,5 +11,9 @@ func store(dict: Dictionary):
 	color = dict["color"]
 	scene = dict["scene"]
 	
-	icon(dict["sprite"]).label(str(cost)).color(color)
+	icon(dict["sprite"]).label(cost).color(color)
 	return self
+
+
+func _on_UpgradeButt_pressed():
+	Events.emit_signal("update_money", - cost)

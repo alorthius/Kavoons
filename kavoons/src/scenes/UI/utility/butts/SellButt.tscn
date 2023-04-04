@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/scenes/UI/utility/butts/base/LabeledButt.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/UI/butts/sell.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/butts/coin.png" type="Texture" id=4]
+[ext_resource path="res://src/scenes/UI/utility/butts/SellButt.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 resource_local_to_scene = true
@@ -15,6 +16,10 @@ font_data = ExtResource( 3 )
 rect_min_size = Vector2( 60, 60 )
 rect_pivot_offset = Vector2( 30, 30 )
 texture_normal = ExtResource( 2 )
+script = ExtResource( 5 )
+focus_scale = 0.0
+butt_darkened = 0.0
+icon_darkened = 0.0
 
 [node name="Icon" parent="." index="0"]
 margin_left = 15.0
@@ -27,3 +32,5 @@ texture = ExtResource( 4 )
 margin_bottom = 24.0
 custom_colors/font_color = Color( 1, 0.917647, 0.545098, 1 )
 custom_fonts/font = SubResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_SellButt_pressed"]

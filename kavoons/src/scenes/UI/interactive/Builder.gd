@@ -44,7 +44,7 @@ func _ready():
 	
 	for base_tower in Towers.T1:
 		var icon = Towers.get_T1_attr(base_tower, "sprite")
-		var text = String(Towers.get_T1_attr(base_tower, "cost"))
+		var text = Towers.get_T1_attr(base_tower, "cost")
 		
 		var butt: Object = _build_butt.instance()
 		_build_bar.add_child(butt)
@@ -102,6 +102,7 @@ func _place_melon():
 	new_tower.position = get_global_mouse_position()
 
 	emit_signal("tower_placed", new_tower)
+	Events.emit_signal("update_money", - Towers.get_T1_attr(_chosen_melon, "cost"))
 
 ## Reset the building mode, including the previously chosen melon and its preview
 func _cancel_building():
