@@ -47,10 +47,7 @@ signal change_targeting(new_targeting)
 
 
 func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
-	print(get_children())
-	print(_ranges_pos)
-	_ranges_pos.scale = Vector2(4, 4)
-#	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.rect_min_size
+	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.texture.get_size()
 	_curr_range.self_modulate = range_color
 	_sell_cost = sell_cost
 	_target_priority = target_priority
@@ -136,6 +133,7 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 	
 	var sprite = _create_next_range_sprite(name, dict["color"])
 	butt.sprite(sprite)
+	sprite.scale = butt.radius * Vector2.ONE
 	
 #	radius = dict["base_attack_radius"]
 	

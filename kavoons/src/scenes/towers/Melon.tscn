@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
-[ext_resource path="res://assets/towers/ninja_melon/T4_RR.png" type="Texture" id=2]
+[ext_resource path="res://assets/towers/ninja_melon/T3-4.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/scenes/UI/utility/butts/Arrow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/scenes/towers/MelonManager.gd" type="Script" id=6]
