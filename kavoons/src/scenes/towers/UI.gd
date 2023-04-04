@@ -10,6 +10,7 @@ onready var _pos: Position2D = $BasePos
 
 onready var _ranges_pos: Position2D = $RangesPos
 onready var _curr_range = $RangesPos/CurrRangeContour
+onready var _range_texture = preload("res://assets/UI/ranges/outline_simple.png")
 
 onready var _upgrade_bar: HBoxContainer = $BasePos/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
@@ -112,7 +113,7 @@ func _prep_to_free():
 func _create_next_range_sprite(color: Color, radius: float):
 	var sprite = Sprite.new()
 	_ranges_pos.add_child(sprite)
-	sprite.texture = load("res://assets/UI/ranges/G.png")
+	sprite.texture = _range_texture
 	sprite.scale *= radius
 	sprite.modulate = color
 	sprite.visible = false

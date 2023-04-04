@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/towers/shadow.png" type="Texture" id=5]
 [ext_resource path="res://src/scenes/towers/UI.gd" type="Script" id=6]
 [ext_resource path="res://assets/UI/butts/targeting.png" type="Texture" id=7]
-[ext_resource path="res://assets/UI/ranges/G.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/ranges/outline_simple.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/ranges/W.png" type="Texture" id=9]
 [ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=11]
 
@@ -53,8 +53,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -3840.0
-margin_top = -2160.0
+margin_left = -3855.0
+margin_top = -2164.0
+margin_right = -15.0
+margin_bottom = -4.0
 
 [node name="RangesPos" type="Position2D" parent="UI"]
 
@@ -62,6 +64,7 @@ margin_top = -2160.0
 texture = ExtResource( 8 )
 
 [node name="CurrRangeDecor" type="Sprite" parent="UI/RangesPos/CurrRangeContour"]
+visible = false
 texture = ExtResource( 9 )
 
 [node name="BasePos" type="Position2D" parent="UI"]
@@ -83,24 +86,45 @@ size_flags_vertical = 4
 custom_constants/separation = 15
 alignment = 1
 
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/BasePos"]
+margin_left = -22.0
+margin_top = -62.0
+margin_right = 18.0
+margin_bottom = -22.0
+
+[node name="TextUnderline" type="TextureRect" parent="UI/BasePos"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -65.0
+margin_right = 80.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 200, 80 )
+rect_scale = Vector2( 1.2, 1.5 )
+mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
 [node name="BaseActions" type="VBoxContainer" parent="UI/BasePos"]
 margin_left = -200.0
-margin_top = -60.0
+margin_top = -48.0
 margin_right = 200.0
-margin_bottom = 114.0
-mouse_filter = 2
-size_flags_horizontal = 5
-size_flags_vertical = 5
-
-[node name="TargetingBar" type="VBoxContainer" parent="UI/BasePos/BaseActions"]
-margin_right = 400.0
-margin_bottom = 90.0
-grow_horizontal = 2
-grow_vertical = 2
+margin_bottom = 122.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = -50
+custom_constants/separation = 30
+alignment = 1
+
+[node name="TargetingBar" type="VBoxContainer" parent="UI/BasePos/BaseActions"]
+margin_right = 400.0
+margin_bottom = 60.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 1
 
 [node name="Targeting" type="HBoxContainer" parent="UI/BasePos/BaseActions/TargetingBar"]
@@ -111,11 +135,11 @@ grow_vertical = 2
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 20
+custom_constants/separation = 40
 alignment = 1
 
 [node name="ToLeft" parent="UI/BasePos/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
-margin_right = 100.0
+margin_right = 80.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -135,32 +159,17 @@ align = 1
 valign = 1
 
 [node name="ToRight" parent="UI/BasePos/BaseActions/TargetingBar/Targeting" instance=ExtResource( 4 )]
-margin_left = 300.0
+margin_left = 320.0
 margin_right = 400.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 flip_h = true
 
-[node name="TextUnderline" type="TextureRect" parent="UI/BasePos/BaseActions/TargetingBar"]
-margin_left = 100.0
-margin_top = 10.0
-margin_right = 300.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 200, 80 )
-mouse_filter = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
 [node name="SellBar" type="HBoxContainer" parent="UI/BasePos/BaseActions"]
-margin_top = 94.0
+margin_top = 90.0
 margin_right = 400.0
-margin_bottom = 174.0
-grow_horizontal = 2
-grow_vertical = 2
+margin_bottom = 170.0
 rect_min_size = Vector2( 80, 80 )
 mouse_filter = 2
 alignment = 1
