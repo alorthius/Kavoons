@@ -1,9 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/towers/ninja_melon/T4_LL.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/towers/ninja_melon/T2-2.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+resource_local_to_scene = true
+size = 20
+extra_spacing_bottom = -2
+extra_spacing_char = 1
+font_data = ExtResource( 2 )
 
 [node name="NinjaT2-B" instance=ExtResource( 1 )]
 base_tower = "NinjaMelon"
@@ -11,7 +19,10 @@ tier = 2
 branch = 1
 
 [node name="BaseSprite" parent="." index="0"]
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape" parent="Range" index="0"]
 shape = SubResource( 1 )
+
+[node name="Label" parent="UI/BasePos/BaseActions/TargetingBar/Targeting" index="1"]
+custom_fonts/font = SubResource( 2 )

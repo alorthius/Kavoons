@@ -24,13 +24,12 @@ var _overlapped_melons = []
 ## List of path tiles currently overlapping with the building one
 var _overlapped_tiles = []
 
+onready var _stop_mouse: Control = $StopMouse
 ## The node managing the melon preview while building is active
 onready var _tower_preview: Node2D = $TowerPreview
 
 var _chosen_melon: String
 
-## Emits building status to not trigger other ui during the building
-signal build_status(is_active)
 ## Emits a newly placed melon instance to the [GameScene] node
 signal tower_placed(new_tower)
 
@@ -40,11 +39,12 @@ var _build_butt := preload("res://src/scenes/UI/utility/butts/BuildButt.tscn")
 ## Connect the signal on press for every button; the press action
 ## activates the building with a certain tower represented with its button name
 func _ready():
+	_stop_mouse.visible = false
 	_tower_preview.visible = false
 	
 	for base_tower in Towers.T1:
 		var icon = Towers.get_T1_attr(base_tower, "sprite")
-		var text = String(Towers.get_T1_attr(base_tower, "cost"))
+		var text = Towers.get_T1_attr(base_tower, "cost")
 		
 		var butt: Object = _build_butt.instance()
 		_build_bar.add_child(butt)
@@ -82,7 +82,7 @@ func _validate_price(total: int):
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):
 	_is_active = true
-	emit_signal("build_status", _is_active)
+	_stop_mouse.visible = true
 	_chosen_melon = melon
 
 	_tower_preview.set_preview(_chosen_melon, get_global_mouse_position(), _is_valid)
@@ -102,15 +102,15 @@ func _place_melon():
 	new_tower.position = get_global_mouse_position()
 
 	emit_signal("tower_placed", new_tower)
+	Events.emit_signal("update_money", - Towers.get_T1_attr(_chosen_melon, "cost"))
 
 ## Reset the building mode, including the previously chosen melon and its preview
 func _cancel_building():
+	_stop_mouse.visible = false
 	_is_active = false
 	_is_valid = false
 	_chosen_melon = ""
 	_tower_preview.cancel_preview()
-
-	emit_signal("build_status", _is_active)
 
 ## Listen to collision tiles entering
 func _on_BuildingShape_body_entered(body):

@@ -19,15 +19,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/scenes/enemies/Cat.gd"
 }, {
+"base": "Node2D",
+"class": "CircularEnum",
+"language": "GDScript",
+"path": "res://src/scenes/utility/CircularEnum.gd"
+}, {
 "base": "Area2D",
 "class": "Melon",
 "language": "GDScript",
 "path": "res://src/scenes/towers/Melon.gd"
-}, {
-"base": "Control",
-"class": "MelonManager",
-"language": "GDScript",
-"path": "res://src/scenes/UI/interactive/MelonManager.gd"
 }, {
 "base": "Area2D",
 "class": "Projectile",
@@ -42,8 +42,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Builder": "",
 "Cat": "",
+"CircularEnum": "",
 "Melon": "",
-"MelonManager": "",
 "Projectile": "",
 "Wave": ""
 }

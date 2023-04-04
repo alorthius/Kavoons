@@ -5,28 +5,28 @@ var T3: Dictionary = {
 	"NinjaMelon": {
 		0: {
 			"scene": "",
-			"sprite": "res://assets/towers/ninja_melon/T4_LR.png",
+			"sprite": "res://assets/towers/ninja_melon/T3-1.png",
 
 			"color": Color(1, 0.9, 0),
 			"next": [],
 		},
 		1: {
 			"scene": "",
-			"sprite": "res://assets/towers/ninja_melon/T4_RR.png",
+			"sprite": "res://assets/towers/ninja_melon/T3-2.png",
 
 			"color": Color(1, 0.4, 0.5),
 			"next": [],
 		},
 		2: {
 			"scene": "",
-			"sprite": "res://assets/towers/ninja_melon/T4_LR.png",
+			"sprite": "res://assets/towers/ninja_melon/T3-3.png",
 
 			"color": Color(1, 0.9, 0),
 			"next": [],
 		},
 		3: {
 			"scene": "",
-			"sprite": "res://assets/towers/ninja_melon/T4_RR.png",
+			"sprite": "res://assets/towers/ninja_melon/T3-4.png",
 
 			"color": Color(1, 0.4, 0.5),
 			"next": [],
@@ -40,7 +40,7 @@ var T2: Dictionary = {
 		0: {
 			"scene": "res://src/scenes/towers/ninja_melon/NinjaT2-A.tscn",
 			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
-			"sprite": "res://assets/towers/ninja_melon/T3_LR.png",
+			"sprite": "res://assets/towers/ninja_melon/T2-1.png",
 			
 			"cost": 150,
 			
@@ -66,7 +66,7 @@ var T2: Dictionary = {
 		1: {
 			"scene": "res://src/scenes/towers/ninja_melon/NinjaT2-B.tscn",
 			"projectile": "res://src/scenes/projectiles/melons/Kunai.tscn",
-			"sprite": "res://assets/towers/ninja_melon/T3_RR.png",
+			"sprite": "res://assets/towers/ninja_melon/T2-2.png",
 			
 			"cost": 200,
 			

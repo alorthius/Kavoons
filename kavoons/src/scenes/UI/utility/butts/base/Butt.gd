@@ -8,6 +8,8 @@ export(float, 1) var icon_darkened
 onready var _icon: TextureRect = $Icon
 onready var _tween: Tween = $Tween
 
+var _range_sprite: Sprite
+
 
 onready var _scale_init: Vector2 = rect_scale
 onready var _scale_final: Vector2 = rect_scale + focus_scale * Vector2.ONE
@@ -59,4 +61,8 @@ func icon(texture_path: String):
 
 func color(new_color: Color):
 	self_modulate = new_color
+	return self
+
+func sprite(range_sprite: Sprite):
+	_range_sprite = range_sprite
 	return self

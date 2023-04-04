@@ -40,6 +40,7 @@ var _target_priority: int = Constants.TargetPriority.FIRST
 
 
 onready var _melon_sprite: Sprite = $BaseSprite
+onready var _ui: CanvasLayer = $UI
 
 var _color: Color
 onready var _range_shape: CollisionShape2D = $Range/CollisionShape
@@ -54,6 +55,11 @@ onready var _base_attack_timer: Timer = $BaseAttackTimer
 ## Single enemy the tower currently attacks
 var _curr_enemy: Cat
 
+onready var _tween: Tween = $Tween
+var _exit_time: float = 0.4
+
+signal tower_upgraded(new_tower)
+
 
 ## Fill all the tower data and preprocess melon fields
 func _ready():
@@ -63,6 +69,10 @@ func _ready():
 	
 	_base_attack_timer.wait_time = 1.0 / _attack_speed
 	_base_attack_timer.start()
+	
+	_ui.offset = position
+	_ui.set_targeting(Constants.TargetPriority, _target_priority)
+	_ui.set_upgrades(Towers.get_tower_dict(tier, base_tower, branch), _base_attack_radius, _color, int(0.7 * total_money))
 
 ## Parse all the current melon data stored in a global dictionary
 func _parse_tower_data():
@@ -216,3 +226,20 @@ func _on_Range_area_exited(area):
 ## Finish basic attack reload and make tower ready to shoot
 func _on_BaseAttackTimer_timeout():
 	_ready_to_attack = true
+
+func _on_UI_change_targeting(new_targeting: int):
+	_target_priority = new_targeting
+
+func _on_UI_upgrade_to(new_melon):
+	new_melon.position = position
+	new_melon._target_priority = _target_priority
+	new_melon.total_money += total_money
+	
+	emit_signal("tower_upgraded", new_melon)
+
+func _on_UI_fade_out():
+	assert(_tween.interpolate_property(self, "rotation_degrees", rotation_degrees, 90, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(self, "scale", scale, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.start())
+	yield(_tween, "tween_all_completed")
+	queue_free()

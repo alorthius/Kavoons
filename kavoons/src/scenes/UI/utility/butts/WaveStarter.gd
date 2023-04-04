@@ -22,7 +22,7 @@ var _prestart_reward: int
 var _x_tick = 0
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
 
 func _ready():

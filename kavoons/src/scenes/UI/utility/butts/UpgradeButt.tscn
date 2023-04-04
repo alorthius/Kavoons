@@ -21,12 +21,20 @@ texture_normal = ExtResource( 3 )
 script = ExtResource( 5 )
 
 [node name="Icon" parent="." index="0"]
-margin_left = 10.0
-margin_top = 15.0
-margin_right = -15.0
-margin_bottom = -15.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.5
+margin_top = -32.5
+margin_right = 32.5
+margin_bottom = 32.5
+rect_rotation = 90.0
+rect_pivot_offset = Vector2( 32.5, 32.5 )
 texture = ExtResource( 2 )
 
 [node name="Label" parent="." index="2"]
 margin_bottom = 24.0
 custom_fonts/font = SubResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_UpgradeButt_pressed"]
