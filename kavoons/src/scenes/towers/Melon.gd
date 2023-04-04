@@ -66,7 +66,8 @@ func _ready():
 	_base_attack_timer.start()
 	
 	_ui.offset = position
-	_ui.set_upgrades(Towers.get_tower_dict(tier, base_tower, branch), _base_attack_radius, _color, int(0.7 * total_money), _target_priority)
+	_ui.set_targeting(Constants.TargetPriority, _target_priority)
+	_ui.set_upgrades(Towers.get_tower_dict(tier, base_tower, branch), _base_attack_radius, _color, int(0.7 * total_money))
 
 ## Parse all the current melon data stored in a global dictionary
 func _parse_tower_data():
@@ -220,3 +221,6 @@ func _on_Range_area_exited(area):
 ## Finish basic attack reload and make tower ready to shoot
 func _on_BaseAttackTimer_timeout():
 	_ready_to_attack = true
+
+func _on_UI_change_targeting(new_targeting: int):
+	_target_priority = new_targeting

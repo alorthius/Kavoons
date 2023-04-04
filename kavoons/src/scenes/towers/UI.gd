@@ -34,7 +34,7 @@ var _scale_final := Vector2.ONE
 
 var _sell_cost: int
 
-var _target_priority
+var _targeting
 
 
 ## Send the new melon instance on upgrade and delete itself
@@ -48,14 +48,16 @@ func _ready():
 	visible = false
 	_stop_mouse.visible = false
 
-func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
+func set_targeting(targeting_enum, init_i):
+	_targeting = CircularEnum.new()
+	_targeting.set_enum(targeting_enum).set_init(init_i)
+	_update_targeting_label()
+
+func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int):
 	_ranges_pos.scale = 2 * Vector2(1, 1) / _curr_range.texture.get_size()
 	_curr_range.scale *= radius
 	_curr_range.self_modulate = range_color
 	_sell_cost = sell_cost
-	_target_priority = target_priority
-	
-	_set_targeting_label()
 	
 	var idx := 0
 	for next in data["next"]:
@@ -156,7 +158,7 @@ func _on_UpgradeButt_pressed(butt):
 #	new_melon.position = _curr_melon.position
 #	new_melon._target_priority = _curr_melon._target_priority
 #	new_melon.total_money += _curr_melon.total_money
-	
+
 	emit_signal("upgrade_to", new_melon)
 	queue_free()
 	
@@ -165,12 +167,12 @@ func _add_sell_butt():
 	_sell_butt.label(str(_sell_cost))
 
 func _on_SellButt_mouse_entered():
-#	modulate.a = 0.65
-	_curr_range.modulate.a = 0.65
+	_ranges_pos.modulate.a = 0.65
+	_pos.modulate.a = 0.65
 
 func _on_SellButt_mouse_exited():
-#	modulate.a = 1
-	_curr_range.modulate.a = 1
+	_ranges_pos.modulate.a = 1
+	_pos.modulate.a = 1
 
 func _on_SellButt_pressed():
 	# hide UI with tween and wait for animation to complete
@@ -194,23 +196,20 @@ func _validate_price(total: int):
 ## Change the current targeting. The action argument is either 1 or -1
 ## If action = 1, then the targeting goes to the next in ascending list order.
 ## If action = -1, then it returns back in the descending order
-func _change_targeting(action: int):
-	var new_targeting = (_target_priority + action) % Constants.TargetPriority.size()
-	if new_targeting == -1:  # -1 % 7 = -1
-		new_targeting = Constants.TargetPriority.size() - 1
-	
-	emit_signal("change_targeting", new_targeting)
-	_set_targeting_label()
 
-func _set_targeting_label():
-	var text: String = Constants.TargetPriority.keys()[_target_priority].to_lower()
+func _change_targeting(new_i):
+	emit_signal("change_targeting", new_i)
+	_update_targeting_label()
+
+func _update_targeting_label():
+	var text: String = _targeting.get_value().to_lower()
 	_target_label.text = text.replace("_", " ")
 
 func _on_ToLeft_pressed():
-	_change_targeting(-1)
+	_change_targeting(_targeting.prev())
 
 func _on_ToRight_pressed():
-	_change_targeting( 1)
+	_change_targeting(_targeting.next())
 
 
 # ------------------------------------------------------------------- #
