@@ -49,7 +49,8 @@ func _ready():
 	_stop_mouse.visible = false
 
 func set_upgrades(data: Dictionary, radius: float, range_color: Color, sell_cost: int, target_priority):
-	_ranges_pos.scale = 2 * radius * Vector2(1, 1) / _curr_range.texture.get_size()
+	_ranges_pos.scale = 2 * Vector2(1, 1) / _curr_range.texture.get_size()
+	_curr_range.scale *= radius
 	_curr_range.self_modulate = range_color
 	_sell_cost = sell_cost
 	_target_priority = target_priority
@@ -116,10 +117,11 @@ func _prep_to_free():
 
 # Buttons and their signals #
 
-func _create_next_range_sprite(name: String, color: Color):
+func _create_next_range_sprite(name: String, color: Color, radius: float):
 	var sprite = Sprite.new()
 	_ranges_pos.add_child(sprite)
 	sprite.texture = load("res://assets/UI/ranges/G.png")
+	sprite.scale *= radius
 	sprite.modulate = color
 	sprite.visible = false
 	return sprite
@@ -130,13 +132,8 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 	_upgrade_butts.append(butt)
 	butt.title(name).store(dict)
 	
-	var sprite = _create_next_range_sprite(name, dict["color"])
+	var sprite = _create_next_range_sprite(name, dict["color"], dict["base_attack_radius"])
 	butt.sprite(sprite)
-#	sprite.scale = Vector2.ONE * dict["base_attack_radius"]
-#	sprite.scale = Vector2(3, 3)
-#	sprite.scale = butt.radius * Vector2.ONE
-	
-#	radius = dict["base_attack_radius"]
 	
 	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
 	assert(butt.connect("mouse_entered", self, "_on_UpgradeButt_mouse_entered", [butt]) == 0)
