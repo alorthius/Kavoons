@@ -67,8 +67,6 @@ func _create_starters(prestart=true):
 		butt.rect_position = _starters_positions[i].position
 		_starters_container.add_child(butt)
 		
-#		butt.set_enemies_label(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
-		
 		var path_icons = butt.set_icons(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["icons"])
 		for cat_name in path_icons:
 			all_icons[cat_name].append(path_icons[cat_name])
@@ -87,8 +85,8 @@ func _create_starters(prestart=true):
 			for j in range(len(icons_list)):
 				if i == j:
 					continue
-				icons_list[i].connect("mouse_entered", icons_list[j], "_on_Icon_mouse_entered")
-				icons_list[i].connect("mouse_exited", icons_list[j], "_on_Icon_mouse_exited")
+				assert(icons_list[i].connect("mouse_entered", icons_list[j], "_on_Icon_mouse_entered") == 0)
+				assert(icons_list[i].connect("mouse_exited", icons_list[j], "_on_Icon_mouse_exited") == 0)
 
 
 ## Wrap the newly created melon with the new [Upgrader] instance.

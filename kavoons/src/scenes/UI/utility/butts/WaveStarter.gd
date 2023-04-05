@@ -10,7 +10,7 @@ onready var _countdown = $Countdown
 onready var _timer = $PrestartTimer
 onready var _timer_per_sec = $UpdatePerSec
 
-onready var _enemies_label = $EnemiesLabel
+onready var _cats_icons = $CatsIcons
 onready var _reward_label = $PrestartReward
 
 var _rotation_init := 330
@@ -31,8 +31,8 @@ func _physics_process(_delta):
 func _ready():
 	_reward_label.text = ""
 	_anim_player.play("pulsating")
-	_hide_labels()
-	$Enemies.visible = false
+	_hide_icons()
+	_hide_reward()
 	set_physics_process(false)
 
 func set_icons(dict: Dictionary):
@@ -40,14 +40,10 @@ func set_icons(dict: Dictionary):
 	for cat_name in dict.keys():
 		var num = dict[cat_name]
 		var new_icon = _cat_icon.instance()
-		$Enemies.add_child(new_icon)
+		_cats_icons.add_child(new_icon)
 		new_icon.set_name(cat_name).set_num(num)
 		d[cat_name] = new_icon
 	return d
-
-func set_enemies_label(data):
-	_enemies_label.text = str(data)
-	return self
 
 func set_prestart(time, max_reward):
 	if time == 0:
@@ -66,23 +62,21 @@ func set_prestart(time, max_reward):
 	_countdown.max_value = time
 	set_physics_process(true)
 
-func _show_labels():
-	_enemies_label.visible = true
+func _show_reward():
 	_reward_label.visible = true
 
-func _hide_labels():
-	_enemies_label.visible = false
+func _hide_reward():
 	_reward_label.visible = false
 
 func _show_icons():
-	$Enemies.visible = true
+	_cats_icons.visible = true
 
 func _hide_icons():
-	$Enemies.visible = false
+	_cats_icons.visible = false
 
 func _show_data():
 	_show_icons()
-#	_show_labels()
+	_show_reward()
 	assert(_tween.interpolate_property(self, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(self, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
@@ -90,8 +84,8 @@ func _show_data():
 func _hide_data():
 	assert(_tween.interpolate_property(self, "rect_rotation", 400, _rotation_final, 0.3, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
-#	yield(_tween, "tween_all_completed")
 	_hide_icons()
+	_hide_reward()
 
 func _process_left_click():
 	if _clicked:

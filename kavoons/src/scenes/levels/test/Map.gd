@@ -13,7 +13,6 @@ var waves: Dictionary = {
 		"Path1": {
 			"enemies": [Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1],
 			"spawns":  [2,          1,          4,          1,          2,          4,          1,          2,        ],
-			"label": "9 x Cat1",
 			"icons": {
 				"Cat1": 9,
 			},
@@ -21,7 +20,6 @@ var waves: Dictionary = {
 		"Path2": {
 			"enemies": [Cats.cat_2, Cats.cat_2],
 			"spawns":  [10,         2         ],
-			"label": "2 x Cat2",
 			"icons": {
 				"Cat2": 2,
 			},
@@ -39,7 +37,6 @@ var waves: Dictionary = {
 		"Path1": {
 			"enemies": [Cats.cat_1, Cats.cat_2, Cats.cat_2, Cats.cat_2, Cats.cat_2, Cats.cat_1, Cats.cat_2],
 			"spawns":  [1,          1,          0.5,        0.5,        0.5,        2,          1         ],
-			"label": "2 x Cat1\n5 x Cat2",
 			"icons": {
 				"Cat1": 2,
 				"Cat2": 5,
@@ -48,7 +45,6 @@ var waves: Dictionary = {
 		"Path2": {
 			"enemies": [Cats.cat_2, Cats.cat_2],
 			"spawns":  [10,         2         ],
-			"label": "2 x Cat2",
 			"icons": {
 				"Cat2": 2,
 			},
