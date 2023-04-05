@@ -23,7 +23,7 @@ script = ExtResource( 5 )
 
 [node name="Economy" type="HBoxContainer" parent="."]
 margin_top = 8.0
-margin_right = 173.0
+margin_right = 150.0
 margin_bottom = 73.0
 custom_constants/separation = 10
 script = ExtResource( 3 )
@@ -40,11 +40,10 @@ expand = true
 [node name="Label" type="Label" parent="Economy"]
 margin_left = 75.0
 margin_top = 7.0
-margin_right = 173.0
+margin_right = 75.0
 margin_bottom = 58.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
-text = "6969"
 valign = 1
 
 [node name="PosFrom" type="Position2D" parent="Economy"]
@@ -55,7 +54,7 @@ position = Vector2( 165, 50 )
 
 [node name="Lifes" type="HBoxContainer" parent="."]
 margin_top = 77.0
-margin_right = 173.0
+margin_right = 150.0
 margin_bottom = 142.0
 custom_constants/separation = 10
 script = ExtResource( 6 )
@@ -72,11 +71,10 @@ expand = true
 [node name="Label" type="Label" parent="Lifes"]
 margin_left = 75.0
 margin_top = 7.0
-margin_right = 123.0
+margin_right = 75.0
 margin_bottom = 58.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
-text = "69"
 valign = 1
 
 [node name="PosFrom" type="Position2D" parent="Lifes"]

@@ -62,6 +62,7 @@ func _create_starters(prestart=true):
 		butt.rect_position = _starters_positions[i].position
 		_starters_container.add_child(butt)
 		butt.set_enemies_label(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
+		butt.set_icons(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["icons"])
 		if prestart:
 			butt.set_prestart(_map.waves[_wave_idx]["prestart_enable"], _map.waves[_wave_idx]["prestart_reward"])
 		else:

@@ -1,11 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/resources/shaders/outline.gdshader" type="Shader" id=1]
-[ext_resource path="res://assets/towers/ninja_melon/T1.png" type="Texture" id=2]
-[ext_resource path="res://src/scenes/UI/utility/HoverIcon.gd" type="Script" id=3]
-[ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/scenes/UI/utility/icons/HoverIcon.gd" type="Script" id=3]
+[ext_resource path="res://assets/icons/cats/Cat2.png" type="Texture" id=4]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
 shader = ExtResource( 1 )
 shader_param/color = Color( 1, 1, 1, 1 )
 shader_param/width = 1.0
@@ -14,35 +15,27 @@ shader_param/inside = false
 shader_param/add_margins = false
 
 [node name="HoverIcon" type="Control"]
+rect_min_size = Vector2( 40, 40 )
 script = ExtResource( 3 )
 
 [node name="Icon" type="TextureRect" parent="."]
-material = SubResource( 2 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-texture = ExtResource( 2 )
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
 expand = true
 stretch_mode = 6
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -20.0
-margin_top = -39.0
-margin_right = 22.0
-margin_bottom = -20.0
+margin_top = -19.0
+margin_right = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = ExtResource( 4 )
-text = "1 x Descr"
+rect_min_size = Vector2( 40, 19 )
+custom_fonts/font = ExtResource( 2 )
+text = "1 x D"
 
 [connection signal="mouse_entered" from="Icon" to="." method="_on_Icon_mouse_entered"]
 [connection signal="mouse_exited" from="Icon" to="." method="_on_Icon_mouse_exited"]

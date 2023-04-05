@@ -42,3 +42,12 @@ var cat_1: PackedScene = preload("res://src/scenes/enemies/Cat1.tscn")
 var cat_2: PackedScene = preload("res://src/scenes/enemies/Cat2.tscn")
 # warning-ignore:unused_class_variable
 var cat_3: PackedScene = preload("res://src/scenes/enemies/Cat3.tscn")
+
+
+# Share the cats icons
+#
+#var _icon = preload("res://src/scenes/UI/utility/icons/CatHoverIcon.tscn")
+#
+#var cat_icon_1 = _icon.instance().set_icon("res://assets/icons/cats/cat1.png").set_name("Cat 1")
+#var cat_icon_2 = _icon.instance().set_icon("res://assets/icons/cats/cat2.png").set_name("Cat 2")
+#var cat_icon_3 = _icon.instance().set_icon("res://assets/icons/cats/cat1.png").set_name("Cat 3")

@@ -3,13 +3,21 @@ extends Control
 onready var _shader = $Icon.material
 onready var _label = $Label
 onready var _tween = $Tween
+onready var _icon = $Icon
+
 
 func _ready():
 	_shader.set_shader_param("width", 0)
 	_label.percent_visible = 0
 
+
 func set_label(text):
 	_label.text = str(text)
+	return self
+
+func set_icon(path: String):
+	_icon.texture = load(path)
+	return self
 
 
 func _on_Icon_mouse_entered():

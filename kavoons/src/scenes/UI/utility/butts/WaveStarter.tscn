@@ -54,7 +54,22 @@ rect_scale = Vector2( 0.8, 0.8 )
 rect_pivot_offset = Vector2( 19, 19 )
 texture = ExtResource( 2 )
 
-[node name="EnemiesLabel" type="Label" parent="." index="3"]
+[node name="Enemies" type="HBoxContainer" parent="." index="3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 27.0
+margin_top = -9.0
+margin_right = 67.0
+margin_bottom = 31.0
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EnemiesLabel" type="Label" parent="." index="4"]
+visible = false
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -68,7 +83,7 @@ custom_fonts/font = SubResource( 3 )
 text = "jhsdhd"
 valign = 1
 
-[node name="PrestartReward" type="Label" parent="." index="4"]
+[node name="PrestartReward" type="Label" parent="." index="5"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -82,12 +97,14 @@ text = "666"
 align = 1
 valign = 1
 
-[node name="PulsatingAnimation" type="AnimationPlayer" parent="." index="5"]
+[node name="PulsatingAnimation" type="AnimationPlayer" parent="." index="6"]
 anims/pulsating = ExtResource( 8 )
 
-[node name="PrestartTimer" type="Timer" parent="." index="6"]
+[node name="PrestartTimer" type="Timer" parent="." index="7"]
 
-[node name="UpdatePerSec" type="Timer" parent="." index="7"]
+[node name="UpdatePerSec" type="Timer" parent="." index="8"]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="gui_input" from="." to="." method="_on_WaveStarter_gui_input"]
 [connection signal="timeout" from="PrestartTimer" to="." method="_on_Timer_timeout"]

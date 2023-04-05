@@ -1,6 +1,6 @@
 extends "res://src/scenes/UI/utility/butts/base/Butt.gd"
 
-signal start_wave()
+var _cat_icon = preload("res://src/scenes/UI/utility/icons/CatHoverIcon.tscn")
 
 onready var _position_init = rect_position
 onready var _position_shifted = rect_position + Vector2(0, 40)
@@ -22,6 +22,9 @@ var _prestart_reward: int
 var _x_tick = 0
 
 
+signal start_wave()
+
+
 func _physics_process(_delta):
 	_countdown.value = _timer.wait_time - _timer.time_left
 
@@ -29,7 +32,15 @@ func _ready():
 	_reward_label.text = ""
 	_anim_player.play("pulsating")
 	_hide_labels()
+	$Enemies.visible = false
 	set_physics_process(false)
+
+func set_icons(dict: Dictionary):
+	for cat_name in dict.keys():
+		var num = dict[cat_name]
+		var new_icon = _cat_icon.instance()
+		$Enemies.add_child(new_icon)
+		new_icon.set_name(cat_name).set_num(num)
 
 func set_enemies_label(data):
 	_enemies_label.text = str(data)
@@ -60,8 +71,15 @@ func _hide_labels():
 	_enemies_label.visible = false
 	_reward_label.visible = false
 
+func _show_icons():
+	$Enemies.visible = true
+
+func _hide_icons():
+	$Enemies.visible = false
+
 func _show_data():
-	_show_labels()
+	_show_icons()
+#	_show_labels()
 	assert(_tween.interpolate_property(self, "rect_rotation", _rotation_init, _rotation_final, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.interpolate_property(self, "rect_scale", rect_scale, rect_scale, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
@@ -69,7 +87,8 @@ func _show_data():
 func _hide_data():
 	assert(_tween.interpolate_property(self, "rect_rotation", 400, _rotation_final, 0.3, Tween.TRANS_ELASTIC, Tween.EASE_OUT))
 	assert(_tween.start())
-	_hide_labels()
+#	yield(_tween, "tween_all_completed")
+	_hide_icons()
 
 func _process_left_click():
 	if _clicked:
