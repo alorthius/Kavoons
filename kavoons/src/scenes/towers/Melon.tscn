@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T3-4.png" type="Texture" id=2]
@@ -16,6 +16,16 @@
 [ext_resource path="res://src/resources/fonts/melon_ui.tres" type="DynamicFont" id=14]
 [ext_resource path="res://assets/UI/armor.png" type="Texture" id=15]
 [ext_resource path="res://assets/UI/skull.png" type="Texture" id=16]
+[ext_resource path="res://src/resources/shaders/outline.gdshader" type="Shader" id=17]
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 17 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/width = 1.0
+shader_param/pattern = 0
+shader_param/inside = false
+shader_param/add_margins = false
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 35.0
@@ -39,6 +49,7 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 5 )
 
 [node name="BaseSprite" type="Sprite" parent="."]
+material = SubResource( 4 )
 rotation = 1.5708
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
@@ -424,11 +435,14 @@ margin_bottom = 70.0
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="input_event" from="." to="UI" method="_on_Melon_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_Melon_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Melon_mouse_exited"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
 [connection signal="change_targeting" from="UI" to="." method="_on_UI_change_targeting"]
 [connection signal="fade_out" from="UI" to="." method="_on_UI_fade_out"]
 [connection signal="upgrade_to" from="UI" to="." method="_on_UI_upgrade_to"]
+[connection signal="gui_input" from="UI/StopMouse" to="." method="_on_StopMouse_gui_input"]
 [connection signal="gui_input" from="UI/StopMouse" to="UI" method="_on_StopMouse_gui_input"]
 [connection signal="pressed" from="UI/BasePos/BaseActions/TargetingBar/Targeting/ToLeft" to="UI" method="_on_ToLeft_pressed"]
 [connection signal="pressed" from="UI/BasePos/BaseActions/TargetingBar/Targeting/ToRight" to="UI" method="_on_ToRight_pressed"]

@@ -40,6 +40,7 @@ var _target_priority: int = Constants.TargetPriority.FIRST
 
 
 onready var _melon_sprite: Sprite = $BaseSprite
+onready var _melon_sprite_shader = _melon_sprite.material
 onready var _ui: CanvasLayer = $UI
 
 var _color: Color
@@ -63,6 +64,8 @@ signal tower_upgraded(new_tower)
 
 ## Fill all the tower data and preprocess melon fields
 func _ready():
+	_melon_sprite_shader.set_shader_param("width", 0)
+	
 	_parse_tower_data()
 	
 	_range_shape.shape.radius = _base_attack_radius  # the shape should always be a Circle
@@ -245,3 +248,22 @@ func _on_UI_fade_out():
 	assert(_tween.start())
 	yield(_tween, "tween_all_completed")
 	queue_free()
+
+func _draw_outline():
+	assert(_tween.interpolate_property(_melon_sprite_shader, "shader_param/width", 0, 1, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
+	assert(_tween.start())
+
+func _remove_outline():
+	assert(_tween.interpolate_property(_melon_sprite_shader, "shader_param/width", 1, 0, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
+	assert(_tween.start())
+
+func _on_Melon_mouse_entered():
+	_draw_outline()
+	
+func _on_Melon_mouse_exited():
+	if not _ui.visible:
+		_remove_outline()
+
+func _on_StopMouse_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		_remove_outline()
