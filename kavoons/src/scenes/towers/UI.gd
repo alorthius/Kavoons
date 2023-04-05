@@ -50,6 +50,17 @@ func _ready():
 	visible = false
 	_stop_mouse.visible = false
 
+func set_stats(data):
+	$BasePos/Damage/Label.text = str(data["base_attack_damage"])
+	
+	$BasePos/Stats/Left/AttackSpeed/Label.text = str(data["attack_speed"])
+	$BasePos/Stats/Left/CritChance/Label.text = str(data["crit_rate"] * 100)
+	$BasePos/Stats/Left/CritMultiplier/Label.text = str(data["crit_strike_multiplier"])
+	
+	$BasePos/Stats/Right/MissRate/Labels/Label.text = str(data["miss_rate"] * 100)
+	$BasePos/Stats/Right/ArmorReduction/Label.text = str(data["armor_reduction_flat"])
+	$BasePos/Stats/Right/ResistanceReduction/Label.text = str(data["resistance_reduction_percentage"])
+
 func set_targeting(targeting_enum, init_i):
 	_targeting = CircularEnum.new()
 	_targeting.set_enum(targeting_enum).set_init(init_i)

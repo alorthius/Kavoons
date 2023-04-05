@@ -98,6 +98,8 @@ func _parse_tower_data():
 	_color = data["color"]
 	
 	total_money += data["cost"]
+	
+	_ui.set_stats(data)
 
 func _physics_process(_delta):
 	_clear_invalid_enemies()

@@ -13,9 +13,9 @@
 [ext_resource path="res://src/scenes/UI/utility/butts/SellButt.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/UI/armor2.png" type="Texture" id=12]
 [ext_resource path="res://assets/UI/speed.png" type="Texture" id=13]
+[ext_resource path="res://src/resources/fonts/melon_ui.tres" type="DynamicFont" id=14]
 [ext_resource path="res://assets/UI/armor.png" type="Texture" id=15]
 [ext_resource path="res://assets/UI/skull.png" type="Texture" id=16]
-[ext_resource path="res://src/resources/fonts/cat_ui.tres" type="DynamicFont" id=17]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 35.0
@@ -59,10 +59,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -3855.0
-margin_top = -2164.0
-margin_right = -15.0
-margin_bottom = -4.0
+margin_left = -3867.0
+margin_top = -2166.0
+margin_right = -27.0
+margin_bottom = -6.0
 
 [node name="RangesPos" type="Position2D" parent="UI"]
 
@@ -80,9 +80,9 @@ position = Vector2( 0, 100 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -90.0
-margin_top = -270.0
+margin_top = -311.0
 margin_right = 90.0
-margin_bottom = -190.0
+margin_bottom = -231.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 180, 80 )
@@ -92,222 +92,232 @@ size_flags_vertical = 4
 custom_constants/separation = 15
 alignment = 1
 
-[node name="MainStats" type="HBoxContainer" parent="UI/BasePos"]
-margin_left = -86.0
-margin_top = -159.0
-margin_right = 87.0
-margin_bottom = -138.0
+[node name="Damage" type="VBoxContainer" parent="UI/BasePos"]
+margin_left = -27.0
+margin_top = -199.0
+margin_right = 27.0
+margin_bottom = -146.0
 mouse_filter = 2
 alignment = 1
 
-[node name="Damage" type="HBoxContainer" parent="UI/BasePos/MainStats"]
-margin_right = 66.0
-margin_bottom = 21.0
-mouse_filter = 2
-alignment = 2
-
-[node name="Label" type="Label" parent="UI/BasePos/MainStats/Damage"]
-margin_top = 1.0
-margin_right = 42.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 42, 19 )
-custom_fonts/font = ExtResource( 17 )
-text = "6666"
-align = 2
-
-[node name="Icon" type="TextureRect" parent="UI/BasePos/MainStats/Damage"]
-margin_left = 46.0
-margin_right = 66.0
-margin_bottom = 21.0
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Damage"]
+margin_top = 2.0
+margin_right = 54.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
 texture = ExtResource( 16 )
 expand = true
+stretch_mode = 6
 
-[node name="AttackSpeed" type="HBoxContainer" parent="UI/BasePos/MainStats"]
-margin_left = 70.0
-margin_right = 125.0
-margin_bottom = 21.0
-mouse_filter = 2
-alignment = 2
+[node name="Label" type="Label" parent="UI/BasePos/Damage"]
+margin_top = 26.0
+margin_right = 54.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 42, 19 )
+custom_fonts/font = ExtResource( 14 )
+text = "6666"
+align = 1
 
-[node name="Label" type="Label" parent="UI/BasePos/MainStats/AttackSpeed"]
-margin_top = 1.0
-margin_right = 31.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 17 )
-text = "666"
-
-[node name="Icon" type="TextureRect" parent="UI/BasePos/MainStats/AttackSpeed"]
-margin_left = 35.0
-margin_right = 55.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 20, 20 )
-mouse_filter = 2
-texture = ExtResource( 13 )
-expand = true
-
-[node name="MissRate" type="HBoxContainer" parent="UI/BasePos/MainStats"]
-margin_left = 129.0
-margin_right = 173.0
-margin_bottom = 21.0
-mouse_filter = 2
-alignment = 2
-
-[node name="Label" type="Label" parent="UI/BasePos/MainStats/MissRate"]
-margin_top = 1.0
-margin_right = 9.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 17 )
-text = "6"
-
-[node name="Label2" type="Label" parent="UI/BasePos/MainStats/MissRate"]
-margin_left = 13.0
-margin_top = 1.0
-margin_right = 20.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 17 )
-text = "%"
-
-[node name="Icon" type="TextureRect" parent="UI/BasePos/MainStats/MissRate"]
-margin_left = 24.0
-margin_right = 44.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 20, 20 )
-mouse_filter = 2
-texture = ExtResource( 10 )
-expand = true
-
-[node name="Additional" type="HBoxContainer" parent="UI/BasePos"]
+[node name="Stats" type="HBoxContainer" parent="UI/BasePos"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -127.0
-margin_top = -128.0
+margin_left = -139.0
+margin_top = -131.0
 margin_right = 131.0
-margin_bottom = -77.0
+margin_bottom = -60.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 custom_constants/separation = 100
 alignment = 1
 
-[node name="Left" type="VBoxContainer" parent="UI/BasePos/Additional"]
-margin_left = 28.0
-margin_right = 85.0
-margin_bottom = 51.0
+[node name="Left" type="VBoxContainer" parent="UI/BasePos/Stats"]
+margin_left = 27.0
+margin_right = 93.0
+margin_bottom = 107.0
 mouse_filter = 2
+alignment = 1
 
-[node name="CritChance" type="HBoxContainer" parent="UI/BasePos/Additional/Left"]
-margin_right = 57.0
-margin_bottom = 20.0
+[node name="AttackSpeed" type="VBoxContainer" parent="UI/BasePos/Stats/Left"]
+margin_right = 66.0
+margin_bottom = 49.0
 mouse_filter = 2
+alignment = 1
 
-[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Left/CritChance"]
-modulate = Color( 0, 0, 0, 1 )
-margin_right = 20.0
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Left/AttackSpeed"]
+margin_right = 66.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
-texture = ExtResource( 16 )
+texture = ExtResource( 13 )
 expand = true
+stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Additional/Left/CritChance"]
-margin_left = 24.0
-margin_right = 44.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Left/AttackSpeed"]
+margin_top = 24.0
+margin_right = 66.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 14 )
+text = "666"
+align = 1
+
+[node name="CritChance" type="HBoxContainer" parent="UI/BasePos/Stats/Left"]
+margin_top = 53.0
+margin_right = 66.0
+margin_bottom = 78.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Left/CritChance"]
+margin_left = 3.0
+margin_right = 29.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
 text = "66"
 
-[node name="Label2" type="Label" parent="UI/BasePos/Additional/Left/CritChance"]
-margin_left = 48.0
-margin_right = 55.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
+[node name="Label2" type="Label" parent="UI/BasePos/Stats/Left/CritChance"]
+margin_left = 33.0
+margin_right = 42.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
 text = "%"
 
-[node name="CritMultiplier" type="HBoxContainer" parent="UI/BasePos/Additional/Left"]
-margin_top = 24.0
-margin_right = 57.0
-margin_bottom = 44.0
-mouse_filter = 2
-
-[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Left/CritMultiplier"]
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Left/CritChance"]
 modulate = Color( 0, 0, 0, 1 )
-margin_right = 20.0
-margin_bottom = 20.0
+margin_left = 46.0
+margin_right = 66.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
 texture = ExtResource( 16 )
 expand = true
+stretch_mode = 6
 
-[node name="Label2" type="Label" parent="UI/BasePos/Additional/Left/CritMultiplier"]
-margin_left = 24.0
-margin_right = 33.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
-text = "x"
+[node name="CritMultiplier" type="HBoxContainer" parent="UI/BasePos/Stats/Left"]
+margin_top = 82.0
+margin_right = 66.0
+margin_bottom = 107.0
+mouse_filter = 2
+alignment = 2
 
-[node name="Label" type="Label" parent="UI/BasePos/Additional/Left/CritMultiplier"]
-margin_left = 37.0
-margin_right = 57.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Left/CritMultiplier"]
+margin_right = 26.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
 text = "66"
 
-[node name="Right" type="VBoxContainer" parent="UI/BasePos/Additional"]
-margin_left = 185.0
-margin_right = 229.0
-margin_bottom = 51.0
-mouse_filter = 2
+[node name="Label2" type="Label" parent="UI/BasePos/Stats/Left/CritMultiplier"]
+margin_left = 30.0
+margin_right = 42.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "x"
 
-[node name="ArmorReduction" type="HBoxContainer" parent="UI/BasePos/Additional/Right"]
-margin_right = 44.0
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Left/CritMultiplier"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 46.0
+margin_right = 66.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="Right" type="VBoxContainer" parent="UI/BasePos/Stats"]
+margin_left = 193.0
+margin_right = 243.0
+margin_bottom = 107.0
+mouse_filter = 2
+alignment = 1
+
+[node name="MissRate" type="VBoxContainer" parent="UI/BasePos/Stats/Right"]
+margin_right = 50.0
+margin_bottom = 49.0
+mouse_filter = 2
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Right/MissRate"]
+margin_right = 50.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="Labels" type="HBoxContainer" parent="UI/BasePos/Stats/Right/MissRate"]
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 49.0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/MissRate/Labels"]
+margin_left = 12.0
+margin_right = 24.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "6"
+
+[node name="Percent" type="Label" parent="UI/BasePos/Stats/Right/MissRate/Labels"]
+margin_left = 28.0
+margin_right = 37.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "%"
+
+[node name="ArmorReduction" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
+margin_top = 53.0
+margin_right = 50.0
+margin_bottom = 78.0
 mouse_filter = 2
 
-[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Right/ArmorReduction"]
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Right/ArmorReduction"]
 margin_right = 20.0
-margin_bottom = 20.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
 texture = ExtResource( 15 )
 expand = true
+stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Additional/Right/ArmorReduction"]
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/ArmorReduction"]
 margin_left = 24.0
-margin_right = 44.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
+margin_right = 50.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
 text = "66"
 
-[node name="ResistanceReduction" type="HBoxContainer" parent="UI/BasePos/Additional/Right"]
-margin_top = 24.0
-margin_right = 44.0
-margin_bottom = 44.0
+[node name="ResistanceReduction" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
+margin_top = 82.0
+margin_right = 50.0
+margin_bottom = 107.0
 mouse_filter = 2
 
-[node name="Icon" type="TextureRect" parent="UI/BasePos/Additional/Right/ResistanceReduction"]
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
 margin_right = 20.0
-margin_bottom = 20.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
 texture = ExtResource( 12 )
 expand = true
+stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Additional/Right/ResistanceReduction"]
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
 margin_left = 24.0
-margin_right = 33.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
+margin_right = 36.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
 text = "6"
 
-[node name="Percent" type="Label" parent="UI/BasePos/Additional/Right/ResistanceReduction"]
-margin_left = 37.0
-margin_right = 44.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 17 )
+[node name="Percent" type="Label" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
+margin_left = 40.0
+margin_right = 49.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
 text = "%"
 
 [node name="TextUnderline" type="TextureRect" parent="UI/BasePos"]
