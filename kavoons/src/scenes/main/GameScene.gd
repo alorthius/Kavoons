@@ -57,17 +57,38 @@ func _ready():
 	_create_starters(false)
 
 func _create_starters(prestart=true):
+	var all_icons = Dictionary()
+	var cats_set = _map.waves[_wave_idx + 1]["cats"]
+	for cat_name in cats_set:
+		all_icons[cat_name] = []
+
 	for i in range(len(_starters_positions)):
 		var butt = _starter_butt.instance()
 		butt.rect_position = _starters_positions[i].position
 		_starters_container.add_child(butt)
-		butt.set_enemies_label(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
-		butt.set_icons(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["icons"])
+		
+#		butt.set_enemies_label(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["label"])
+		
+		var path_icons = butt.set_icons(_map.waves[_wave_idx + 1]["Path" + str(i + 1)]["icons"])
+		for cat_name in path_icons:
+			all_icons[cat_name].append(path_icons[cat_name])
+		
 		if prestart:
 			butt.set_prestart(_map.waves[_wave_idx]["prestart_enable"], _map.waves[_wave_idx]["prestart_reward"])
 		else:
 			butt.set_prestart(0, 0)
 		assert(butt.connect("start_wave", self, "_start_wave") == 0)
+	
+	# I am sooo sorry for this, but fcking godot has like 0 data structures, so I have to make everything with sticks and shit
+	for icons_list in all_icons.values():
+		if len(icons_list) < 2:
+			continue
+		for i in range(len(icons_list)):
+			for j in range(len(icons_list)):
+				if i == j:
+					continue
+				icons_list[i].connect("mouse_entered", icons_list[j], "_on_Icon_mouse_entered")
+				icons_list[i].connect("mouse_exited", icons_list[j], "_on_Icon_mouse_exited")
 
 
 ## Wrap the newly created melon with the new [Upgrader] instance.

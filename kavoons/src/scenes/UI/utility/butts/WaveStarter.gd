@@ -36,11 +36,14 @@ func _ready():
 	set_physics_process(false)
 
 func set_icons(dict: Dictionary):
+	var d = Dictionary()
 	for cat_name in dict.keys():
 		var num = dict[cat_name]
 		var new_icon = _cat_icon.instance()
 		$Enemies.add_child(new_icon)
 		new_icon.set_name(cat_name).set_num(num)
+		d[cat_name] = new_icon
+	return d
 
 func set_enemies_label(data):
 	_enemies_label.text = str(data)
