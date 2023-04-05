@@ -92,32 +92,46 @@ size_flags_vertical = 4
 custom_constants/separation = 15
 alignment = 1
 
-[node name="Damage" type="VBoxContainer" parent="UI/BasePos"]
-margin_left = -27.0
-margin_top = -199.0
-margin_right = 27.0
-margin_bottom = -146.0
+[node name="Damage" type="HBoxContainer" parent="UI/BasePos"]
+margin_left = -20.0
+margin_top = -198.0
+margin_right = 20.0
+margin_bottom = -158.0
+
+[node name="Curr" type="VBoxContainer" parent="UI/BasePos/Damage"]
+margin_right = 40.0
+margin_bottom = 54.0
 mouse_filter = 2
 alignment = 1
 
-[node name="Icon" type="TextureRect" parent="UI/BasePos/Damage"]
-margin_top = 2.0
-margin_right = 54.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 20, 20 )
+[node name="Icon" type="TextureRect" parent="UI/BasePos/Damage/Curr"]
+margin_right = 40.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
 mouse_filter = 2
+size_flags_horizontal = 7
+size_flags_vertical = 7
 texture = ExtResource( 16 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Damage"]
-margin_top = 26.0
-margin_right = 54.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 42, 19 )
+[node name="Label" type="Label" parent="UI/BasePos/Damage/Curr"]
+margin_top = 29.0
+margin_right = 40.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
-text = "6666"
+text = "6"
 align = 1
+
+[node name="Delta" type="Label" parent="UI/BasePos/Damage"]
+margin_left = 44.0
+margin_right = 84.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 40, 54 )
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
+valign = 2
 
 [node name="Stats" type="HBoxContainer" parent="UI/BasePos"]
 anchor_left = 0.5
@@ -137,37 +151,38 @@ alignment = 1
 [node name="Left" type="VBoxContainer" parent="UI/BasePos/Stats"]
 margin_left = 27.0
 margin_right = 93.0
-margin_bottom = 107.0
+margin_bottom = 83.0
 mouse_filter = 2
 alignment = 1
 
-[node name="AttackSpeed" type="VBoxContainer" parent="UI/BasePos/Stats/Left"]
+[node name="AttackSpeed" type="HBoxContainer" parent="UI/BasePos/Stats/Left"]
 margin_right = 66.0
-margin_bottom = 49.0
+margin_bottom = 25.0
 mouse_filter = 2
 alignment = 1
+
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Left/AttackSpeed"]
+margin_left = 1.0
+margin_right = 41.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "666"
+align = 1
 
 [node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Left/AttackSpeed"]
-margin_right = 66.0
-margin_bottom = 20.0
+margin_left = 45.0
+margin_right = 65.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Stats/Left/AttackSpeed"]
-margin_top = 24.0
-margin_right = 66.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 14 )
-text = "666"
-align = 1
-
 [node name="CritChance" type="HBoxContainer" parent="UI/BasePos/Stats/Left"]
-margin_top = 53.0
+margin_top = 29.0
 margin_right = 66.0
-margin_bottom = 78.0
+margin_bottom = 54.0
 mouse_filter = 2
 alignment = 2
 
@@ -197,9 +212,9 @@ expand = true
 stretch_mode = 6
 
 [node name="CritMultiplier" type="HBoxContainer" parent="UI/BasePos/Stats/Left"]
-margin_top = 82.0
+margin_top = 58.0
 margin_right = 66.0
-margin_bottom = 107.0
+margin_bottom = 83.0
 mouse_filter = 2
 alignment = 2
 
@@ -230,49 +245,43 @@ stretch_mode = 6
 [node name="Right" type="VBoxContainer" parent="UI/BasePos/Stats"]
 margin_left = 193.0
 margin_right = 243.0
-margin_bottom = 107.0
+margin_bottom = 83.0
 mouse_filter = 2
 alignment = 1
 
-[node name="MissRate" type="VBoxContainer" parent="UI/BasePos/Stats/Right"]
+[node name="MissRate" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
 margin_right = 50.0
-margin_bottom = 49.0
+margin_bottom = 25.0
 mouse_filter = 2
 alignment = 1
 
 [node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Right/MissRate"]
-margin_right = 50.0
-margin_bottom = 20.0
+margin_right = 20.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 20, 20 )
 mouse_filter = 2
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Labels" type="HBoxContainer" parent="UI/BasePos/Stats/Right/MissRate"]
-margin_top = 24.0
-margin_right = 50.0
-margin_bottom = 49.0
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/MissRate/Labels"]
-margin_left = 12.0
-margin_right = 24.0
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/MissRate"]
+margin_left = 24.0
+margin_right = 36.0
 margin_bottom = 25.0
 custom_fonts/font = ExtResource( 14 )
 text = "6"
 
-[node name="Percent" type="Label" parent="UI/BasePos/Stats/Right/MissRate/Labels"]
-margin_left = 28.0
-margin_right = 37.0
+[node name="Percent" type="Label" parent="UI/BasePos/Stats/Right/MissRate"]
+margin_left = 40.0
+margin_right = 49.0
 margin_bottom = 25.0
 custom_fonts/font = ExtResource( 14 )
 text = "%"
 
 [node name="ArmorReduction" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
-margin_top = 53.0
+margin_top = 29.0
 margin_right = 50.0
-margin_bottom = 78.0
+margin_bottom = 54.0
 mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Right/ArmorReduction"]
@@ -292,9 +301,9 @@ custom_fonts/font = ExtResource( 14 )
 text = "66"
 
 [node name="ResistanceReduction" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
-margin_top = 82.0
+margin_top = 58.0
 margin_right = 50.0
-margin_bottom = 107.0
+margin_bottom = 83.0
 mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
