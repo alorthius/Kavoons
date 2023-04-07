@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/UI/upgr_left.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/icons/money.png" type="Texture" id=2]
 [ext_resource path="res://src/scenes/UI/standalone/Economy.gd" type="Script" id=3]
-[ext_resource path="res://assets/UI/heart.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/icons/heart.png" type="Texture" id=4]
 [ext_resource path="res://src/scenes/UI/standalone/MeasuresManager.gd" type="Script" id=5]
 [ext_resource path="res://src/scenes/UI/standalone/Lifes.gd" type="Script" id=6]
 
@@ -22,26 +22,26 @@ alignment = 1
 script = ExtResource( 5 )
 
 [node name="Economy" type="HBoxContainer" parent="."]
-margin_top = 8.0
 margin_right = 150.0
-margin_bottom = 73.0
+margin_bottom = 75.0
 custom_constants/separation = 10
 script = ExtResource( 3 )
 
 [node name="Icon" type="TextureRect" parent="Economy"]
-margin_right = 65.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 65, 65 )
+margin_right = 80.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 80, 75 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 2 )
 expand = true
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="Economy"]
-margin_left = 75.0
-margin_top = 7.0
-margin_right = 75.0
-margin_bottom = 58.0
+margin_left = 90.0
+margin_top = 12.0
+margin_right = 90.0
+margin_bottom = 63.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 valign = 1
@@ -53,26 +53,27 @@ position = Vector2( 165, 5 )
 position = Vector2( 165, 50 )
 
 [node name="Lifes" type="HBoxContainer" parent="."]
-margin_top = 77.0
+margin_top = 79.0
 margin_right = 150.0
-margin_bottom = 142.0
+margin_bottom = 159.0
 custom_constants/separation = 10
 script = ExtResource( 6 )
 
 [node name="Icon" type="TextureRect" parent="Lifes"]
-margin_right = 65.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 65, 65 )
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 4 )
 expand = true
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="Lifes"]
-margin_left = 75.0
-margin_top = 7.0
-margin_right = 75.0
-margin_bottom = 58.0
+margin_left = 90.0
+margin_top = 14.0
+margin_right = 90.0
+margin_bottom = 65.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 valign = 1
