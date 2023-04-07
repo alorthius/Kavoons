@@ -1,8 +1,23 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/scenes/enemies/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/resources/animations/Cat3_walk.tres" type="Animation" id=2]
 [ext_resource path="res://assets/enemies/Cat3/cat_walk-1.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 30
+extra_spacing_bottom = -2
+extra_spacing_char = 2
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+resource_local_to_scene = true
+size = 20
+extra_spacing_bottom = -2
+extra_spacing_char = 2
+font_data = ExtResource( 4 )
 
 [node name="Cat3" instance=ExtResource( 1 )]
 base_name = "Cat3"
@@ -10,5 +25,35 @@ base_name = "Cat3"
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="Name" parent="UI/Pos/OnClick" index="0"]
+custom_fonts/font = SubResource( 1 )
+
+[node name="CurrHP" parent="UI/Pos/OnClick/Stats/Left/HP" index="0"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Slash" parent="UI/Pos/OnClick/Stats/Left/HP" index="1"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="MaxHP" parent="UI/Pos/OnClick/Stats/Left/HP" index="2"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Label" parent="UI/Pos/OnClick/Stats/Left/LifesCost" index="0"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Label" parent="UI/Pos/OnClick/Stats/Left/MoneyReward" index="0"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Label" parent="UI/Pos/OnClick/Stats/Right/MoveSpeed" index="1"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Label" parent="UI/Pos/OnClick/Stats/Right/PhysicalArmor" index="1"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Label" parent="UI/Pos/OnClick/Stats/Right/MagicalResistance" index="1"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="Percent" parent="UI/Pos/OnClick/Stats/Right/MagicalResistance" index="2"]
+custom_fonts/font = SubResource( 2 )
+
+[node name="AnimationPlayer" parent="." index="6"]
 anims/Cat3_walk = ExtResource( 2 )

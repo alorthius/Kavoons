@@ -8,20 +8,22 @@ var waves: Dictionary = {
 		
 		"prestart_enable": 10,
 		"prestart_reward": 20,
-		"cats": ["Cat1", "Cat2"],
+		"cats": ["Cat1", "Cat2", "Cat3"],
 
 		"Path1": {
-			"enemies": [Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1],
-			"spawns":  [2,          1,          4,          1,          2,          4,          1,          2,        ],
+			"enemies": [Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_1, Cats.cat_3],
+			"spawns":  [2,          1,          4,          1,          2,          4,          1,          2,          2,        ],
 			"icons": {
 				"Cat1": 9,
+				"Cat3": 1,
 			},
 		},
 		"Path2": {
-			"enemies": [Cats.cat_2, Cats.cat_2],
-			"spawns":  [10,         2         ],
+			"enemies": [Cats.cat_2, Cats.cat_2, Cats.cat_3],
+			"spawns":  [10,         2,          2         ],
 			"icons": {
 				"Cat2": 2,
+				"Cat3": 1,
 			},
 		},
 	},
