@@ -17,9 +17,6 @@ rect_min_size = Vector2( 90, 90 )
 rect_pivot_offset = Vector2( 45, 45 )
 texture_normal = ExtResource( 2 )
 script = ExtResource( 5 )
-focus_scale = 0.0
-butt_darkened = 0.0
-icon_darkened = 0.0
 
 [node name="Icon" parent="." index="0"]
 visible = false
