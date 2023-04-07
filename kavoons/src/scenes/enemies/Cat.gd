@@ -169,3 +169,8 @@ func _prep_to_free():
 	
 	assert(_tween.interpolate_property(self, "scale", _scale_final, Vector2.ZERO, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_IN))
 	assert(_tween.start())
+
+func _input(event):
+	if _ui.visible:
+		if event is InputEventMouseButton and event.pressed:
+			_hide_ui()
