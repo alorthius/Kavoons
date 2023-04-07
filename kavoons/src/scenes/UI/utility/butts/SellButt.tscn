@@ -13,8 +13,8 @@ extra_spacing_bottom = -2
 font_data = ExtResource( 3 )
 
 [node name="SellButt" instance=ExtResource( 1 )]
-rect_min_size = Vector2( 60, 60 )
-rect_pivot_offset = Vector2( 30, 30 )
+rect_min_size = Vector2( 90, 90 )
+rect_pivot_offset = Vector2( 45, 45 )
 texture_normal = ExtResource( 2 )
 script = ExtResource( 5 )
 focus_scale = 0.0
@@ -22,6 +22,7 @@ butt_darkened = 0.0
 icon_darkened = 0.0
 
 [node name="Icon" parent="." index="0"]
+visible = false
 margin_left = 15.0
 margin_top = 15.0
 margin_right = -15.0
