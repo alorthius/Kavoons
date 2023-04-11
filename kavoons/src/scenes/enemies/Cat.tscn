@@ -12,13 +12,13 @@
 [ext_resource path="res://assets/UI/progress_bars/cats_hp_bar/hp_bar-2.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/progress_bars/cats_hp_bar/hp_bar-1.png" type="Texture" id=11]
 [ext_resource path="res://assets/fonts/DungeonFont.ttf" type="DynamicFontData" id=12]
-[ext_resource path="res://assets/UI/pixel_heart.webp" type="Texture" id=13]
+[ext_resource path="res://assets/enemies/ui/skull.png" type="Texture" id=13]
 [ext_resource path="res://src/resources/fonts/cat_ui.tres" type="DynamicFont" id=14]
-[ext_resource path="res://assets/UI/butts/coin.png" type="Texture" id=15]
-[ext_resource path="res://assets/UI/speed.png" type="Texture" id=16]
-[ext_resource path="res://assets/UI/armor2.png" type="Texture" id=17]
-[ext_resource path="res://assets/UI/armor.png" type="Texture" id=18]
-[ext_resource path="res://assets/UI/to_right.png" type="Texture" id=19]
+[ext_resource path="res://assets/enemies/ui/reward.png" type="Texture" id=15]
+[ext_resource path="res://assets/enemies/ui/move_speed.png" type="Texture" id=16]
+[ext_resource path="res://assets/enemies/ui/resistance.png" type="Texture" id=17]
+[ext_resource path="res://assets/enemies/ui/armor.png" type="Texture" id=18]
+[ext_resource path="res://assets/enemies/ui/heart.png" type="Texture" id=19]
 
 [sub_resource type="Shader" id=3]
 code = "/**
@@ -153,28 +153,28 @@ text = "Cat666"
 align = 1
 
 [node name="Stats" type="HBoxContainer" parent="UI/Pos/OnClick"]
-margin_left = -114.0
-margin_top = 24.0
-margin_right = 170.0
-margin_bottom = 92.0
+margin_left = -150.0
+margin_right = 221.0
+margin_bottom = 128.0
 mouse_filter = 2
-custom_constants/separation = 130
+custom_constants/separation = 150
 
 [node name="Left" type="VBoxContainer" parent="UI/Pos/OnClick/Stats"]
-margin_right = 99.0
-margin_bottom = 68.0
+margin_right = 125.0
+margin_bottom = 128.0
 mouse_filter = 2
 alignment = 1
 
 [node name="HP" type="HBoxContainer" parent="UI/Pos/OnClick/Stats/Left"]
-margin_right = 99.0
-margin_bottom = 20.0
+margin_right = 125.0
+margin_bottom = 40.0
 mouse_filter = 2
 alignment = 2
 
 [node name="CurrHP" type="Label" parent="UI/Pos/OnClick/Stats/Left/HP"]
+margin_top = 8.0
 margin_right = 42.0
-margin_bottom = 19.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 42, 19 )
 custom_fonts/font = ExtResource( 14 )
 text = "66"
@@ -182,146 +182,154 @@ align = 2
 
 [node name="Slash" type="Label" parent="UI/Pos/OnClick/Stats/Left/HP"]
 margin_left = 46.0
-margin_right = 51.0
-margin_bottom = 19.0
+margin_top = 8.0
+margin_right = 53.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "/"
 
 [node name="MaxHP" type="Label" parent="UI/Pos/OnClick/Stats/Left/HP"]
-margin_left = 55.0
-margin_right = 75.0
-margin_bottom = 19.0
+margin_left = 57.0
+margin_top = 8.0
+margin_right = 81.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "66"
 
 [node name="Icon" type="TextureRect" parent="UI/Pos/OnClick/Stats/Left/HP"]
-margin_left = 79.0
-margin_right = 99.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_left = 85.0
+margin_right = 125.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 mouse_filter = 2
-texture = ExtResource( 13 )
+texture = ExtResource( 19 )
 expand = true
+stretch_mode = 6
 
 [node name="LifesCost" type="HBoxContainer" parent="UI/Pos/OnClick/Stats/Left"]
-margin_top = 24.0
-margin_right = 99.0
-margin_bottom = 44.0
+margin_top = 44.0
+margin_right = 125.0
+margin_bottom = 84.0
 mouse_filter = 2
 alignment = 2
 
 [node name="Label" type="Label" parent="UI/Pos/OnClick/Stats/Left/LifesCost"]
-margin_left = 55.0
-margin_right = 75.0
-margin_bottom = 19.0
+margin_left = 57.0
+margin_top = 8.0
+margin_right = 81.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "66"
 
 [node name="Icon" type="TextureRect" parent="UI/Pos/OnClick/Stats/Left/LifesCost"]
-margin_left = 79.0
-margin_right = 99.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_left = 85.0
+margin_right = 125.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 mouse_filter = 2
-texture = ExtResource( 19 )
+texture = ExtResource( 13 )
 expand = true
 
 [node name="MoneyReward" type="HBoxContainer" parent="UI/Pos/OnClick/Stats/Left"]
-margin_top = 48.0
-margin_right = 99.0
-margin_bottom = 68.0
+margin_top = 88.0
+margin_right = 125.0
+margin_bottom = 128.0
 mouse_filter = 2
 alignment = 2
 
 [node name="Label" type="Label" parent="UI/Pos/OnClick/Stats/Left/MoneyReward"]
-margin_left = 66.0
-margin_right = 75.0
-margin_bottom = 19.0
+margin_left = 70.0
+margin_top = 8.0
+margin_right = 81.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "6"
 
 [node name="Icon" type="TextureRect" parent="UI/Pos/OnClick/Stats/Left/MoneyReward"]
-margin_left = 79.0
-margin_right = 99.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_left = 85.0
+margin_right = 125.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 mouse_filter = 2
 texture = ExtResource( 15 )
 expand = true
 
 [node name="Right" type="VBoxContainer" parent="UI/Pos/OnClick/Stats"]
-margin_left = 229.0
-margin_right = 284.0
-margin_bottom = 68.0
+margin_left = 275.0
+margin_right = 356.0
+margin_bottom = 128.0
 mouse_filter = 2
 
 [node name="MoveSpeed" type="HBoxContainer" parent="UI/Pos/OnClick/Stats/Right"]
-margin_right = 55.0
-margin_bottom = 20.0
+margin_right = 81.0
+margin_bottom = 40.0
 mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="UI/Pos/OnClick/Stats/Right/MoveSpeed"]
-modulate = Color( 0, 0, 0, 1 )
-margin_right = 20.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 mouse_filter = 2
 texture = ExtResource( 16 )
 expand = true
 
 [node name="Label" type="Label" parent="UI/Pos/OnClick/Stats/Right/MoveSpeed"]
-margin_left = 24.0
-margin_right = 55.0
-margin_bottom = 19.0
+margin_left = 44.0
+margin_top = 8.0
+margin_right = 81.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "666"
 
 [node name="PhysicalArmor" type="HBoxContainer" parent="UI/Pos/OnClick/Stats/Right"]
-margin_top = 24.0
-margin_right = 55.0
-margin_bottom = 44.0
+margin_top = 44.0
+margin_right = 81.0
+margin_bottom = 84.0
 mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="UI/Pos/OnClick/Stats/Right/PhysicalArmor"]
-margin_right = 20.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 mouse_filter = 2
 texture = ExtResource( 18 )
 expand = true
 
 [node name="Label" type="Label" parent="UI/Pos/OnClick/Stats/Right/PhysicalArmor"]
-margin_left = 24.0
-margin_right = 44.0
-margin_bottom = 19.0
+margin_left = 44.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "66"
 
 [node name="MagicalResistance" type="HBoxContainer" parent="UI/Pos/OnClick/Stats/Right"]
-margin_top = 48.0
-margin_right = 55.0
-margin_bottom = 68.0
+margin_top = 88.0
+margin_right = 81.0
+margin_bottom = 128.0
 mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="UI/Pos/OnClick/Stats/Right/MagicalResistance"]
-margin_right = 20.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
 mouse_filter = 2
 texture = ExtResource( 17 )
 expand = true
 
 [node name="Label" type="Label" parent="UI/Pos/OnClick/Stats/Right/MagicalResistance"]
-margin_left = 24.0
-margin_right = 33.0
-margin_bottom = 19.0
+margin_left = 44.0
+margin_top = 8.0
+margin_right = 55.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "6"
 
 [node name="Percent" type="Label" parent="UI/Pos/OnClick/Stats/Right/MagicalResistance"]
-margin_left = 37.0
-margin_right = 44.0
-margin_bottom = 19.0
+margin_left = 59.0
+margin_top = 8.0
+margin_right = 67.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 14 )
 text = "%"
 

@@ -141,7 +141,7 @@ func _on_AreaUI_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		if not _ui.visible:
 			_show_ui()
-			_ui_timer.start()
+#			_ui_timer.start()
 		else:
 			_hide_ui()
 
