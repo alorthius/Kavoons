@@ -49,6 +49,7 @@ func _ready():
 		var butt: Object = _build_butt.instance()
 		_build_bar.add_child(butt)
 		butt.title(base_tower).icon(icon).label(text)
+		_build_butts.append(butt)
 		
 		assert(butt.connect("pressed", self, "_activate_building", [butt.name]) == 0)
 
@@ -68,16 +69,10 @@ func _process(_delta):
 ## Disable buttons if not enough money for purchase
 func _validate_price(total: int):
 	for butt in _build_butts:
-		var icon: TextureRect = butt.get_node("Icon")
-		
-		if Towers.get_T1_attr(butt.name, "cost") > total:
-			if not butt.disabled:
-				butt.disabled = true
-				icon.self_modulate = icon.modulate.darkened(0.5)
+		if int(butt._data) > total:
+			butt.disable()
 		else:
-			butt.disabled = false
-			icon.self_modulate = Color(1, 1, 1, 1)
-
+			butt.enable()
 
 ## Hold the reference of a single tower to build and render its preview
 func _activate_building(melon: String):
