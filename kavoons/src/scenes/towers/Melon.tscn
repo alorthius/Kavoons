@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T3-4.png" type="Texture" id=2]
@@ -225,10 +225,17 @@ extra_spacing_bottom = -2
 extra_spacing_char = 1
 font_data = ExtResource( 3 )
 
+[sub_resource type="Gradient" id=104]
+offsets = PoolRealArray( 0, 0.787234, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.94902, 0.843137, 1, 0.74902, 0.54902, 0.152941, 1 )
+
+[sub_resource type="GradientTexture" id=105]
+gradient = SubResource( 104 )
+
 [sub_resource type="Gradient" id=98]
 interpolation_mode = 2
 offsets = PoolRealArray( 0, 0.744681, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 0.694118, 0.47451, 0.133333, 0.784314, 1, 1, 1, 0 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.74902, 0.545098, 0.152941, 0.784314, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=99]
 gradient = SubResource( 98 )
@@ -267,6 +274,7 @@ scale = 4.0
 scale_random = 0.9
 scale_curve = SubResource( 101 )
 color_ramp = SubResource( 99 )
+color_initial_ramp = SubResource( 105 )
 
 [node name="Melon" type="Area2D" groups=["melons"]]
 script = ExtResource( 1 )
