@@ -17,7 +17,7 @@
 [ext_resource path="res://assets/UI/armor.png" type="Texture" id=15]
 [ext_resource path="res://assets/UI/skull.png" type="Texture" id=16]
 [ext_resource path="res://src/resources/shaders/outline.gdshader" type="Shader" id=17]
-[ext_resource path="res://assets/fx/Explosion_96x96.png" type="Texture" id=18]
+[ext_resource path="res://assets/fx/melons/placement.png" type="Texture" id=18]
 [ext_resource path="res://assets/UI/icons/money.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=5]
