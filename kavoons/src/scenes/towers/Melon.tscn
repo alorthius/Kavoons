@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://src/scenes/towers/Melon.gd" type="Script" id=1]
 [ext_resource path="res://assets/towers/ninja_melon/T3-4.png" type="Texture" id=2]
@@ -18,6 +18,87 @@
 [ext_resource path="res://assets/UI/skull.png" type="Texture" id=16]
 [ext_resource path="res://src/resources/shaders/outline.gdshader" type="Shader" id=17]
 [ext_resource path="res://assets/fx/Explosion_96x96.png" type="Texture" id=18]
+[ext_resource path="res://assets/fx/LightCast_96.png" type="Texture" id=19]
+
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 19 )
+region = Rect2( 960, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 19 )
+region = Rect2( 1056, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=81]
+atlas = ExtResource( 19 )
+region = Rect2( 1152, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=82]
+atlas = ExtResource( 19 )
+region = Rect2( 1248, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=83]
+atlas = ExtResource( 19 )
+region = Rect2( 1344, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=84]
+atlas = ExtResource( 19 )
+region = Rect2( 1440, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=85]
+atlas = ExtResource( 19 )
+region = Rect2( 1536, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=86]
+atlas = ExtResource( 19 )
+region = Rect2( 1632, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=87]
+atlas = ExtResource( 19 )
+region = Rect2( 1728, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=88]
+atlas = ExtResource( 19 )
+region = Rect2( 1824, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=89]
+atlas = ExtResource( 19 )
+region = Rect2( 1920, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=90]
+atlas = ExtResource( 19 )
+region = Rect2( 2016, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=91]
+atlas = ExtResource( 19 )
+region = Rect2( 2112, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=92]
+atlas = ExtResource( 19 )
+region = Rect2( 2208, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=93]
+atlas = ExtResource( 19 )
+region = Rect2( 2304, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=94]
+atlas = ExtResource( 19 )
+region = Rect2( 2400, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=95]
+atlas = ExtResource( 19 )
+region = Rect2( 2496, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=96]
+atlas = ExtResource( 19 )
+region = Rect2( 2592, 0, 96, 96 )
+
+[sub_resource type="SpriteFrames" id=78]
+animations = [ {
+"frames": [ SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ), SubResource( 90 ), SubResource( 91 ), SubResource( 92 ), SubResource( 93 ), SubResource( 94 ), SubResource( 95 ), SubResource( 96 ) ],
+"loop": false,
+"name": "sell",
+"speed": 60.0
+} ]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 18 )
@@ -227,7 +308,12 @@ font_data = ExtResource( 3 )
 [node name="Melon" type="Area2D" groups=["melons"]]
 script = ExtResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="SellAnimation" type="AnimatedSprite" parent="."]
+scale = Vector2( 4, 4 )
+frames = SubResource( 78 )
+animation = "sell"
+
+[node name="PlacementAnimation" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )
 frames = SubResource( 49 )
 animation = "placement"
@@ -627,7 +713,7 @@ margin_bottom = 90.0
 [connection signal="input_event" from="." to="UI" method="_on_Melon_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_Melon_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Melon_mouse_exited"]
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="PlacementAnimation" to="." method="_on_PlacementAnimation_animation_finished"]
 [connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
 [connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
 [connection signal="change_targeting" from="UI" to="." method="_on_UI_change_targeting"]

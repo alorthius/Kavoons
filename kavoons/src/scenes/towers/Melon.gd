@@ -41,7 +41,8 @@ var _target_priority: int = Constants.TargetPriority.FIRST
 
 onready var _melon_sprite: Sprite = $BaseSprite
 onready var _melon_sprite_shader = _melon_sprite.material
-onready var _placement_animation = $AnimatedSprite
+onready var _placement_animation = $PlacementAnimation
+onready var _sell_animation = $SellAnimation
 onready var _ui: CanvasLayer = $UI
 
 var _color: Color
@@ -80,6 +81,8 @@ func _ready():
 	
 	_placement_animation.modulate = _color
 	_placement_animation.play("placement")
+	
+	_sell_animation.visible = false
 
 ## Parse all the current melon data stored in a global dictionary
 func _parse_tower_data():
@@ -272,6 +275,5 @@ func _on_StopMouse_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		_remove_outline()
 
-
-func _on_AnimatedSprite_animation_finished():
+func _on_PlacementAnimation_animation_finished():
 	_placement_animation.queue_free()

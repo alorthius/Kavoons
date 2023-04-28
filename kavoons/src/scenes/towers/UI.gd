@@ -113,10 +113,10 @@ func _hide_ui():
 	
 
 func _prep_to_free():
-	_hide_ui()
 	emit_signal("fade_out")
-	# resume function when tween finished all the animations
-	yield(_tween, "tween_all_completed")
+	yield(_hide_ui(), "completed")
+#	# resume function when tween finished all the animations
+#	yield(_tween, "tween_all_completed")
 
 # ------------------------- #
 
@@ -155,7 +155,6 @@ func _on_UpgradeButt_pressed(butt):
 	yield(_prep_to_free(), "completed")
 	var new_melon: Melon = load(butt.scene).instance()
 	emit_signal("upgrade_to", new_melon)
-	emit_signal("fade_out")
 
 func _add_sell_butt():
 	_sell_butt.label(_sell_cost)
