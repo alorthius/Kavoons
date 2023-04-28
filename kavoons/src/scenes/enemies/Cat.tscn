@@ -90,6 +90,7 @@ tracks/0/keys = {
 }
 
 [node name="Cat" type="PathFollow2D" groups=["enemies"]]
+scale = Vector2( 0.8, 0.8 )
 loop = false
 script = ExtResource( 1 )
 

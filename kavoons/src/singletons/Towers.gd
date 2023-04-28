@@ -58,7 +58,7 @@ var T2: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistance_reduction_percentage": 0,
 
-			"color": Color(1, 0.9, 0),
+			"color": Color("f7d7fc"),
 			"next": [],
 #			"next": [T3["NinjaMelon"][0], T3["NinjaMelon"][1]],
 		},
@@ -84,7 +84,7 @@ var T2: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistance_reduction_percentage": 0,
 
-			"color": Color(1, 0.4, 0.5),
+			"color": Color("e76876"),
 			"next": [],
 #			"next": [T3["NinjaMelon"][2], T3["NinjaMelon"][3]],
 		},
@@ -116,7 +116,7 @@ var T1: Dictionary = {
 			"armor_reduction_flat": 5,
 			"resistance_reduction_percentage": 0,
 			
-			"color": Color(0.5, 1, 0.8),
+			"color": Color("ffb1b1"),
 			"next": [T2["NinjaMelon"][0],
 					 T2["NinjaMelon"][1]],
 		},

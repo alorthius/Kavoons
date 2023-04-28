@@ -41,6 +41,7 @@ var _target_priority: int = Constants.TargetPriority.FIRST
 
 onready var _melon_sprite: Sprite = $BaseSprite
 onready var _melon_sprite_shader = _melon_sprite.material
+onready var _placement_animation = $AnimatedSprite
 onready var _ui: CanvasLayer = $UI
 
 var _color: Color
@@ -76,6 +77,9 @@ func _ready():
 	_ui.offset = position
 	_ui.set_targeting(Constants.TargetPriority, _target_priority)
 	_ui.set_upgrades(Towers.get_tower_dict(tier, base_tower, branch), _base_attack_radius, _color, int(0.7 * total_money))
+	
+	_placement_animation.modulate = _color
+	_placement_animation.play("placement")
 
 ## Parse all the current melon data stored in a global dictionary
 func _parse_tower_data():
@@ -267,3 +271,7 @@ func _on_Melon_mouse_exited():
 func _on_StopMouse_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		_remove_outline()
+
+
+func _on_AnimatedSprite_animation_finished():
+	_placement_animation.queue_free()
