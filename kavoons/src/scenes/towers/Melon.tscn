@@ -349,8 +349,8 @@ alignment = 1
 [node name="Damage" type="HBoxContainer" parent="UI/BasePos"]
 margin_left = -20.0
 margin_top = -198.0
-margin_right = 20.0
-margin_bottom = -158.0
+margin_right = 90.0
+margin_bottom = -144.0
 
 [node name="Curr" type="VBoxContainer" parent="UI/BasePos/Damage"]
 margin_right = 40.0
@@ -378,7 +378,7 @@ custom_fonts/font = ExtResource( 14 )
 text = "6"
 align = 1
 
-[node name="Delta" type="Label" parent="UI/BasePos/Damage"]
+[node name="Upgr" type="Label" parent="UI/BasePos/Damage"]
 margin_left = 44.0
 margin_right = 84.0
 margin_bottom = 54.0
@@ -392,19 +392,48 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -139.0
-margin_top = -131.0
-margin_right = 131.0
+margin_left = -220.0
+margin_top = -143.0
+margin_right = 221.0
 margin_bottom = -60.0
 grow_horizontal = 0
 grow_vertical = 0
+rect_min_size = Vector2( 354, 83 )
 mouse_filter = 2
-custom_constants/separation = 100
+custom_constants/separation = 20
 alignment = 1
 
+[node name="UpgrLeft" type="VBoxContainer" parent="UI/BasePos/Stats"]
+margin_left = 47.0
+margin_right = 81.0
+margin_bottom = 83.0
+mouse_filter = 2
+alignment = 1
+
+[node name="AttackSpeed" type="Label" parent="UI/BasePos/Stats/UpgrLeft"]
+margin_right = 34.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
+align = 1
+
+[node name="CritChance" type="Label" parent="UI/BasePos/Stats/UpgrLeft"]
+margin_top = 29.0
+margin_right = 34.0
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
+
+[node name="CritMult" type="Label" parent="UI/BasePos/Stats/UpgrLeft"]
+margin_top = 58.0
+margin_right = 34.0
+margin_bottom = 83.0
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
+
 [node name="Left" type="VBoxContainer" parent="UI/BasePos/Stats"]
-margin_left = 27.0
-margin_right = 93.0
+margin_left = 101.0
+margin_right = 167.0
 margin_bottom = 83.0
 mouse_filter = 2
 alignment = 1
@@ -496,15 +525,23 @@ texture = ExtResource( 16 )
 expand = true
 stretch_mode = 6
 
+[node name="Control" type="Control" parent="UI/BasePos/Stats"]
+margin_left = 187.0
+margin_right = 257.0
+margin_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 70, 0 )
+
 [node name="Right" type="VBoxContainer" parent="UI/BasePos/Stats"]
-margin_left = 193.0
-margin_right = 243.0
+margin_left = 277.0
+margin_right = 340.0
 margin_bottom = 83.0
 mouse_filter = 2
 alignment = 1
 
 [node name="MissRate" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
-margin_right = 50.0
+margin_right = 63.0
 margin_bottom = 25.0
 mouse_filter = 2
 alignment = 1
@@ -518,23 +555,23 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/MissRate"]
-margin_left = 24.0
-margin_right = 36.0
-margin_bottom = 25.0
-custom_fonts/font = ExtResource( 14 )
-text = "6"
-
 [node name="Percent" type="Label" parent="UI/BasePos/Stats/Right/MissRate"]
-margin_left = 40.0
-margin_right = 49.0
+margin_left = 24.0
+margin_right = 33.0
 margin_bottom = 25.0
 custom_fonts/font = ExtResource( 14 )
 text = "%"
 
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/MissRate"]
+margin_left = 37.0
+margin_right = 63.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "66"
+
 [node name="ArmorReduction" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
 margin_top = 29.0
-margin_right = 50.0
+margin_right = 63.0
 margin_bottom = 54.0
 mouse_filter = 2
 
@@ -556,7 +593,7 @@ text = "66"
 
 [node name="ResistanceReduction" type="HBoxContainer" parent="UI/BasePos/Stats/Right"]
 margin_top = 58.0
-margin_right = 50.0
+margin_right = 63.0
 margin_bottom = 83.0
 mouse_filter = 2
 
@@ -569,19 +606,47 @@ texture = ExtResource( 12 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
-margin_left = 24.0
-margin_right = 36.0
-margin_bottom = 25.0
-custom_fonts/font = ExtResource( 14 )
-text = "6"
-
 [node name="Percent" type="Label" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
-margin_left = 40.0
-margin_right = 49.0
+margin_left = 24.0
+margin_right = 33.0
 margin_bottom = 25.0
 custom_fonts/font = ExtResource( 14 )
 text = "%"
+
+[node name="Label" type="Label" parent="UI/BasePos/Stats/Right/ResistanceReduction"]
+margin_left = 37.0
+margin_right = 63.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "66"
+
+[node name="UpgrRight" type="VBoxContainer" parent="UI/BasePos/Stats"]
+margin_left = 360.0
+margin_right = 394.0
+margin_bottom = 83.0
+mouse_filter = 2
+alignment = 1
+
+[node name="MissRate" type="Label" parent="UI/BasePos/Stats/UpgrRight"]
+margin_right = 34.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
+align = 1
+
+[node name="ArmorRed" type="Label" parent="UI/BasePos/Stats/UpgrRight"]
+margin_top = 29.0
+margin_right = 34.0
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
+
+[node name="ResisRed" type="Label" parent="UI/BasePos/Stats/UpgrRight"]
+margin_top = 58.0
+margin_right = 34.0
+margin_bottom = 83.0
+custom_fonts/font = ExtResource( 14 )
+text = "+66"
 
 [node name="TextUnderline" type="TextureRect" parent="UI/BasePos"]
 anchor_top = 0.5

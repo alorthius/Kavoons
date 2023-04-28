@@ -46,7 +46,7 @@ var T2: Dictionary = {
 			
 			"base_attack_radius": 350,
 			"base_attack_type": Constants.DamageTypes.PHYSICAL,
-			"base_attack_damage": 20,
+			"base_attack_damage": 10,
 			
 			"attack_speed": 2.5,
 			"projectile_speed": 500,
@@ -55,8 +55,8 @@ var T2: Dictionary = {
 			"crit_rate": 0,
 			"crit_strike_multiplier": 2,
 			
-			"armor_reduction_flat": 5,
-			"resistance_reduction_percentage": 0,
+			"armor_reduction_flat": 10,
+			"resistance_reduction_percentage": 5,
 
 			"color": Color("f7d7fc"),
 			"next": [],
@@ -81,8 +81,8 @@ var T2: Dictionary = {
 			"crit_rate": 0.5,
 			"crit_strike_multiplier": 2,
 			
-			"armor_reduction_flat": 5,
-			"resistance_reduction_percentage": 0,
+			"armor_reduction_flat": 10,
+			"resistance_reduction_percentage": 1,
 
 			"color": Color("e76876"),
 			"next": [],
@@ -108,7 +108,7 @@ var T1: Dictionary = {
 			
 			"attack_speed": 1.5,
 			"projectile_speed": 500,
-			"miss_rate": 0,
+			"miss_rate": 0.1,
 			
 			"crit_rate": 0.5,
 			"crit_strike_multiplier": 1.5,

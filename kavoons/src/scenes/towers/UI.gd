@@ -6,6 +6,8 @@ extends CanvasLayer
 ## instances for each melon separately. Provides the interface to upgrade,
 ## delete and view the information about a particular melon.
 
+var _stats: Dictionary
+
 onready var _pos: Position2D = $BasePos
 
 onready var _ranges_pos: Position2D = $RangesPos
@@ -16,6 +18,34 @@ onready var _upgrade_bar: HBoxContainer = $BasePos/UpgradeBar
 onready var _upgrade_butt := preload("res://src/scenes/UI/utility/butts/UpgradeButt.tscn")
 onready var _sell_butt: TextureButton = $BasePos/BaseActions/SellBar/SellButt
 onready var _target_label: Label = $BasePos/BaseActions/TargetingBar/Targeting/Label
+
+# Melon's stats labels
+onready var _dmg_label = $BasePos/Damage/Curr/Label
+onready var _attack_speed_label = $BasePos/Stats/Left/AttackSpeed/Label
+onready var _crit_rate_label = $BasePos/Stats/Left/CritChance/Label
+onready var _crit_strike_label = $BasePos/Stats/Left/CritMultiplier/Label
+onready var _miss_rate_label = $BasePos/Stats/Right/MissRate/Label
+onready var _armor_red_label = $BasePos/Stats/Right/ArmorReduction/Label
+onready var _resis_red_label = $BasePos/Stats/Right/ResistanceReduction/Label
+
+# Upgrade's stats labels
+#onready var _dmg_upgr_label = $BasePos/Damage/Upgr
+#onready var _attack_speed_upgr_label = $BasePos/Stats/UpgrLeft/AttackSpeed
+#onready var _crit_rate_upgr_label = $BasePos/Stats/UpgrLeft/CritChance
+#onready var _crit_strike_upgr_label = $BasePos/Stats/UpgrLeft/CritMult
+#onready var _miss_rate_upgr_label = $BasePos/Stats/UpgrRight/MissRate
+#onready var _armor_red_upgr_label = $BasePos/Stats/UpgrRight/ArmorRed
+#onready var _resis_red_upgr_label = $BasePos/Stats/UpgrRight/ResisRed
+
+onready var _upgr_labels: Dictionary = {
+	"base_attack_damage": $BasePos/Damage/Upgr,
+	"attack_speed": $BasePos/Stats/UpgrLeft/AttackSpeed,
+	"crit_rate": $BasePos/Stats/UpgrLeft/CritChance,
+	"crit_strike_multiplier": $BasePos/Stats/UpgrLeft/CritMult,
+	"miss_rate": $BasePos/Stats/UpgrRight/MissRate,
+	"armor_reduction_flat": $BasePos/Stats/UpgrRight/ArmorRed,
+	"resistance_reduction_percentage": $BasePos/Stats/UpgrRight/ResisRed,
+}
 
 onready var _stop_mouse = $StopMouse
 
@@ -51,17 +81,6 @@ signal change_targeting(new_targeting)
 func _ready():
 	visible = false
 	_stop_mouse.visible = false
-
-func set_stats(data):
-	$BasePos/Damage/Curr/Label.text = str(data["base_attack_damage"])
-	
-	$BasePos/Stats/Left/AttackSpeed/Label.text = str(data["attack_speed"])
-	$BasePos/Stats/Left/CritChance/Label.text = str(data["crit_rate"] * 100)
-	$BasePos/Stats/Left/CritMultiplier/Label.text = str(data["crit_strike_multiplier"])
-	
-	$BasePos/Stats/Right/MissRate/Label.text = str(data["miss_rate"] * 100)
-	$BasePos/Stats/Right/ArmorReduction/Label.text = str(data["armor_reduction_flat"])
-	$BasePos/Stats/Right/ResistanceReduction/Label.text = str(data["resistance_reduction_percentage"])
 
 func set_targeting(targeting_enum, init_i):
 	_targeting = CircularEnum.new()
@@ -145,6 +164,9 @@ func _add_upgrade_butt(name: String, dict: Dictionary):
 	assert(butt.connect("pressed", self, "_on_UpgradeButt_pressed", [butt]) == 0)
 	assert(butt.connect("mouse_entered", self, "_on_UpgradeButt_mouse_entered", [butt]) == 0)
 	assert(butt.connect("mouse_exited", self, "_on_UpgradeButt_mouse_exited", [butt]) == 0)
+	
+	assert(butt.connect("mouse_entered", self, "_show_upgr_stats", [butt.stats]) == 0)
+	assert(butt.connect("mouse_exited", self, "_hide_upgr_stats") == 0)
 
 func _on_UpgradeButt_mouse_entered(butt):
 	butt._range_sprite.visible = true
@@ -205,6 +227,41 @@ func _on_ToLeft_pressed():
 func _on_ToRight_pressed():
 	_change_targeting(_targeting.next())
 
+func set_stats(data):
+	_stats = data
+	
+	_dmg_label.text = str(_stats["base_attack_damage"])
+	
+	_attack_speed_label.text = str(_stats["attack_speed"])
+	_crit_rate_label.text = str(_stats["crit_rate"] * 100)
+	_crit_strike_label.text = str(_stats["crit_strike_multiplier"])
+	
+	_miss_rate_label.text = str(_stats["miss_rate"] * 100)
+	_armor_red_label.text = str(_stats["armor_reduction_flat"])
+	_resis_red_label.text = str(_stats["resistance_reduction_percentage"] * 100)
+
+func _show_upgr_stats(data: Dictionary):
+	for attr in _upgr_labels:
+		var node = _upgr_labels[attr]
+		var delta = data[attr] - _stats[attr]
+		if delta == 0:
+			continue
+		if delta > 0:
+			node.modulate = Color("a5efac")
+			delta = "+" + str(delta)
+		else:
+			node.modulate = Color("ae8aa8")
+		node.text = str(delta)
+		assert(_tween.interpolate_property(node, "percent_visible", 0, 1, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
+		assert(_tween.start())
+
+func _hide_upgr_stats():
+	print("hide")
+	for attr in _upgr_labels:
+		var node = _upgr_labels[attr]
+		if node.text != "0":
+			assert(_tween.interpolate_property(node, "percent_visible", null, 0, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
+			assert(_tween.start())
 
 # ------------------------------------------------------------------- #
 
