@@ -41,6 +41,8 @@ var _targeting
 ## Send the new melon instance on upgrade and delete itself
 signal upgrade_to(new_melon)
 
+signal sell()
+
 signal fade_out()
 
 signal change_targeting(new_targeting)
@@ -169,8 +171,9 @@ func _on_SellButt_mouse_exited():
 
 func _on_SellButt_pressed():
 	# hide UI with tween and wait for animation to complete
+	emit_signal("sell")
+#	emit_signal("fade_out")
 	yield(_prep_to_free(), "completed")
-	emit_signal("fade_out")
 
 
 ## Disable buttons if not enough money for purchase

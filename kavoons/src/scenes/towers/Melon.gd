@@ -42,7 +42,7 @@ var _target_priority: int = Constants.TargetPriority.FIRST
 onready var _melon_sprite: Sprite = $BaseSprite
 onready var _melon_sprite_shader = _melon_sprite.material
 onready var _placement_animation = $PlacementAnimation
-onready var _sell_animation = $SellAnimation
+onready var _sell_particles = $SellParticles
 onready var _ui: CanvasLayer = $UI
 
 var _color: Color
@@ -81,8 +81,6 @@ func _ready():
 	
 	_placement_animation.modulate = _color
 	_placement_animation.play("placement")
-	
-	_sell_animation.visible = false
 
 ## Parse all the current melon data stored in a global dictionary
 func _parse_tower_data():
@@ -248,13 +246,16 @@ func _on_UI_upgrade_to(new_melon):
 	new_melon.total_money += total_money
 	
 	emit_signal("tower_upgraded", new_melon)
-
-func _on_UI_fade_out():
-	assert(_tween.interpolate_property(self, "rotation_degrees", rotation_degrees, 90, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	assert(_tween.interpolate_property(self, "scale", scale, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
-	assert(_tween.start())
+	
 	yield(_tween, "tween_all_completed")
 	queue_free()
+
+func _on_UI_fade_out():
+	assert(_tween.interpolate_property(_melon_sprite, "rotation_degrees", null, 180, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property(_melon_sprite, "scale", null, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property($Shadow, "rotation_degrees", null, 180, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.interpolate_property($Shadow, "scale", null, Vector2.ZERO, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
+	assert(_tween.start())
 
 func _draw_outline():
 	assert(_tween.interpolate_property(_melon_sprite_shader, "shader_param/width", 0, 1, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
@@ -277,3 +278,9 @@ func _on_StopMouse_gui_input(event):
 
 func _on_PlacementAnimation_animation_finished():
 	_placement_animation.queue_free()
+
+func _on_UI_sell():
+	_sell_particles.emitting = true
+	var time = (_sell_particles.lifetime * 2) / _sell_particles.speed_scale
+	yield(get_tree().create_timer(time), "timeout")
+	queue_free()
