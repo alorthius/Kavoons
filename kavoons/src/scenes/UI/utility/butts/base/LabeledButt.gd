@@ -10,6 +10,7 @@ func label(data):
 
 # override
 func color(new_color: Color):
+	_modulate_butt_init = new_color
 	self_modulate = new_color
 	_label.self_modulate = new_color
 	return self

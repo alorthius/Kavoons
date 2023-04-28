@@ -104,12 +104,13 @@ func _show_ui():
 
 ## Hide the UI and restore all possible features toggled while view to default
 func _hide_ui():
+	_stop_mouse.visible = false
 	assert(_tween.interpolate_property(self, "rotation_degrees", _rotation_final, _rotation_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	assert(_tween.interpolate_property(self, "scale", _scale_final, _scale_init, _exit_time, Tween.TRANS_BACK, Tween.EASE_IN))
 	assert(_tween.start())
 	yield(_tween, "tween_all_completed")
 	visible = false
-	_stop_mouse.visible = false
+	
 
 func _prep_to_free():
 	_hide_ui()

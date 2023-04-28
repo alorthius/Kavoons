@@ -14,8 +14,9 @@ var _range_sprite: Sprite
 onready var _scale_init: Vector2 = rect_scale
 onready var _scale_final: Vector2 = rect_scale + focus_scale * Vector2.ONE
 
-onready var _modulate_init := modulate
+onready var _modulate_butt_init := modulate
 onready var _modulate_butt_final := modulate.darkened(butt_darkened)
+onready var _modulate_icon_init := modulate
 onready var _modulate_icon_final := modulate.darkened(icon_darkened)
 
 
@@ -37,8 +38,8 @@ func enable():
 		return
 
 	disabled = false
-	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_butt_final, _modulate_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(_icon, "self_modulate", _modulate_icon_final, _modulate_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_butt_final, _modulate_butt_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_icon, "self_modulate", _modulate_icon_final, _modulate_icon_init, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
 
 func disable():
@@ -46,8 +47,8 @@ func disable():
 		return
 
 	disabled = true
-	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_init, _modulate_butt_final, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
-	assert(_tween.interpolate_property(_icon, "self_modulate", _modulate_init, _modulate_icon_final, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(self,  "self_modulate", _modulate_butt_init, _modulate_butt_final, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
+	assert(_tween.interpolate_property(_icon, "self_modulate", _modulate_icon_init, _modulate_icon_final, _modulate_time, Tween.TRANS_LINEAR, Tween.EASE_OUT))
 	assert(_tween.start())
 
 
@@ -60,6 +61,7 @@ func icon(texture_path: String):
 	return self
 
 func color(new_color: Color):
+	_modulate_butt_init = new_color
 	self_modulate = new_color
 	return self
 
