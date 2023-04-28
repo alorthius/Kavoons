@@ -185,7 +185,7 @@ func _clear_invalid_enemies():
 			_enemies_in_range.erase(_curr_enemy)
 
 func _is_miss():
-	if rand_range(0, 1) < _miss_rate:
+	if rand_range(0, 1) < 0.01 * _miss_rate:
 		return true
 	return false
 

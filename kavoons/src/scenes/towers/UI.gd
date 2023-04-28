@@ -235,12 +235,12 @@ func set_stats(data):
 	_dmg_label.text = str(_stats["base_attack_damage"])
 	
 	_attack_speed_label.text = str(_stats["attack_speed"])
-	_crit_rate_label.text = str(_stats["crit_rate"] * 100)
+	_crit_rate_label.text = str(_stats["crit_rate"])
 	_crit_strike_label.text = str(_stats["crit_strike_multiplier"])
 	
-	_miss_rate_label.text = str(_stats["miss_rate"] * 100)
+	_miss_rate_label.text = str(_stats["miss_rate"])
 	_armor_red_label.text = str(_stats["armor_reduction_flat"])
-	_resis_red_label.text = str(_stats["resistance_reduction_percentage"] * 100)
+	_resis_red_label.text = str(_stats["resistance_reduction_percentage"])
 
 func _show_upgr_stats(data: Dictionary):
 	var delay_sec: float = 0

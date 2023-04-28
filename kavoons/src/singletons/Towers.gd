@@ -50,13 +50,13 @@ var T2: Dictionary = {
 			
 			"attack_speed": 2.5,
 			"projectile_speed": 500,
-			"miss_rate": 0.3,
+			"miss_rate": 30,
 			
-			"crit_rate": 0,
+			"crit_rate": 10,
 			"crit_strike_multiplier": 2,
 			
 			"armor_reduction_flat": 10,
-			"resistance_reduction_percentage": 5,
+			"resistance_reduction_percentage": 50,
 
 			"color": Color("f7d7fc"),
 			"next": [],
@@ -78,11 +78,11 @@ var T2: Dictionary = {
 			"projectile_speed": 500,
 			"miss_rate": 0,
 			
-			"crit_rate": 0.5,
+			"crit_rate": 50,
 			"crit_strike_multiplier": 2,
 			
 			"armor_reduction_flat": 10,
-			"resistance_reduction_percentage": 1,
+			"resistance_reduction_percentage": 10,
 
 			"color": Color("e76876"),
 			"next": [],
@@ -108,13 +108,13 @@ var T1: Dictionary = {
 			
 			"attack_speed": 1.5,
 			"projectile_speed": 500,
-			"miss_rate": 0.1,
+			"miss_rate": 10,
 			
-			"crit_rate": 0.5,
+			"crit_rate": 50,
 			"crit_strike_multiplier": 1.5,
 			
 			"armor_reduction_flat": 5,
-			"resistance_reduction_percentage": 0,
+			"resistance_reduction_percentage": 10,
 			
 			"color": Color("ffb1b1"),
 			"next": [T2["NinjaMelon"][0],
