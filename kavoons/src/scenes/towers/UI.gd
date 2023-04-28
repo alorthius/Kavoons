@@ -81,6 +81,8 @@ signal change_targeting(new_targeting)
 func _ready():
 	visible = false
 	_stop_mouse.visible = false
+	for attr in _upgr_labels:
+		_upgr_labels[attr].percent_visible = 0
 
 func set_targeting(targeting_enum, init_i):
 	_targeting = CircularEnum.new()
@@ -241,6 +243,7 @@ func set_stats(data):
 	_resis_red_label.text = str(_stats["resistance_reduction_percentage"] * 100)
 
 func _show_upgr_stats(data: Dictionary):
+	var delay_sec: float = 0
 	for attr in _upgr_labels:
 		var node = _upgr_labels[attr]
 		var delta = data[attr] - _stats[attr]
@@ -250,18 +253,18 @@ func _show_upgr_stats(data: Dictionary):
 			node.modulate = Color("a5efac")
 			delta = "+" + str(delta)
 		else:
-			node.modulate = Color("ae8aa8")
+			node.modulate = Color("e76876")
 		node.text = str(delta)
-		assert(_tween.interpolate_property(node, "percent_visible", 0, 1, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
-		assert(_tween.start())
+		assert(_tween.interpolate_property(node, "percent_visible", 0, 1, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT, delay_sec))
+		delay_sec += 0.05
+	assert(_tween.start())
 
 func _hide_upgr_stats():
-	print("hide")
 	for attr in _upgr_labels:
 		var node = _upgr_labels[attr]
 		if node.text != "0":
 			assert(_tween.interpolate_property(node, "percent_visible", null, 0, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT))
-			assert(_tween.start())
+	assert(_tween.start())
 
 # ------------------------------------------------------------------- #
 

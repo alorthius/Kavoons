@@ -404,30 +404,33 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="UpgrLeft" type="VBoxContainer" parent="UI/BasePos/Stats"]
-margin_left = 47.0
+margin_left = 41.0
 margin_right = 81.0
 margin_bottom = 83.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AttackSpeed" type="Label" parent="UI/BasePos/Stats/UpgrLeft"]
-margin_right = 34.0
+margin_right = 40.0
 margin_bottom = 25.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
 text = "+66"
 align = 1
 
 [node name="CritChance" type="Label" parent="UI/BasePos/Stats/UpgrLeft"]
 margin_top = 29.0
-margin_right = 34.0
+margin_right = 40.0
 margin_bottom = 54.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
 text = "+66"
 
 [node name="CritMult" type="Label" parent="UI/BasePos/Stats/UpgrLeft"]
 margin_top = 58.0
-margin_right = 34.0
+margin_right = 40.0
 margin_bottom = 83.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
 text = "+66"
 
@@ -532,6 +535,7 @@ margin_bottom = 83.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 70, 0 )
+mouse_filter = 2
 
 [node name="Right" type="VBoxContainer" parent="UI/BasePos/Stats"]
 margin_left = 277.0
@@ -622,29 +626,32 @@ text = "66"
 
 [node name="UpgrRight" type="VBoxContainer" parent="UI/BasePos/Stats"]
 margin_left = 360.0
-margin_right = 394.0
+margin_right = 400.0
 margin_bottom = 83.0
 mouse_filter = 2
 alignment = 1
 
 [node name="MissRate" type="Label" parent="UI/BasePos/Stats/UpgrRight"]
-margin_right = 34.0
+margin_right = 40.0
 margin_bottom = 25.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
 text = "+66"
 align = 1
 
 [node name="ArmorRed" type="Label" parent="UI/BasePos/Stats/UpgrRight"]
 margin_top = 29.0
-margin_right = 34.0
+margin_right = 40.0
 margin_bottom = 54.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
 text = "+66"
 
 [node name="ResisRed" type="Label" parent="UI/BasePos/Stats/UpgrRight"]
 margin_top = 58.0
-margin_right = 34.0
+margin_right = 40.0
 margin_bottom = 83.0
+rect_min_size = Vector2( 40, 25 )
 custom_fonts/font = ExtResource( 14 )
 text = "+66"
 
