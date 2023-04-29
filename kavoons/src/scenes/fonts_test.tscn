@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/resources/fonts/font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/8-bit-limit/8bitlim.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://assets/fonts/Bitmgothic/Bitmgothic.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = SubResource( 3 )
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://assets/fonts/JMH Cthulhumbus Arcade/TTF Alternatives UnGroup/JMH Cthulhumbus Arcade UG.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 50
+font_data = SubResource( 5 )
+
+[node name="FontsTest" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 100.0
+margin_top = 100.0
+margin_right = -100.0
+margin_bottom = -100.0
+custom_constants/separation = 40
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 1720.0
+margin_bottom = 101.0
+custom_fonts/font = ExtResource( 2 )
+text = "Dungeon font
+ABC abc damage 123 0.5 +-"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 141.0
+margin_right = 1720.0
+margin_bottom = 252.0
+custom_fonts/font = SubResource( 2 )
+text = "8 bit limit
+ABC abc damage 123 0.5 +-"
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+margin_top = 292.0
+margin_right = 1720.0
+margin_bottom = 397.0
+custom_fonts/font = SubResource( 4 )
+text = "gothic
+ABC abc damage 123 0.5 +-"
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+margin_top = 437.0
+margin_right = 1720.0
+margin_bottom = 546.0
+custom_fonts/font = SubResource( 6 )
+text = "Cthulhumbus
+ABC abc damage 123 0.5 +-"
